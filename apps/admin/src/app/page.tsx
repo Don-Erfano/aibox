@@ -1,3 +1,5 @@
+import {Button} from "@aibox/ui";
+
 export default function Index() {
   /*
    * Replace the elements below with your own.
@@ -9,6 +11,7 @@ export default function Index() {
       <div className="wrapper">
         <div className="container">
           <div id="welcome">
+            <Button >jefri</Button>
             <h1>
               <span> Hello there, </span>
               Welcome admin 👋

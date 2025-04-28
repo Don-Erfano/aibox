@@ -5,6 +5,16 @@
   "references": [
     {
       "path": "./apps/admin"
+    },
+    {
+      "path": "./libs/ui"
     }
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10",
+      "customConditions": null
+    }
+  }
 }
