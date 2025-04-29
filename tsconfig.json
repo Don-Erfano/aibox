@@ -5,9 +5,6 @@
   "references": [
     {
       "path": "./apps/admin"
-    },
-    {
-      "path": "./libs/ui"
     }
   ],
   "ts-node": {
