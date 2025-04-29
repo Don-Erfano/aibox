@@ -1,4 +1,5 @@
 import './global.css';
+import '@aibox/ui/index.css';
 
 export const metadata = {
   title: 'Welcome to admin',
