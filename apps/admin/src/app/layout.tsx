@@ -1,3 +1,4 @@
+import { Header } from '@/components/header';
 import './global.css';
 import '@aibox/ui/index.css';
 
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="fa" dir="rtl">
+      <body>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
