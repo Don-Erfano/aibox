@@ -1,14 +1,13 @@
 /// <reference types='vitest' />
+import * as path from 'path';
+import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
-import * as path from 'path';
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite';
 
-
-export default defineConfig(() => ({
+export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/lib/ui',
+  cacheDir: '../../node_modules/.vite/libs/ui',
   plugins: [
     tailwindcss(),
     react(),
@@ -44,4 +43,4 @@ export default defineConfig(() => ({
       external: ['react', 'react-dom', 'react/jsx-runtime'],
     },
   },
-}));
+});

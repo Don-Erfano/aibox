@@ -7,6 +7,7 @@
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
+    "./*.css": "./dist/*.css",
     ".": {
       "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
@@ -16,20 +17,18 @@
   },
   "files": [
     "dist",
+    "dist/index.css",
     "!**/*.tsbuildinfo"
   ],
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "tailwindcss": "^4.1.4"
+  },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.503.0",
-    "tailwind-merge": "^3.2.0",
-    "tw-animate-css": "^1.2.8"
-  },
-  "devDependencies": {
-    "@nx/storybook": "^20.8.1",
-    "@storybook/addon-essentials": "^8.6.12",
-    "@storybook/react-vite": "^8.6.12",
-    "@tailwindcss/vite": "^4.1.4"
+    "tailwind-merge": "^3.2.0"
   }
 }
