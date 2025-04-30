@@ -1,6 +1,10 @@
-import {Button} from "@aibox/ui";
+import { Button } from '@aibox/ui';
+import { services } from '@aibox/services';
+import { theme } from '@aibox/theme';
 
 export default function Index() {
+  console.log(services());
+  console.log(theme());
   /*
    * Replace the elements below with your own.
    *
@@ -8,10 +12,10 @@ export default function Index() {
    */
   return (
     <div>
-      <div className="wrapper">
+      <div className="!bg-red-900">
         <div className="container">
           <div id="welcome">
-            <Button >jefri</Button>
+            <Button>jefri</Button>
             <h1>
               <span> Hello there, </span>
               Welcome admin 👋
