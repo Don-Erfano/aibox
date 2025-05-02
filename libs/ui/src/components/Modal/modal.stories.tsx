@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Button } from '../ui/button';
+import { Button } from '../Button/button';
 import { ModalProps, useModal } from './modal';
 import { Mail } from 'lucide-react';
 
