@@ -88,6 +88,7 @@ UserTheme.decorators = [
         {
           '--select-border-color': '#3b92f6',
           '--select-focus-border-color': '#2563eb',
+          '--select-selected-text': '#3b92f6',
         } as CSSProperties
       }
     >
@@ -105,6 +106,7 @@ AdminTheme.decorators = [
         {
           '--select-border-color': '#10b981',
           '--select-focus-border-color': '#059669',
+          '--select-selected-text': '#960505',
         } as CSSProperties
       }
     >
