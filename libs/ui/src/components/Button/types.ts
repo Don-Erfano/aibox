@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority';
-import { buttonVariants } from './button';
+import { buttonVariants } from './styled';
 
 interface ButtonCustomProps {
   title: string;
@@ -14,3 +14,8 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants>,
     Partial<ButtonCustomProps> {}
+
+export interface IconWithTooltipProps {
+  title: string;
+  icon: React.ReactNode;
+}

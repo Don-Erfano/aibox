@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { CirclePlus } from 'lucide-react';
-import { Button } from './button';
+import CustomButton from './CustomButton';
 
-const meta: Meta<typeof Button> = {
-  component: Button,
-  title: 'Button',
+const meta: Meta<typeof CustomButton> = {
+  component: CustomButton,
+  title: 'CustomButton',
 };
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof CustomButton>;
 
 export const GeneralButton: Story = {
   args: {

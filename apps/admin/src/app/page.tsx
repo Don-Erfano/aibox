@@ -1,4 +1,4 @@
-import { Button } from '@aibox/ui';
+import { CustomButton } from '@aibox/ui';
 import { services } from '@aibox/services';
 import { theme } from '@aibox/theme';
 
@@ -15,7 +15,9 @@ export default function Index() {
       <div className="!bg-red-900">
         <div className="container">
           <div id="welcome">
-            <Button>jefri</Button>
+            <CustomButton variant="general" isFilled>
+              Button Text
+            </CustomButton>
             <h1>
               <span> Hello there, </span>
               Welcome admin 👋

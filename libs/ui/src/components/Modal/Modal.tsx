@@ -1,22 +1,17 @@
 'use client';
 
-import { FC, PropsWithChildren, ReactNode, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '../ui/dialog';
-
+} from './Dialog';
 import { X as CloseIcon } from 'lucide-react';
+import { ModalProps } from './types';
 
-export interface ModalProps {
-  title: string;
-  headerIcon?: ReactNode;
-}
-
-export const useModal = () => {
+const useModal = () => {
   const [open, setOpen] = useState(false);
 
   const Modal: FC<PropsWithChildren<ModalProps>> = ({
@@ -54,3 +49,5 @@ export const useModal = () => {
 
   return { Modal, open, setOpen };
 };
+
+export default useModal;

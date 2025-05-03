@@ -4,15 +4,10 @@ import {
   TooltipArrow,
   TooltipContent,
   TooltipTrigger,
-} from '../ui/tooltip';
+} from './Tooltip';
+import { IconWithTooltipProps } from './types';
 
-export const IconWithTooltip = ({
-  icon,
-  title,
-}: {
-  icon: React.ReactNode;
-  title: string;
-}) => (
+export const IconWithTooltip = ({ icon, title }: IconWithTooltipProps) => (
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger asChild>{icon}</TooltipTrigger>

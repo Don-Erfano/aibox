@@ -5,9 +5,9 @@ import { cn } from '../../lib/utils';
 
 import { ButtonProps } from './types';
 import { buttonVariants } from './styled';
-import { IconWithTooltip } from './iconWithTooltip';
+import { IconWithTooltip } from './IconWithTooltip';
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const {
       className,
@@ -63,6 +63,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = 'Button';
+CustomButton.displayName = 'CustomButton';
 
-export { Button, buttonVariants };
+export default CustomButton;
