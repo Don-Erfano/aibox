@@ -11,6 +11,7 @@ import RefreshIcon from './RefreshIcon';
 import CheckIcon from './CheckIcon';
 import BookmarkIcon from './BookmarkIcon';
 import EditIcon from './EditIcon';
+import AiBoxIcon from './AIBoxIcon';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -24,4 +25,5 @@ export {
   CheckIcon,
   BookmarkIcon,
   EditIcon,
+  AiBoxIcon,
 };
