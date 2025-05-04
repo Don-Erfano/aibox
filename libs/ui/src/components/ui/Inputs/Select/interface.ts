@@ -1,8 +1,6 @@
-import { ReactNode } from 'react';
-
 export interface SelectOption {
   value: string;
-  label: ReactNode;
+  label: string;
   disabled?: boolean;
 }
 

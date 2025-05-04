@@ -1,5 +1,5 @@
-import { CSSProperties, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
+import React, { useState } from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Select from './Select';
 import { SelectOption, SelectProps } from './interface';
 
@@ -15,7 +15,7 @@ export default {
     readOnly: { control: 'boolean' },
     disabled: { control: 'boolean' },
   },
-} as Meta<SelectProps>;
+} as ComponentMeta<typeof Select>;
 
 const baseOptions: SelectOption[] = [
   { value: 'apple', label: 'apple' },
@@ -23,7 +23,9 @@ const baseOptions: SelectOption[] = [
   { value: 'orange', label: 'orange' },
 ];
 
-const Template: Story<SelectProps> = (args) => <Select {...args} />;
+const Template: ComponentStory<typeof Select> = (args) => (
+  <Select {...(args as SelectProps)} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -37,7 +39,7 @@ WithDefaultValue.args = {
   defaultValue: 'banana',
 };
 
-export const Controlled = () => {
+export const Controlled: ComponentStory<typeof Select> = () => {
   const [value, setValue] = useState<string>('apple');
   return (
     <Select
@@ -73,44 +75,3 @@ Disabled.args = {
   ...Default.args,
   disabled: true,
 };
-
-/**
- * Now two theme‐wrapped stories:
- * - UserTheme uses blue borders
- * - AdminTheme uses green borders
- */
-export const UserTheme = Template.bind({});
-UserTheme.args = { ...Default.args };
-UserTheme.decorators = [
-  (Story) => (
-    <div
-      style={
-        {
-          '--select-border-color': '#3b92f6',
-          '--select-focus-border-color': '#2563eb',
-          '--select-selected-text': '#3b92f6',
-        } as CSSProperties
-      }
-    >
-      <Story />
-    </div>
-  ),
-];
-
-export const AdminTheme = Template.bind({});
-AdminTheme.args = { ...Default.args };
-AdminTheme.decorators = [
-  (Story) => (
-    <div
-      style={
-        {
-          '--select-border-color': '#10b981',
-          '--select-focus-border-color': '#059669',
-          '--select-selected-text': '#960505',
-        } as CSSProperties
-      }
-    >
-      <Story />
-    </div>
-  ),
-];
