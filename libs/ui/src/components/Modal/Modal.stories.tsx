@@ -2,14 +2,14 @@ import { Meta, StoryObj } from '@storybook/react';
 import useModal from './Modal';
 import { Mail } from 'lucide-react';
 import { ModalProps } from './interface';
-import { CustomButton } from '../Buttons/Button';
+import { Button } from '../Buttons/Button';
 
 const ModalPreview = (props: ModalProps) => {
   const { Modal, open, setOpen } = useModal();
 
   return (
     <>
-      <CustomButton onClick={() => setOpen(!open)}>Open Modal</CustomButton>
+      <Button onClick={() => setOpen(!open)}>Open Modal</Button>
       <Modal {...props}>
         <p>This is the modal content. You can place anything here.</p>
       </Modal>
