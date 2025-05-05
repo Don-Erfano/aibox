@@ -7,10 +7,10 @@ export const buttonVariants = cva(
       variant: {
         general: 'h-10 px-3 py-2 rounded-full',
         form: 'h-9 px-3 py-2 rounded-[7px]',
-        text: 'h-9 px-3 py-[6px] border border-white rounded-[4px] bg-white text-teal-600 focus:bg-[#E3E5E5] focus:border focus:border-gray-300 disabled:bg-white disabled:text-teal-600/25',
-        icon: 'size-10 border border-white rounded-[14px] text-zinc-700 hover:bg-[#E3E5E5] hover:text-teal-600 hover:border-[#E3E5E5] focus:bg-[#E3E5E5] focus:text-teal-600 focus:border-teal-600 disabled:bg-white disabled:text-[#D1D5DB] disabled:border-white aria-selected:bg-teal-600 aria-selected:text-white aria-selected:border-teal-600 data-[activated=true]:bg-white data-[activated=true]:text-teal-600 data-[activated=true]:border-white',
+        text: 'h-9 px-3 py-[6px] border border-white rounded-[4px] bg-white text-teal-600 focus:bg-gray-100 focus:border focus:border-gray-300 disabled:bg-white disabled:text-teal-600/25',
+        icon: 'size-10 border border-white rounded-[14px] text-zinc-700 hover:bg-gray-100 hover:text-teal-600 hover:border-gray-100 focus:bg-gray-100 focus:text-teal-600 focus:border-teal-600 disabled:bg-white disabled:text-gray-300 disabled:border-white aria-selected:bg-teal-600 aria-selected:text-white aria-selected:border-teal-600 data-[activated=true]:bg-white data-[activated=true]:text-teal-600 data-[activated=true]:border-white',
         warning:
-          'h-9 px-3 py-2 rounded-[7px] bg-[#B00020] border border-white text-white hover:bg-[#C0334D] hover:border-[#B00020] focus:bg-[#C0334D] focus:border-[#B00020] disabled:bg-[#EFCCD2] disabled:border-[#EFCCD2]',
+          'h-9 px-3 py-2 rounded-[7px] bg-red-600 border border-white text-white hover:bg-red-400 hover:border-red-600 focus:bg-red-400 focus:border-red-600 disabled:bg-red-100 disabled:border-red-100',
       },
       isFilled: {
         true: '',
@@ -18,8 +18,7 @@ export const buttonVariants = cva(
       },
       size: {
         default: '',
-        fixed:
-          'w-[136px] h-9',
+        fixed: 'w-[136px] h-9',
       },
     },
     compoundVariants: [
@@ -33,7 +32,7 @@ export const buttonVariants = cva(
         variant: 'general',
         isFilled: false,
         className:
-          'bg-white border border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white focus:bg-white focus:text-teal-600 aria-selected:bg-teal-600 aria-selected:text-white disabled:bg-[#E3E5E5]/25 disabled:text-teal-600/25 disabled:border-teal-600/25',
+          'bg-white border border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white focus:bg-white focus:text-teal-600 aria-selected:bg-teal-600 aria-selected:text-white disabled:bg-gray-100/25 disabled:text-teal-600/25 disabled:border-teal-600/25',
       },
       {
         variant: 'form',
