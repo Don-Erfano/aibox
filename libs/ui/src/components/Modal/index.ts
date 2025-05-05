@@ -1,2 +1,2 @@
 export { default as useModal } from './Modal';
-export * from './types';
+export * from './interface';

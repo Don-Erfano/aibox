@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import useModal from './Modal';
 import { Mail } from 'lucide-react';
-import { ModalProps } from './types';
-import { CustomButton } from '../Button';
+import { ModalProps } from './interface';
+import { CustomButton } from '../Buttons/Button';
 
 const ModalPreview = (props: ModalProps) => {
   const { Modal, open, setOpen } = useModal();

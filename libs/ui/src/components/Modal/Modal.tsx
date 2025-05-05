@@ -7,9 +7,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from './Dialog';
+} from '../ui/dialog';
 import { X as CloseIcon } from 'lucide-react';
-import { ModalProps } from './types';
+import { ModalProps } from './interface';
 
 const useModal = () => {
   const [open, setOpen] = useState(false);

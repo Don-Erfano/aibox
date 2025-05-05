@@ -1,13 +1,19 @@
 import { LoaderCircleIcon } from 'lucide-react';
 import React from 'react';
 
-import { cn } from '../../lib/utils';
+import { cn } from '../../../lib/utils';
 
-import { ButtonProps } from './types';
+import { ButtonProps } from './interface';
 import { buttonVariants } from './styled';
-import { IconWithTooltip } from './IconWithTooltip';
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipTrigger,
+} from '../../ui/tooltip';
 
-const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const {
       className,
@@ -45,7 +51,19 @@ const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         >
           {variant === 'icon' ? (
             title ? (
-              <IconWithTooltip title={title} icon={icon} />
+              <TooltipProvider>
+                <Tooltip delayDuration={300}>
+                  <TooltipTrigger asChild>{icon}</TooltipTrigger>
+                  <TooltipContent
+                    className="bg-zinc-800 text-stone-50 border-0 rounded-sm"
+                    align="center"
+                    sideOffset={12}
+                  >
+                    <TooltipArrow className="-my-px w-[7px] h-[5.5px] fill-zinc-800" />
+                    <p>{title}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ) : (
               icon
             )
@@ -63,6 +81,6 @@ const CustomButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-CustomButton.displayName = 'CustomButton';
+Button.displayName = 'Button';
 
-export default CustomButton;
+export default Button;

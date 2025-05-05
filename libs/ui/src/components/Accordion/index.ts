@@ -1,2 +1,2 @@
-export { default as CustomAccordion } from './CustomAccordion';
-export * from './types';
+export { default as Accordion } from './Accordion';
+export * from './inetrface';
