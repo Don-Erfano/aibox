@@ -16,7 +16,7 @@ export default function DashboardLayout({
         <div
           className={`h-[calc(100vh_-_64px)] ${
             isOpen ? 'w-[11.5rem]' : 'w-[60px]'
-          } transition-all duration-[0.5s] pt-8 pb-3 text-white bg-[#022C22]`}
+          } hidden md:block transition-all duration-[0.5s] pt-8 pb-3 text-white bg-[#022C22]`}
         >
           <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
