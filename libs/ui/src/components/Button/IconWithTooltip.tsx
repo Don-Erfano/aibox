@@ -9,13 +9,14 @@ import { IconWithTooltipProps } from './types';
 
 export const IconWithTooltip = ({ icon, title }: IconWithTooltipProps) => (
   <TooltipProvider>
-    <Tooltip>
+    <Tooltip delayDuration={300}>
       <TooltipTrigger asChild>{icon}</TooltipTrigger>
       <TooltipContent
-        className="bg-black text-white border-0 rounded-sm"
+        className="bg-zinc-800 text-stone-50 border-0 rounded-sm"
         align="center"
+        sideOffset={12}
       >
-        <TooltipArrow className="-my-px w-[7px] h-[5.5px] fill-black drop-shadow-[0_1px_0_black]" />
+        <TooltipArrow className="-my-px w-[7px] h-[5.5px] fill-zinc-800" />
         <p>{title}</p>
       </TooltipContent>
     </Tooltip>

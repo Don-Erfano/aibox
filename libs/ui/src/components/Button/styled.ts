@@ -7,8 +7,8 @@ export const buttonVariants = cva(
       variant: {
         general: 'h-10 px-3 py-2 rounded-full',
         form: 'h-9 px-3 py-2 rounded-[7px]',
-        text: 'h-9 px-3 py-[6px] border border-white rounded-[4px] bg-white text-teal-600 shadow-none hover:bg-[#E3E5E5] focus:bg-[#E3E5E5] focus:border focus:border-gray-300 disabled:bg-white disabled:text-teal-600/25',
-        icon: 'size-10 border border-white rounded-[14px] text-zinc-700 shadow-none hover:bg-[#E3E5E5] hover:text-teal-600 hover:border-[#E3E5E5] focus:bg-[#E3E5E5] focus:text-teal-600 focus:border-teal-600 disabled:bg-white disabled:text-[#D1D5DB] disabled:border-white aria-selected:bg-teal-600 aria-selected:text-white aria-selected:border-teal-600 data-[activated=true]:bg-white data-[activated=true]:text-teal-600 data-[activated=true]:border-white',
+        text: 'h-9 px-3 py-[6px] border border-white rounded-[4px] bg-white text-teal-600 focus:bg-[#E3E5E5] focus:border focus:border-gray-300 disabled:bg-white disabled:text-teal-600/25',
+        icon: 'size-10 border border-white rounded-[14px] text-zinc-700 hover:bg-[#E3E5E5] hover:text-teal-600 hover:border-[#E3E5E5] focus:bg-[#E3E5E5] focus:text-teal-600 focus:border-teal-600 disabled:bg-white disabled:text-[#D1D5DB] disabled:border-white aria-selected:bg-teal-600 aria-selected:text-white aria-selected:border-teal-600 data-[activated=true]:bg-white data-[activated=true]:text-teal-600 data-[activated=true]:border-white',
         warning:
           'h-9 px-3 py-2 rounded-[7px] bg-[#B00020] border border-white text-white hover:bg-[#C0334D] hover:border-[#B00020] focus:bg-[#C0334D] focus:border-[#B00020] disabled:bg-[#EFCCD2] disabled:border-[#EFCCD2]',
       },
@@ -18,7 +18,8 @@ export const buttonVariants = cva(
       },
       size: {
         default: '',
-        fixed: 'w-[136px] h-9',
+        fixed:
+          'w-[136px] h-9',
       },
     },
     compoundVariants: [
@@ -26,7 +27,7 @@ export const buttonVariants = cva(
         variant: 'general',
         isFilled: true,
         className:
-          'bg-teal-600 border border-teal-600 text-slate-200 hover:bg-white hover:text-teal-600 focus:bg-teal-600 focus:text-slate-200 aria-selected:bg-white aria-selected:text-teal-600 disabled:bg-teal-600/25 disabled:text-white disabled:border-teal-600/25',
+          'bg-teal-600 border border-teal-600 text-slate-200 shadow-[0_0_7px_0] shadow-transparent hover:bg-white hover:text-teal-600 hover:shadow-teal-600/85 focus:bg-teal-600 focus:text-slate-200 focus:shadow-teal-600/85 aria-selected:bg-white aria-selected:text-teal-600 aria-selected:shadow-[0_2px_6px_0] aria-selected:shadow-teal-600/90 disabled:bg-teal-600/25 disabled:text-white disabled:border-teal-600/25',
       },
       {
         variant: 'general',
