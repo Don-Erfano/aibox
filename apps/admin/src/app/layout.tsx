@@ -1,4 +1,3 @@
-import { Header } from '@/components/header';
 import './global.css';
 import '@aibox/ui/index.css';
 
