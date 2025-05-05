@@ -20,7 +20,7 @@ export default function DashboardLayout({
         >
           <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
-        <div className="p-[24px] w-full">{children}</div>
+        <div className="p-[16px] lg:p-[24px] w-full">{children}</div>
       </div>
     </div>
   );
