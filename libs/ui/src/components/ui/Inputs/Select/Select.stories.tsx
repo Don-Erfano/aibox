@@ -14,13 +14,14 @@ export default {
     error: { control: 'boolean' },
     readOnly: { control: 'boolean' },
     disabled: { control: 'boolean' },
+    helperText: { control: 'text', description: 'Optional helper / hint text' },
   },
 } as ComponentMeta<typeof Select>;
 
 const baseOptions: SelectOption[] = [
-  { value: 'apple', label: 'apple' },
-  { value: 'banana', label: 'banana' },
-  { value: 'orange', label: 'orange' },
+  { value: 'fruit1', label: 'میوه1' },
+  { value: 'fruit2', label: 'میوه2' },
+  { value: 'fruit3', label: 'میوه3' },
 ];
 
 const Template: ComponentStory<typeof Select> = (args) => (
@@ -30,23 +31,37 @@ const Template: ComponentStory<typeof Select> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   options: baseOptions,
-  placeholder: 'Pick a fruit…',
+  placeholder: 'یه چیزی...',
+};
+
+export const WithHelperText = Template.bind({});
+WithHelperText.args = {
+  ...Default.args,
+  helperText: 'متن راهنما برای کاربر',
+};
+
+export const ErrorWithHelper = Template.bind({});
+ErrorWithHelper.args = {
+  ...Default.args,
+  error: true,
+  helperText: 'لطفاً یک گزینه معتبر انتخاب کنید',
 };
 
 export const WithDefaultValue = Template.bind({});
 WithDefaultValue.args = {
   ...Default.args,
-  defaultValue: 'banana',
+  defaultValue: 'fruit2',
 };
 
 export const Controlled: ComponentStory<typeof Select> = () => {
-  const [value, setValue] = useState<string>('apple');
+  const [value, setValue] = useState<string>('fruit1');
   return (
     <Select
       options={baseOptions}
       value={value}
       onValueChange={setValue}
       placeholder="Controlled…"
+      helperText="راهنما"
     />
   );
 };
@@ -55,23 +70,20 @@ export const Small = Template.bind({});
 Small.args = {
   ...Default.args,
   size: 'sm',
-};
-
-export const Error = Template.bind({});
-Error.args = {
-  ...Default.args,
-  error: true,
+  helperText: 'راهنما',
 };
 
 export const ReadOnly = Template.bind({});
 ReadOnly.args = {
   ...Default.args,
   readOnly: true,
-  defaultValue: 'orange',
+  defaultValue: 'fruit3',
+  helperText: 'این فیلد فقط خواندنی است',
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   ...Default.args,
   disabled: true,
+  helperText: 'در حال حاضر غیرفعال است',
 };

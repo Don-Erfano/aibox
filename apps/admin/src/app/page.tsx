@@ -1,9 +1,7 @@
 import { Button } from '@aibox/ui';
-import { services } from '@aibox/services';
 import { theme } from '@aibox/theme';
 
 export default function Index() {
-  console.log(services());
   console.log(theme());
   /*
    * Replace the elements below with your own.

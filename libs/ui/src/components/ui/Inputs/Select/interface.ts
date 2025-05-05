@@ -11,6 +11,7 @@ export interface SelectProps {
   onValueChange?: (val: string) => void;
   placeholder?: string;
   error?: boolean;
+  helperText?: string;
   readOnly?: boolean;
   size?: 'sm' | 'default';
   disabled?: boolean;
