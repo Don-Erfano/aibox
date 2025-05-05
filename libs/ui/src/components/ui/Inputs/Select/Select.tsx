@@ -1,3 +1,4 @@
+'use client';
 import { FC, useState } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { SelectProps } from './interface';
