@@ -14,6 +14,7 @@ const Button: React.FC<TButtonProps> = (props) => {
     startIcon,
     endIcon,
     loading,
+    fullWidth,
     ...rest
   } = props;
 
@@ -21,7 +22,14 @@ const Button: React.FC<TButtonProps> = (props) => {
     <button
       data-slot="button"
       className={cn(
-        buttonVariants({ variant, className, filled, error, loading })
+        buttonVariants({
+          variant,
+          className,
+          filled,
+          error,
+          loading,
+          fullWidth,
+        })
       )}
       {...rest}
     >

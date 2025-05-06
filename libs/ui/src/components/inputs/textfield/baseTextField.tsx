@@ -1,15 +1,17 @@
+'use client';
+
 import { useRef } from 'react';
-import { ITextfieldProps } from './interface';
+import { IBaseTextfieldProps } from './interface';
 import { textfieldClassNames, textfieldWrapperClassNames } from './style';
 
-const Textfield = ({
+const BaseTextField = ({
   variant,
   startAdornment,
   endAdornment,
   error,
   direction,
   ...props
-}: ITextfieldProps) => {
+}: IBaseTextfieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const focusInput = () => {
@@ -17,12 +19,12 @@ const Textfield = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div
         className={textfieldWrapperClassNames({ variant, error: !!error })}
         onClick={focusInput}
       >
-        {endAdornment}
+        {startAdornment}
         <input
           data-slot="input"
           className={textfieldClassNames({ direction })}
@@ -30,7 +32,7 @@ const Textfield = ({
           dir="auto"
           {...props}
         />
-        {startAdornment}
+        {endAdornment}
       </div>
       {error ? (
         <p
@@ -44,4 +46,4 @@ const Textfield = ({
   );
 };
 
-export { Textfield };
+export { BaseTextField };

@@ -5,6 +5,7 @@ interface ICustomProps {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   loading?: boolean;
+  fullWidth?: boolean;
 }
 
 type TButtonProps = React.ComponentProps<'button'> &
