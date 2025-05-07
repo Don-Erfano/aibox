@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { cn } from '../../lib';
 import { buttonVariants } from './style';
 import { TButtonProps } from './interface';
+import { cn } from '../../../lib';
 
 const Button: React.FC<TButtonProps> = (props) => {
   const {
