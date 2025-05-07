@@ -1,4 +1,5 @@
-'use client';
+import { Button } from '@aibox/ui';
+import Link from 'next/link';
 
 export default function Index() {
   /*
@@ -6,6 +7,11 @@ export default function Index() {
    *
    * Note: The corresponding styles are in the ./index.tailwind file.
    */
-
-  return <div>login page</div>;
+  return (
+    <div>
+      <Link href="/dashboard">
+        <Button variant="general">Dashboard</Button>
+      </Link>
+    </div>
+  );
 }
