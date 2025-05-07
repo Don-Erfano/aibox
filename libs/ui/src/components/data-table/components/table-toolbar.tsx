@@ -1,66 +1,110 @@
-'use client';
-
-import type { Table } from '@tanstack/react-table';
-import { X } from 'lucide-react';
+import { useMemo, useState } from 'react';
 
 import { Button } from '../../button';
+import { SearchIcon, FilterIcon, TrashIcon, Badge } from 'lucide-react';
+import { FilterChipsBar } from './filter-chips-bar';
+import { TableToolbarProps } from '../types';
 import { TableViewOptions } from './table-view-options';
-import { cn } from '../../../lib';
-import { useCallback, useMemo } from 'react';
 import { TableFiltersForm } from './table-filters-form';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../../accordion';
 
-interface DataTableToolbarProps<TData> extends React.ComponentProps<'div'> {
-  table: Table<TData>;
-}
-
-export function DataTableToolbar<TData>({
+export function TableToolbar<TData>({
   table,
-  children,
-  className,
-  ...props
-}: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
+  tableName,
+  showSearchIcon = true,
+  submitFilters,
+  resetFilters,
+  removeFilter,
+  activeFilterChips,
+  filterCount,
+}: TableToolbarProps<TData>) {
+  const [open, setOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(showSearchIcon);
 
   const columns = useMemo(
-    () => table.getAllColumns().filter((column) => column.getCanFilter()),
+    () => table.getAllColumns().filter((col) => col.getCanFilter()),
     [table]
   );
 
-  const onReset = useCallback(() => {
+  const handleToggle = () => setOpen((prev) => !prev);
+  const onSubmit = () => {
+    submitFilters();
+    setOpen(false);
+  };
+  const onCancel = () => {
     table.resetColumnFilters();
-  }, [table]);
+    setOpen(false);
+  };
 
   return (
-    <div
-      role="toolbar"
-      aria-orientation="horizontal"
-      className={cn(
-        'flex w-full items-start justify-between gap-2 p-1',
-        className
-      )}
-      {...props}
-    >
-      <div className="flex flex-1 flex-wrap items-center gap-2">
-        {columns.map((column) => (
-          <TableFiltersForm key={column.id} column={column} />
-        ))}
-        {isFiltered && (
+    <div className="w-full">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <div className="flex items-center gap-2">
+          {activeFilterChips.length > 0 && (
+            <Button variant="outline" size="sm" onClick={resetFilters}>
+              <TrashIcon className="w-4 h-4" />
+            </Button>
+          )}
+
+          {showSearch && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                setShowSearch((toggleSearchInput) => !toggleSearchInput)
+              }
+            >
+              <SearchIcon className="w-4 h-4" />
+            </Button>
+          )}
+
           <Button
-            aria-label="Reset filters"
-            variant="outline"
+            variant={open ? 'default' : 'outline'}
             size="sm"
-            className="border-dashed"
-            onClick={onReset}
+            onClick={handleToggle}
           >
-            <X />
-            Reset
+            <FilterIcon className="w-4 h-4 mr-1" />
+            فیلتر کردن
           </Button>
-        )}
+
+          <TableViewOptions table={table} />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-medium text-primary">{tableName}</span>
+          {filterCount > 0 && <Badge>{filterCount}</Badge>}
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        {children}
-        <TableViewOptions table={table} />
-      </div>
+
+      <FilterChipsBar
+        chips={activeFilterChips}
+        onRemove={removeFilter}
+        chipCount={filterCount}
+      />
+
+      <Accordion type="single" className="border rounded">
+        <AccordionItem value="filter">
+          <AccordionTrigger className="bg-gray-100">فیلتر</AccordionTrigger>
+          <AccordionContent className="p-4 space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {columns.map((column) => (
+                <TableFiltersForm key={column.id} column={column} />
+              ))}
+            </div>
+            <div className="flex justify-end mt-4 gap-2">
+              <Button onClick={onSubmit}>ثبت</Button>
+              <Button variant="outline" onClick={onCancel}>
+                انصراف
+              </Button>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }

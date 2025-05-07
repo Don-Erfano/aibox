@@ -62,7 +62,7 @@ export interface UseTableReturn<TData> {
   shallow: boolean;
 }
 
-export interface TableFilterProps<TData> extends React.ComponentProps<'div'> {
+export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: TanstackTable<TData>;
   refreshLoading: boolean;
   collapse?: boolean;

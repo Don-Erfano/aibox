@@ -12,3 +12,5 @@ export * from './components/input';
 export * from './components/label';
 export * from './components/select';
 export * from './components/command';
+export * from './components/data-table';
+export * from './components/accordion';

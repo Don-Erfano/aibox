@@ -8,7 +8,6 @@ import { TableColumnHeader } from './components/table-column-header';
 import { cn } from '../../lib';
 import { DataTableProps } from './types';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '../table';
-import { TableActionBar } from './components/table-action-bar';
 
 export function DataTable<TData>({
   table,

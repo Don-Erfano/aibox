@@ -22,8 +22,8 @@ import {
   useQueryStates,
 } from 'nuqs';
 import * as React from 'react';
-import { useTableColumns } from './columns';
-import { UseTableProps, FilterChips } from './types';
+import { useTableColumns } from '../columns';
+import { UseTableProps, FilterChips } from '../types';
 
 const PAGE_KEY = 'pageNo';
 const PER_PAGE_KEY = 'pageSize';
