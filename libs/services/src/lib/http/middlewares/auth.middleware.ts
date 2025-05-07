@@ -2,7 +2,6 @@ import axios, {
   AxiosError,
   InternalAxiosRequestConfig,
   AxiosRequestConfig,
-  AxiosResponse,
 } from 'axios';
 import { IMiddleware } from './interface';
 import nookies from 'nookies';
