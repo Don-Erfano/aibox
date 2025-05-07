@@ -1,8 +1,14 @@
 export * from './lib';
 export * as style from './global.css';
-export * from './components/buttons';
+export * from './components/button';
 export * from './components/icons';
 export * from './components/table';
 export * from './components/badge';
 export * from './components/tooltip';
 export * from './components/separator';
+export * from './components/popover';
+export * from './components/dropdown-menu';
+export * from './components/input';
+export * from './components/label';
+export * from './components/select';
+export * from './components/command';

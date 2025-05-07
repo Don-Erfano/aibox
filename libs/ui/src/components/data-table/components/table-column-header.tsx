@@ -1,96 +1,96 @@
 'use client';
 
-import React from 'react';
 import { flexRender, type Header } from '@tanstack/react-table';
 import {
-  ChevronDownIcon,
-  ChevronsUpDownIcon,
-  ChevronUpIcon,
-  CloseIcon,
-  EyeOffIcon,
-} from '@/assets/icons';
+  ChevronDown,
+  ChevronUp,
+  ChevronsUpDown,
+  EyeOff,
+  X,
+} from 'lucide-react';
+import { cn } from '../../../lib';
 import {
-  IconButton,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Box,
-} from '@mui/material';
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../dropdown-menu';
 
-interface DataTableColumnHeaderProps<TData, TValue> {
+interface TableColumnHeaderProps<TData, TValue>
+  extends React.ComponentProps<typeof DropdownMenuTrigger> {
   header: Header<TData, TValue>;
 }
 
-export function DataTableColumnHeader<TData, TValue>({
+export function TableColumnHeader<TData, TValue>({
   header,
-}: DataTableColumnHeaderProps<TData, TValue>) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  className,
+  ...props
+}: TableColumnHeaderProps<TData, TValue>) {
   return (
-    <>
-      <Box display="flex" alignItems="center" gap="0.25rem">
-        <Typography>
-          {header.isPlaceholder
-            ? null
-            : flexRender(header.column.columnDef.header, header.getContext())}
-        </Typography>
-        <IconButton onClick={handleOpen}>
+    <div className="flex items-center gap-1">
+      {header.isPlaceholder
+        ? null
+        : flexRender(header.column.columnDef.header, header.getContext())}
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          className={cn(
+            '-ml-1.5 flex h-8 items-center gap-1.5 rounded-md px-2 py-1.5 hover:bg-accent focus:outline-none focus:ring-1 focus:ring-ring data-[state=open]:bg-accent [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground',
+            className
+          )}
+          {...props}
+        >
           {header.column.getCanSort() &&
             (header.column.getIsSorted() === 'desc' ? (
-              <ChevronDownIcon fontSize="medium" />
+              <ChevronDown />
             ) : header.column.getIsSorted() === 'asc' ? (
-              <ChevronUpIcon fontSize="medium" />
+              <ChevronUp />
             ) : (
-              <ChevronsUpDownIcon fontSize="medium" />
+              <ChevronsUpDown />
             ))}
-        </IconButton>
-      </Box>
-
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        {header.column.getCanSort() && (
-          <>
-            <MenuItem onClick={() => header.column.toggleSorting(false)}>
-              <ListItemIcon>
-                <ChevronUpIcon />
-              </ListItemIcon>
-              <ListItemText primary="صعودی" />
-            </MenuItem>
-            <MenuItem onClick={() => header.column.toggleSorting(true)}>
-              <ListItemIcon>
-                <ChevronDownIcon />
-              </ListItemIcon>
-              <ListItemText primary="نزولی" />
-            </MenuItem>
-            {header.column.getIsSorted() && (
-              <MenuItem onClick={() => header.column.clearSorting()}>
-                <ListItemIcon>
-                  <CloseIcon />
-                </ListItemIcon>
-                <ListItemText primary="پاکسازی" />
-              </MenuItem>
-            )}
-          </>
-        )}
-        {header.column.getCanHide() && (
-          <MenuItem onClick={() => header.column.toggleVisibility(false)}>
-            <ListItemIcon>
-              <EyeOffIcon />
-            </ListItemIcon>
-            <ListItemText primary="مخفی" />
-          </MenuItem>
-        )}
-      </Menu>
-    </>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-28">
+          {header.column.getCanSort() && (
+            <>
+              <DropdownMenuCheckboxItem
+                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+                checked={header.column.getIsSorted() === 'asc'}
+                onClick={() => header.column.toggleSorting(false)}
+              >
+                <ChevronUp />
+                صعودی
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+                checked={header.column.getIsSorted() === 'desc'}
+                onClick={() => header.column.toggleSorting(true)}
+              >
+                <ChevronDown />
+                نزولی
+              </DropdownMenuCheckboxItem>
+              {header.column.getIsSorted() && (
+                <DropdownMenuItem
+                  className="pl-2 [&_svg]:text-muted-foreground"
+                  onClick={() => header.column.clearSorting()}
+                >
+                  <X />
+                  پاکسازی
+                </DropdownMenuItem>
+              )}
+            </>
+          )}
+          {header.column.getCanHide() && (
+            <DropdownMenuCheckboxItem
+              className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+              checked={!header.column.getIsVisible()}
+              onClick={() => header.column.toggleVisibility(false)}
+            >
+              <EyeOff />
+              مخفی
+            </DropdownMenuCheckboxItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

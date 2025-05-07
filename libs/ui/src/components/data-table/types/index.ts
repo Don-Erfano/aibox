@@ -26,10 +26,6 @@ export interface TablePaginationProps<TData>
   pageSizeOptions?: number[];
 }
 
-export interface TableColumnHeaderProps<TData, TValue> {
-  header: Header<TData, TValue>;
-}
-
 export interface ArrayCellProps {
   items?: Array<string | number>;
   maxVisible?: number;
@@ -115,7 +111,7 @@ export interface TableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-export interface TableFilterFormProps<TData> {
+export interface TableFiltersFormProps<TData> {
   column: Column<TData>;
 }
 
@@ -131,10 +127,10 @@ export type actionsProps<T> = {
   customActions?: CustomAction<T>[];
 };
 
-export interface TableProps<TData> {
+export interface DataTableProps<TData> extends React.ComponentProps<'div'> {
   table: TanstackTable<TData>;
   actionBar?: React.ReactNode;
-  ChildComponent?: React.ComponentType<{ row: TData }>;
+  childComponent?: React.ComponentType<{ row: TData }>;
 }
 
 export type SortParams = { sortBy: `${string}.${'asc' | 'desc'}` };
@@ -146,6 +142,7 @@ declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
     variant?: FilterVariant;
     label: string;
+    placeholder?: string;
     options?: Option[];
     icon?: React.ReactNode;
   }

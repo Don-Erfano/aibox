@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, ComponentType } from 'react';
-import { ChevronDownIcon } from 'lucide-react';
+import { ChevronDownIcon, XIcon } from 'lucide-react';
 import {
   ChevronIcon,
   TrashIcon,
@@ -64,6 +64,7 @@ const IconGallery: FC = () => {
     { Component: CheckIcon, name: 'CheckIcon' },
     { Component: BookmarkIcon, name: 'BookmarkIcon' },
     { Component: FileCopyIcon, name: 'FileCopyIcon' },
+    { Component: XIcon, name: 'XIcon' },
   ];
 
   return (

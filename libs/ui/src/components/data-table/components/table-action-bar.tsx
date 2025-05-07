@@ -1,16 +1,18 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Table } from '@tanstack/react-table';
+import { XIcon } from 'lucide-react';
+import { Button } from '../../button';
 import { AnimatePresence, motion } from 'motion/react';
-import { TableActionBarSelectionProps } from '../types';
-import { cn } from '../../../lib/utils';
 import { Separator } from '../../separator';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
-import { Button } from '../../button';
 
-interface DataTableActionBarProps<TData>
+import { TableActionBarSelectionProps } from '../types';
+import { cn } from '../../../lib/utils';
+
+interface TableActionBarProps<TData>
   extends React.ComponentProps<typeof motion.div> {
   table: Table<TData>;
   visible?: boolean;
@@ -21,7 +23,7 @@ export function TableActionBar<TData>({
   visible: visibleProp,
   container: containerProp,
   children,
-}: DataTableActionBarProps<TData>) {
+}: TableActionBarProps<TData>) {
   const [mounted, setMounted] = useState(false);
 
   useLayoutEffect(() => {
@@ -72,7 +74,6 @@ export function TableActionBar<TData>({
 export function TableActionBarSelection<TData>({
   table,
 }: TableActionBarSelectionProps<TData>) {
-  const selectedCount = table.getFilteredSelectedRowModel().rows.length;
   const onClearSelection = useCallback(() => {
     table.toggleAllRowsSelected(false);
   }, [table]);
@@ -89,12 +90,12 @@ export function TableActionBarSelection<TData>({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
             className="size-5"
             onClick={onClearSelection}
           >
-            <X className="size-3.5" />
+            <XIcon />
           </Button>
         </TooltipTrigger>
         <TooltipContent
@@ -104,7 +105,7 @@ export function TableActionBarSelection<TData>({
           <p>حذف انتخاب</p>
           <kbd className="select-none rounded border bg-background px-1.5 py-px font-mono font-normal text-[0.7rem] text-foreground shadow-xs">
             <abbr title="Escape" className="no-underline">
-              Esc
+              بستن
             </abbr>
           </kbd>
         </TooltipContent>

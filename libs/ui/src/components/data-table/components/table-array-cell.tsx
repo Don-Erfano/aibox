@@ -1,70 +1,44 @@
 'use client';
-import React, { useState, MouseEvent } from 'react';
-import { Box, Typography, Popover } from '@mui/material';
+import React, { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from '../../popover';
+import { ArrayCellProps } from '../types';
 
-export interface ArrayCellProps {
-  items?: Array<string | number>;
-  maxVisible?: number;
-}
-
-export const DataTableArrayCell: React.FC<ArrayCellProps> = ({
+export const TableArrayCell: React.FC<ArrayCellProps> = ({
   items = [],
   maxVisible = 2,
 }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState(false);
 
-  const open = Boolean(anchorEl);
   const visibleItems = items.slice(0, maxVisible);
   const hiddenCount = items.length - maxVisible;
 
-  const handleOpen = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   if (!items || items.length === 0) {
-    return <Typography variant="body2">———</Typography>;
+    return <span className="text-sm text-muted-foreground">———</span>;
   }
 
   return (
-    <>
-      <Box display="flex">
-        <Typography variant="body2">
-          {visibleItems.join('، ')}
-          {hiddenCount > 0 && (
-            <Typography
-              component="span"
-              sx={{
-                cursor: 'pointer',
-                ml: 0.5,
-                color: 'primary.main',
-                textDecoration: 'underline',
-              }}
-              onClick={handleOpen}
+    <div className="flex items-center space-x-1">
+      <span className="text-sm text-foreground">{visibleItems.join('، ')}</span>
+
+      {hiddenCount > 0 && (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <span
+              onClick={() => setOpen(true)}
+              className="text-sm text-primary underline cursor-pointer ml-1"
             >
               ... ({hiddenCount})
-            </Typography>
-          )}
-        </Typography>
-      </Box>
-
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-      >
-        <Box p={2} display="flex" flexDirection="column" gap="0.5rem">
-          {items.map((item, idx) => (
-            <Typography key={idx} variant="body2">
-              {`${item}، `}
-            </Typography>
-          ))}
-        </Box>
-      </Popover>
-    </>
+            </span>
+          </PopoverTrigger>
+          <PopoverContent className="w-fit min-w-[150px] p-3 space-y-1">
+            {items.map((item, idx) => (
+              <div key={idx} className="text-sm text-foreground">
+                {`${item}، `}
+              </div>
+            ))}
+          </PopoverContent>
+        </Popover>
+      )}
+    </div>
   );
 };

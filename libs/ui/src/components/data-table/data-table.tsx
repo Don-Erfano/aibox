@@ -1,41 +1,42 @@
 'use client';
 
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { flexRender } from '@tanstack/react-table';
-import { TableProps } from './types';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableContainer,
-  ActionBarContainer,
-} from './styled';
 
-import { DataTablePagination } from './components/table-pagination';
-import { DataTableColumnHeader } from './components/table-column-header';
+import { TablePagination } from './components/table-pagination';
+import { TableColumnHeader } from './components/table-column-header';
+import { cn } from '../../lib';
+import { DataTableProps } from './types';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '../table';
+import { TableActionBar } from './components/table-action-bar';
 
-export const DataTable = <T,>({
+export function DataTable<TData>({
   table,
   actionBar,
-  ChildComponent,
-}: TableProps<T>): ReactElement => {
+  childComponent: ChildComponent,
+  className,
+  ...props
+}: DataTableProps<TData>) {
   return (
-    <>
-      <TableContainer>
+    <div
+      className={cn('flex w-full flex-col gap-2.5 overflow-auto', className)}
+      {...props}
+    >
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th
+                  <TableHead
                     key={header.id}
                     style={{ width: header.getSize() }}
                     colSpan={header.colSpan}
                   >
-                    <DataTableColumnHeader header={header} />
-                  </th>
+                    <TableColumnHeader header={header} />
+                  </TableHead>
                 ))}
-              </tr>
+              </TableRow>
             ))}
           </TableHeader>
 
@@ -64,12 +65,12 @@ export const DataTable = <T,>({
           </TableBody>
         </Table>
 
-        <DataTablePagination table={table} />
-      </TableContainer>
+        <TablePagination table={table} />
+      </div>
 
-      {actionBar && table.getFilteredSelectedRowModel().rows.length > 0 && (
-        <ActionBarContainer>{actionBar}</ActionBarContainer>
-      )}
-    </>
+      {actionBar &&
+        table.getFilteredSelectedRowModel().rows.length > 0 &&
+        actionBar}
+    </div>
   );
-};
+}

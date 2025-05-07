@@ -1,98 +1,105 @@
 import {
-  ChevronsLeftIcon,
-  ChevronsRightIcon,
-  LeftChevronIcon,
-  RightChevronIcon,
-} from '@/assets/icons';
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
+
+import { Button } from '../../button';
 import {
-  FlexContainer,
-  Footer,
-  PaginationButton,
-  PaginationContainer,
-  PaginationInput,
-  PaginationSelect,
-} from '../styled';
-import { translations } from '../constant';
-import { Table } from '@tanstack/react-table';
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../../select';
+import { cn } from '../../../lib';
+import { TablePaginationProps } from '../types';
 
-interface DataTablePaginationProps<TData> extends React.ComponentProps<'div'> {
-  table: Table<TData>;
-  pageSizeOptions?: number[];
-}
-
-export function DataTablePagination<TData>({
+export function TablePagination<TData>({
   table,
   pageSizeOptions = [5, 10, 20, 30, 40, 50],
-}: DataTablePaginationProps<TData>) {
-  const pageCount = table.getPageCount();
-  const pageIndex = table.getState().pagination.pageIndex + 1;
-  const selectedRowLength = table.getFilteredSelectedRowModel().rows.length;
-
+  className,
+  ...props
+}: TablePaginationProps<TData>) {
   return (
-    <Footer>
-      <FlexContainer>
-        {selectedRowLength > 0 && `${selectedRowLength} سطر انتخاب شده`}
-      </FlexContainer>
-      <PaginationContainer>
-        <FlexContainer>
-          {translations.goToPage}
-          <PaginationInput
-            type="number"
-            min={1}
-            max={pageCount}
-            defaultValue={pageIndex}
-            onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              table.setPageIndex(page);
+    <div
+      className={cn(
+        'flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8',
+        className
+      )}
+      {...props}
+    >
+      <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm">
+        {table.getFilteredSelectedRowModel().rows.length} of{' '}
+        {table.getFilteredRowModel().rows.length} سطر انتخاب شده.
+      </div>
+      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
+        <div className="flex items-center space-x-2">
+          <p className="whitespace-nowrap font-medium text-sm">تعداد نمایش</p>
+          <Select
+            value={`${table.getState().pagination.pageSize}`}
+            onValueChange={(value) => {
+              table.setPageSize(Number(value));
             }}
-          />
-        </FlexContainer>
-        <PaginationButton
-          onClick={() => table.lastPage()}
-          disabled={!table.getCanNextPage()}
-          aria-label="صفحه آخر"
-        >
-          <ChevronsRightIcon />
-        </PaginationButton>
-        <PaginationButton
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-          aria-label="بعدی"
-        >
-          <RightChevronIcon />
-        </PaginationButton>
-        <PaginationButton
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-          aria-label="قبلی"
-        >
-          <LeftChevronIcon />
-        </PaginationButton>
-        <PaginationButton
-          onClick={() => table.firstPage()}
-          disabled={!table.getCanPreviousPage()}
-          aria-label="صفحه اول"
-        >
-          <ChevronsLeftIcon />
-        </PaginationButton>
-        <FlexContainer>
-          {translations.pageInfo(pageIndex, pageCount)}
-        </FlexContainer>
-
-        <PaginationSelect
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-          aria-label="تعداد نمایش"
-        >
-          {pageSizeOptions.map((size) => (
-            <option key={size} value={size}>
-              {translations.show(size)}
-            </option>
-          ))}
-        </PaginationSelect>
-      </PaginationContainer>
-    </Footer>
+          >
+            <SelectTrigger className="h-8 w-[4.5rem] [&[data-size]]:h-8">
+              <SelectValue placeholder={table.getState().pagination.pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {pageSizeOptions.map((pageSize) => (
+                <SelectItem key={pageSize} value={`${pageSize}`}>
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-center justify-center font-medium text-sm">
+          صفحه {table.getState().pagination.pageIndex + 1} of{' '}
+          {table.getPageCount()}
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            aria-label="صفحه اول"
+            variant="outline"
+            className="hidden size-8 lg:flex"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronsLeft />
+          </Button>
+          <Button
+            aria-label="قبلی"
+            variant="outline"
+            size="icon"
+            className="size-8"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            aria-label="بعدی"
+            variant="outline"
+            size="icon"
+            className="size-8"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRight />
+          </Button>
+          <Button
+            aria-label="صفحه آخر"
+            variant="outline"
+            className="hidden size-8 lg:flex"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronsRight />
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }

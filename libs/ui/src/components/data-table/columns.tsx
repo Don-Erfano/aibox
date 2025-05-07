@@ -1,18 +1,19 @@
 import { useMemo } from 'react';
-import { CustomCheckbox } from '../atoms/Checkbox';
-import { IconButton } from '../atoms/CustomButton/IconButton';
 import {
   DeleteIcon,
-  DownChevronIcon,
-  LeftChevronIcon,
-  TextEditIcon,
-} from '@/assets/icons';
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  EditIcon,
+} from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
+import { Button } from '../button';
+import { Checkbox } from '../checkbox';
 
 /**
  * Hook to build table columns array with optional row-selection and operations.
  */
+
 export function useTableColumns<T>(
   baseColumns: ColumnDef<T, any>[],
   options: {
@@ -28,14 +29,13 @@ export function useTableColumns<T>(
       id: 'expand',
       cell: ({ row }: { row: any }) =>
         row.getCanExpand() ? (
-          <IconButton
+          <Button
             aria-label={row.getIsExpanded() ? 'Expand' : 'Collapse'}
             onClick={row.getToggleExpandedHandler()}
-            size="small"
-            icon={
-              row.getIsExpanded() ? <DownChevronIcon /> : <LeftChevronIcon />
-            }
-          />
+            size="icon"
+          >
+            {row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronLeftIcon />}
+          </Button>
         ) : null,
       size: 10,
     };
@@ -44,23 +44,26 @@ export function useTableColumns<T>(
       id: 'select',
       header: ({ table }: { table: Table<T> }) =>
         enableSelection ? (
-          <div>
-            <CustomCheckbox
-              checked={table.getIsAllRowsSelected()}
-              indeterminate={table.getIsSomeRowsSelected()}
-              onChange={table.getToggleAllRowsSelectedHandler()}
-            />
-          </div>
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+            className="translate-y-0.5"
+          />
         ) : null,
       cell: ({ row }: { row: any }) =>
         enableSelection ? (
-          <div>
-            <CustomCheckbox
-              checked={row.getIsSelected()}
-              disabled={!row.getCanSelect()}
-              onChange={row.getToggleSelectedHandler()}
-            />
-          </div>
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+            className="translate-y-0.5"
+          />
         ) : null,
       size: 40,
     };
@@ -72,26 +75,32 @@ export function useTableColumns<T>(
         actions ? (
           <>
             {actions.onEdit && (
-              <IconButton
+              <Button
                 aria-label="Edit"
                 onClick={() => actions.onEdit!(row.original)}
-                icon={<TextEditIcon />}
-              />
+                size="icon"
+              >
+                <EditIcon />
+              </Button>
             )}
             {actions.onDelete && (
-              <IconButton
+              <Button
                 aria-label="Delete"
                 onClick={() => actions.onDelete!(row.original)}
-                icon={<DeleteIcon />}
-              />
+                size="icon"
+              >
+                <DeleteIcon />
+              </Button>
             )}
             {actions.customActions?.map((action, idx) => (
-              <IconButton
+              <Button
                 key={idx}
                 aria-label={action.label}
+                size="icon"
                 onClick={() => action.onClick(row.original)}
-                icon={action.icon}
-              />
+              >
+                {action.icon}
+              </Button>
             ))}
           </>
         ) : null,
