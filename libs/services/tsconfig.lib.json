@@ -9,7 +9,8 @@
     "module": "Preserve",
     "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
-    "types": ["node"]
+    "types": ["node"],
+    "lib": ["DOM"]
   },
   "include": ["src/**/*.ts"],
   "references": []
