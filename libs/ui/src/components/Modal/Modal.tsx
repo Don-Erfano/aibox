@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '../ui/dialog';
+} from '../ui';
 import { X as CloseIcon } from 'lucide-react';
 import { ModalProps } from './interface';
 

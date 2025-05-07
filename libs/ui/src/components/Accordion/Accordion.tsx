@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '../ui/accordion';
+} from '../ui';
 import { AccordionItems } from './inetrface';
 
 export default function Accordion({ items }: { items: AccordionItems }) {
