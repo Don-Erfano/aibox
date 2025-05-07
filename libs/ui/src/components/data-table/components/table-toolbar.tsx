@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
+import { Table } from '@tanstack/react-table';
 
 import { Button } from '../../button';
 import { SearchIcon, FilterIcon, TrashIcon, Badge } from 'lucide-react';
 import { FilterChipsBar } from './filter-chips-bar';
-import { TableToolbarProps } from '../types';
 import { TableViewOptions } from './table-view-options';
 import { TableFiltersForm } from './table-filters-form';
 import {
@@ -12,16 +12,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../accordion';
+import { useTableFilters } from '../hooks/useTableFilters';
+import { TableToolbarProps } from '../types';
 
 export function TableToolbar<TData>({
   table,
   tableName,
   showSearchIcon = true,
-  submitFilters,
-  resetFilters,
-  removeFilter,
-  activeFilterChips,
-  filterCount,
+  totalItems,
+  setPage,
 }: TableToolbarProps<TData>) {
   const [open, setOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(showSearchIcon);
@@ -30,6 +29,25 @@ export function TableToolbar<TData>({
     () => table.getAllColumns().filter((col) => col.getCanFilter()),
     [table]
   );
+
+  const {
+    submitFilters,
+    resetFilters,
+    removeFilter,
+    activeFilterChips,
+    filterCount,
+  } = useTableFilters({
+    table,
+    columns: columns.map((col) => ({
+      id: col.id,
+      meta: col.columnDef.meta,
+      enableColumnFilter: true,
+    })),
+    history: 'replace',
+    clearOnDefault: true,
+    shallow: true,
+    setPage: setPage,
+  });
 
   const handleToggle = () => setOpen((prev) => !prev);
   const onSubmit = () => {
@@ -77,7 +95,7 @@ export function TableToolbar<TData>({
 
         <div className="flex items-center gap-2">
           <span className="text-lg font-medium text-primary">{tableName}</span>
-          {filterCount > 0 && <Badge>{filterCount}</Badge>}
+          {totalItems > 0 && <Badge>{totalItems}</Badge>}
         </div>
       </div>
 

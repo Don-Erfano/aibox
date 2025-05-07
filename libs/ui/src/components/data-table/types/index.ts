@@ -1,18 +1,41 @@
 import type {
   Table as TanstackTable,
   Column,
-  useReactTable,
-  ColumnFiltersState,
   TableOptions,
   TableState,
   ColumnSort,
   Table,
-  Header,
+  ColumnDef,
 } from '@tanstack/react-table';
 import type { Row, RowData } from '@tanstack/react-table';
 import { FilterItemSchema } from '../lib/parsers';
 import { Dispatch, SetStateAction } from 'react';
 import { DataTableConfig } from '../constant';
+import { Options } from 'nuqs';
+
+export interface UseTableFiltersProps<TData> {
+  table: Table<TData>;
+  columns: ColumnDef<TData, any>[];
+  history?: 'push' | 'replace';
+  clearOnDefault?: boolean;
+  shallow?: boolean;
+  setPage: (
+    value: number | ((old: number) => number | null) | null,
+    options?: Options
+  ) => Promise<URLSearchParams>;
+}
+
+export interface TableToolbarProps<TData> {
+  table: Table<TData>;
+  tableName: string;
+  showSearchIcon?: boolean;
+  refreshLoading?: boolean;
+  totalItems: number;
+  setPage: (
+    value: number | ((old: number) => number | null) | null,
+    options?: Options
+  ) => Promise<URLSearchParams>;
+}
 
 export interface FilterChipsBarProps {
   chips: FilterChips;
@@ -52,30 +75,10 @@ export type FilterChipsProps = {
   filterCount: number;
 };
 
-export interface UseTableReturn<TData> {
-  table: ReturnType<typeof useReactTable<TData>>;
-  pendingFilters: ColumnFiltersState;
+export interface UseTableFiltersReturn {
   submitFilters: () => void;
   resetFilters: () => void;
-  removeFilter: (id: string) => void;
-  updatePendingFilter: (columnId: string, value: unknown) => void;
-  shallow: boolean;
-}
-
-export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
-  table: TanstackTable<TData>;
-  refreshLoading: boolean;
-  collapse?: boolean;
-  setCollapse?: Dispatch<SetStateAction<boolean>>;
-  onSearchClick?: () => void;
-  tableName?: string;
-  search: boolean;
-  setSearch: Dispatch<SetStateAction<boolean>>;
-  chipNumber?: number;
-  showSearchIcon?: boolean;
-  submitFilters: () => void;
-  resetFilters: () => void;
-  removeFilter: (key: string) => void;
+  removeFilter: (filterId: string) => void;
   activeFilterChips: FilterChips;
   filterCount: number;
 }
