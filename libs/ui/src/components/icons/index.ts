@@ -13,6 +13,7 @@ import BookmarkIcon from './BookmarkIcon';
 import EditIcon from './EditIcon';
 import AiBoxIcon from './AIBoxIcon';
 import AiBoxTextIcon from './AiBoxTextIcon';
+import XIcon from './IconGallery';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -28,4 +29,5 @@ export {
   EditIcon,
   AiBoxIcon,
   AiBoxTextIcon,
+  XIcon,
 };

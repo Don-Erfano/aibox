@@ -1,7 +1,4 @@
-'use client';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { QueryProvider } from '@/providers/query-provider';
 import './global.css';
 import '@aibox/ui/index.css';
 
@@ -12,11 +9,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body>
-        <QueryClientProvider client={new QueryClient()}>
+      <QueryProvider>
+        <body>
           <main>{children}</main>
-        </QueryClientProvider>
-      </body>
+        </body>
+      </QueryProvider>
     </html>
   );
 }

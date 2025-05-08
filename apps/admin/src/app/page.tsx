@@ -1,7 +1,8 @@
-import { Button } from '@aibox/ui';
+import { theme } from '@aibox/theme';
 import Link from 'next/link';
 
 export default function Index() {
+  console.log(theme());
   /*
    * Replace the elements below with your own.
    *
@@ -10,7 +11,7 @@ export default function Index() {
   return (
     <div>
       <Link href="/dashboard">
-        <Button variant="general">Dashboard</Button>
+        <p>dashbaord</p>
       </Link>
     </div>
   );
