@@ -1,7 +1,7 @@
 import HttpClient from './client';
 import { AuthMiddleware } from './middlewares';
 
-const baseURL = `${process.env[`NEXT_PUBLIC_BASE_URL`]}/}`;
+const baseURL = `${process.env[`NEXT_PUBLIC_BASE_API`]}/`;
 const appClient = new HttpClient({
   baseURL,
 });

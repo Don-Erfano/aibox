@@ -1,3 +1,4 @@
+'use client';
 import { useNotificationStore } from '@/utils/notifications';
 
 export function Notifications() {
