@@ -14,6 +14,7 @@ import EditIcon from './EditIcon';
 import AiBoxIcon from './AIBoxIcon';
 import AiBoxTextIcon from './AiBoxTextIcon';
 import XIcon from './IconGallery';
+import PersonIcon from './PersonIcon';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -30,4 +31,5 @@ export {
   AiBoxIcon,
   AiBoxTextIcon,
   XIcon,
+  PersonIcon,
 };

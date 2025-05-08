@@ -15,6 +15,7 @@ import {
   CheckIcon,
   BookmarkIcon,
   EditIcon,
+  PersonIcon,
 } from './index';
 
 type IconEntry = {
@@ -64,6 +65,7 @@ const IconGallery: FC = () => {
     { Component: CheckIcon, name: 'CheckIcon' },
     { Component: BookmarkIcon, name: 'BookmarkIcon' },
     { Component: FileCopyIcon, name: 'FileCopyIcon' },
+    { Component: PersonIcon, name: 'PersonIcon' },
   ];
 
   return (
