@@ -3,20 +3,33 @@
 import { User } from '@/constant/data';
 import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
 import { useEffect, useState } from 'react';
+import { ColumnDef } from '@tanstack/react-table';
 
-const userColumns = [
+const userColumns: ColumnDef<User>[] = [
   { header: 'ID', accessorKey: 'id', enableColumnFilter: false },
   { header: 'Name', accessorKey: 'name', meta: { label: 'Name' } },
   { header: 'Email', accessorKey: 'email', meta: { label: 'Email' } },
   {
     header: 'Role',
     accessorKey: 'role',
-    meta: { label: 'Role', options: ['admin', 'editor', 'viewer'] },
+    meta: {
+      label: 'Role',
+      options: [
+        { label: 'admin', value: '1' },
+        { label: 'user', value: '2' },
+      ],
+    },
   },
   {
     header: 'Status',
     accessorKey: 'status',
-    meta: { label: 'Status', options: ['active', 'inactive', 'pending'] },
+    meta: {
+      label: 'Status',
+      options: [
+        { label: 'active', value: '1' },
+        { label: 'disable', value: '0' },
+      ],
+    },
   },
   {
     header: 'Created At',

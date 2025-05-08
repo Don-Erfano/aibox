@@ -108,7 +108,7 @@ export interface UseTableProps<TData>
   clearOnDefault?: boolean;
   enableExpand?: boolean;
   shallow?: boolean;
-  actions: actionsProps<TData>;
+  actions?: actionsProps<TData>;
 }
 
 export interface TableViewOptionsProps<TData> {
