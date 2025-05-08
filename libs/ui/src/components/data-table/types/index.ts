@@ -28,12 +28,7 @@ export interface UseTableFiltersProps<TData> {
 export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
   table: TanstackTable<TData>;
   refreshLoading: boolean;
-  collapse?: boolean;
-  setCollapse?: Dispatch<SetStateAction<boolean>>;
-  onSearchClick?: () => void;
   tableName?: string;
-  search: boolean;
-  setSearch: Dispatch<SetStateAction<boolean>>;
   totalItems: number;
   hasSearch?: boolean;
   submitFilters: () => void;

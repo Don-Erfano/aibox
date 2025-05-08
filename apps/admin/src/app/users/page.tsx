@@ -1,19 +1,48 @@
 'use client';
 
+import { User } from '@/constant/data';
 import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
+
+const userColumns = [
+  { header: 'ID', accessorKey: 'id', enableColumnFilter: false },
+  { header: 'Name', accessorKey: 'name', meta: { label: 'Name' } },
+  { header: 'Email', accessorKey: 'email', meta: { label: 'Email' } },
+  {
+    header: 'Role',
+    accessorKey: 'role',
+    meta: { label: 'Role', options: ['admin', 'editor', 'viewer'] },
+  },
+  {
+    header: 'Status',
+    accessorKey: 'status',
+    meta: { label: 'Status', options: ['active', 'inactive', 'pending'] },
+  },
+  {
+    header: 'Created At',
+    accessorKey: 'createdAt',
+    meta: { label: 'Created At' },
+  },
+];
 
 export default function UsersPage() {
-  const [users, setUsers] = React.useState([]);
-  const [total, setTotal] = React.useState(0);
+  const [users, setUsers] = useState<User[]>([]);
+  const [total, setTotal] = useState(0);
 
-  const { table } = useDataTable({
+  const {
+    table,
+    activeFilterChips,
+    filterCount,
+    removeFilter,
+    resetFilters,
+    submitFilters,
+  } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: Math.ceil(total / 10),
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
         `/api/users?pageNo=${
@@ -25,10 +54,7 @@ export default function UsersPage() {
       setTotal(json.total);
     };
     fetchData();
-  }, [
-    table.getState().pagination.pageIndex,
-    table.getState().pagination.pageSize,
-  ]);
+  }, [table]);
 
   return (
     <div className="p-4">
@@ -36,11 +62,16 @@ export default function UsersPage() {
 
       <TableToolbar
         table={table}
-        tableName=""
-        chipNumber={2}
-        search
-        showSearchIcon
+        tableName={'کاربران'}
+        refreshLoading={false}
+        totalItems={total}
+        submitFilters={submitFilters}
+        activeFilterChips={activeFilterChips}
+        filterCount={filterCount}
+        removeFilter={removeFilter}
+        resetFilters={resetFilters}
       />
+
       <DataTable table={table} />
     </div>
   );

@@ -1,3 +1,4 @@
+import { QueryProvider } from '@/providers/query-provider';
 import './global.css';
 import '@aibox/ui/index.css';
 
@@ -13,9 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body>
-        <main>{children}</main>
-      </body>
+      <QueryProvider>
+        <body>
+          <main>{children}</main>
+        </body>
+      </QueryProvider>
     </html>
   );
 }

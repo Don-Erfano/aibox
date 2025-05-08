@@ -1,5 +1,5 @@
+import { userData } from '@/constant/data';
 import { NextResponse } from 'next/server';
-import { userData } from '../../data';
 
 export function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -16,3 +16,4 @@ export function GET(req: Request) {
     pageNo: page,
     pageSize: perPage,
   });
+}

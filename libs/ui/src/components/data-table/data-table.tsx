@@ -7,7 +7,14 @@ import { TablePagination } from './components/table-pagination';
 import { TableColumnHeader } from './components/table-column-header';
 import { cn } from '../../lib';
 import { DataTableProps } from './types';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '../table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '../table';
 
 export function DataTable<TData>({
   table,
@@ -40,36 +47,50 @@ export function DataTable<TData>({
           </TableHeader>
 
           <TableBody>
-            {table.getRowModel().rows.map((row) => (
-              <React.Fragment key={row.id}>
-                <tr data-selected={row.getIsSelected() ? '' : undefined}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  ))}
-                </tr>
-                {row.getIsExpanded() && (
-                  <tr>
-                    <td colSpan={row.getVisibleCells().length}>
-                      {ChildComponent && <ChildComponent row={row.original} />}
-                    </td>
-                  </tr>
-                )}
-              </React.Fragment>
-            ))}
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <React.Fragment key={row.id}>
+                  <TableRow data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                  {row.getIsExpanded() && (
+                    <TableRow>
+                      <TableCell colSpan={row.getVisibleCells().length}>
+                        {ChildComponent && (
+                          <ChildComponent row={row.original} />
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={table.getAllColumns().length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
-
-        <TablePagination table={table} />
       </div>
 
-      {actionBar &&
-        table.getFilteredSelectedRowModel().rows.length > 0 &&
-        actionBar}
+      <div className="flex flex-col gap-2.5">
+        <TablePagination table={table} />
+        {actionBar &&
+          table.getFilteredSelectedRowModel().rows.length > 0 &&
+          actionBar}
+      </div>
     </div>
   );
 }
