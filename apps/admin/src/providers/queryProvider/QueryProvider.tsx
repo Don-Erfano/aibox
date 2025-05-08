@@ -2,6 +2,7 @@
 
 import { FC, PropsWithChildren, useMemo } from 'react';
 import { QueryClientProvider, hydrate } from '@tanstack/react-query';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { createQueryClient } from '@/providers/queryProvider/queryClient';
 
 export interface QueryProviderProps {
@@ -16,7 +17,9 @@ const QueryProvider: FC<PropsWithChildren<QueryProviderProps>> = ({
   hydrate(queryClient, dehydratedState);
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <NuqsAdapter>{children} </NuqsAdapter>
+    </QueryClientProvider>
   );
 };
 export default QueryProvider;

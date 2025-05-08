@@ -2,8 +2,8 @@ import './global.css';
 import '@aibox/ui/index.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
-import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
 import { Notifications } from '@/components/notification/Notifications';
+import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
 
 export const metadata = {
   title: 'Welcome to admin',
