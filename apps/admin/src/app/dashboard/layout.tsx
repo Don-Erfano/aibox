@@ -11,10 +11,9 @@ export default function DashboardLayout({
     <div className="flex flex-col">
       <Header />
       <div className="flex">
-        <div>
-          <Sidebar />
-        </div>
-        <div className="p-[16px] lg:p-[24px] w-full">{children}</div>
+        <Sidebar />
+
+        <main className="p-[16px] lg:p-[24px] w-full">{children}</main>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
+// c
 import './global.css';
-import '@aibox/ui/index.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import { Notifications } from '@/components/notification/Notifications';
@@ -19,7 +19,7 @@ export default async function RootLayout({
   const dehydratedState = dehydrate(serverQueryClient);
 
   return (
-    <html lang="en">
+    <html lang="fa" dir="rtl">
       <body>
         <QueryProvider dehydratedState={dehydratedState}>
           {children}
