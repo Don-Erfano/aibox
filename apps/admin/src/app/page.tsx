@@ -1,10 +1,10 @@
 import { Button } from '@aibox/ui';
-import { services } from '@aibox/services';
+// import { services } from '@aibox/services';
 import { theme } from '@aibox/theme';
 import Link from 'next/link';
 
 export default function Index() {
-  console.log(services());
+  // console.log(services());
   console.log(theme());
   /*
    * Replace the elements below with your own.

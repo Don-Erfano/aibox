@@ -1,24 +1,18 @@
-'use client';
-import { useState } from 'react';
 import { Header } from '@/components/header';
 import { Sidebar } from '@/components/sidebar';
+// import { AppSidebar } from '@aibox/ui';
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
   return (
     <div className="flex flex-col">
       <Header />
       <div className="flex">
-        <div
-          className={`h-[calc(100vh_-_64px)] ${
-            isOpen ? 'w-[11.5rem]' : 'w-[60px]'
-          } hidden md:block transition-all duration-[0.5s] pt-8 pb-3 text-white bg-[#022C22]`}
-        >
-          <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
+        <div>
+          <Sidebar />
         </div>
         <div className="p-[16px] lg:p-[24px] w-full">{children}</div>
       </div>
