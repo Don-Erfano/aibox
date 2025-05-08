@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { AuthServices } from './auth.service';
+import { AuthServices } from './login.service';
 const authServices = new AuthServices();
 
 export const useLoginMutation = () =>

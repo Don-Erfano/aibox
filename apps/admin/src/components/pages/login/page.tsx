@@ -4,11 +4,11 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useLoginMutation } from '@aibox/services';
 import { AiBoxTextIcon, Button, Textfield } from '@aibox/ui';
 
 import { zodSchema } from './constants';
 import { setCookie } from '@/app/utils/action';
+import { useLoginMutation } from '@/services/login';
 
 const LoginPage: FC = () => {
   const { mutateAsync } = useLoginMutation();
@@ -52,7 +52,7 @@ const LoginPage: FC = () => {
             name="password"
             type="password"
           />
-          <Button fullWidth variant="form" type="submit">
+          <Button variant="default" type="submit">
             ورود
           </Button>
           <span className="text-sm text-normal text-teal-600 cursor-not-allowed">
