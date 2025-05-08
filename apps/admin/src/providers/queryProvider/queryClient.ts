@@ -1,11 +1,15 @@
-import { QueryClient, QueryCache } from '@tanstack/react-query';
+import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
+import { handleMutationError } from '@/utils/notifications';
 
 export function createQueryClient() {
   return new QueryClient({
     queryCache: new QueryCache({
-      onError(error, query) {
-        console.error('error', query.queryKey, ':', error);
+      onError: (error, query) => {
+        console.error('Query error', query.queryKey, error);
       },
+    }),
+    mutationCache: new MutationCache({
+      onError: handleMutationError,
     }),
     defaultOptions: {
       queries: {
@@ -14,9 +18,7 @@ export function createQueryClient() {
         gcTime: 1000 * 60 * 30,
         retry: 1,
       },
-      mutations: {
-        retry: 1,
-      },
+      mutations: { retry: 1 },
     },
   });
 }

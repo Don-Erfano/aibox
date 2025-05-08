@@ -3,6 +3,7 @@ import '@aibox/ui/index.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
+import { Notifications } from '@/components/notification/Notifications';
 
 export const metadata = {
   title: 'Welcome to admin',
@@ -22,6 +23,7 @@ export default async function RootLayout({
       <body>
         <QueryProvider dehydratedState={dehydratedState}>
           {children}
+          <Notifications />
         </QueryProvider>
       </body>
     </html>
