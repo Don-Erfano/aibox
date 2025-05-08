@@ -1,4 +1,5 @@
 export interface ModalProps {
   title: string;
-  headerIcon?: React.ReactNode;
+  headerIcon: React.ReactNode;
+  onClose: () => void;
 }

@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import useModal from './Modal';
 import { Mail } from 'lucide-react';
-import { ModalProps } from './interface';
+
 import { Button } from '../buttons';
+import { ModalProps } from './interface';
+import useModal from './Modal';
 
 const ModalPreview = (props: ModalProps) => {
   const { Modal, setOpen } = useModal();
@@ -11,7 +12,7 @@ const ModalPreview = (props: ModalProps) => {
     <>
       <Button onClick={() => setOpen(true)}>Open Modal</Button>
       <Modal {...props}>
-        <p>This is the modal content. You can place anything here.</p>
+        <p>می‌توانید محتوای خود را در این بخش قرار دهید.</p>
       </Modal>
     </>
   );

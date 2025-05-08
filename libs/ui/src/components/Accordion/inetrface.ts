@@ -1,6 +1,9 @@
 type AccordionItem = {
   title: React.ReactNode;
-  children: React.ReactNode;
+  content: React.ReactNode;
 };
 
-export type AccordionItems = AccordionItem[];
+export interface AccordionProps {
+  items: AccordionItem[];
+  type?: 'single' | 'multiple';
+}
