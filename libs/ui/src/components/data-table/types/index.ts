@@ -25,16 +25,22 @@ export interface UseTableFiltersProps<TData> {
   ) => Promise<URLSearchParams>;
 }
 
-export interface TableToolbarProps<TData> {
-  table: Table<TData>;
-  tableName: string;
-  showSearchIcon?: boolean;
-  refreshLoading?: boolean;
+export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
+  table: TanstackTable<TData>;
+  refreshLoading: boolean;
+  collapse?: boolean;
+  setCollapse?: Dispatch<SetStateAction<boolean>>;
+  onSearchClick?: () => void;
+  tableName?: string;
+  search: boolean;
+  setSearch: Dispatch<SetStateAction<boolean>>;
   totalItems: number;
-  setPage: (
-    value: number | ((old: number) => number | null) | null,
-    options?: Options
-  ) => Promise<URLSearchParams>;
+  hasSearch?: boolean;
+  submitFilters: () => void;
+  resetFilters: () => void;
+  removeFilter: (key: string) => void;
+  activeFilterChips: FilterChips;
+  filterCount: number;
 }
 
 export interface FilterChipsBarProps {

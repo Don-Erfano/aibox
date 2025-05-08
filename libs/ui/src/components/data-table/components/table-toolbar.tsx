@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { Table } from '@tanstack/react-table';
 
 import { Button } from '../../button';
 import { SearchIcon, FilterIcon, TrashIcon, Badge } from 'lucide-react';
@@ -12,42 +11,26 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../accordion';
-import { useTableFilters } from '../hooks/useTableFilters';
 import { TableToolbarProps } from '../types';
 
 export function TableToolbar<TData>({
   table,
   tableName,
-  showSearchIcon = true,
-  totalItems,
-  setPage,
+  hasSearch = true,
+  submitFilters,
+  resetFilters,
+  removeFilter,
+  activeFilterChips,
+  filterCount,
+  totalItems = 0,
 }: TableToolbarProps<TData>) {
   const [open, setOpen] = useState(false);
-  const [showSearch, setShowSearch] = useState(showSearchIcon);
+  const [showSearchInput, setShowSearchInput] = useState(false);
 
   const columns = useMemo(
     () => table.getAllColumns().filter((col) => col.getCanFilter()),
     [table]
   );
-
-  const {
-    submitFilters,
-    resetFilters,
-    removeFilter,
-    activeFilterChips,
-    filterCount,
-  } = useTableFilters({
-    table,
-    columns: columns.map((col) => ({
-      id: col.id,
-      meta: col.columnDef.meta,
-      enableColumnFilter: true,
-    })),
-    history: 'replace',
-    clearOnDefault: true,
-    shallow: true,
-    setPage: setPage,
-  });
 
   const handleToggle = () => setOpen((prev) => !prev);
   const onSubmit = () => {
@@ -69,17 +52,19 @@ export function TableToolbar<TData>({
             </Button>
           )}
 
-          {showSearch && (
+          {hasSearch && (
             <Button
               variant="ghost"
               size="sm"
               onClick={() =>
-                setShowSearch((toggleSearchInput) => !toggleSearchInput)
+                setShowSearchInput((toggleSearchInput) => !toggleSearchInput)
               }
             >
               <SearchIcon className="w-4 h-4" />
             </Button>
           )}
+
+          {showSearchInput && <p>search component</p>}
 
           <Button
             variant={open ? 'default' : 'outline'}
