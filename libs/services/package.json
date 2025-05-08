@@ -40,7 +40,6 @@
     "@swc/helpers": "~0.5.11"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.74.11",
     "axios": "^1.9.0",
     "nookies": "^2.5.2"
   }
