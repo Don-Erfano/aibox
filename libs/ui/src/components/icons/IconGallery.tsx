@@ -15,6 +15,8 @@ import {
   CheckIcon,
   BookmarkIcon,
   EditIcon,
+  AiBoxTextIcon,
+  AiBoxIcon,
 } from './index';
 
 type IconEntry = {
@@ -64,6 +66,8 @@ const IconGallery: FC = () => {
     { Component: CheckIcon, name: 'CheckIcon' },
     { Component: BookmarkIcon, name: 'BookmarkIcon' },
     { Component: FileCopyIcon, name: 'FileCopyIcon' },
+    { Component: AiBoxTextIcon, name: 'AiBoxTextIcon' },
+    { Component: AiBoxIcon, name: 'AIBoxIcon' },
   ];
 
   return (
