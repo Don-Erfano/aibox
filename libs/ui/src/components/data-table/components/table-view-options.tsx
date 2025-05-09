@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import type { Table } from '@tanstack/react-table';
 import { Check, ChevronsUpDown, Settings2 } from 'lucide-react';
 import { Button } from '../../button';
 import { PopoverContent, PopoverTrigger, Popover } from '../../popover';

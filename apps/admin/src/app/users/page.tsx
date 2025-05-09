@@ -3,12 +3,17 @@
 import { User } from '@/constant/data';
 import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
 import { useEffect, useState } from 'react';
-import { ColumnDef,  } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 
 const userColumns: ColumnDef<User>[] = [
   { header: 'ID', accessorKey: 'id', enableColumnFilter: false, id: 'id' },
-  { header: 'Name', accessorKey: 'name', id: 'name',meta: { label: 'Name' } },
-  { header: 'Email', accessorKey: 'email',id: 'email', meta: { label: 'Email' } },
+  { header: 'Name', accessorKey: 'name', id: 'name', meta: { label: 'Name' } },
+  {
+    header: 'Email',
+    accessorKey: 'email',
+    id: 'email',
+    meta: { label: 'Email' },
+  },
   {
     header: 'Role',
     accessorKey: 'role',
@@ -35,7 +40,6 @@ const userColumns: ColumnDef<User>[] = [
     header: 'Created At',
     accessorKey: 'createdAt',
     meta: { label: 'Created At' },
-    cell:()
   },
 ];
 

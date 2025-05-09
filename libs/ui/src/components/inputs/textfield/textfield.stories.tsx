@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Textfield from './textfield';
+import { BaseTextField } from './BaseTextField';
 
-const meta: Meta<typeof Textfield> = {
-  component: Textfield,
-  title: 'textfield',
+const meta: Meta<typeof BaseTextField> = {
+  component: BaseTextField,
+  title: 'BaseTextField',
 };
 export default meta;
-type Story = StoryObj<typeof Textfield>;
+type Story = StoryObj<typeof BaseTextField>;
 
 export const Dense: Story = {
   args: {
