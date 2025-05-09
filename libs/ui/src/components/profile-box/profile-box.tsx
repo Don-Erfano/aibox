@@ -30,51 +30,55 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
     );
 
   return (
-    <div className="relative inline-block">
-      <div
-        className={cn(
-          'hidden md:flex h-9 min-w-[200px] bg-teal-600 rounded-[28px] transition-all',
-          { 'rounded-b-none': isOpen, 'rounded-b-[28px]': !isOpen }
-        )}
-      >
-        <button
-          onClick={toggle}
-          className="flex w-full items-center justify-start px-4"
+    <div className="relative inline-block w-full">
+      <div className="md:block hidden">
+        <div
+          className={cn(
+            'md:flex h-9 min-w-[200px] bg-teal-600 rounded-[28px] transition-all',
+            { 'rounded-b-none': isOpen, 'rounded-b-[28px]': !isOpen }
+          )}
         >
-          <ChevronIcon
-            className={cn('size-6 text-white transition-transform', {
-              'rotate-180': !isOpen,
-              'rotate-0': isOpen,
-            })}
-          />
-          <span className="text-white text-center pl-3 truncate max-w-[15ch]">
-            {username}
-          </span>
-        </button>
-        <div className="absolute left-3 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-          {renderAvatar()}
+          <button
+            onClick={toggle}
+            className="flex w-full items-center justify-start px-4"
+          >
+            <ChevronIcon
+              className={cn('size-6 text-white transition-transform', {
+                'rotate-180': !isOpen,
+                'rotate-0': isOpen,
+              })}
+            />
+            <span className="text-white text-center pl-3 truncate max-w-[15ch]">
+              {username}
+            </span>
+          </button>
+          <div className="absolute left-3 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+            {renderAvatar()}
+          </div>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="hidden md:block absolute left-0 top-full mt-[-1px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
-          <ul className="flex flex-col">
-            {items.map((item, idx) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className={cn(
-                    'block w-full py-2 text-center hover:bg-teal-500',
-                    { 'rounded-b-[28px]': idx === items.length - 1 }
-                  )}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="hidden md:block absolute left-0 top-full mt-[-1px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
+        <ul
+          className={cn('flex flex-col transition-all h-0', {
+            'h-[74px]': isOpen,
+          })}
+        >
+          {items.map((item, idx) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                className={cn(
+                  'block w-full py-2 text-center hover:bg-teal-500 text-[14px]',
+                  { 'rounded-b-[28px]': idx === items.length - 1 }
+                )}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <button
         onClick={toggle}
@@ -90,7 +94,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
       </button>
 
       {isOpen && (
-        <div className="md:hidden fixed inset-0 z-30 flex">
+        <div className="md:hidden fixed justify-end inset-0 z-30 flex">
           <div className="w-64 bg-white shadow-lg flex flex-col">
             <div className="flex items-center justify-between p-4">
               <button onClick={toggle} aria-label="Back">
@@ -106,7 +110,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="block px-4 text-sm font-normal py-3 text-teal-600 hover:bg-teal-50 text-start"
+                    className="block px-4 text-[14px] font-normal py-3 text-teal-600 hover:bg-teal-50 text-start"
                   >
                     {item.label}
                   </a>
@@ -114,7 +118,6 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
               ))}
             </ul>
           </div>
-          <div className="flex-1" onClick={toggle} aria-hidden="true" />
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 const routeNames: { [x: string]: string } = {
-  '/': 'داشبورد',
+  '/dashboard': 'داشبورد',
 };
 
 export { routeNames };

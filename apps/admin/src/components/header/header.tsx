@@ -1,8 +1,10 @@
 'use client';
-import { routeNames } from '@/routes';
-import { AiBoxIcon, MenuIcon } from '@aibox/ui';
+import { FC } from 'react';
 
-const Header = () => {
+import { routeNames } from '@/routes';
+import { AiBoxIcon, MenuIcon, ProfileBox } from '@aibox/ui';
+
+const Header: FC = () => {
   const title = routeNames[window.location.pathname];
 
   return (
@@ -16,10 +18,22 @@ const Header = () => {
         <p className="block md:hidden">{title}</p>
       </div>
       <div className="order-3">
-        <p>profile viewer</p>
+        <ProfileBox
+          username="userName"
+          items={[
+            {
+              label: 'پروفایل',
+              href: '/dashboard',
+            },
+            {
+              label: 'خروج از حساب کاربری',
+              href: '/dashboard',
+            },
+          ]}
+        />
       </div>
     </div>
   );
 };
 
-export { Header };
+export default Header;
