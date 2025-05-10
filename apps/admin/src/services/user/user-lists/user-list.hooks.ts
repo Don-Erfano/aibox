@@ -1,23 +1,29 @@
-import { UseQueryOptions } from '@tanstack/react-query';
 import {
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
 } from './interface';
-import UserListsServices from './user-lists.service';
-import { useQuery } from '@/hooks/useQery';
+import { INetworkResponse } from '@aibox/services';
+import UserListsServices from '@/services/user/user-lists/user-lists.service';
+import { useQuery } from '@tanstack/react-query';
 
 const userListsServices = new UserListsServices();
 
-export function useGetUserList(
-  params: IGetUserListRequestPayload,
-  options?: UseQueryOptions<IGetUserListResponsePayload>
-) {
-  return useQuery(
-    ['getUserList', params] as const,
-    async () => {
-      const resp = await userListsServices.getUserList(params);
-      return resp.data.data;
+export const useGetUserList = (params: IGetUserListRequestPayload) => {
+  const query = useQuery<INetworkResponse<IGetUserListResponsePayload>, Error>({
+    queryKey: ['useGetUserList', params],
+    queryFn: async () => {
+      const response = await userListsServices.getUserList(params);
+      return response.data;
     },
-    options
-  );
-}
+  });
+
+  const page = query.data?.data.page_count ?? 0;
+  const total = query.data?.data.total_count ?? 0;
+
+  return {
+    ...query,
+    users: query.data?.data.user ?? [],
+    page,
+    total,
+  };
+};

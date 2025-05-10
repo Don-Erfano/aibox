@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
 import { useSearchParams } from 'next/navigation';
 import tokenColumns from './constant';
@@ -8,17 +8,11 @@ import {
   IGetUserListRequestPayload,
   IUser,
 } from '@/services/user/user-token/interface';
-import { useGetUserAccessTokenList } from '@/services/user/user-token';
+import { useGetAccessTokenList } from '@/services/user/user-token';
 
 const UserTokenTemplate: FC = () => {
   const searchParams = useSearchParams();
   const initialPageSize = Number(searchParams.get('page_size') ?? '10');
-
-  const [tokens, setTokens] = useState<IUser[]>([]);
-  const [total, setTotal] = useState(0);
-  const [pageCount, setPageCount] = useState(
-    () => Math.ceil(total / initialPageSize) || 1
-  );
 
   const {
     table,
@@ -28,9 +22,15 @@ const UserTokenTemplate: FC = () => {
     resetFilters,
     submitFilters,
   } = useDataTable({
-    data: tokens,
+    data: [] as IUser[],
     columns: tokenColumns,
-    pageCount,
+    pageCount: 1,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: initialPageSize,
+      },
+    },
   });
 
   const { pageIndex, pageSize } = table.getState().pagination;
@@ -43,17 +43,18 @@ const UserTokenTemplate: FC = () => {
     [pageIndex, pageSize]
   );
 
-  const { data, isLoading } = useGetUserAccessTokenList(params);
+  const {
+    users: tokens,
+    total,
+    page: pageCount,
+    isLoading,
+  } = useGetAccessTokenList(params);
 
-  useEffect(() => {
-    if (!data) return;
-    setTokens(data.user);
-    setTotal(data.total_count);
-  }, [data]);
-
-  useEffect(() => {
-    setPageCount(pageSize > 0 ? Math.ceil(total / pageSize) : 1);
-  }, [total, pageSize]);
+  table.setOptions((opts) => ({
+    ...opts,
+    data: tokens,
+    pageCount,
+  }));
 
   if (isLoading) return <p>Loading…</p>;
 
@@ -68,7 +69,7 @@ const UserTokenTemplate: FC = () => {
 
       <TableToolbar
         table={table}
-        tableName=" لیست توکن‌ها"
+        tableName="لیست توکن‌ها"
         refreshLoading={isLoading}
         totalItems={total}
         submitFilters={submitFilters}

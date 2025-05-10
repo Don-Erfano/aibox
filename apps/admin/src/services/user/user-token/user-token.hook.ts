@@ -1,23 +1,29 @@
-import { UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
 } from './interface';
-import { useQuery } from '@/hooks/useQery';
-import UserAccessTokenListService from './user-token.service';
+import { INetworkResponse } from '@aibox/services';
+import UserAccessTokenListService from '@/services/user/user-token/user-token.service';
 
-const userAccessTokenListService = new UserAccessTokenListService();
+const userAccessTokenServices = new UserAccessTokenListService();
 
-export function useGetUserAccessTokenList(
-  params: IGetUserListRequestPayload,
-  options?: UseQueryOptions<IGetUserListResponsePayload>
-) {
-  return useQuery(
-    ['getUserAccessTokenList', params] as const,
-    async () => {
-      const resp = await userAccessTokenListService.getAccessTokenList(params);
-      return resp.data.data;
-    },
-    options
-  );
-}
+export const useGetAccessTokenList = (params: IGetUserListRequestPayload) => {
+  const query = useQuery<INetworkResponse<IGetUserListResponsePayload>, Error>({
+    queryKey: ['useGetAccessTokenList', params],
+    queryFn: () =>
+      userAccessTokenServices
+        .getAccessTokenList(params)
+        .then((res) => res.data),
+  });
+
+  const page = query.data?.data.page_count ?? 0;
+  const total = query.data?.data.total_count ?? 0;
+
+  return {
+    ...query,
+    users: query.data?.data.user ?? [],
+    page,
+    total,
+  };
+};
