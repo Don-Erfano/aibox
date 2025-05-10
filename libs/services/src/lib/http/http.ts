@@ -1,17 +1,11 @@
 import HttpClient from './client';
-import {
-  AuthMiddleware,
-  ErrorMiddleware,
-  LoggerMiddleware,
-} from './middlewares';
+import { AuthMiddleware } from './middlewares';
 
-const baseURL = `${process.env[`NEXT_PUBLIC_BASE_URL`]}/}`;
+const baseURL = `${process.env[`NEXT_PUBLIC_BASE_API`]}/`;
 const appClient = new HttpClient({
   baseURL,
 });
 
-appClient.middlewares.add(new LoggerMiddleware());
 appClient.middlewares.add(new AuthMiddleware());
-appClient.middlewares.add(new ErrorMiddleware());
 appClient.boot();
 export { appClient, baseURL };

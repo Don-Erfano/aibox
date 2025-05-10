@@ -1,7 +1,48 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 200;
+  src: url('../fonts/IRANSansXFaNum-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../fonts/IRANSansXFaNum-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/IRANSansXFaNum-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/IRANSansXFaNum-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/IRANSansXFaNum-DemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'iransans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/IRANSansXFaNum-Bold.woff2') format('woff2');
+}
+
+* {
+  font-family: 'iransans';
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -60,7 +101,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.6 0.118 184.704);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -117,4 +158,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+* {
+  direction: rtl;
+  font-family: 'iransans';
 }

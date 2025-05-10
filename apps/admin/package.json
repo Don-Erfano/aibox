@@ -13,6 +13,10 @@
   "devDependencies": {
     "@aibox/services": "workspace:*",
     "@aibox/theme": "workspace:*",
-    "@aibox/ui": "workspace:*"
+    "@aibox/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.5",
+    "tailwindcss": "^4.1.5",
+    "postcss": "^8.5.3",
+    "react-hook-form": "^7.56.2"
   }
 }
