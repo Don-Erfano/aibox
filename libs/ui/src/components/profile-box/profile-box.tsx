@@ -57,12 +57,15 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
           </div>
         </div>
       </div>
-
       <div className="hidden md:block absolute left-0 top-full mt-[-1px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
         <ul
-          className={cn('flex flex-col transition-all h-0 overflow-hidden', {
-            'h-[74px]': isOpen,
-          })}
+          className={cn(
+            'flex flex-col overflow-hidden transition-[max-height] duration-300 ease-in-out',
+            {
+              'max-h-0': !isOpen,
+              'max-h-[74px]': isOpen,
+            }
+          )}
         >
           {items.map((item, idx) => (
             <li key={item.href}>
@@ -95,7 +98,15 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
 
       {isOpen && (
         <div className="md:hidden fixed justify-end inset-0 z-30 flex">
-          <div className="w-64 bg-white shadow-lg flex flex-col">
+          <div
+            className={cn(
+              'w-64 bg-white shadow-lg flex flex-col transform transition-transform duration-300 ease-in-out',
+              {
+                'translate-x-full': !isOpen,
+                'translate-x-0': isOpen,
+              }
+            )}
+          >
             <div className="flex items-center justify-between p-4">
               {renderAvatar()}
               <span className="text-gray-800 text-center p-5 truncate max-w-[25ch]">
