@@ -60,7 +60,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
 
       <div className="hidden md:block absolute left-0 top-full mt-[-1px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
         <ul
-          className={cn('flex flex-col transition-all h-0', {
+          className={cn('flex flex-col transition-all h-0 overflow-hidden', {
             'h-[74px]': isOpen,
           })}
         >
@@ -97,13 +97,13 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
         <div className="md:hidden fixed justify-end inset-0 z-30 flex">
           <div className="w-64 bg-white shadow-lg flex flex-col">
             <div className="flex items-center justify-between p-4">
-              <button onClick={toggle} aria-label="Back">
-                <ChevronIcon className="size-6 rotate-270 text-black" />
-              </button>
+              {renderAvatar()}
               <span className="text-gray-800 text-center p-5 truncate max-w-[25ch]">
                 {username}
               </span>
-              {renderAvatar()}
+              <button onClick={toggle} aria-label="Back">
+                <ChevronIcon className="size-6 rotate-270 text-black" />
+              </button>
             </div>
             <ul className="flex flex-col divide-y divide-teal-600">
               {items.map((item) => (
