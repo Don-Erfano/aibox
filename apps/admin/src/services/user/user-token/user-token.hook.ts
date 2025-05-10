@@ -3,19 +3,19 @@ import {
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
 } from './interface';
-import UserListsServices from './user-lists.service';
 import { useQuery } from '@/hooks/useQery';
+import UserAccessTokenListService from './user-token.service';
 
-const userListsServices = new UserListsServices();
+const userAccessTokenListService = new UserAccessTokenListService();
 
-export function useGetUserList(
+export function useGetUserAccessTokenList(
   params: IGetUserListRequestPayload,
   options?: UseQueryOptions<IGetUserListResponsePayload>
 ) {
   return useQuery(
-    ['getUserList', params] as const,
+    ['getUserAccessTokenList', params] as const,
     async () => {
-      const resp = await userListsServices.getUserList(params);
+      const resp = await userAccessTokenListService.getAccessTokenList(params);
       return resp.data.data;
     },
     options
