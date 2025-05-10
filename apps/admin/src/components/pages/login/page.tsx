@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AiBoxTextIcon, Button, Textfield } from '@aibox/ui';
 
 import { zodSchema } from './constants';
-import { setCookie } from '@/app/utils/action';
+import { setCookie } from '@/utils/action';
 import { useLoginMutation } from '@/services/login';
 
 const LoginPage: FC = () => {

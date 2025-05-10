@@ -55,6 +55,7 @@ export function TableToolbar<TData>({
           {hasSearch && (
             <Button
               variant="ghost"
+              isFilled={false}
               size="sm"
               onClick={() =>
                 setShowSearchInput((toggleSearchInput) => !toggleSearchInput)

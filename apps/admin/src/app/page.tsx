@@ -1,5 +1,5 @@
-import { theme } from '@aibox/theme';
 import Link from 'next/link';
+import { theme } from '@aibox/theme';
 // import { useQuery } from '@/hooks/useQuery';
 
 export default function Index() {

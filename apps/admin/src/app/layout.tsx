@@ -1,5 +1,4 @@
 import './global.css';
-import '@aibox/ui/index.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import { Notifications } from '@/components/notification/Notifications';

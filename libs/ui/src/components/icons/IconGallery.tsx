@@ -17,6 +17,7 @@ import {
   EditIcon,
   AiBoxTextIcon,
   AiBoxIcon,
+  PersonIcon,
 } from './index';
 
 type IconEntry = {
@@ -68,6 +69,7 @@ const IconGallery: FC = () => {
     { Component: FileCopyIcon, name: 'FileCopyIcon' },
     { Component: AiBoxTextIcon, name: 'AiBoxTextIcon' },
     { Component: AiBoxIcon, name: 'AIBoxIcon' },
+    { Component: PersonIcon, name: 'PersonIcon' },
   ];
 
   return (
