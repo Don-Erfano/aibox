@@ -1,8 +1,8 @@
 'use client';
 import { useCallback } from 'react';
 import { Input } from '../../input';
-import { TableFiltersFormProps } from '../types';
 import { cn } from '../../../lib';
+import { TableFiltersFormProps } from '../types';
 
 export function TableFiltersForm<TData>({
   column,

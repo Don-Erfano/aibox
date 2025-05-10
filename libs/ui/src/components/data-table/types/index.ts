@@ -25,19 +25,6 @@ export interface UseTableFiltersProps<TData> {
   ) => Promise<URLSearchParams>;
 }
 
-export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
-  table: TanstackTable<TData>;
-  refreshLoading: boolean;
-  tableName?: string;
-  totalItems: number;
-  hasSearch?: boolean;
-  submitFilters: () => void;
-  resetFilters: () => void;
-  removeFilter: (key: string) => void;
-  activeFilterChips: FilterChips;
-  filterCount: number;
-}
-
 export interface FilterChipsBarProps {
   chips: FilterChips;
   onRemove: (key: string) => void;
@@ -113,10 +100,6 @@ export interface UseTableProps<TData>
 
 export interface TableViewOptionsProps<TData> {
   table: Table<TData>;
-}
-
-export interface TableFiltersFormProps<TData> {
-  column: Column<TData>;
 }
 
 export type CustomAction<T> = {
