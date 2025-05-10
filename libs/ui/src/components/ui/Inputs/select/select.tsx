@@ -2,8 +2,8 @@
 import { FC, useState } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { SelectProps } from './interface';
-import { cn } from '../../../../lib/utils';
 import { CheckIcon, ChevronIcon } from '../../../icons';
+import { cn } from '../../../../lib';
 
 const Select: FC<SelectProps> = ({
   options,
@@ -32,7 +32,6 @@ const Select: FC<SelectProps> = ({
       >
         <RadixSelect.Trigger
           disabled={disabled || readOnly}
-          dir="rtl"
           className={cn(
             'flex items-center justify-between w-70 text-sm',
             'border-1 rounded-lg border-gray-900',
@@ -60,7 +59,6 @@ const Select: FC<SelectProps> = ({
 
         <RadixSelect.Portal>
           <RadixSelect.Content
-            dir="rtl"
             position="popper"
             side="bottom"
             align="start"
@@ -107,7 +105,6 @@ const Select: FC<SelectProps> = ({
 
       {helperText && (
         <p
-          dir="rtl"
           className={cn(
             'mt-1 mr-1 text-xs',
             error ? 'text-red-600' : 'text-gray-500'

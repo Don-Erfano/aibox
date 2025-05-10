@@ -1,9 +1,6 @@
 export * from './lib';
 export * as style from './global.css';
-export * from './lib/ui';
-export * from './components/ui/button';
-export { default as Select } from './components/ui/Inputs/Select';
-export * from './components/ui/Inputs/Select';
+export * from './components/ui/Inputs/select';
 export * from './components/icons';
 export * from './components/inputs';
 export * from './components/button';
@@ -16,7 +13,6 @@ export * from './components/popover';
 export * from './components/dropdown-menu';
 export * from './components/input';
 export * from './components/label';
-export * from './components/select';
 export * from './components/command';
 export * from './components/data-table';
 export * from './components/accordion';
