@@ -17,3 +17,4 @@ export * from './components/command';
 export * from './components/data-table';
 export * from './components/accordion';
 export * from './components/profile-box';
+export * from './components/boxes/status-box';

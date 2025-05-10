@@ -1,5 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
+import { StatusBox } from '@aibox/ui';
+import { AdminBox } from '@/components/boxes/admin-box';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -57,14 +59,24 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'وضعیت',
     accessorKey: 'is_active',
     id: 'is_active',
-    cell: ({ getValue }) => ((getValue() as boolean) ? '✅فعال' : '❌غیر فعال'),
+    cell: ({ getValue }) =>
+      (getValue() as boolean) ? (
+        <StatusBox isActive />
+      ) : (
+        <StatusBox isActive={false} />
+      ),
     meta: { label: 'Is Active' },
   },
   {
     header: 'دسترسی',
     accessorKey: 'is_admin',
     id: 'is_admin',
-    cell: ({ getValue }) => ((getValue() as boolean) ? '✅ادمین' : 'کاربر'),
+    cell: ({ getValue }) =>
+      (getValue() as boolean) ? (
+        <AdminBox isAdmin />
+      ) : (
+        <AdminBox isAdmin={false} />
+      ),
     meta: { label: 'Is Admin' },
   },
 ];

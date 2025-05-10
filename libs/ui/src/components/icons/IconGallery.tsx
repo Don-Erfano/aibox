@@ -18,6 +18,7 @@ import {
   AiBoxTextIcon,
   AiBoxIcon,
   PersonIcon,
+  AdminIcon,
 } from './index';
 
 type IconEntry = {
@@ -70,6 +71,7 @@ const IconGallery: FC = () => {
     { Component: AiBoxTextIcon, name: 'AiBoxTextIcon' },
     { Component: AiBoxIcon, name: 'AIBoxIcon' },
     { Component: PersonIcon, name: 'PersonIcon' },
+    { Component: AdminIcon, name: 'AdminIcon' },
   ];
 
   return (
