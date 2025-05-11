@@ -1,29 +1,39 @@
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import UserListsServices from '@/services/user/user-lists/user-lists.service';
 import {
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
-} from './interface';
-import { INetworkResponse } from '@aibox/services';
-import UserListsServices from '@/services/user/user-lists/user-lists.service';
-import { useQuery } from '@tanstack/react-query';
+  IUser,
+} from '@/services/user/user-lists/interface';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 const userListsServices = new UserListsServices();
 
-export const useGetUserList = (params: IGetUserListRequestPayload) => {
-  const query = useQuery<INetworkResponse<IGetUserListResponsePayload>, Error>({
-    queryKey: ['useGetUserList', params],
-    queryFn: async () => {
-      const response = await userListsServices.getUserList(params);
-      return response.data;
+export const useGetUserList = () => {
+  const allQueryParams = useQueryParams();
+
+  let totalPages = 0;
+  let totalItems = 0;
+  const { data: users = [], isLoading } = useQuery<
+    IGetUserListResponsePayload,
+    Error,
+    IUser[]
+  >({
+    queryKey: ['userList', allQueryParams],
+    queryFn: async ({ queryKey }) => {
+      const { page, ...params } = queryKey[1] as IGetUserListRequestPayload;
+      const queryParams: IGetUserListRequestPayload = { page: page, ...params };
+
+      const response = await userListsServices.getUserList(queryParams);
+      return response.data.data;
     },
+    select: (payload) => {
+      totalPages = payload.page_count;
+      totalItems = payload.total_count;
+      return payload.user;
+    },
+    placeholderData: keepPreviousData,
   });
 
-  const page = query.data?.data.page_count ?? 0;
-  const total = query.data?.data.total_count ?? 0;
-
-  return {
-    ...query,
-    users: query.data?.data.user ?? [],
-    page,
-    total,
-  };
+  return { users, totalItems, totalPages, isLoading };
 };

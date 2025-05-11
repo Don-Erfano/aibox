@@ -1,8 +1,8 @@
 'use client';
 
 import { NextPage } from 'next';
-import { UserListTemplate } from '@/components/Template/user-list-template';
+import { UserListPage } from '@/components/pages/user-list';
 
-const UserList: NextPage = () => <UserListTemplate />;
+const UserList: NextPage = () => <UserListPage />;
 
 export default UserList;

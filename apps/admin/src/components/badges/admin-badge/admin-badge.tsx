@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { AdminBoxStatusProps } from './interface';
 import { AdminIcon } from '@aibox/ui';
 
-const AdminBoxStatus: FC<AdminBoxStatusProps> = ({ isAdmin }) => {
+const AdminBadge: FC<AdminBoxStatusProps> = ({ isAdmin }) => {
   return (
     <div className=" flex items-center space-x-2 text-sm">
       {isAdmin ? (
@@ -16,4 +16,4 @@ const AdminBoxStatus: FC<AdminBoxStatusProps> = ({ isAdmin }) => {
     </div>
   );
 };
-export default AdminBoxStatus;
+export default AdminBadge;

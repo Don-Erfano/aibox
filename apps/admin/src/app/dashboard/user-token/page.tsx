@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { UserTokenTemplate } from '@/components/Template/user-token-template';
+import { UserTokenPage } from '@/components/pages/user-token';
 
-const UserToken: NextPage = () => <UserTokenTemplate />;
+const UserToken: NextPage = () => <UserTokenPage />;
 export default UserToken;

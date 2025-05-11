@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import {
-  IGetUserListRequestPayload,
-  IGetUserListResponsePayload,
+  IGetUserTokenRequestPayload,
+  IGetUserTokenResponsePayload,
 } from './interface';
 
 export default class UserAccessTokenListService extends AbstractAPI {
@@ -11,8 +11,8 @@ export default class UserAccessTokenListService extends AbstractAPI {
   }
 
   public async getAccessTokenList(
-    params: IGetUserListRequestPayload
-  ): Promise<AxiosResponse<INetworkResponse<IGetUserListResponsePayload>>> {
+    params: IGetUserTokenRequestPayload
+  ): Promise<AxiosResponse<INetworkResponse<IGetUserTokenResponsePayload>>> {
     return await this.http.request({
       method: 'GET',
       url: `${this.url}/`,

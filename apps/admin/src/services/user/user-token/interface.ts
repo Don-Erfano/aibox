@@ -1,6 +1,6 @@
 import { IPaginationMeta } from '@aibox/services';
 
-export interface IUser {
+export interface IUserToken {
   id: string;
   email: string;
   domain: string;
@@ -12,7 +12,7 @@ export interface IUser {
   expires: string;
 }
 
-export interface IGetUserListRequestPayload {
+export interface IGetUserTokenRequestPayload {
   email?: string;
   first_name?: string;
   last_name?: string;
@@ -23,6 +23,6 @@ export interface IGetUserListRequestPayload {
   ordering?: string;
 }
 
-export interface IGetUserListResponsePayload extends IPaginationMeta {
-  user: IUser[];
+export interface IGetUserTokenResponsePayload extends IPaginationMeta {
+  user: IUserToken[];
 }

@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { StatusBox } from '@aibox/ui';
-import { AdminBox } from '@/components/boxes/admin-box';
+import { AdminBadge } from '@/components/badges/admin-badge';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -26,26 +26,28 @@ const userColumns: ColumnDef<IUser>[] = [
         </div>
       );
     },
-    meta: { label: 'Full Name' },
+    enableColumnFilter: true,
+    meta: { label: 'Full Name', variant: 'text' },
   },
   {
     header: 'نام مستعار',
     accessorKey: 'nickname',
     id: 'nickname',
-    meta: { label: 'Nickname' },
+    meta: { label: 'Nickname', variant: 'text' },
   },
   {
     header: 'Email',
     accessorKey: 'email',
     id: 'email',
-    meta: { label: 'Email' },
+    enableColumnFilter: true,
+    meta: { label: 'Email', variant: 'text' },
   },
   {
     header: 'تاریخ عضویت',
     accessorKey: 'created_at',
     id: 'created_at',
     cell: ({ getValue }) => new Date(getValue() as string).toLocaleString(),
-    meta: { label: 'Created At' },
+    meta: { label: 'Created At', variant: 'date' },
   },
   {
     header: 'آخرین دسترسی',
@@ -53,7 +55,7 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'last_login',
     cell: ({ getValue }) =>
       getValue() ? new Date(getValue() as string).toLocaleString() : '—',
-    meta: { label: 'Last Login' },
+    meta: { label: 'Last Login', variant: 'date' },
   },
   {
     header: 'وضعیت',
@@ -65,7 +67,7 @@ const userColumns: ColumnDef<IUser>[] = [
       ) : (
         <StatusBox isActive={false} />
       ),
-    meta: { label: 'Is Active' },
+    meta: { label: 'Is Active', variant: 'select' },
   },
   {
     header: 'دسترسی',
@@ -73,11 +75,11 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'is_admin',
     cell: ({ getValue }) =>
       (getValue() as boolean) ? (
-        <AdminBox isAdmin />
+        <AdminBadge isAdmin />
       ) : (
-        <AdminBox isAdmin={false} />
+        <AdminBadge isAdmin={false} />
       ),
-    meta: { label: 'Is Admin' },
+    meta: { label: 'Is Admin', variant: 'select' },
   },
 ];
 export default userColumns;
