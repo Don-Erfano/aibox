@@ -12,6 +12,6 @@
     "types": ["node"],
     "lib": ["DOM"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/lib/endpoint/auth/auth.hook.ts"],
   "references": []
 }

@@ -1,0 +1,40 @@
+import { IPaginationMeta } from '@aibox/services';
+
+export interface IUser {
+  id: string;
+  email: string;
+  gender: 'M' | 'F' | 'U';
+  created_at: string;
+  domain: string;
+  phone_number: string;
+  nickname: string;
+  first_name: string;
+  last_name: string;
+  profile_picture: string;
+  last_login: string;
+  is_admin: boolean;
+  is_active: boolean;
+  email_verified: boolean;
+  phone_verified: boolean;
+  is_staff: boolean;
+}
+
+export interface IGetUserListRequestPayload {
+  email?: string;
+  nickname?: string;
+  domain?: string;
+  last_login__gte?: string;
+  last_login__lte?: string;
+  created_at__gte?: string;
+  created_at__lte?: string;
+  is_active?: boolean;
+  is_admin?: boolean;
+  page?: number;
+  page_size?: number;
+  search?: string;
+  ordering?: string;
+}
+
+export interface IGetUserListResponsePayload extends IPaginationMeta {
+  user: IUser[];
+}
