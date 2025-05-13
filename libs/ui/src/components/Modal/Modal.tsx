@@ -35,7 +35,7 @@ export const Modal: FC<ModalProps> = ({
         >
           <div
             className={clsx(
-              'bg-teal-600 border-0 p-3 text-black rounded-t-md relative flex items-center',
+              'bg-teal-600 border-0 p-4 text-black rounded-t-md relative flex items-center',
               {
                 'h-20 justify-center': headerIcon,
                 'justify-between': !headerIcon,
@@ -46,7 +46,7 @@ export const Modal: FC<ModalProps> = ({
               <>
                 <DialogPrimitive.Close asChild>
                   <div className="absolute left-3 top-5 -translate-y-1/2 cursor-pointer">
-                    <CloseIcon className="text-neutral-300 hover:text-white transition-colors duration-300" />
+                    <CloseIcon className="text-neutral-300 hover:text-white cursor-pointer" />
                   </div>
                 </DialogPrimitive.Close>
 
@@ -60,7 +60,7 @@ export const Modal: FC<ModalProps> = ({
                   {title}
                 </DialogPrimitive.Title>
                 <DialogPrimitive.Close asChild>
-                  <CloseIcon className="text-neutral-300 hover:text-white transition-colors duration-300" />
+                  <CloseIcon className="text-neutral-300 hover:text-white cursor-pointer" />
                 </DialogPrimitive.Close>
               </>
             )}
