@@ -1,35 +1,25 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Mail } from 'lucide-react';
 
-import { Button } from '../buttons';
-import { ModalProps } from './interface';
-import useModal from './Modal';
+import { Button } from '../button';
+import { Modal } from './Modal';
 
-const ModalPreview = (props: ModalProps) => {
-  const { Modal, setOpen } = useModal();
-
-  return (
-    <>
-      <Button onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal {...props}>
-        <p>می‌توانید محتوای خود را در این بخش قرار دهید.</p>
-      </Modal>
-    </>
-  );
-};
-
-const meta: Meta<typeof ModalPreview> = {
+const meta: Meta<typeof Modal> = {
   title: 'Modal',
-  component: ModalPreview,
+  component: Modal,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ModalPreview>;
+type Story = StoryObj<typeof Modal>;
 
-export const Default: Story = {
+export const General: Story = {
   args: {
-    title: 'Modal Title',
-    headerIcon: <Mail className="size-24" />,
+    title: 'عنوان مدال',
+    trigger: <Button>Open Modal</Button>,
+    headerIcon: (
+      <Mail className="bg-slate-400 w-[220px] h-[168px] rounded-sm" />
+    ),
+    children: <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>,
   },
 };

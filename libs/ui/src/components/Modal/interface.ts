@@ -1,5 +1,11 @@
+import { ReactNode } from 'react';
+
 export interface ModalProps {
   title: string;
-  headerIcon: React.ReactNode;
-  onClose: () => void;
+  headerIcon?: ReactNode;
+  trigger?: ReactNode;
+  children: ReactNode;
+  onClose?: () => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
