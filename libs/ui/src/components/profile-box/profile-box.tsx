@@ -109,7 +109,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
           >
             <div className="flex items-center  py-4">
               <div className="pr-4">{renderAvatar()}</div>
-              <span className="text-gray-800 text-center pr-4 font-normal text-[14px] truncate max-w-[25ch]">
+              <span className="text-gray-800 text-center pr-2 font-normal text-[14px] truncate max-w-[25ch]">
                 {username}
               </span>
               <div className="absolute left-2 top-[25px]">
@@ -120,7 +120,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
             </div>
             <ul className="flex flex-col divide-y divide-teal-600/32">
               {items.map((item) => (
-                <li key={item.href}>
+                <li className="h-[56px]" key={item.href}>
                   <a
                     href={item.href}
                     className="block px-4 text-[14px] font-normal py-3 text-teal-600  text-start"
