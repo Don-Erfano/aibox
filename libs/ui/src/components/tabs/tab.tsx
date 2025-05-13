@@ -1,13 +1,20 @@
+'use client';
+
 import { TabProps } from './types';
 import { TabTitle } from './components/tab-title';
 import { Tabs } from './components/tabs';
 import { TabsList } from './components/tab-list';
 import { TabsTrigger } from './components/tabs-trigger';
 import { TabsContent } from './components/tabs-content';
+import { useQueryState } from 'nuqs';
 
 export default function Tab({ tabs }: TabProps) {
+  const [tabId, setTabId] = useQueryState('tab');
+  const defaultTabId = tabId || tabs[0].id;
+  console.log(tabId);
+
   return (
-    <Tabs defaultValue={tabs[0].id}>
+    <Tabs defaultValue={defaultTabId} onValueChange={setTabId}>
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger

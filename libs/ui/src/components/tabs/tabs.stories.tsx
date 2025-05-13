@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Tab from './tab';
 
+import { NuqsAdapter } from 'nuqs/adapters/react';
+
 const meta: Meta<typeof Tab> = {
   component: Tab,
   title: 'Tab',
@@ -9,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof Tab>;
 
-export const Main: Story = {
+export const Preview: Story = {
   args: {
     tabs: [
       {
@@ -40,4 +42,11 @@ export const Main: Story = {
       { name: 'توکن', id: '6', content: '', isDisabled: true },
     ],
   },
+  decorators: [
+    (Story) => (
+      <NuqsAdapter>
+        <Story />
+      </NuqsAdapter>
+    ),
+  ],
 };
