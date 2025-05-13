@@ -21,14 +21,16 @@ export default function Tab({ tabs }: TabProps) {
             key={tab.id}
             value={tab.id}
             disabled={tab.isDisabled}
-            className={`${tab.isDisabled ? 'cursor-def' : 'cursor-pointer'} `}
+            className={`${
+              tab.isDisabled ? 'cursor-default' : 'cursor-pointer'
+            } `}
           >
             <TabTitle
               className={`
                 ${
                   tab.isDisabled
                     ? 'text-gray-400'
-                    : 'hover:text-teal-600 text-gray-500'
+                    : 'hover:text-teal-600 text-zinc-600'
                 }`}
             >
               {tab.name}
