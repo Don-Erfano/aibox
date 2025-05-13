@@ -19,7 +19,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
       <div
         className={cn(
           'rounded-full',
-          'border-teal-600 border-2',
+          'border-teal-600 border-1',
           'bg-gray-100',
           'flex-shrink-0',
           'flex items-center justify-center'
@@ -40,7 +40,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
         >
           <button
             onClick={toggle}
-            className="flex w-full items-center justify-start px-4"
+            className="flex w-full items-center justify-start px-2"
           >
             <ChevronIcon
               className={cn('size-6 text-white transition-transform', {
@@ -48,7 +48,7 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
                 'rotate-0': isOpen,
               })}
             />
-            <span className="text-white text-center pl-3 truncate max-w-[15ch]">
+            <span className="text-white text-start font-normal text-[14px] px-1 z-100 truncate max-w-[20ch]">
               {username}
             </span>
           </button>
@@ -57,13 +57,13 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
           </div>
         </div>
       </div>
-      <div className="hidden md:block absolute left-0 top-full mt-[-1px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
+      <div className="hidden md:block absolute left-0  top-full mt-[-11.5px] w-full bg-teal-600 rounded-b-[28px] text-white z-10">
         <ul
           className={cn(
-            'flex flex-col overflow-hidden transition-[max-height] duration-300 ease-in-out',
+            'flex flex-col  overflow-hidden transition-[max-height] duration-300 ease-in-out',
             {
               'max-h-0': !isOpen,
-              'max-h-[74px]': isOpen,
+              'min-h-[74px] mb-2 mt-5': isOpen,
             }
           )}
         >
@@ -72,8 +72,8 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
               <a
                 href={item.href}
                 className={cn(
-                  'block w-full py-2 text-center hover:bg-teal-500 text-[14px]',
-                  { 'rounded-b-[28px]': idx === items.length - 1 }
+                  'block h-auto w-full py-2 text-center hover:bg-teal-500/50 text-[14px]',
+                  { 'rounded-b-[16px]': idx === items.length - 1 }
                 )}
               >
                 {item.label}
@@ -107,21 +107,23 @@ const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
               }
             )}
           >
-            <div className="flex items-center justify-between p-4">
-              {renderAvatar()}
-              <span className="text-gray-800 text-center p-5 truncate max-w-[25ch]">
+            <div className="flex items-center  py-4">
+              <div className="pr-4">{renderAvatar()}</div>
+              <span className="text-gray-800 text-center pr-4 font-normal text-[14px] truncate max-w-[25ch]">
                 {username}
               </span>
-              <button onClick={toggle} aria-label="Back">
-                <ChevronIcon className="size-6 rotate-270 text-black" />
-              </button>
+              <div className="absolute left-2 top-[25px]">
+                <button onClick={toggle} aria-label="Back">
+                  <ChevronIcon className="size-6 rotate-270 text-black" />
+                </button>
+              </div>
             </div>
-            <ul className="flex flex-col divide-y divide-teal-600">
+            <ul className="flex flex-col divide-y divide-teal-600/32">
               {items.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="block px-4 text-[14px] font-normal py-3 text-teal-600 hover:bg-teal-50 text-start"
+                    className="block px-4 text-[14px] font-normal py-3 text-teal-600  text-start"
                   >
                     {item.label}
                   </a>
