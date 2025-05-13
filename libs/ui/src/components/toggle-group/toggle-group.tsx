@@ -42,7 +42,7 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
   return (
     <div ref={containerRef} className="relative w-fit">
       <ToggleGroupPrimitive.Root
-        className="border border-slate-800 rounded-[10px] py-px px-[0.5px] flex gap-1 relative"
+        className="border border-zinc-800 rounded-[10px] py-px px-[0.5px] flex gap-1 relative"
         type="single"
         value={selected}
         onValueChange={(value) => setSelected(value)}
