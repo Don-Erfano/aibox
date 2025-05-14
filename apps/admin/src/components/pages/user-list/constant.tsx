@@ -33,6 +33,7 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام مستعار',
     accessorKey: 'nickname',
     id: 'nickname',
+    enableColumnFilter: true,
     meta: { label: 'Nickname', variant: 'text' },
   },
   {

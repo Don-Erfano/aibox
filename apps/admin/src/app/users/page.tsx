@@ -81,14 +81,12 @@ export default function UsersPage() {
       <TableToolbar
         title="کاربران"
         totalItems={total}
-        hideActiveButtons={false}
-        hideActions={[]}
         table={table}
         resetFilters={resetFilters}
         submitFilters={submitFilters}
         filterCount={filterCount}
         refreshLoading={false}
-        queryKey="users"
+        viewModeButtons
       />
       <DataTable table={table} />
     </div>
