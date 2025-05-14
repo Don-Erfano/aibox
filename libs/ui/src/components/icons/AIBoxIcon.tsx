@@ -1,6 +1,7 @@
-import { FC, SVGProps } from 'react';
+import { FC } from 'react';
+import { ISvgIconProps } from './interface';
 
-const AiBoxIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+const AiBoxIcon: FC<ISvgIconProps> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="40"
