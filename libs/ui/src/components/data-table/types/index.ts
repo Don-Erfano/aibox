@@ -12,6 +12,7 @@ import { FilterItemSchema } from '../lib/parsers';
 import { Dispatch, SetStateAction } from 'react';
 import { DataTableConfig } from '../constant';
 import { Options } from 'nuqs';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
 export interface UseTableFiltersProps<TData> {
   table: Table<TData>;
@@ -153,4 +154,78 @@ export interface DataTableRowAction<TData> {
 
 export interface TableActionBarSelectionProps<TData> {
   table: Table<TData>;
+}
+
+export const ToolbarButton = {
+  FILTER: 'filter',
+  REFRESH: 'refresh',
+  COLUMNS: 'columns',
+  CHART: 'chart',
+  TABLE: 'table',
+} as const;
+
+export type ToolbarButtonType =
+  (typeof ToolbarButton)[keyof typeof ToolbarButton];
+
+export type ViewModeButton = Extract<ToolbarButtonType, 'chart' | 'table'>;
+export type ChipButton = Extract<ToolbarButtonType, 'filter' | 'columns'>;
+export type ActionButton = Extract<
+  ToolbarButtonType,
+  'filter' | 'columns' | 'refresh'
+>;
+
+export type FilterEnabledProps = {
+  noFilter?: false;
+  filterCount: number;
+  submitFilters: () => void;
+  resetFilters: () => void;
+};
+
+export type FilterProps =
+  | {
+      noFilter?: false;
+      filterCount: number;
+      submitFilters: () => void;
+      resetFilters: () => void;
+    }
+  | {
+      noFilter: true;
+    };
+
+export type ManageColumnsProps =
+  | {
+      noManageColumns?: false;
+      reorderedColumnCount: number;
+    }
+  | {
+      noManageColumns: true;
+    };
+
+export type TableToolbarProps<TData> = FilterProps &
+  ManageColumnsProps & {
+    title: string;
+    totalItems: number;
+    table: Table<TData>;
+    refetch: (
+      options?: RefetchOptions
+    ) => Promise<QueryObserverResult<TData[], Error>>;
+    refreshLoading: boolean;
+    viewModeButtons?: boolean;
+  };
+
+export interface FilterFormProps<TData> {
+  onSubmit: () => void;
+  columns: Column<TData>[];
+  open: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  onClose?: () => void;
+}
+
+export interface TableFiltersFormProps<TData> {
+  column: Column<TData>;
+}
+
+export interface ToolbarChipProps {
+  number: number;
+  onIconClick: () => void;
 }
