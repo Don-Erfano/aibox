@@ -1,11 +1,5 @@
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react';
-import {
-  Control,
-  FieldValues,
-  Path,
-  PathValue,
-  RegisterOptions,
-} from 'react-hook-form';
+import { FieldValues, Path, PathValue, RegisterOptions } from 'react-hook-form';
 
 interface IBaseTextfieldProps
   extends Omit<
@@ -17,6 +11,7 @@ interface IBaseTextfieldProps
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
   direction?: 'rtl' | 'ltr';
+  label?: string;
 }
 
 interface IRhfTextfieldProps<TField extends FieldValues>

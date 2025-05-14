@@ -27,3 +27,14 @@ export const Bulk: Story = {
     endAdornment: <>end</>,
   },
 };
+
+export const WithLabel: Story = {
+  args: {
+    placeholder: 'placeholder',
+    startAdornment: <>start</>,
+    label: 'label',
+    endAdornment: <>end</>,
+    variant: 'dense',
+    error: undefined,
+  },
+};

@@ -7,7 +7,15 @@ import { Eye, EyeOff } from 'lucide-react';
 
 const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
   (
-    { variant, startAdornment, endAdornment, error, direction, ...props },
+    {
+      variant,
+      startAdornment,
+      endAdornment,
+      error,
+      direction,
+      label,
+      ...props
+    },
     ref
   ) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +34,10 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
     };
 
     return (
-      <div className="relative w-full" ref={ref}>
+      <div className="relative w-full flex flex-col gap-2" ref={ref}>
+        {label ? (
+          <span className="text-gray-500 text-sm font-normal">{label}</span>
+        ) : null}
         <div
           className={textfieldWrapperClassNames({ variant, error: !!error })}
           onClick={focusInput}
