@@ -1,12 +1,8 @@
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { Root } from '@radix-ui/react-tabs';
 import { TabsPropsWithoutClassName } from '../types';
 
-export function Tabs({ ...props }: TabsPropsWithoutClassName) {
+export const Tabs: React.FC<TabsPropsWithoutClassName> = ({ ...props }) => {
   return (
-    <TabsPrimitive.Root
-      data-slot="tabs"
-      className="flex flex-col gap-2 w-full "
-      {...props}
-    />
+    <Root data-slot="tabs" className="flex flex-col gap-2 w-full " {...props} />
   );
-}
+};

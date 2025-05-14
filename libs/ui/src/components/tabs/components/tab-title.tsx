@@ -1,15 +1,13 @@
-import { cn } from '../../../lib';
 import { TabTitleProps } from '../types';
 
-export function TabTitle({ children, className }: TabTitleProps) {
+export const TabTitle: React.FC<TabTitleProps> = ({ children, disabled }) => {
   return (
     <p
-      className={cn(
-        'rounded-sm group-focus:text-teal-600 group-data-[state=active]:text-teal-600  text-base font-medium inline-block whitespace-nowrap truncate text-ellipsis max-w-full',
-        className
-      )}
+      className={` group-focus:text-teal-600 group-data-[state=active]:text-teal-600 text-base font-medium inline-block whitespace-nowrap truncate text-ellipsis  ${
+        disabled ? 'text-gray-400' : 'hover:text-teal-600 text-zinc-600'
+      }`}
     >
       {children}
     </p>
   );
-}
+};

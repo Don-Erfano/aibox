@@ -1,12 +1,14 @@
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { List } from '@radix-ui/react-tabs';
 import { TabsListPropsWithoutClassName } from '../types';
 
-export function TabsList({ ...props }: TabsListPropsWithoutClassName) {
+export const TabsList: React.FC<TabsListPropsWithoutClassName> = ({
+  ...props
+}) => {
   return (
-    <TabsPrimitive.List
+    <List
       data-slot="tabs-list"
-      className="flex  items-center  w-full p-0   border-b-[2.5px]  border-b-gray-100  justify-start  gap-4 lg:gap-6 "
+      className="flex items-center w-full border-b-[2.5px] border-b-gray-100 gap-4 lg:gap-6 "
       {...props}
     />
   );
-}
+};

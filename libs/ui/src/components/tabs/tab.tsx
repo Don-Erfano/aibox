@@ -1,40 +1,24 @@
-'use client';
-
-import { TabProps } from './types';
-import { TabTitle } from './components/tab-title';
-import { Tabs } from './components/tabs';
-import { TabsList } from './components/tab-list';
-import { TabsTrigger } from './components/tabs-trigger';
-import { TabsContent } from './components/tabs-content';
 import { useQueryState } from 'nuqs';
 
-export default function Tab({ tabs }: TabProps) {
+import { TabProps } from './types';
+import {
+  TabTitle,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from './components';
+
+const Tab: React.FC<TabProps> = ({ tabs }) => {
   const [tabId, setTabId] = useQueryState('tab');
   const defaultTabId = tabId || tabs[0].id;
-  console.log(tabId);
 
   return (
     <Tabs defaultValue={defaultTabId} onValueChange={setTabId}>
       <TabsList>
         {tabs.map((tab) => (
-          <TabsTrigger
-            key={tab.id}
-            value={tab.id}
-            disabled={tab.isDisabled}
-            className={`${
-              tab.isDisabled ? 'cursor-default' : 'cursor-pointer'
-            } `}
-          >
-            <TabTitle
-              className={`
-                ${
-                  tab.isDisabled
-                    ? 'text-gray-400'
-                    : 'hover:text-teal-600 text-zinc-600'
-                }`}
-            >
-              {tab.name}
-            </TabTitle>
+          <TabsTrigger key={tab.id} value={tab.id} disabled={tab.isDisabled}>
+            <TabTitle disabled={tab.isDisabled}>{tab.name}</TabTitle>
           </TabsTrigger>
         ))}
       </TabsList>
@@ -46,4 +30,5 @@ export default function Tab({ tabs }: TabProps) {
       ))}
     </Tabs>
   );
-}
+};
+export default Tab;

@@ -1,7 +1,6 @@
+import { NuqsAdapter } from 'nuqs/adapters/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Tab from './tab';
-
-import { NuqsAdapter } from 'nuqs/adapters/react';
 
 const meta: Meta<typeof Tab> = {
   component: Tab,

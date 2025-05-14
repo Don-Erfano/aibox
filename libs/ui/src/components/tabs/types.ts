@@ -1,4 +1,10 @@
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { PropsWithChildren } from 'react';
+import {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+} from '@radix-ui/react-tabs';
 
 export interface Tab {
   name: string;
@@ -11,30 +17,20 @@ export interface TabProps {
   tabs: Tab[];
 }
 
-export interface TabTitleProps {
-  children: React.ReactNode;
-  className?: string;
-}
+export type TabTitleProps = PropsWithChildren<{
+  disabled?: boolean;
+}>;
 
-type TabsPrimitiveRootProps = React.ComponentProps<typeof TabsPrimitive.Root>;
-
-export type TabsPropsWithoutClassName = Omit<
-  TabsPrimitiveRootProps,
-  'className'
->;
-
-type TabsTriggerPrimitiveRootProps = React.ComponentProps<
-  typeof TabsPrimitive.Trigger
->;
+export type TabsPropsWithoutClassName = Omit<TabsProps, 'className'>;
 
 export type TabsTriggerPropsWithoutClassName = Omit<
-  TabsTriggerPrimitiveRootProps,
+  TabsTriggerProps,
   'className'
 >;
 
-type TabsPrimitiveListProps = React.ComponentProps<typeof TabsPrimitive.List>;
+export type TabsListPropsWithoutClassName = Omit<TabsListProps, 'className'>;
 
-export type TabsListPropsWithoutClassName = Omit<
-  TabsPrimitiveListProps,
+export type TabsContentPropsWithoutClassName = Omit<
+  TabsContentProps,
   'className'
 >;
