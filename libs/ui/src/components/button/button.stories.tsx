@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Button from './Button';
+import Button from './button';
+import { Mail } from 'lucide-react';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -33,6 +34,16 @@ export const Outlined: Story = {
     children: 'ChevronDown',
     variant: 'outline',
     size: 'sm',
+    isFilled: false,
+    disabled: false,
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    children: <Mail />,
+    variant: 'secondary',
+    size: 'icon',
     isFilled: false,
     disabled: false,
   },

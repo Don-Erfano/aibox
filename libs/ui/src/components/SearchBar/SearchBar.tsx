@@ -38,7 +38,7 @@ export const SearchBar = (props: SearchBarProps) => {
             <Button
               size="icon"
               variant="ghost"
-              className="!size-5 absolute border-0 left-3 top-2 z-10 items-center justify-center p-0 disabled:cursor-not-allowed"
+              className="!size-6 absolute !bg-white border-0 left-2 top-2 z-10 items-center justify-center p-0 disabled:cursor-not-allowed"
               disabled={!hasValue}
               onClick={() => hasValue && onValueChange('')}
             >
@@ -50,12 +50,20 @@ export const SearchBar = (props: SearchBarProps) => {
             </Button>
           </div>
 
-          <Button size="icon" variant="ghost" onClick={() => toggleOpen(false)}>
+          <Button
+            size="icon"
+            variant="secondary"
+            onClick={() => toggleOpen(false)}
+          >
             <ChevronLeftIcon />
           </Button>
         </div>
       ) : (
-        <Button size="icon" variant="ghost" onClick={() => toggleOpen(true)}>
+        <Button
+          size="icon"
+          variant="secondary"
+          onClick={() => toggleOpen(true)}
+        >
           <SearchIcon />
         </Button>
       )}
