@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import { SearchBar } from './SearchBar';
+import { SearchBar } from './search-bar';
 
 const SearchBarPreview = () => {
   const [open, setOpen] = useState(false);
