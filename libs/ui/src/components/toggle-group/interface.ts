@@ -1,7 +1,7 @@
 export interface ToggleGroupProps {
   items: { label: string; value: string }[];
-  selected: string;
-  setSelected: (value: string) => void;
+  value: string;
+  onValueChange: (value: string) => void;
 }
 
 export interface Rect {

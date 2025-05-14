@@ -15,7 +15,7 @@ const ToggleGroupStory = () => {
   const [value, setValue] = useState('');
 
   return (
-    <ToggleGroup items={toggleItems} selected={value} setSelected={setValue} />
+    <ToggleGroup items={toggleItems} value={value} onValueChange={setValue} />
   );
 };
 

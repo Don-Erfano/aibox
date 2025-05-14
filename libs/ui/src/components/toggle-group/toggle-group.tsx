@@ -1,11 +1,14 @@
-import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
+import {
+  ToggleGroupItem,
+  Root as ToggleGroupRoot,
+} from '@radix-ui/react-toggle-group';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import { Rect, ToggleGroupProps } from './interface';
 
 export const ToggleGroup = (props: ToggleGroupProps) => {
-  const { items, selected, setSelected } = props;
+  const { items, value, onValueChange } = props;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -17,7 +20,7 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
   });
 
   const updateRect = () => {
-    const selectedIndex = items.findIndex((i) => i.value === selected);
+    const selectedIndex = items.findIndex((i) => i.value === value);
     const node = itemRefs.current[selectedIndex];
 
     if (node && containerRef.current) {
@@ -37,17 +40,17 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
     return () => {
       window.removeEventListener('resize', updateRect);
     };
-  }, [selected, items]);
+  }, [value, items]);
 
   return (
     <div ref={containerRef} className="relative w-fit">
-      <ToggleGroupPrimitive.Root
+      <ToggleGroupRoot
         className="border border-zinc-800 rounded-[10px] py-px px-[0.5px] flex gap-1 relative"
         type="single"
-        value={selected}
-        onValueChange={(value) => setSelected(value)}
+        value={value}
+        onValueChange={onValueChange}
       >
-        {selected && (
+        {value && (
           <div
             className="absolute bg-teal-600 rounded-[8px] transition-all duration-300 pointer-events-none top-[2px]"
             style={{
@@ -59,20 +62,20 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
         )}
 
         {items.map((item, index) => (
-          <ToggleGroupPrimitive.Item
+          <ToggleGroupItem
             ref={(el) => (itemRefs.current[index] = el)}
             key={item.value}
             value={item.value}
             aria-label={`toggle ${item.value}`}
             className={clsx(
               'relative text-teal-600/50 px-3 py-1 rounded-[8px] font-medium outline-0 transition-colors duration-300',
-              { '!text-stone-50': selected === item.value }
+              { '!text-stone-50': value === item.value }
             )}
           >
             {item.label}
-          </ToggleGroupPrimitive.Item>
+          </ToggleGroupItem>
         ))}
-      </ToggleGroupPrimitive.Root>
+      </ToggleGroupRoot>
     </div>
   );
 };
