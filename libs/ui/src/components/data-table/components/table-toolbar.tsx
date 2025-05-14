@@ -109,7 +109,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
         <div className="absolute right-0 top-3 flex items-center gap-2 leading-h6">
           <span className="text-h5 font-medium text-slate-950">{title}</span>
           <span className="flex size-7 items-center justify-center rounded-full bg-slate-950 text-h5 font-medium text-white">
-            {totalItems < 100 ? totalItems : '+99'}
+            {totalItems < 100 ? totalItems : "99+"}
           </span>
         </div>
         <div
