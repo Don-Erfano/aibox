@@ -14,6 +14,8 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
       error,
       direction,
       label,
+      readOnly,
+      disabled,
       ...props
     },
     ref
@@ -39,17 +41,23 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
           <span className="text-gray-500 text-sm font-normal">{label}</span>
         ) : null}
         <div
-          className={textfieldWrapperClassNames({ variant, error: !!error })}
+          className={textfieldWrapperClassNames({
+            variant,
+            error: !!error,
+            readOnly,
+            disabled,
+          })}
           onClick={focusInput}
         >
           {startAdornment}
           <input
             {...props}
             data-slot="input"
-            className={textfieldClassNames({ direction })}
+            className={textfieldClassNames({ direction, error: !!error })}
             dir="auto"
             ref={inputRef}
             type={type}
+            disabled={disabled}
           />
           {props.type === 'password' ? (
             <div

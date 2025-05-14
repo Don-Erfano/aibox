@@ -8,21 +8,33 @@ const meta: Meta<typeof BaseTextField> = {
 export default meta;
 type Story = StoryObj<typeof BaseTextField>;
 
-export const Dense: Story = {
+export const Sm: Story = {
   args: {
     placeholder: 'placeholder',
     startAdornment: <>start</>,
     endAdornment: <>end</>,
-    variant: 'dense',
+    variant: 'sm',
     error: undefined,
+    disabled: false,
+    readOnly: false,
   },
 };
 
-export const Bulk: Story = {
+export const md: Story = {
   args: {
     placeholder: 'placeholder',
     error: undefined,
-    variant: 'bulk',
+    variant: 'md',
+    startAdornment: <>start</>,
+    endAdornment: <>end</>,
+  },
+};
+
+export const lg: Story = {
+  args: {
+    placeholder: 'placeholder',
+    error: undefined,
+    variant: 'lg',
     startAdornment: <>start</>,
     endAdornment: <>end</>,
   },
@@ -34,7 +46,7 @@ export const WithLabel: Story = {
     startAdornment: <>start</>,
     label: 'label',
     endAdornment: <>end</>,
-    variant: 'dense',
+    variant: 'md',
     error: undefined,
   },
 };
