@@ -162,4 +162,5 @@
 * {
   direction: rtl;
   font-family: 'iransans';
+  box-sizing: border-box;
 }
