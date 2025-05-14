@@ -224,8 +224,3 @@ export interface FilterFormProps<TData> {
 export interface TableFiltersFormProps<TData> {
   column: Column<TData>;
 }
-
-export interface ToolbarChipProps {
-  number: number;
-  onIconClick: () => void;
-}
