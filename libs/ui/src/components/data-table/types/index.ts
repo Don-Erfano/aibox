@@ -224,3 +224,5 @@ export interface FilterFormProps<TData> {
 export interface TableFiltersFormProps<TData> {
   column: Column<TData>;
 }
+
+export type ToolbarButtonProps = React.ComponentProps<'button'>;

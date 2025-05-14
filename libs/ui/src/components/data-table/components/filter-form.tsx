@@ -1,5 +1,5 @@
 import { Button } from '../../button';
-import { Modal } from '../../Modal';
+import { Modal } from '../../modal';
 import { useIsLargeView } from '../hooks';
 import { FilterFormProps } from '../types';
 import { TableFiltersForm } from './table-filters-form';

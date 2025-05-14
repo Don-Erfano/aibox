@@ -10,7 +10,7 @@ import {
 import { useQueryState } from 'nuqs';
 import { useMemo, useState } from 'react';
 
-import { SearchBar } from '../../SearchBar';
+import { SearchBar } from '../../search-bar';
 import { Button } from '../../button';
 import { viewModeList } from '../constant';
 import { useIsLargeView } from '../hooks';
@@ -18,11 +18,16 @@ import {
   ActionButton,
   ChipButton,
   TableToolbarProps,
+  ToolbarButtonProps,
   ToolbarButtonType,
   ViewModeButton,
 } from '../types';
 import { FilterForm } from './filter-form';
-import { ToolbarChip } from './toolbar-chip';
+import { CustomChip } from '../../custom-chip';
+
+const ToolbarButton = (props: ToolbarButtonProps) => (
+  <Button variant="secondary" size="icon" {...props} />
+);
 
 export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const {
@@ -114,15 +119,13 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
         >
           <div className="flex gap-5">
             {viewModeList.map(({ icon, name }) => (
-              <Button
+              <ToolbarButton
                 key={name}
-                size="icon"
-                variant="secondary"
                 onClick={() => handleActionClick(name)}
                 aria-selected={activeMode === name}
               >
                 {icon}
-              </Button>
+              </ToolbarButton>
             ))}
           </div>
         </div>
@@ -146,49 +149,42 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             {(isLargeView || !openSearchbar) && (
               <>
                 {!noFilter && !!props.filterCount && (
-                  <ToolbarChip
-                    number={props.filterCount}
+                  <CustomChip
+                    label={props.filterCount}
                     onIconClick={() => handleChipClick('filter')}
                   />
                 )}
                 {!noFilter && (
-                  <Button
-                    size="icon"
-                    variant="secondary"
+                  <ToolbarButton
                     onClick={() => handleActionClick('filter')}
                     aria-selected={activeAction === 'filter'}
                     data-activated={!!props.filterCount}
                   >
                     <FilterIcon />
-                  </Button>
+                  </ToolbarButton>
                 )}
                 {!noManageColumns && !!props.reorderedColumnCount && (
-                  <ToolbarChip
-                    number={props.reorderedColumnCount}
+                  <CustomChip
+                    label={props.reorderedColumnCount}
                     onIconClick={() => handleChipClick('columns')}
                   />
                 )}
                 {!noManageColumns && (
-                  <Button
-                    size="icon"
-                    variant="secondary"
+                  <ToolbarButton
                     onClick={() => handleActionClick('columns')}
                     aria-selected={activeAction === 'columns'}
-                    data-activated={!!props.noManageColumns}
+                    data-activated={!!props.reorderedColumnCount}
                   >
                     <ManageColumnIcon />
-                  </Button>
+                  </ToolbarButton>
                 )}
-
-                <Button
-                  size="icon"
-                  variant="secondary"
+                <ToolbarButton
                   onClick={() => handleActionClick('refresh')}
-                  disabled={refreshLoading}
                   aria-selected={activeAction === 'refresh'}
+                  disabled={refreshLoading}
                 >
                   {refreshLoading ? <LoadingIcon /> : <RefreshIcon />}
-                </Button>
+                </ToolbarButton>
               </>
             )}
           </div>
