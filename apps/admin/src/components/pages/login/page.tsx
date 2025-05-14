@@ -45,7 +45,7 @@ const LoginPage: FC = () => {
       <AiBoxTextIcon />
       <form
         onSubmit={handleSubmit(submitHandler)}
-        className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 h-[23rem] shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
+        className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
       >
         <h3 className="text-base font-medium">ورود به حساب کاربری</h3>
         <Textfield
