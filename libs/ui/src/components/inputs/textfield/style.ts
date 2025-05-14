@@ -31,19 +31,22 @@ const textfieldWrapperClassNames = cva(
   }
 );
 
-const textfieldClassNames = cva('w-full placeholder:text-gray-500 outline-0', {
-  variants: {
-    direction: {
-      rtl: 'text-right',
-      ltr: 'text-left',
+const textfieldClassNames = cva(
+  'w-full placeholder:text-gray-500 outline-0 disabled:placeholder:text-gray-400 read-only:text-zinc-600 read-only:placeholder:text-zinc-600 read-only:pointer-event-none',
+  {
+    variants: {
+      direction: {
+        rtl: 'text-right',
+        ltr: 'text-left',
+      },
+      error: {
+        true: 'placeholder:!text-red-600 text-red-600 focus:!text-zinc-800',
+      },
     },
-    error: {
-      true: 'placeholder:!text-red-600 text-red-600 focus:!text-zinc-800',
+    defaultVariants: {
+      direction: 'rtl',
     },
-  },
-  defaultVariants: {
-    direction: 'rtl',
-  },
-});
+  }
+);
 
 export { textfieldClassNames, textfieldWrapperClassNames };

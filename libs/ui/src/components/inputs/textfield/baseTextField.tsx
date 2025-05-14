@@ -53,7 +53,11 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
           <input
             {...props}
             data-slot="input"
-            className={textfieldClassNames({ direction, error: !!error })}
+            className={textfieldClassNames({
+              direction,
+              error: !!error,
+            })}
+            readOnly={readOnly}
             dir="auto"
             ref={inputRef}
             type={type}
