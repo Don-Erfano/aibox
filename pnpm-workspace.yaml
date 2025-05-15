@@ -1,11 +1,3 @@
 packages:
   - apps/*
   - libs/*
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@swc/core'
-  - core-js
-  - esbuild
-  - nx
-  - sharp
-  - unrs-resolver
