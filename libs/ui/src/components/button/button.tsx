@@ -20,7 +20,7 @@ const buttonVariants = cva(
         disabled:!border-error-100/20`,
         outline: `border rounded-[6px] border-transparent bg-teal-600 active:ring
            disabled:bg-teal-600/12 disabled:border-teal-600/32 disabled:text-teal-600/32`,
-        secondary: `!bg-white [&_svg]:!size-6 border !border-white rounded-[14px] !text-zinc-700 hover:!bg-gray-100 hover:!text-teal-600 hover:!border-gray-100 disabled:!bg-white disabled:!text-gray-300 disabled:!border-white aria-selected:!bg-teal-600 aria-selected:!text-white aria-selected:!border-teal-600 data-[activated=true]:!bg-white data-[activated=true]:!text-teal-600 data-[activated=true]:!border-white`,
+        secondary: `bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80`,
         ghost: `p-2 overflow-hidden rounded-[14px]`,
         link: `!w-fit text-primary underline-offset-4 hover:!text-teal-600 !border-transparent !px-3 !py-1.5 hover:!bg-gray-200 text-teal-600 active:!border-gray-400 active:!ring-0 disabled:text-teal-600/32`,
       },

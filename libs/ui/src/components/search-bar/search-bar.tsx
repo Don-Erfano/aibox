@@ -52,7 +52,8 @@ export const SearchBar = (props: SearchBarProps) => {
 
           <Button
             size="icon"
-            variant="secondary"
+            variant="ghost"
+            className="text-zinc-700"
             onClick={() => toggleOpen(false)}
           >
             <ChevronLeftIcon />
@@ -61,7 +62,8 @@ export const SearchBar = (props: SearchBarProps) => {
       ) : (
         <Button
           size="icon"
-          variant="secondary"
+          variant="ghost"
+          className="text-zinc-700"
           onClick={() => toggleOpen(true)}
         >
           <SearchIcon />

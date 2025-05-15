@@ -26,7 +26,7 @@ import { FilterForm } from './filter-form';
 import { CustomChip } from '../../custom-chip';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
-  <Button variant="secondary" size="icon" {...props} />
+  <Button variant="ghost" size="icon" className="text-zinc-700" {...props} />
 );
 
 export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
@@ -101,7 +101,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
 
   return (
     <div
-      className={clsx('w-full p-2', {
+      className={clsx('w-full py-2 sm:p-2', {
         'border border-gray-100 rounded-md bg-neutral-50': isFilterActive,
       })}
     >
@@ -109,7 +109,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
         <div className="absolute right-0 top-3 flex items-center gap-2 leading-h6">
           <span className="text-h5 font-medium text-slate-950">{title}</span>
           <span className="flex size-7 items-center justify-center rounded-full bg-slate-950 text-h5 font-medium text-white">
-            {totalItems < 100 ? totalItems : "99+"}
+            {totalItems < 100 ? totalItems : '99+'}
           </span>
         </div>
         <div
@@ -117,7 +117,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             hidden: !viewModeButtons,
           })}
         >
-          <div className="flex gap-5">
+          <div className="flex gap-2 sm:gap-5">
             {viewModeList.map(({ icon, name }) => (
               <ToolbarButton
                 key={name}
@@ -137,7 +137,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             }
           )}
         >
-          <div className="flex items-center justify-end lg:justify-start gap-5">
+          <div className="flex items-center justify-end lg:justify-start gap-2 sm:gap-5">
             <div className="w-full lg:w-[300px]">
               <SearchBar
                 value={search}
