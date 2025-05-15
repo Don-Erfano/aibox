@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 const textfieldWrapperClassNames = cva(
-  'flex justify-center items-center gap-2 outline outline-gray-500 hover:outline-zinc-600 px-2 text-sm text-zinc-800 rounded focus-within:outline-slate-900',
+  'flex justify-center items-center gap-2 outline outline-gray-500 hover:outline-zinc-600 px-2 text-sm text-zinc-800 rounded-[8px] focus-within:outline-slate-900',
   {
     variants: {
       variant: {

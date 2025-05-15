@@ -19,3 +19,4 @@ export * from './components/accordion';
 export * from './components/profile-box';
 export * from './components/badges/status-box';
 export * from './components/tabs';
+export * from './components/toggle-group';
