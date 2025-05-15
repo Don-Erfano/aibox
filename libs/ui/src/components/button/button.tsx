@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../lib';
 
 const buttonVariants = cva(
-  `flex flex-nowrap cursor-pointer items-center justify-center
+  `flex flex-nowrap cursor-pointer w-full items-center justify-center
    gap-2 whitespace-nowrap rounded-md text-sm font-medium
    transition-all disabled:pointer-events-none disabled:opacity-50
    [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4
@@ -14,21 +14,21 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: `rounded-[20px] text-primary-foreground shadow-xs hover:bg-primary/90`, //general button
-        destructive: `!bg-red-600 !border rounded-[6px] border-transparent px-3 py-2
-        text-white hover:!bg-red-400 hover:!border-red-600 hover:!text-white disabled:!bg-error-100/20
-        disabled:!border-error-100/20`, //error button
+        default: `rounded-[20px] text-primary-foreground shadow-xs hover:bg-primary/90`,
+        destructive: `!bg-red-600 !border rounded-[6px] !border-transparent px-3 py-2
+        !text-white hover:!bg-red-400 hover:!border-red-600 hover:!text-white disabled:!bg-error-100/20
+        disabled:!border-error-100/20`,
         outline: `border rounded-[6px] border-transparent bg-teal-600 active:ring
-           disabled:bg-teal-600/12 disabled:border-teal-600/32 disabled:text-teal-600/32`, //form button
-        secondary: `bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80`, //unused but maybe need in future
-        ghost: `p-2 overflow-hidden rounded-[14px]`, // for icons buttons
-        link: `text-primary underline-offset-4 hover:underline`, // unused but maybee need in future
+           disabled:bg-teal-600/12 disabled:border-teal-600/32 disabled:text-teal-600/32`,
+        secondary: `bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80`,
+        ghost: `p-2 overflow-hidden rounded-[14px]`,
+        link: `!w-fit text-primary underline-offset-4 hover:!text-teal-600 !border-transparent !px-3 !py-1.5 hover:!bg-gray-200 text-teal-600 active:!border-gray-400 active:!ring-0 disabled:text-teal-600/32`,
       },
       size: {
         default: `px-4 py-2`,
-        sm: `gap-1.5 px-3 py-2`, //
-        lg: `w-[136px] px-2 py-2 has-[>svg]:px-4`, // use for modals
-        icon: `size-10`, // use for icon buttons
+        sm: `gap-1.5 px-3 py-2`,
+        lg: `w-[136px] px-2 py-2 has-[>svg]:px-4`,
+        icon: `size-10`,
       },
       isFilled: {
         true: `bg-teal-600 border border-transparent text-white hover:bg-white hover:border-teal-600
@@ -40,7 +40,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'default',
-      isFilled: true,
+      isFilled: false,
     },
     compoundVariants: [
       {

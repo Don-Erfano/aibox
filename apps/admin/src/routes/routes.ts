@@ -1,5 +1,6 @@
-import { HOME_BASE_ROUTE } from './baseRoutes';
+import { DASHBOARD_BASE_ROUTE, HOME_BASE_ROUTE } from './baseRoutes';
 
 export const HOME_ROUTES = {
   HOME: HOME_BASE_ROUTE,
+  DASHBOARD: DASHBOARD_BASE_ROUTE,
 };
