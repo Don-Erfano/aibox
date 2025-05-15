@@ -1,13 +1,10 @@
 import { Button } from '../../button';
 import { Modal } from '../../modal';
-import { useIsLargeView } from '../hooks';
 import { FilterFormProps } from '../types';
 import { TableFiltersForm } from './table-filters-form';
 
 export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
   const { columns, onSubmit, open, onOpenChange, onClose } = props;
-
-  const isLageView = useIsLargeView();
 
   const filterForm = (
     <form className="p-2 flex flex-col gap-2" onSubmit={onSubmit}>
@@ -22,16 +19,18 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
     </form>
   );
 
-  return isLageView ? (
-    filterForm
-  ) : (
-    <Modal
-      title="فرم فیلتر"
-      open={open}
-      onOpenChange={onOpenChange}
-      onClose={onClose}
-    >
-      {filterForm}
-    </Modal>
+  return (
+    <>
+      <div className="hidden lg:block">{filterForm}</div>
+      <Modal
+        className="block lg:hidden"
+        title="فرم فیلتر"
+        open={open}
+        onOpenChange={onOpenChange}
+        onClose={onClose}
+      >
+        {filterForm}
+      </Modal>
+    </>
   );
 };
