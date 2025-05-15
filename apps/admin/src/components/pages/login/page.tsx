@@ -32,7 +32,7 @@ const LoginPage: FC = () => {
     try {
       const response = await mutateAsync(data);
       if (response.data.code === 'SUCCESS') {
-        setCookie('token', response.data.data.token);
+        setCookie('token', response.data.data.token.access_token);
         push(HOME_ROUTES.DASHBOARD);
       }
     } catch (e) {
@@ -60,7 +60,7 @@ const LoginPage: FC = () => {
           type="password"
         />
         <div className="mt-3 w-full flex gap-3 flex-col">
-          <Button variant="default" type="submit" disabled={isPending}>
+          <Button variant="default" type="submit" disabled={isPending} isFilled>
             ورود
           </Button>
           <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">
