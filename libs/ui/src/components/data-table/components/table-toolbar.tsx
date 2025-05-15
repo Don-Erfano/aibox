@@ -7,11 +7,11 @@ import {
   Columns3 as ManageColumnIcon,
   RotateCw as RefreshIcon,
 } from 'lucide-react';
-import { useQueryState } from 'nuqs';
 import { useMemo, useState } from 'react';
 
-import { SearchBar } from '../../search-bar';
 import { Button } from '../../button';
+import { CustomChip } from '../../custom-chip';
+import { SearchBar } from '../../search-bar';
 import { viewModeList } from '../constant';
 import { useIsLargeView } from '../hooks';
 import {
@@ -23,7 +23,6 @@ import {
   ViewModeButton,
 } from '../types';
 import { FilterForm } from './filter-form';
-import { CustomChip } from '../../custom-chip';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
   <Button variant="ghost" size="icon" className="text-zinc-700" {...props} />
@@ -45,12 +44,6 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [activeMode, setActiveMode] = useState<ViewModeButton>('table');
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
-  const [search, setSearch] = useQueryState('search', {
-    defaultValue: '',
-    clearOnDefault: true,
-    throttleMs: 700,
-    shallow: false,
-  });
 
   const columns = useMemo(
     () => table.getAllColumns().filter((col) => col.getCanFilter()),
@@ -139,12 +132,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
         >
           <div className="flex items-center justify-end lg:justify-start gap-2 sm:gap-5">
             <div className="w-full lg:w-[300px]">
-              <SearchBar
-                value={search}
-                onValueChange={(value) => setSearch(value)}
-                open={openSearchbar}
-                toggleOpen={setOpenSearchbar}
-              />
+              <SearchBar open={openSearchbar} toggleOpen={setOpenSearchbar} />
             </div>
             {(isLargeView || !openSearchbar) && (
               <>

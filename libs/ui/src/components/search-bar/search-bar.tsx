@@ -6,49 +6,61 @@ import {
   CircleX as ClearIcon,
   Search as SearchIcon,
 } from 'lucide-react';
+import { useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
 
+import { useDebounce } from '../../hooks';
 import { Button } from '../button';
+import { BaseTextField } from '../inputs/textfield/baseTextField';
 import { SearchBarProps } from './interface';
 
 export const SearchBar = (props: SearchBarProps) => {
-  const {
-    value,
-    onValueChange,
-    open,
-    toggleOpen,
-    placeholder = 'جستجو کنید...',
-  } = props;
-  const hasValue = value?.trim() !== '';
+  const { open, toggleOpen, placeholder = 'جستجو کنید...' } = props;
+
+  const [search, setSearch] = useQueryState('search', {
+    defaultValue: '',
+    clearOnDefault: true,
+    shallow: false,
+  });
+
+  const [inputValue, setInputValue] = useState(search ?? '');
+  const debouncedInput = useDebounce(inputValue, 500);
+
+  useEffect(() => {
+    setSearch(debouncedInput.trim());
+  }, [debouncedInput, setSearch]);
+
+  useEffect(() => {
+    setInputValue(search ?? '');
+  }, [search]);
+
+  const hasValue = inputValue.trim() !== '';
 
   return (
-    <div
-      dir="rtl"
-      className="flex h-10 w-full items-center justify-end text-h2-xl"
-    >
+    <div className="flex h-10 w-full items-center justify-end text-h2-xl">
       {open ? (
         <div className="flex h-10 w-full items-center justify-between gap-[10px]">
-          <div className="relative w-full">
-            <input
-              className="flex outline-0 h-10 w-full pr-2 pl-8 rounded-[10px] !text-neutral-600 bg-white border border-teal-600 text-sm caret-teal-600 transition-colors duration-300 ease-in-out placeholder:text-neutral-500 hover:bg-neutral-100 hover:border-neutral-600 focus-visible:ring-0 focus:bg-white focus:!border-teal-600"
-              placeholder={placeholder}
-              value={value}
-              onChange={(e) => onValueChange(e.target.value)}
-            />
-
-            <Button
-              className={clsx(
-                'size-6 !bg-white !ring-0 [&_svg]:size-5 absolute border-0 left-2 top-2 z-10 items-center justify-center p-0 disabled:cursor-not-allowed',
-                {
-                  'text-neutral-800 hover:text-zinc-700': hasValue,
-                  'text-gray-300': !hasValue,
-                }
-              )}
-              disabled={!hasValue}
-              onClick={() => hasValue && onValueChange('')}
-            >
-              {hasValue ? <ClearIcon /> : <SearchIcon />}
-            </Button>
-          </div>
+          <BaseTextField
+            variant="sm"
+            placeholder={placeholder}
+            endAdornment={
+              <Button
+                className={clsx(
+                  'size-6 !ring-0 border-none !bg-transparent p-0 transition-colors duration-300 disabled:cursor-not-allowed',
+                  {
+                    '!text-neutral-800 hover:!text-zinc-700': hasValue,
+                    'text-gray-300': !hasValue,
+                  }
+                )}
+                disabled={!hasValue}
+                onClick={() => setInputValue('')}
+              >
+                {hasValue ? <ClearIcon /> : <SearchIcon />}
+              </Button>
+            }
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
 
           <Button
             size="icon"
