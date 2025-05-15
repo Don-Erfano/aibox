@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { Header } from '@/components/header';
 import { Sidebar } from '@/components/sidebar';
+import { PaddingProvider } from './layoutContext';
 
 export default function DashboardLayout({
   children,
@@ -21,7 +22,7 @@ export default function DashboardLayout({
         >
           <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
-        <div className="p-[16px] lg:p-[24px] w-full">{children}</div>
+        <PaddingProvider>{children}</PaddingProvider>
       </div>
     </div>
   );
