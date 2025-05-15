@@ -13,7 +13,6 @@ import { Button } from '../../button';
 import { CustomChip } from '../../custom-chip';
 import { SearchBar } from '../../search-bar';
 import { viewModeList } from '../constant';
-import { useIsLargeView } from '../hooks';
 import {
   ActionButton,
   ChipButton,
@@ -45,11 +44,10 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
 
-  const columns = useMemo(
-    () => table.getAllColumns().filter((col) => col.getCanFilter()),
-    [table]
-  );
-  const isLargeView = useIsLargeView();
+  // const columns = useMemo(
+  //   () => table.getAllColumns().filter((col) => col.getCanFilter()),
+  //   [table]
+  // );
 
   const isFilterActive = activeAction === 'filter';
 
@@ -95,7 +93,8 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   return (
     <div
       className={clsx('w-full py-2 sm:p-2', {
-        'border border-gray-100 rounded-md bg-neutral-50': isFilterActive,
+        'lg:border lg:border-gray-100 lg:rounded-md lg:bg-neutral-50':
+          isFilterActive,
       })}
     >
       <div className="relative w-full h-[104px] lg:h-12">
@@ -134,51 +133,53 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             <div className="w-full lg:w-[300px]">
               <SearchBar open={openSearchbar} toggleOpen={setOpenSearchbar} />
             </div>
-            {(isLargeView || !openSearchbar) && (
-              <>
-                {!noFilter && !!props.filterCount && (
-                  <CustomChip
-                    label={props.filterCount}
-                    onIconClick={() => handleChipClick('filter')}
-                  />
-                )}
-                {!noFilter && (
-                  <ToolbarButton
-                    onClick={() => handleActionClick('filter')}
-                    aria-selected={activeAction === 'filter'}
-                    data-activated={!!props.filterCount}
-                  >
-                    <FilterIcon />
-                  </ToolbarButton>
-                )}
-                {!noManageColumns && !!props.reorderedColumnCount && (
-                  <CustomChip
-                    label={props.reorderedColumnCount}
-                    onIconClick={() => handleChipClick('columns')}
-                  />
-                )}
-                {!noManageColumns && (
-                  <ToolbarButton
-                    onClick={() => handleActionClick('columns')}
-                    aria-selected={activeAction === 'columns'}
-                    data-activated={!!props.reorderedColumnCount}
-                  >
-                    <ManageColumnIcon />
-                  </ToolbarButton>
-                )}
+            <div
+              className={clsx('flex gap-5', {
+                'hidden lg:flex': openSearchbar,
+              })}
+            >
+              {!noFilter && !!props.filterCount && (
+                <CustomChip
+                  label={props.filterCount}
+                  onIconClick={() => handleChipClick('filter')}
+                />
+              )}
+              {!noFilter && (
                 <ToolbarButton
-                  onClick={() => handleActionClick('refresh')}
-                  aria-selected={activeAction === 'refresh'}
-                  disabled={refreshLoading}
+                  onClick={() => handleActionClick('filter')}
+                  aria-selected={activeAction === 'filter'}
+                  data-activated={!!props.filterCount}
                 >
-                  {refreshLoading ? (
-                    <LoadingIcon className="animate-spin" />
-                  ) : (
-                    <RefreshIcon />
-                  )}
+                  <FilterIcon />
                 </ToolbarButton>
-              </>
-            )}
+              )}
+              {!noManageColumns && !!props.reorderedColumnCount && (
+                <CustomChip
+                  label={props.reorderedColumnCount}
+                  onIconClick={() => handleChipClick('columns')}
+                />
+              )}
+              {!noManageColumns && (
+                <ToolbarButton
+                  onClick={() => handleActionClick('columns')}
+                  aria-selected={activeAction === 'columns'}
+                  data-activated={!!props.reorderedColumnCount}
+                >
+                  <ManageColumnIcon />
+                </ToolbarButton>
+              )}
+              <ToolbarButton
+                onClick={() => handleActionClick('refresh')}
+                aria-selected={activeAction === 'refresh'}
+                disabled={refreshLoading}
+              >
+                {refreshLoading ? (
+                  <LoadingIcon className="animate-spin" />
+                ) : (
+                  <RefreshIcon />
+                )}
+              </ToolbarButton>
+            </div>
           </div>
         </div>
 
@@ -195,7 +196,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
           open={openFilterModal}
           onOpenChange={setOpenFilterModal}
           onClose={() => setActiveAction(null)}
-          columns={columns}
+          columns={[]}
           onSubmit={onFormSubmit}
         />
       )}

@@ -7,13 +7,16 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
   const { columns, onSubmit, open, onOpenChange, onClose } = props;
 
   const filterForm = (
-    <form className="p-2 flex flex-col gap-2" onSubmit={onSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <form
+      className="p-2 flex flex-col items-center gap-4 lg:gap-6 lg:py-5"
+      onSubmit={onSubmit}
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {columns.map((column) => (
           <TableFiltersForm key={column.id} column={column} />
         ))}
       </div>
-      <Button variant="outline" type="submit">
+      <Button className="w-fit" variant="outline" isFilled type="submit">
         فیلتر
       </Button>
     </form>
