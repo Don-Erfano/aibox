@@ -11071,8 +11071,6 @@ snapshots:
       '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@18.3.1)(react@19.0.0)
       aria-hidden: 1.2.4
       react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      react-remove-scroll: 2.6.3(@types/react@18.3.1)(react@19.0.0)
     optionalDependencies:
       '@types/react': 18.3.1
       '@types/react-dom': 18.3.0
