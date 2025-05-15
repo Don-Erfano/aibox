@@ -183,7 +183,11 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
                   aria-selected={activeAction === 'refresh'}
                   disabled={refreshLoading}
                 >
-                  {refreshLoading ? <LoadingIcon /> : <RefreshIcon />}
+                  {refreshLoading ? (
+                    <LoadingIcon className="animate-spin" />
+                  ) : (
+                    <RefreshIcon />
+                  )}
                 </ToolbarButton>
               </>
             )}
