@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Modal } from './modal';
 import { Mail } from 'lucide-react';
+
 import { Button } from '../button';
+import { Modal } from './modal';
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',
@@ -12,11 +13,13 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
-export const Default: Story = {
+export const General: Story = {
   args: {
-    title: 'Modal Title',
+    title: 'عنوان مدال',
     trigger: <Button>Open Modal</Button>,
-    headerIcon: <Mail className="size-24" />,
-    children: <p>This is the modal content. You can place anything here.</p>,
+    headerIcon: (
+      <Mail className="bg-slate-400 w-[220px] h-[168px] rounded-sm" />
+    ),
+    children: <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>,
   },
 };
