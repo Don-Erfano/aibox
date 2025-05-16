@@ -7,7 +7,7 @@ import {
   Columns3 as ManageColumnIcon,
   RotateCw as RefreshIcon,
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../../button';
 import { CustomChip } from '../../custom-chip';
@@ -22,6 +22,8 @@ import {
   ViewModeButton,
 } from '../types';
 import { FilterForm } from './filter-form';
+import { useQueryState } from 'nuqs';
+import { useDebounceCallback } from '../../../hooks';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
   <Button variant="ghost" size="icon" className="text-zinc-700" {...props} />
@@ -44,10 +46,24 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openSearchbar, setOpenSearchbar] = useState(false);
 
-  // const columns = useMemo(
-  //   () => table.getAllColumns().filter((col) => col.getCanFilter()),
-  //   [table]
-  // );
+  const [search, setSearch] = useState('');
+  const [searchParmam, setSearchParam] = useQueryState('search', {
+    defaultValue: '',
+    clearOnDefault: true,
+  });
+
+  const columns = useMemo(
+    () => table.getAllColumns().filter((col) => col.getCanFilter()),
+    [table]
+  );
+
+  const onSearchValueChange = useDebounceCallback(() => {
+    setSearchParam(search);
+  }, 500);
+
+  useEffect(() => {
+    onSearchValueChange();
+  }, [search, onSearchValueChange]);
 
   const isFilterActive = activeAction === 'filter';
 
@@ -62,11 +78,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
       columns: () => {
         setActiveAction(name as ActionButton);
       },
-      refresh: async () => {
-        setActiveAction(name as ActionButton);
-        await refetch();
-        setActiveAction(null);
-      },
+      refresh: () => refetch(),
       table: () => setActiveMode(name as ViewModeButton),
       chart: () => setActiveMode(name as ViewModeButton),
     };
@@ -92,15 +104,15 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
 
   return (
     <div
-      className={clsx('w-full py-2 sm:p-2', {
-        'lg:border lg:border-gray-100 lg:rounded-md lg:bg-neutral-50':
+      className={clsx('w-full py-1 sm:px-5', {
+        'lg:border lg:border-gray-800 lg:rounded-md lg:bg-neutral-50':
           isFilterActive,
       })}
     >
       <div className="relative w-full h-[104px] lg:h-12">
-        <div className="absolute right-0 top-3 flex items-center gap-2 leading-h6">
-          <span className="text-h5 font-medium text-slate-950">{title}</span>
-          <span className="flex size-7 items-center justify-center rounded-full bg-slate-950 text-h5 font-medium text-white">
+        <div className="absolute right-0 top-3 flex items-center gap-2">
+          <span className="text-sm font-medium text-slate-950">{title}</span>
+          <span className="size-6 flex items-center justify-center rounded-full bg-slate-950 text-sm font-medium text-white">
             {totalItems < 100 ? totalItems : '99+'}
           </span>
         </div>
@@ -109,7 +121,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             hidden: !viewModeButtons,
           })}
         >
-          <div className="flex gap-2 sm:gap-5">
+          <div className="flex gap-2">
             {viewModeList.map(({ icon, name }) => (
               <ToolbarButton
                 key={name}
@@ -123,18 +135,23 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
         </div>
         <div
           className={clsx(
-            'absolute left-0 lg:left-32 top-15 lg:top-1 h-10 w-full lg:w-fit',
+            'absolute left-0 lg:left-[114px] top-15 lg:top-1 h-10 w-full lg:w-fit',
             {
               'left-0 top-15 lg:!left-0 lg:top-1': !viewModeButtons,
             }
           )}
         >
-          <div className="flex items-center justify-end lg:justify-start gap-2 sm:gap-5">
+          <div className="flex items-center justify-end lg:justify-start gap-2">
             <div className="w-full lg:w-[300px]">
-              <SearchBar open={openSearchbar} toggleOpen={setOpenSearchbar} />
+              <SearchBar
+                open={openSearchbar}
+                toggleOpen={setOpenSearchbar}
+                value={search}
+                onValueChange={setSearch}
+              />
             </div>
             <div
-              className={clsx('flex gap-5', {
+              className={clsx('flex justify-center items-center gap-2', {
                 'hidden lg:flex': openSearchbar,
               })}
             >
@@ -170,7 +187,6 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
               )}
               <ToolbarButton
                 onClick={() => handleActionClick('refresh')}
-                aria-selected={activeAction === 'refresh'}
                 disabled={refreshLoading}
               >
                 {refreshLoading ? (
@@ -185,7 +201,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
 
         <div
           className={clsx(
-            'absolute top-13 w-full h-[1px] lg:!w-[1px] lg:h-10 lg:top-1 lg:left-28 bg-teal-600',
+            'absolute top-13 w-full h-[1px] lg:!w-[1px] lg:h-10 lg:top-1 lg:left-[100px] bg-teal-600',
             { 'lg:hidden': !viewModeButtons }
           )}
         />
@@ -196,7 +212,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
           open={openFilterModal}
           onOpenChange={setOpenFilterModal}
           onClose={() => setActiveAction(null)}
-          columns={[]}
+          columns={columns}
           onSubmit={onFormSubmit}
         />
       )}

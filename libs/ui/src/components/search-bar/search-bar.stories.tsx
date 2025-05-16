@@ -1,16 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { NuqsAdapter } from 'nuqs/adapters/react';
 import { useState } from 'react';
 
 import { SearchBar } from './search-bar';
 
 const SearchBarPreview = () => {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
 
   return (
-    <NuqsAdapter>
-      <SearchBar open={open} toggleOpen={setOpen} />
-    </NuqsAdapter>
+    <SearchBar
+      value={value}
+      onValueChange={setValue}
+      open={open}
+      toggleOpen={setOpen}
+    />
   );
 };
 

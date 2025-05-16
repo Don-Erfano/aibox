@@ -8,16 +8,16 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
 
   const filterForm = (
     <form
-      className="p-2 flex flex-col items-center gap-4 lg:gap-6 lg:py-5"
+      className="flex flex-col items-center gap-6 lg:py-4"
       onSubmit={onSubmit}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
         {columns.map((column) => (
           <TableFiltersForm key={column.id} column={column} />
         ))}
       </div>
       <Button className="w-fit" variant="outline" isFilled type="submit">
-        فیلتر
+        اعمال فیلتر
       </Button>
     </form>
   );
@@ -27,7 +27,7 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
       <div className="hidden lg:block">{filterForm}</div>
       <Modal
         className="block lg:hidden"
-        title="فرم فیلتر"
+        title="فیلتر"
         open={open}
         onOpenChange={onOpenChange}
         onClose={onClose}
