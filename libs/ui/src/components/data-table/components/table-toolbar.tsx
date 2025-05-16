@@ -47,7 +47,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [openSearchbar, setOpenSearchbar] = useState(false);
 
   const [search, setSearch] = useState('');
-  const [searchParmam, setSearchParam] = useQueryState('search', {
+  const [searchParam, setSearchParam] = useQueryState('search', {
     defaultValue: '',
     clearOnDefault: true,
   });
@@ -73,7 +73,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
     const actions: Partial<Record<ToolbarButtonType, () => void>> = {
       filter: () => {
         setActiveAction(name as ActionButton);
-        setOpenFilterModal(true);
+        if (window.innerWidth < 1024) setOpenFilterModal(true);
       },
       columns: () => {
         setActiveAction(name as ActionButton);
@@ -105,7 +105,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   return (
     <div
       className={clsx('w-full py-1 sm:px-5', {
-        'lg:border lg:border-gray-800 lg:rounded-md lg:bg-neutral-50':
+        'lg:border lg:border-gray-100 lg:rounded-md lg:bg-neutral-50':
           isFilterActive,
       })}
     >
