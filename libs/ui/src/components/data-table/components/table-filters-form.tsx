@@ -1,9 +1,6 @@
 'use client';
 import { useCallback } from 'react';
-import { Input } from '../../input';
-import { cn } from '../../../lib';
 import { TableFiltersFormProps } from '../types';
-import { DatePicker } from '../../inputs/date-picker';
 import { BaseTextField } from '../../inputs/textfield/baseTextField';
 
 export function TableFiltersForm<TData>({
@@ -39,10 +36,31 @@ export function TableFiltersForm<TData>({
 
         case 'date':
           return (
-            <DatePicker
-              label={columnMeta.placeholder ?? columnMeta.label}
+            <BaseTextField
+              type="date"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
-              onChange={(date) => column.setFilterValue(date)}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
+          );
+
+        case 'select':
+          return (
+            <BaseTextField
+              type="date"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
+          );
+
+        case 'multiSelect':
+          return (
+            <BaseTextField
+              type="date"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
             />
           );
 
