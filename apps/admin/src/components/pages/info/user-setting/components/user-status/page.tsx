@@ -14,7 +14,9 @@ const UserStatusField = () => {
     <div className="flex flex-col gap-4 max-w-3xs">
       <p className="font-medium text-sm text-zinc-700">وضعیت کاربر</p>
       <StatusBox isActive={true} />
-      <Button className="self-start ">تغییر وضعیت کاربر</Button>
+      <Button variant="outline" isFilled className="self-start w-auto">
+        تغییر وضعیت کاربر
+      </Button>
     </div>
   );
 };

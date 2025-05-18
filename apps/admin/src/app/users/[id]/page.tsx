@@ -1,17 +1,16 @@
+'use client';
+
 import { UserSetting } from '@/components/pages/info/user-setting';
+import { Tab } from '@aibox/ui';
+import { Tab as TabType } from '../../../../../../libs/ui/src/components/tabs/types';
+import { userData } from '@/constant/data';
+import { UserInfoProps } from '@/components/pages/info/type';
+import { useQuery } from '@/hooks/useQery';
 
-interface UserInfoProps {
-  params: Promise<{ id: string }>;
-}
+// userid: 639eed49-922d-40b5-98c8-be4cb132f043
 
-const userData = {
-  accessLevel: 'admin',
-  providerShare: '80',
-  status: 'active',
-};
-
-const UserInfo: React.FC<UserInfoProps> = async ({ params }) => {
-  const Tabs = [
+const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
+  const tabs: TabType[] = [
     {
       name: 'مشخصات کاربری',
       id: 'user-profile',
@@ -45,12 +44,9 @@ const UserInfo: React.FC<UserInfoProps> = async ({ params }) => {
     { name: 'توکن', id: 'token', content: 'token', isDisabled: true },
   ];
 
-  const { id } = await params;
-
   return (
-    <div>
-      {/* <Tab/> */}
-      <UserSetting userData={userData} />
+    <div className="p-10">
+      <Tab tabs={tabs} />
     </div>
   );
 };

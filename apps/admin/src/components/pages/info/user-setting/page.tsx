@@ -8,7 +8,6 @@ interface UserSettingProps {
 }
 
 const UserSetting: FC<UserSettingProps> = ({ userData }) => {
-  console.log(userData);
   return (
     <div className="flex flex-col mt-10 gap-12.5">
       <UserAccessLevel />

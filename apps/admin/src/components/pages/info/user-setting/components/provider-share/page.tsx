@@ -18,7 +18,9 @@ const ProviderShareField = () => {
       <p className="font-normal text-sm text-zinc-600">
         سهم ارائه دهنده: ۸۰٪ - سهم پلتفرم: ۲۰٪{' '}
       </p>
-      <Button className="self-start">تغییر سهم ارائه‌ دهنده</Button>
+      <Button variant="outline" isFilled className="self-start w-auto">
+        تغییر سهم ارائه‌ دهنده
+      </Button>
     </div>
   );
 };
