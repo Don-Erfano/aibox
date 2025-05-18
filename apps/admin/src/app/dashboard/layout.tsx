@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Header } from '@/components/header';
 import { Sidebar } from '@/components/sidebar';
-import { PaddingProvider } from './layoutContext';
+import { LayoutModeProvider } from './layoutContext';
 
 export default function DashboardLayout({
   children,
@@ -22,7 +22,7 @@ export default function DashboardLayout({
         >
           <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
-        <PaddingProvider>{children}</PaddingProvider>
+        <LayoutModeProvider>{children}</LayoutModeProvider>
       </div>
     </div>
   );

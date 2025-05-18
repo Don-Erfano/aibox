@@ -3,13 +3,13 @@ import { useLayoutPadding } from './layoutContext';
 import { Button } from '@aibox/ui';
 
 export default function Dashboard() {
-  const { setFullWidth } = useLayoutPadding();
+  const { setMode } = useLayoutPadding();
 
   const fullWidthChildren = () => {
-    setFullWidth(true);
+    setMode('full');
   };
   const paddingChildren = () => {
-    setFullWidth(false);
+    setMode('default');
   };
   return (
     <div>
