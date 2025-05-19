@@ -11,6 +11,7 @@ import type { Row, RowData } from '@tanstack/react-table';
 import { FilterItemSchema } from '../lib/parsers';
 import { DataTableConfig } from '../constant';
 import { Options } from 'nuqs';
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 
 export interface UseTableFiltersProps<TData> {
   table: Table<TData>;
@@ -22,19 +23,6 @@ export interface UseTableFiltersProps<TData> {
     value: number | ((old: number) => number | null) | null,
     options?: Options
   ) => Promise<URLSearchParams>;
-}
-
-export interface TableToolbarProps<TData> extends React.ComponentProps<'div'> {
-  table: TanstackTable<TData>;
-  refreshLoading: boolean;
-  tableName?: string;
-  totalItems: number;
-  hasSearch?: boolean;
-  submitFilters: () => void;
-  resetFilters: () => void;
-  removeFilter: (key: string) => void;
-  activeFilterChips: FilterChips;
-  filterCount: number;
 }
 
 export interface FilterChipsBarProps {
@@ -114,10 +102,6 @@ export interface TableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-export interface TableFiltersFormProps<TData> {
-  column: Column<TData>;
-}
-
 export type CustomAction<T> = {
   icon: React.ReactElement;
   label: string;
@@ -170,3 +154,74 @@ export interface DataTableRowAction<TData> {
 export interface TableActionBarSelectionProps<TData> {
   table: Table<TData>;
 }
+
+export const ToolbarButton = {
+  FILTER: 'filter',
+  REFRESH: 'refresh',
+  COLUMNS: 'columns',
+  CHART: 'chart',
+  TABLE: 'table',
+} as const;
+
+export type ToolbarButtonType =
+  (typeof ToolbarButton)[keyof typeof ToolbarButton];
+
+export type ViewModeButton = Extract<ToolbarButtonType, 'chart' | 'table'>;
+export type ChipButton = Extract<ToolbarButtonType, 'filter' | 'columns'>;
+export type ActionButton = Extract<
+  ToolbarButtonType,
+  'filter' | 'columns' | 'refresh'
+>;
+
+export type FilterEnabledProps = {
+  noFilter?: false;
+  filterCount: number;
+  submitFilters: () => void;
+  resetFilters: () => void;
+};
+
+export type FilterProps =
+  | {
+      noFilter?: false;
+      filterCount: number;
+      submitFilters: () => void;
+      resetFilters: () => void;
+    }
+  | {
+      noFilter: true;
+    };
+
+export type ManageColumnsProps =
+  | {
+      noManageColumns?: false;
+      reorderedColumnCount: number;
+    }
+  | {
+      noManageColumns: true;
+    };
+
+export type TableToolbarProps<TData> = FilterProps &
+  ManageColumnsProps & {
+    title: string;
+    totalItems: number;
+    table: Table<TData>;
+    refetch: (
+      options?: RefetchOptions
+    ) => Promise<QueryObserverResult<TData[], Error>>;
+    refreshLoading: boolean;
+    viewModeButtons?: boolean;
+  };
+
+export interface FilterFormProps<TData> {
+  onSubmit: () => void;
+  columns: Column<TData>[];
+  open: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  onClose?: () => void;
+}
+
+export interface TableFiltersFormProps<TData> {
+  column: Column<TData>;
+}
+
+export type ToolbarButtonProps = React.ComponentProps<'button'>;

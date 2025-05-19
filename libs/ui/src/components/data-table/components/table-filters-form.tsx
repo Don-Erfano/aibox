@@ -1,8 +1,7 @@
 'use client';
 import { useCallback } from 'react';
-import { Input } from '../../input';
 import { TableFiltersFormProps } from '../types';
-import { cn } from '../../../lib';
+import { BaseTextField } from '../../inputs/textfield/baseTextField';
 
 export function TableFiltersForm<TData>({
   column,
@@ -16,26 +15,58 @@ export function TableFiltersForm<TData>({
       switch (columnMeta.variant) {
         case 'text':
           return (
-            <Input
+            <BaseTextField
+              type="text"
+              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
-              onChange={(event) => column.setFilterValue(event.target.value)}
-              className="h-8 w-40 lg:w-56"
+              onChange={(e) => column.setFilterValue(e.target.value)}
             />
           );
 
         case 'number':
           return (
-            <div className="relative">
-              <Input
-                type="number"
-                inputMode="numeric"
-                placeholder={columnMeta.placeholder ?? columnMeta.label}
-                value={(column.getFilterValue() as string) ?? ''}
-                onChange={(event) => column.setFilterValue(event.target.value)}
-                className={cn('h-8 w-[120px]')}
-              />
-            </div>
+            <BaseTextField
+              type="number"
+              variant="sm"
+              inputMode="numeric"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
+          );
+
+        case 'date':
+          return (
+            <BaseTextField
+              type="date"
+              variant="sm"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
+          );
+
+        case 'select':
+          return (
+            <BaseTextField
+              type="date"
+              variant="sm"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
+          );
+
+        case 'multiSelect':
+          return (
+            <BaseTextField
+              type="date"
+              variant="sm"
+              placeholder={columnMeta.placeholder ?? columnMeta.label}
+              value={(column.getFilterValue() as string) ?? ''}
+              onChange={(e) => column.setFilterValue(e.target.value)}
+            />
           );
 
         default:

@@ -1,6 +1,8 @@
+'use client';
+
 import { Header } from '@/components/header';
 import { Sidebar } from '@/components/sidebar';
-// import { AppSidebar } from '@aibox/ui';
+import { LayoutModeProvider } from './layoutContext';
 
 export default function DashboardLayout({
   children,
@@ -11,9 +13,10 @@ export default function DashboardLayout({
     <div className="flex flex-col">
       <Header />
       <div className="flex">
-        <Sidebar />
-
-        <main className="p-[16px] lg:p-[24px] w-full">{children}</main>
+        <div>
+          <Sidebar />
+        </div>
+        <LayoutModeProvider>{children}</LayoutModeProvider>
       </div>
     </div>
   );

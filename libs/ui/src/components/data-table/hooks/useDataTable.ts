@@ -25,8 +25,8 @@ import * as React from 'react';
 import { FilterChips, UseTableProps } from '../types';
 import { useTableColumns } from '../columns';
 
-const PAGE_KEY = 'pageNo';
-const PER_PAGE_KEY = 'pageSize';
+const PAGE_KEY = 'page';
+const PER_PAGE_KEY = 'page_size';
 const ARRAY_SEPARATOR = ',';
 
 export function useDataTable<TData>(props: UseTableProps<TData>) {
