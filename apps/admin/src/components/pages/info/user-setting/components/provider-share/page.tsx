@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@aibox/ui';
 import React, { FC, useEffect, useState } from 'react';
+import { Button } from '@aibox/ui';
 import { ProviderShareProps } from './types';
 
 const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {

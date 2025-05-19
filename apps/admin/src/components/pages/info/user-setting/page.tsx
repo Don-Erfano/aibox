@@ -12,7 +12,7 @@ const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
     ? 'operator'
     : 'user';
 
-  const { providerShareData, isPending } = useGetProviderShare({ id: userId });
+  const { providerShareData } = useGetProviderShare({ id: userId });
 
   return (
     <div className="flex flex-col mt-10 gap-12.5">

@@ -4,17 +4,20 @@ import { FC } from 'react';
 import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
+import { useRouter } from 'next/navigation';
 
 const UserList: FC = () => {
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
+
+  const router = useRouter();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
+      onEdit: (row) => router.push(`/dashboard/user-list/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });

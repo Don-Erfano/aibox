@@ -2,14 +2,13 @@
 
 import { UserSetting } from '@/components/pages/info/user-setting';
 import { Tab } from '@aibox/ui';
-import { Tab as TabType } from '../../../../../../libs/ui/src/components/tabs/types';
+import { Tab as TabType } from '../../../../../../../libs/ui/src/components/tabs/types';
 import { UserInfoProps } from '@/components/pages/info/type';
 import { useGetUserInfo } from '@/services/user/info';
 
 const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
-  // const { id } = params;
-  const id = '639eed49-922d-40b5-98c8-be4cb132f043';
-  const { user, isPending } = useGetUserInfo({ id });
+  const { id } = params;
+  const { user } = useGetUserInfo({ id });
 
   const tabs: TabType[] = [
     {
@@ -46,7 +45,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
   ];
 
   return (
-    <div className="p-10">
+    <div className="p-10 pb-0">
       <Tab tabs={tabs} />
     </div>
   );
