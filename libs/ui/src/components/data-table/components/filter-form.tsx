@@ -11,7 +11,7 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
       className="flex flex-col items-center gap-6 lg:py-4"
       onSubmit={onSubmit}
     >
-      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 lg:px-16">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 lg:px-6 xl:px-12">
         {columns.map((column) => (
           <TableFiltersForm key={column.id} column={column} />
         ))}

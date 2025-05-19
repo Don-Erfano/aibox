@@ -17,6 +17,7 @@ export function TableFiltersForm<TData>({
           return (
             <BaseTextField
               type="text"
+              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -27,6 +28,7 @@ export function TableFiltersForm<TData>({
           return (
             <BaseTextField
               type="number"
+              variant="sm"
               inputMode="numeric"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
@@ -38,6 +40,7 @@ export function TableFiltersForm<TData>({
           return (
             <BaseTextField
               type="date"
+              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -48,6 +51,7 @@ export function TableFiltersForm<TData>({
           return (
             <BaseTextField
               type="date"
+              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -58,6 +62,7 @@ export function TableFiltersForm<TData>({
           return (
             <BaseTextField
               type="date"
+              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
