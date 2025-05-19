@@ -2,17 +2,23 @@ import React, { FC } from 'react';
 import UserAccessLevel from './components/user-access/page';
 import ProviderShareField from './components/provider-share/page';
 import UserStatusField from './components/user-status/page';
+import { UserSettingProps } from './types';
+import { useGetProviderShare } from '@/services/user/info/user-setting/provider-share';
 
-interface UserSettingProps {
-  userData: any;
-}
+const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
+  const userLevel = userData.is_admin
+    ? 'admin'
+    : userData.is_staff
+    ? 'operator'
+    : 'user';
 
-const UserSetting: FC<UserSettingProps> = ({ userData }) => {
+  const { providerShareData, isPending } = useGetProviderShare({ id: userId });
+
   return (
     <div className="flex flex-col mt-10 gap-12.5">
-      <UserAccessLevel />
-      <ProviderShareField />
-      <UserStatusField />
+      <UserAccessLevel userLevel={userLevel} />
+      <ProviderShareField data={providerShareData} />
+      <UserStatusField status={userData.is_active} />
     </div>
   );
 };

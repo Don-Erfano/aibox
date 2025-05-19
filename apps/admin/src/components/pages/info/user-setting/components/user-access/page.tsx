@@ -1,11 +1,12 @@
 'use client';
 
+import React, { FC, useState } from 'react';
 import { Button, RadioGroup } from '@aibox/ui';
-import React, { useState } from 'react';
 import { userAccessLevels } from './constant';
+import { UserAccessLevelProps, UserLevels } from './types';
 
-const UserAccessLevel = () => {
-  const [currentLevel, setCurrentLevel] = useState('');
+const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
+  const [currentLevel, setCurrentLevel] = useState(userLevel);
   const [tempLevel, setTempLevel] = useState(currentLevel);
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -21,18 +22,20 @@ const UserAccessLevel = () => {
 
   return (
     <div className="flex flex-col gap-4 max-w-3xs">
-      <p className="font-medium text-sm text-zinc-700">سطح دسترسی</p>
+      <p className="font-medium text-sm text-zinc-700 cursor-default">
+        سطح دسترسی
+      </p>
       <div>
         <RadioGroup
           defaultValue={currentLevel}
           value={tempLevel}
-          onValueChange={(val) => setTempLevel(val)}
+          onValueChange={(val: UserLevels) => setTempLevel(val)}
           items={userAccessLevels}
           isDisabled={editMode ? false : true}
         />
       </div>
       {editMode ? (
-        <div className=" flex items-center gap-5 ">
+        <div className="flex items-center gap-5 ">
           <Button
             className="self-start w-auto"
             variant="outline"

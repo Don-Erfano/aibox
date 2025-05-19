@@ -3,13 +3,14 @@
 import { UserSetting } from '@/components/pages/info/user-setting';
 import { Tab } from '@aibox/ui';
 import { Tab as TabType } from '../../../../../../libs/ui/src/components/tabs/types';
-import { userData } from '@/constant/data';
 import { UserInfoProps } from '@/components/pages/info/type';
-import { useQuery } from '@/hooks/useQery';
-
-// userid: 639eed49-922d-40b5-98c8-be4cb132f043
+import { useGetUserInfo } from '@/services/user/info';
 
 const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
+  // const { id } = params;
+  const id = '639eed49-922d-40b5-98c8-be4cb132f043';
+  const { user, isPending } = useGetUserInfo({ id });
+
   const tabs: TabType[] = [
     {
       name: 'مشخصات کاربری',
@@ -38,7 +39,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
     {
       name: 'تنظیمات',
       id: 'setting',
-      content: <UserSetting userData={userData} />,
+      content: user && <UserSetting userData={user} userId={id} />,
       isDisabled: false,
     },
     { name: 'توکن', id: 'token', content: 'token', isDisabled: true },

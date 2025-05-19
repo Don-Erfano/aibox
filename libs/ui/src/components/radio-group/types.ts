@@ -4,10 +4,10 @@ export interface RadioItem {
   label: string;
 }
 
-export interface RadioGroupProps {
+export interface RadioGroupProps<T> {
   defaultValue: string;
   value: string;
-  onValueChange?: (val: string) => void;
+  onValueChange?: (val: T) => void;
   items: RadioItem[];
   isDisabled?: boolean;
 }

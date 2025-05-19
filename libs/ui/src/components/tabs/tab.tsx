@@ -8,13 +8,37 @@ import {
   TabsTrigger,
   TabsContent,
 } from './components';
+import { useEffect, useRef } from 'react';
 
 const Tab: React.FC<TabProps> = ({ tabs }) => {
   const [tabId, setTabId] = useQueryState('tab');
-  const defaultTabId = tabId || tabs[0].id;
+
+  const enabledTabs = tabs.filter((tab) => !tab.isDisabled);
+  const isValidTab = enabledTabs.some((tab) => tab.id === tabId);
+
+  const lastValidTabRef = useRef<string>(enabledTabs[0]?.id);
+
+  useEffect(() => {
+    if (isValidTab && tabId) {
+      lastValidTabRef.current = tabId;
+    } else if (tabId && !isValidTab) {
+      setTabId(lastValidTabRef.current);
+    }
+  }, [tabId, isValidTab, setTabId]);
+
+  const currentTabId =
+    (isValidTab ? tabId : lastValidTabRef.current) ?? undefined;
 
   return (
-    <Tabs defaultValue={defaultTabId} onValueChange={setTabId}>
+    <Tabs
+      value={currentTabId}
+      onValueChange={(val) => {
+        const selectedTab = tabs.find((tab) => tab.id === val);
+        if (!selectedTab?.isDisabled) {
+          setTabId(val);
+        }
+      }}
+    >
       <TabsList>
         {tabs.map((tab) => (
           <TabsTrigger key={tab.id} value={tab.id} disabled={tab.isDisabled}>

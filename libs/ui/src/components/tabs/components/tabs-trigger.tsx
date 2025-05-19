@@ -14,6 +14,7 @@ export const TabsTrigger: React.FC<TabsTriggerPropsWithoutClassName> = ({
         'data-[state=active]:shadow-none data-[state=active]:border-teal-600',
         disabled ? 'cursor-default' : 'cursor-pointer'
       )}
+      disabled={disabled}
       {...props}
     />
   );
