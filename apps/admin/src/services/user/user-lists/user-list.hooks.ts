@@ -14,11 +14,12 @@ export const useGetUserList = () => {
 
   let totalPages = 0;
   let totalItems = 0;
-  const { data: users = [], isLoading } = useQuery<
-    IGetUserListResponsePayload,
-    Error,
-    IUser[]
-  >({
+  const {
+    data: users = [],
+    isLoading,
+    isFetching,
+    refetch,
+  } = useQuery<IGetUserListResponsePayload, Error, IUser[]>({
     queryKey: ['userList', allQueryParams],
     queryFn: async ({ queryKey }) => {
       const { page, ...params } = queryKey[1] as IGetUserListRequestPayload;
@@ -35,5 +36,5 @@ export const useGetUserList = () => {
     placeholderData: keepPreviousData,
   });
 
-  return { users, totalItems, totalPages, isLoading };
+  return { users, totalItems, totalPages, isLoading, isFetching, refetch };
 };

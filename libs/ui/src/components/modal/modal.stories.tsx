@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Mail } from 'lucide-react';
 
 import { Button } from '../button';
-import { Modal } from './Modal';
+import { Modal } from './modal';
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',
@@ -17,9 +17,9 @@ export const General: Story = {
   args: {
     title: 'عنوان مدال',
     trigger: <Button>Open Modal</Button>,
-    // headerIcon: (
-    //   <Mail className="bg-slate-400 w-[220px] h-[168px] rounded-sm" />
-    // ),
+    headerIcon: (
+      <Mail className="bg-slate-400 w-[220px] h-[168px] rounded-sm" />
+    ),
     children: <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>,
   },
 };

@@ -1,5 +1,6 @@
 export * from './lib';
 export * as style from './global.css';
+export * from './hooks';
 export * from './components/ui/Inputs/select';
 export * from './components/icons';
 export * from './components/inputs';
@@ -20,3 +21,6 @@ export * from './components/profile-box';
 export * from './components/badges/status-box';
 export * from './components/tabs';
 export * from './components/toggle-group';
+export * from './components/custom-chip';
+export * from './components/modal';
+export * from './components/search-bar';

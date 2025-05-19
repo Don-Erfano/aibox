@@ -6,16 +6,10 @@ import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
 
 const UserList: FC = () => {
-  const { users, totalItems, totalPages, isLoading } = useGetUserList();
+  const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
+    useGetUserList();
 
-  const {
-    table,
-    activeFilterChips,
-    filterCount,
-    removeFilter,
-    resetFilters,
-    submitFilters,
-  } = useDataTable({
+  const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: totalPages,
@@ -25,27 +19,18 @@ const UserList: FC = () => {
     },
   });
 
-  if (isLoading) return <p>Loading…</p>;
-
   return (
     <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
-      <div className="flex items-center mb-2 justify-center w-25">
-        <h3>کاربران</h3>
-        <div className="h-8 w-8 mr-2 rounded-full bg-slate-950 text-center">
-          <p className="w-full text-sm mt-1.5 text-white">{totalItems}</p>
-        </div>
-      </div>
-
       <TableToolbar
-        table={table}
-        tableName="کاربران"
-        refreshLoading={isLoading}
+        title="کاربران"
         totalItems={totalItems}
+        table={table}
+        refreshLoading={isLoading || isFetching}
+        refetch={refetch}
         submitFilters={submitFilters}
-        activeFilterChips={activeFilterChips}
-        filterCount={filterCount}
-        removeFilter={removeFilter}
         resetFilters={resetFilters}
+        filterCount={filterCount}
+        noManageColumns
       />
 
       <DataTable table={table} />

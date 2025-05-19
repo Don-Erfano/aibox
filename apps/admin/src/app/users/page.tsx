@@ -7,12 +7,19 @@ import { ColumnDef } from '@tanstack/react-table';
 
 const userColumns: ColumnDef<User>[] = [
   { header: 'ID', accessorKey: 'id', enableColumnFilter: false, id: 'id' },
-  { header: 'Name', accessorKey: 'name', id: 'name', meta: { label: 'Name' } },
+  {
+    header: 'Name',
+    accessorKey: 'name',
+    id: 'name',
+    enableColumnFilter: true,
+    meta: { label: 'Name', variant: 'text' },
+  },
   {
     header: 'Email',
     accessorKey: 'email',
     id: 'email',
-    meta: { label: 'Email' },
+    enableColumnFilter: true,
+    meta: { label: 'Email', variant: 'text' },
   },
   {
     header: 'Role',
@@ -47,14 +54,7 @@ export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [total, setTotal] = useState(0);
 
-  const {
-    table,
-    activeFilterChips,
-    filterCount,
-    removeFilter,
-    resetFilters,
-    submitFilters,
-  } = useDataTable({
+  const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: Math.ceil(total / 10),
@@ -79,17 +79,15 @@ export default function UsersPage() {
       <h1 className="text-2xl font-semibold mb-4">Users</h1>
 
       <TableToolbar
-        table={table}
-        tableName={'کاربران'}
-        refreshLoading={false}
+        title="کاربران"
         totalItems={total}
-        submitFilters={submitFilters}
-        activeFilterChips={activeFilterChips}
-        filterCount={filterCount}
-        removeFilter={removeFilter}
+        table={table}
         resetFilters={resetFilters}
+        submitFilters={submitFilters}
+        filterCount={filterCount}
+        refreshLoading={false}
+        viewModeButtons
       />
-
       <DataTable table={table} />
     </div>
   );
