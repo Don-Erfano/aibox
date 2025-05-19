@@ -7,12 +7,12 @@ const StatusBox: FC<StatusBoxProps> = ({ isActive }) => {
       {isActive ? (
         <>
           <div className="w-4 h-4 rounded-full bg-green-600" />
-          <p className="text-green-600">فعال</p>
+          <p className="text-zinc-700 ">فعال</p>
         </>
       ) : (
         <>
           <div className="w-4 h-4 rounded-full bg-red-600" />
-          <p className="text-red-600">غیرفعال</p>
+          <p className="text-zinc-700">غیرفعال</p>
         </>
       )}
     </div>
