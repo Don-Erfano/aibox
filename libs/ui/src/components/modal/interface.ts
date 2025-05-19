@@ -8,4 +8,5 @@ export interface ModalProps {
   onClose?: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  className?: string;
 }
