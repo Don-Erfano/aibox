@@ -1,3 +1,4 @@
 @import 'tailwindcss';
+@source "../../src";
 @import 'tw-animate-css';
 @import '@aibox/ui/index.css';
