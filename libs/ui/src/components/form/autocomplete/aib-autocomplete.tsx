@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover';
-import { Button } from '../../button';
 import {
   Command,
   CommandEmpty,
@@ -14,6 +13,7 @@ import {
 } from '../../command';
 import { cn } from '../../../lib';
 import { AIBAutocompleteProps } from './interface';
+import { Button } from '../button';
 
 export function AIBAutocomplete({ options }: AIBAutocompleteProps) {
   const [open, setOpen] = React.useState(false);

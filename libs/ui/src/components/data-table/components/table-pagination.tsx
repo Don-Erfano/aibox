@@ -5,7 +5,6 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 
-import { Button } from '../../button';
 import {
   Select,
   SelectContent,
@@ -15,10 +14,11 @@ import {
 } from '../../select';
 import { cn } from '../../../lib';
 import { TablePaginationProps } from '../types';
+import { Button } from '../../form';
 
 export function TablePagination<TData>({
   table,
-  pageSizeOptions = [5, 10, 20, 30, 40, 50],
+  pageSizeOptions = [10, 20, 30, 50],
   className,
   ...props
 }: TablePaginationProps<TData>) {
@@ -31,12 +31,10 @@ export function TablePagination<TData>({
       {...props}
     >
       <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm">
-        {table.getFilteredSelectedRowModel().rows.length} of{' '}
-        {table.getFilteredRowModel().rows.length} سطر انتخاب شده.
-      </div>
-      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
         <div className="flex items-center space-x-2">
-          <p className="whitespace-nowrap font-medium text-sm">تعداد نمایش</p>
+          <p className="whitespace-nowrap font-medium text-sm">
+            نمایش در هر صفحه
+          </p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {
@@ -55,15 +53,18 @@ export function TablePagination<TData>({
             </SelectContent>
           </Select>
         </div>
+      </div>
+      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
         <div className="flex items-center justify-center font-medium text-sm">
-          صفحه {table.getState().pagination.pageIndex + 1} of{' '}
+          صفحه {table.getState().pagination.pageIndex + 1} از{' '}
           {table.getPageCount()}
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-1 flex-row-reverse">
           <Button
             aria-label="صفحه اول"
-            variant="outline"
-            className="hidden size-8 lg:flex"
+            variant="ghost"
+            size="icon"
+            className="hidden lg:flex border-gray-400/80 border-1 text-zinc-600"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -71,9 +72,9 @@ export function TablePagination<TData>({
           </Button>
           <Button
             aria-label="قبلی"
-            variant="outline"
+            variant="ghost"
             size="icon"
-            className="size-8"
+            className="border-gray-400/80 border-1 text-zinc-600"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -81,9 +82,9 @@ export function TablePagination<TData>({
           </Button>
           <Button
             aria-label="بعدی"
-            variant="outline"
+            variant="ghost"
             size="icon"
-            className="size-8"
+            className="border-gray-400/80 border-1 text-zinc-600"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -91,8 +92,9 @@ export function TablePagination<TData>({
           </Button>
           <Button
             aria-label="صفحه آخر"
-            variant="outline"
-            className="hidden size-8 lg:flex"
+            variant="ghost"
+            size="icon"
+            className="border-gray-400/80 border-1 text-zinc-600"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

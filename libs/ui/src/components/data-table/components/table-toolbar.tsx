@@ -9,7 +9,6 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { Button } from '../../button';
 import { CustomChip } from '../../custom-chip';
 import { SearchBar } from '../../search-bar';
 import { viewModeList } from '../constant';
@@ -24,6 +23,7 @@ import {
 import { FilterForm } from './filter-form';
 import { useQueryState } from 'nuqs';
 import { useDebounceCallback } from '../../../hooks';
+import { Button } from '../../form';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
   <Button variant="ghost" size="icon" className="text-zinc-700" {...props} />

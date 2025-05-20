@@ -13,6 +13,7 @@ const UserList: FC = () => {
     data: users,
     columns: userColumns,
     pageCount: totalPages,
+    enableRowSelection: true,
     actions: {
       onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
       onDelete: (row) => console.log(row.id),

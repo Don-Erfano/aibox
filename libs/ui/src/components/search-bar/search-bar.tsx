@@ -7,9 +7,9 @@ import {
   Search as SearchIcon,
 } from 'lucide-react';
 
-import { Button } from '../button';
 import { SearchBarProps } from './interface';
 import { AIBInput } from '../form/input/input';
+import { Button } from '../form';
 
 export const SearchBar = (props: SearchBarProps) => {
   const {
