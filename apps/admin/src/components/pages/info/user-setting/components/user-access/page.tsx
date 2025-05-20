@@ -3,12 +3,17 @@
 import React, { FC, useState } from 'react';
 import { Button, RadioGroup } from '@aibox/ui';
 import { userAccessLevels } from './constant';
-import { UserAccessLevelProps, UserLevels } from './types';
+import { FormValues, UserAccessLevelProps, UserLevels } from './types';
+import { useForm } from 'react-hook-form';
 
 const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
   const [currentLevel, setCurrentLevel] = useState(userLevel);
   const [tempLevel, setTempLevel] = useState(currentLevel);
   const [editMode, setEditMode] = useState<boolean>(false);
+
+  const form = useForm<FormValues>({
+    defaultValues: { accessLevel: currentLevel },
+  });
 
   const handleCancel = () => {
     setTempLevel(currentLevel);
