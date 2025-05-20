@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Button } from '../form';
 import {
   DeleteIcon,
   ChevronDownIcon,
@@ -7,7 +8,6 @@ import {
 } from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
-import { Button } from '../button';
 import { Checkbox } from '../form/checkbox';
 
 /**

@@ -9,7 +9,6 @@ import { DatePickerContext } from './providers/DatePickerProvider';
 import { Days, Header, Input, WeekDays } from './components';
 import { jalaliToDateTime } from './helpers/convertors';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
-import { Button } from '../button';
 
 const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
   const today = moment(new Date()).format('jYYYY/jM/jD');

@@ -1,4 +1,4 @@
-import { Button } from '../../button';
+import { Button } from '../../form';
 import { Modal } from '../../modal';
 import { FilterFormProps } from '../types';
 import { TableFiltersForm } from './table-filters-form';

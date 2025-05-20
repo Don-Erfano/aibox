@@ -5,7 +5,6 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 
-import { Button } from '../../button';
 import {
   Select,
   SelectContent,
@@ -15,6 +14,7 @@ import {
 } from '../../select';
 import { cn } from '../../../lib';
 import { TablePaginationProps } from '../types';
+import { Button } from '../../form';
 
 export function TablePagination<TData>({
   table,

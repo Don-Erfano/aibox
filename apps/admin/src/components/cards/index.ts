@@ -1,1 +1,1 @@
-export * from './dashboard-cards';
+export * from './info-card';
