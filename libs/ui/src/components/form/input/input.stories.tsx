@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BaseTextField } from './BaseTextField';
+import { BaseTextField } from './aib-input';
 
 const meta: Meta<typeof BaseTextField> = {
   component: BaseTextField,
-  title: 'BaseTextField',
+  title: 'Input',
 };
 export default meta;
 type Story = StoryObj<typeof BaseTextField>;
@@ -13,8 +13,6 @@ export const Sm: Story = {
     placeholder: 'placeholder',
     startAdornment: <>start</>,
     endAdornment: <>end</>,
-    variant: 'sm',
-    error: undefined,
     disabled: false,
     readOnly: false,
   },
@@ -23,8 +21,6 @@ export const Sm: Story = {
 export const md: Story = {
   args: {
     placeholder: 'placeholder',
-    error: undefined,
-    variant: 'md',
     startAdornment: <>start</>,
     endAdornment: <>end</>,
   },
@@ -33,8 +29,6 @@ export const md: Story = {
 export const lg: Story = {
   args: {
     placeholder: 'placeholder',
-    error: undefined,
-    variant: 'lg',
     startAdornment: <>start</>,
     endAdornment: <>end</>,
   },
@@ -46,7 +40,5 @@ export const WithLabel: Story = {
     startAdornment: <>start</>,
     label: 'label',
     endAdornment: <>end</>,
-    variant: 'md',
-    error: undefined,
   },
 };

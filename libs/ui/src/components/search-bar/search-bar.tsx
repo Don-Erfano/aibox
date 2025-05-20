@@ -8,8 +8,8 @@ import {
 } from 'lucide-react';
 
 import { Button } from '../button';
-import { BaseTextField } from '../inputs/textfield/baseTextField';
 import { SearchBarProps } from './interface';
+import { AIBInput } from '../form/input/input';
 
 export const SearchBar = (props: SearchBarProps) => {
   const {
@@ -25,8 +25,7 @@ export const SearchBar = (props: SearchBarProps) => {
     <div className="flex h-10 w-full items-center justify-end text-h2-xl">
       {open ? (
         <div className="flex h-10 w-full items-center justify-between gap-[10px]">
-          <BaseTextField
-            variant="sm"
+          <AIBInput
             placeholder={placeholder}
             endAdornment={
               <Button
