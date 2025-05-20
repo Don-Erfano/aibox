@@ -5,9 +5,10 @@ import { Tab } from '@aibox/ui';
 import { Tab as TabType } from '../../../../../../../libs/ui/src/components/tabs/types';
 import { UserInfoProps } from '@/components/pages/info/type';
 import { useGetUserInfo } from '@/services/user/info';
+import { use } from 'react';
 
 const UserInfo: React.FC<UserInfoProps> = ({ params }) => {
-  const { id } = params;
+  const { id } = use(params);
   const { user } = useGetUserInfo({ id });
 
   const tabs: TabType[] = [

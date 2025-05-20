@@ -23,6 +23,7 @@ interface RHFRadioGroupProps<
   label?: string;
   description?: string;
   options: Array<RadioOption<TFieldValues, Name>>;
+  disabled?: boolean;
 }
 
 export type { RadioGroupProps, RHFRadioGroupProps, RadioItemProps };

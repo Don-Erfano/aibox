@@ -1,5 +1,7 @@
-export const userAccessLevels = [
-  { id: 'user', value: 'user', label: 'کاربر' },
-  { id: 'operator', value: 'operator', label: 'اپراتور' },
-  { id: 'admin', value: 'admin', label: 'ادمین' },
+import { UserLevels } from './types';
+
+export const userAccessLevels: { id: UserLevels; label: string }[] = [
+  { id: 'user', label: 'کاربر' },
+  { id: 'operator', label: 'اپراتور' },
+  { id: 'admin', label: 'ادمین' },
 ];
