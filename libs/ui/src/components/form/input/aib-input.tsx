@@ -1,21 +1,22 @@
 'use client';
 
+import { cn } from '../../../lib';
 import { forwardRef, useRef, useState } from 'react';
-import { IBaseTextfieldProps } from './interface';
+import { AIBInputProps } from './interface';
 import { textfieldClassNames, textfieldWrapperClassNames } from './style';
 import { Eye, EyeOff } from 'lucide-react';
 
-const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
+const BaseTextField = forwardRef<HTMLInputElement, AIBInputProps>(
   (
     {
       variant,
       startAdornment,
       endAdornment,
-      error,
       direction,
       label,
       readOnly,
       disabled,
+      className,
       ...props
     },
     ref
@@ -42,8 +43,6 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
         ) : null}
         <div
           className={textfieldWrapperClassNames({
-            variant,
-            error: !!error,
             readOnly,
             disabled,
           })}
@@ -53,15 +52,18 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
           <input
             {...props}
             data-slot="input"
-            className={textfieldClassNames({
-              direction,
-              error: !!error,
-            })}
+            className={cn(
+              textfieldClassNames({
+                direction,
+              }),
+              className
+            )}
             readOnly={readOnly}
             dir="auto"
             ref={inputRef}
             type={type}
             disabled={disabled}
+            {...props}
           />
           {props.type === 'password' ? (
             <div
@@ -75,11 +77,6 @@ const BaseTextField = forwardRef<HTMLInputElement, IBaseTextfieldProps>(
             endAdornment
           )}
         </div>
-        {error ? (
-          <p className="absolute text-red-600 text-xs -bottom-4 left-auto right-2 w-fit">
-            {error}
-          </p>
-        ) : null}
       </div>
     );
   }
