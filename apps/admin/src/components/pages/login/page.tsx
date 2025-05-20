@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AiBoxTextIcon, Button, Textfield } from '@aibox/ui';
+import { AiBoxTextIcon, Button, Form, RHFInput } from '@aibox/ui';
 
 import { HOME_ROUTES } from '@/routes';
 import { zodSchema } from './constants';
@@ -20,10 +20,10 @@ interface IForm {
 const LoginPage: FC = () => {
   const { push } = useRouter();
   const { mutateAsync, isPending } = useLoginMutation();
-  const { control, handleSubmit } = useForm<IForm>({
+  const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
     defaultValues: {
-      username: '',
+      username: '09309747818',
       password: '',
     },
   });
@@ -41,34 +41,38 @@ const LoginPage: FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-[2rem]">
-      <AiBoxTextIcon />
-      <form
-        onSubmit={handleSubmit(submitHandler)}
-        className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
-      >
-        <h3 className="text-base font-medium">ورود به حساب کاربری</h3>
-        <Textfield
-          control={control}
-          placeholder="شماره موبایل/ایمیل*"
-          name="username"
-        />
-        <Textfield
-          control={control}
-          placeholder="کلمه عبور*"
-          name="password"
-          type="password"
-        />
-        <div className="mt-3 w-full flex gap-3 flex-col">
-          <Button variant="default" type="submit" disabled={isPending} isFilled>
-            ورود
-          </Button>
-          <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">
-            فراموشی کلمه عبور
-          </span>
-        </div>
-      </form>
-    </div>
+    <Form {...form}>
+      <div className="flex flex-col items-center gap-[2rem]">
+        <AiBoxTextIcon />
+        <form
+          onSubmit={form.handleSubmit(submitHandler)}
+          className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
+        >
+          <h3 className="text-base font-medium">ورود به حساب کاربری</h3>
+          <RHFInput
+            control={form.control}
+            placeholder="شماره موبایل/ایمیل*"
+            name="username"
+          />
+          <RHFInput
+            control={form.control}
+            placeholder="کلمه عبور*"
+            name="password"
+            type="password"
+            description="this is password description"
+            label='"کلمه عبور*'
+          />
+          <div className="mt-3 w-full flex gap-3 flex-col">
+            <Button variant="default" type="submit" disabled={isPending}>
+              ورود
+            </Button>
+            <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">
+              فراموشی کلمه عبور
+            </span>
+          </div>
+        </form>
+      </div>
+    </Form>
   );
 };
 

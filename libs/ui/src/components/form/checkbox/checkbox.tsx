@@ -1,12 +1,9 @@
-import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { CheckIcon } from 'lucide-react';
-import { cn } from '../lib';
+import { AIBCheckboxProps } from './interface';
+import { cn } from '../../../lib';
 
-function Checkbox({
-  className,
-  ...props
-}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+export const Checkbox = ({ className, ...props }: AIBCheckboxProps) => {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
@@ -24,6 +21,4 @@ function Checkbox({
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );
-}
-
-export { Checkbox };
+};
