@@ -2397,10 +2397,19 @@ packages:
       '@types/react':
         optional: true
 
-<<<<<<< HEAD
   '@radix-ui/react-tabs@1.1.11':
     resolution: {integrity: sha512-4FiKSVoXqPP/KfzlB7lwwqoFV6EPwkrrqGp9cUYXjwDYHhvpnqq79P+EPHKcdoTE7Rl8w/+6s9rTlsfXHES9GA==}
-=======
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   '@radix-ui/react-toggle-group@1.1.9':
     resolution: {integrity: sha512-HJ6gXdYVN38q/5KDdCcd+JTuXUyFZBMJbwXaU/82/Gi+V2ps6KpiZ2sQecAeZCV80POGRfkUBdUIj6hIdF6/MQ==}
     peerDependencies:
@@ -2416,7 +2425,6 @@ packages:
 
   '@radix-ui/react-toggle@1.1.8':
     resolution: {integrity: sha512-hrpa59m3zDnsa35LrTOH5s/a3iGv/VD+KKQjjiCTo/W4r0XwPpiWQvAv6Xl1nupSoaZeNNxW6sJH9ZydsjKdYQ==}
->>>>>>> 41a9ea50ff70476c584ee0481ee8a885595a1206
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -11342,21 +11350,27 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.1
 
-<<<<<<< HEAD
   '@radix-ui/react-tabs@1.1.11(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-=======
-  '@radix-ui/react-toggle-group@1.1.9(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
->>>>>>> 41a9ea50ff70476c584ee0481ee8a885595a1206
     dependencies:
       '@radix-ui/primitive': 1.1.2
       '@radix-ui/react-context': 1.1.2(@types/react@18.3.1)(react@19.0.0)
       '@radix-ui/react-direction': 1.1.1(@types/react@18.3.1)(react@19.0.0)
-<<<<<<< HEAD
       '@radix-ui/react-id': 1.1.1(@types/react@18.3.1)(react@19.0.0)
       '@radix-ui/react-presence': 1.1.4(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-primitive': 2.1.2(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-roving-focus': 1.1.9(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-=======
+      '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@18.3.1)(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+    optionalDependencies:
+      '@types/react': 18.3.1
+      '@types/react-dom': 18.3.0
+
+  '@radix-ui/react-toggle-group@1.1.9(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.2
+      '@radix-ui/react-context': 1.1.2(@types/react@18.3.1)(react@19.0.0)
+      '@radix-ui/react-direction': 1.1.1(@types/react@18.3.1)(react@19.0.0)
       '@radix-ui/react-primitive': 2.1.2(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-roving-focus': 1.1.9(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-toggle': 1.1.8(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -11371,7 +11385,6 @@ snapshots:
     dependencies:
       '@radix-ui/primitive': 1.1.2
       '@radix-ui/react-primitive': 2.1.2(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
->>>>>>> 41a9ea50ff70476c584ee0481ee8a885595a1206
       '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@18.3.1)(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
