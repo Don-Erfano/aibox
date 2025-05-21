@@ -2,8 +2,8 @@
 
 import { flexRender, type Header } from '@tanstack/react-table';
 import {
-  ChevronDown,
-  ChevronUp,
+  ArrowDownWideNarrow,
+  ArrowUpNarrowWide,
   ChevronsUpDown,
   EyeOff,
   X,
@@ -35,16 +35,16 @@ export function TableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger
           className={cn(
-            '-ml-1.5 flex h-8 items-center gap-1.5 rounded-md px-2 py-1.5 hover:bg-accent focus:outline-none focus:ring-1 focus:ring-ring data-[state=open]:bg-accent [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground',
+            '-ml-1.5 flex h-8 items-center gap-1.5 rounded-md px-2 py-1.5 hover:bg-accent focus:outline-none data-[state=open]:text-accent [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground',
             className
           )}
           {...props}
         >
           {header.column.getCanSort() &&
             (header.column.getIsSorted() === 'desc' ? (
-              <ChevronDown />
+              <ArrowDownWideNarrow strokeWidth={1.5} />
             ) : header.column.getIsSorted() === 'asc' ? (
-              <ChevronUp />
+              <ArrowUpNarrowWide strokeWidth={1.5} />
             ) : (
               <ChevronsUpDown />
             ))}
@@ -57,7 +57,7 @@ export function TableColumnHeader<TData, TValue>({
                 checked={header.column.getIsSorted() === 'asc'}
                 onClick={() => header.column.toggleSorting(false)}
               >
-                <ChevronUp />
+                <ArrowUpNarrowWide strokeWidth={1.5} />
                 صعودی
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
@@ -65,7 +65,7 @@ export function TableColumnHeader<TData, TValue>({
                 checked={header.column.getIsSorted() === 'desc'}
                 onClick={() => header.column.toggleSorting(true)}
               >
-                <ChevronDown />
+                <ArrowDownWideNarrow strokeWidth={1.5} />
                 نزولی
               </DropdownMenuCheckboxItem>
               {header.column.getIsSorted() && (
