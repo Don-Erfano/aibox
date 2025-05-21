@@ -1,3 +1,3 @@
 export interface UserInfoProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }

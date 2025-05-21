@@ -10,6 +10,8 @@ const UserList: FC = () => {
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
 
+  console.log(users);
+
   const router = useRouter();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
