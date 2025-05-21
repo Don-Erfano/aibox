@@ -1,10 +1,10 @@
 'use client';
 
 import React, { FC, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Form, RHFRadioGroup } from '@aibox/ui';
 import { userAccessLevels } from './constant';
 import { FormValues, UserAccessLevelProps, UserLevels } from './types';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
 const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
   const [currentLevel, setCurrentLevel] = useState<UserLevels>(userLevel);

@@ -18,7 +18,7 @@ const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
     <div className="flex flex-col mt-10 gap-12.5">
       <UserAccessLevel userLevel={userLevel} />
       <ProviderShareField data={providerShareData} />
-      <UserStatusField status={userData.is_active} />
+      <UserStatusField status={userData.is_active} userId={userId} />
     </div>
   );
 };
