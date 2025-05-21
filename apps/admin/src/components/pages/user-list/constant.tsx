@@ -8,7 +8,7 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام کاربر',
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
-    maxSize: 120,
+    maxSize: 100,
     cell: ({ row, getValue }) => {
       const url = row.original.profile_picture;
       const fullName = getValue() as string;
@@ -36,6 +36,7 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'nickname',
     enableColumnFilter: true,
     meta: { label: 'Nickname', variant: 'text' },
+    maxSize: 80,
   },
   {
     header: 'Email',
@@ -43,9 +44,7 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'email',
     enableColumnFilter: true,
     meta: { label: 'Email', variant: 'text' },
-    maxSize: 40,
-    minSize: 20,
-    size: 10,
+    maxSize: 140,
   },
   {
     header: 'تاریخ عضویت',
