@@ -35,7 +35,11 @@ export function TableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger
           className={cn(
-            '-ml-1.5 flex h-8 items-center gap-1.5 rounded-md px-2 py-1.5 hover:bg-accent focus:outline-none data-[state=open]:text-accent [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground',
+            '-ml-1.5 flex h-8 items-center gap-1.5 rounded-md px-2 py-1.5 hover:bg-accent focus:outline-none data-[state=open]:text-accent [&_svg]:size-4 [&_svg]:shrink-0',
+            {
+              '[&_svg]:text-teal-600': header.column.getIsSorted(),
+              '[&_svg]:text-muted-foreground': !header.column.getIsSorted(),
+            },
             className
           )}
           {...props}
@@ -49,11 +53,14 @@ export function TableColumnHeader<TData, TValue>({
               <ChevronsUpDown />
             ))}
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-28">
+        <DropdownMenuContent
+          align="start"
+          className="w-28 bg-popover text-popover-foreground border border-border"
+        >
           {header.column.getCanSort() && (
             <>
               <DropdownMenuCheckboxItem
-                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-primary"
                 checked={header.column.getIsSorted() === 'asc'}
                 onClick={() => header.column.toggleSorting(false)}
               >
@@ -61,7 +68,7 @@ export function TableColumnHeader<TData, TValue>({
                 صعودی
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
-                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+                className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-primary"
                 checked={header.column.getIsSorted() === 'desc'}
                 onClick={() => header.column.toggleSorting(true)}
               >
@@ -70,7 +77,7 @@ export function TableColumnHeader<TData, TValue>({
               </DropdownMenuCheckboxItem>
               {header.column.getIsSorted() && (
                 <DropdownMenuItem
-                  className="pl-2 [&_svg]:text-muted-foreground"
+                  className="pl-2 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground"
                   onClick={() => header.column.clearSorting()}
                 >
                   <X />
@@ -81,7 +88,7 @@ export function TableColumnHeader<TData, TValue>({
           )}
           {header.column.getCanHide() && (
             <DropdownMenuCheckboxItem
-              className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
+              className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-primary"
               checked={!header.column.getIsVisible()}
               onClick={() => header.column.toggleVisibility(false)}
             >

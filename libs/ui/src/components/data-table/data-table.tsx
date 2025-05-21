@@ -29,19 +29,29 @@ export function DataTable<TData>({
       {...props}
     >
       <div className="overflow-hidden rounded-md border">
-        <Table>
+        <Table className="table-fixed w-full">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    style={{ width: header.getSize() }}
-                    colSpan={header.colSpan}
-                  >
-                    <TableColumnHeader header={header} />
-                  </TableHead>
-                ))}
+                {headerGroup.headers.map((header) => {
+                  const columnDef = header.column.columnDef;
+                  const size = header.getSize();
+
+                  return (
+                    <TableHead
+                      key={header.id}
+                      style={{
+                        width: size,
+                        maxWidth: columnDef.maxSize,
+                        minWidth: columnDef.minSize,
+                      }}
+                      colSpan={header.colSpan}
+                      className="overflow-hidden text-ellipsis whitespace-nowrap"
+                    >
+                      <TableColumnHeader header={header} />
+                    </TableHead>
+                  );
+                })}
               </TableRow>
             ))}
           </TableHeader>
@@ -51,14 +61,27 @@ export function DataTable<TData>({
               table.getRowModel().rows.map((row) => (
                 <React.Fragment key={row.id}>
                   <TableRow data-state={row.getIsSelected() && 'selected'}>
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
+                    {row.getVisibleCells().map((cell) => {
+                      const columnDef = cell.column.columnDef;
+                      const size = cell.column.getSize();
+
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          style={{
+                            width: size,
+                            maxWidth: columnDef.maxSize,
+                            minWidth: columnDef.minSize,
+                          }}
+                          className="overflow-hidden text-ellipsis whitespace-nowrap"
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                   {row.getIsExpanded() && (
                     <TableRow>
