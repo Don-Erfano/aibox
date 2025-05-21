@@ -7,8 +7,10 @@ import {
   Columns3 as ManageColumnIcon,
   RotateCw as RefreshIcon,
 } from 'lucide-react';
+import { useQueryState } from 'nuqs';
 import { useEffect, useMemo, useState } from 'react';
 
+import { useDebouncedCallback } from '../../../hooks';
 import { CustomChip } from '../../custom-chip';
 import { SearchBar } from '../../search-bar';
 import { viewModeList } from '../constant';
@@ -21,8 +23,6 @@ import {
   ViewModeButton,
 } from '../types';
 import { FilterForm } from './filter-form';
-import { useQueryState } from 'nuqs';
-import { useDebounceCallback } from '../../../hooks';
 import { Button } from '../../form';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
@@ -57,7 +57,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
     [table]
   );
 
-  const onSearchValueChange = useDebounceCallback(() => {
+  const onSearchValueChange = useDebouncedCallback(() => {
     setSearchParam(search);
   }, 500);
 
