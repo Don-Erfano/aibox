@@ -43,6 +43,9 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'email',
     enableColumnFilter: true,
     meta: { label: 'Email', variant: 'text' },
+    maxSize: 40,
+    minSize: 20,
+    size: 10,
   },
   {
     header: 'تاریخ عضویت',
