@@ -8,7 +8,7 @@ import {
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
 import { Button } from '../button';
-import { Checkbox } from '../checkbox';
+import { Checkbox } from '../form/checkbox';
 
 /**
  * Hook to build table columns array with optional row-selection and operations.
