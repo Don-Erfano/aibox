@@ -12,7 +12,7 @@ export default function Dashboard() {
     setMode('default');
   };
   return (
-    <div>
+    <div className="bg-teal-600 lg:bg-red-800">
       Dashboard
       <div>
         <Button onClick={fullWidthChildren}>full width layout</Button>

@@ -1,8 +1,7 @@
-import * as React from 'react';
+import { cn } from '../../../lib';
+import type { AIBInputProps } from './interface';
 
-import { cn } from '../lib';
-
-function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
+export const AIBInput = ({ className, type, ...props }: AIBInputProps) => {
   return (
     <input
       type={type}
@@ -16,6 +15,4 @@ function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
       {...props}
     />
   );
-}
-
-export { Input };
+};

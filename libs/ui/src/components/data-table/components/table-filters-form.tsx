@@ -1,7 +1,7 @@
 'use client';
 import { useCallback } from 'react';
 import { TableFiltersFormProps } from '../types';
-import { BaseTextField } from '../../inputs/textfield/baseTextField';
+import { AIBInput } from '../../form/input/input';
 
 export function TableFiltersForm<TData>({
   column,
@@ -15,9 +15,8 @@ export function TableFiltersForm<TData>({
       switch (columnMeta.variant) {
         case 'text':
           return (
-            <BaseTextField
+            <AIBInput
               type="text"
-              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -26,9 +25,8 @@ export function TableFiltersForm<TData>({
 
         case 'number':
           return (
-            <BaseTextField
+            <AIBInput
               type="number"
-              variant="sm"
               inputMode="numeric"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
@@ -38,9 +36,8 @@ export function TableFiltersForm<TData>({
 
         case 'date':
           return (
-            <BaseTextField
+            <AIBInput
               type="date"
-              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -49,9 +46,8 @@ export function TableFiltersForm<TData>({
 
         case 'select':
           return (
-            <BaseTextField
+            <AIBInput
               type="date"
-              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
@@ -60,9 +56,8 @@ export function TableFiltersForm<TData>({
 
         case 'multiSelect':
           return (
-            <BaseTextField
+            <AIBInput
               type="date"
-              variant="sm"
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               value={(column.getFilterValue() as string) ?? ''}
               onChange={(e) => column.setFilterValue(e.target.value)}
