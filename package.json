@@ -58,6 +58,7 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
+    "lucide-react": "^0.503.0",
     "motion": "^12.9.2",
     "nuqs": "^2.4.3",
     "nx": "21.0.3",
