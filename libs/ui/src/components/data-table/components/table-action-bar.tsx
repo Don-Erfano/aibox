@@ -4,13 +4,13 @@ import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Table } from '@tanstack/react-table';
 import { XIcon } from 'lucide-react';
-import { Button } from '../../button';
 import { AnimatePresence, motion } from 'motion/react';
 import { Separator } from '../../separator';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
 
 import { TableActionBarSelectionProps } from '../types';
 import { cn } from '../../../lib/utils';
+import { Button } from '../../form';
 
 interface TableActionBarProps<TData>
   extends React.ComponentProps<typeof motion.div> {

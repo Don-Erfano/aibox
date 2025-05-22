@@ -32,7 +32,7 @@ export function TablePagination<TData>({
     >
       <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm">
         <div className="flex items-center space-x-2">
-          <p className="whitespace-nowrap font-medium text-sm">
+          <p className="whitespace-nowrap font-normal text-sm text-zinc-600">
             نمایش در هر صفحه
           </p>
           <Select
@@ -41,7 +41,7 @@ export function TablePagination<TData>({
               table.setPageSize(Number(value));
             }}
           >
-            <SelectTrigger className="h-8 w-[4.5rem] [&[data-size]]:h-8">
+            <SelectTrigger className="h-10 w-[4rem] [&[data-size]]:h-10">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -52,13 +52,13 @@ export function TablePagination<TData>({
               ))}
             </SelectContent>
           </Select>
+          <div className="flex items-center justify-center text-sm font-normal text-zinc-600">
+            صفحه {table.getState().pagination.pageIndex + 1} از{' '}
+            {table.getPageCount()}
+          </div>
         </div>
       </div>
       <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
-        <div className="flex items-center justify-center font-medium text-sm">
-          صفحه {table.getState().pagination.pageIndex + 1} از{' '}
-          {table.getPageCount()}
-        </div>
         <div className="flex items-center gap-1 flex-row-reverse">
           <Button
             aria-label="صفحه اول"
