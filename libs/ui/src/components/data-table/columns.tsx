@@ -9,6 +9,7 @@ import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
 import { Checkbox } from '../form/checkbox';
 import { Button } from '../form';
+import { cn } from '../../lib';
 
 /**
  * Hook to build table columns array with optional row-selection and operations.
@@ -43,20 +44,25 @@ export function useTableColumns<T>(
 
     const selectionCol: ColumnDef<T, any> = {
       id: 'select',
-      header: ({ table }: { table: Table<T> }) =>
-        enableSelection ? (
+      header: ({ table }: { table: Table<T> }) => {
+        const allSelected = table.getIsAllPageRowsSelected();
+        const someSelected = table.getIsSomePageRowsSelected();
+        const shouldShow = allSelected || someSelected;
+
+        return (
           <Checkbox
-            checked={
-              table.getIsAllPageRowsSelected() ||
-              (table.getIsSomePageRowsSelected() && 'indeterminate')
-            }
+            checked={allSelected || (someSelected && 'indeterminate')}
             onCheckedChange={(value) =>
               table.toggleAllPageRowsSelected(!!value)
             }
             aria-label="Select all"
-            className="translate-y-0.5"
+            className={cn(
+              'translate-y-0.5',
+              shouldShow ? 'visible' : 'invisible'
+            )}
           />
-        ) : null,
+        );
+      },
       cell: ({ row }: { row: any }) =>
         enableSelection ? (
           <Checkbox
@@ -74,7 +80,7 @@ export function useTableColumns<T>(
       header: actions ? 'عملیات' : undefined,
       cell: ({ row }: { row: any }) =>
         actions ? (
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             {actions.onEdit && (
               <Button
                 aria-label="Edit"

@@ -1,7 +1,9 @@
+import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { StatusBox } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
+import { useRef } from 'react';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -14,15 +16,13 @@ const userColumns: ColumnDef<IUser>[] = [
       const fullName = getValue() as string;
       return (
         <div className="flex items-center space-x-2">
-          {url ? (
-            <img
-              src={url}
-              alt={fullName}
-              className="h-8 w-8 rounded-full object-cover"
-            />
-          ) : (
-            <div className="h-8 w-8 rounded-full bg-neutral-200 border border-teal-600" />
-          )}
+          <Image
+            src={url ? url : '/images/default-user.svg'}
+            alt={fullName}
+            width={28}
+            height={28}
+            className="object-cover border-1 border-teal-600 rounded-full"
+          />
           <span>{fullName}</span>
         </div>
       );
