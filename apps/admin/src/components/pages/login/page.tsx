@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AiBoxTextIcon, Button, Form, RHFInput } from '@aibox/ui';
+import { AiBoxTextIcon, Button, Form, RHFSelect } from '@aibox/ui';
 
 import { HOME_ROUTES } from '@/routes';
 import { zodSchema } from './constants';
@@ -49,12 +49,12 @@ const LoginPage: FC = () => {
           className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
         >
           <h3 className="text-base font-medium">ورود به حساب کاربری</h3>
-          <RHFInput
+          <RHFSelect
             control={form.control}
             placeholder="شماره موبایل/ایمیل*"
             name="username"
           />
-          <RHFInput
+          <RHFSelect
             control={form.control}
             placeholder="کلمه عبور*"
             name="password"

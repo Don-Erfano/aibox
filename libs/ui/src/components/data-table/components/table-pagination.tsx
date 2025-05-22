@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../select';
+} from './../../form/select';
 import { cn } from '../../../lib';
 import { TablePaginationProps } from '../types';
 import { Button } from '../../form';
