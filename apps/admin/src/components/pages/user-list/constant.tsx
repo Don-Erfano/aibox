@@ -3,7 +3,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { StatusBox } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
-import { useRef } from 'react';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
