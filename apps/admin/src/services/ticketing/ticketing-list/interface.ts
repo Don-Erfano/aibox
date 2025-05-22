@@ -55,7 +55,7 @@ export interface IGetTicketListRequest {
 }
 
 export interface IGetTicketListResponse extends IPaginationMeta {
-  tickets: ITicket[];
+  data: ITicket[];
 }
 
 // add ticket
