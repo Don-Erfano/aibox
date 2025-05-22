@@ -1,9 +1,10 @@
 'use client';
 
-import { ChevronIcon, DataTable, TableToolbar, useDataTable } from '@aibox/ui';
+import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 
 import userColumns from './constants';
 import { useGetApiList } from '@/services';
+import { Ban, CircleCheck, CircleX } from 'lucide-react';
 
 const ApiList = () => {
   const { apis, totalItems, totalPages, isLoading, refetch } = useGetApiList();
@@ -16,12 +17,17 @@ const ApiList = () => {
       customActions: [
         {
           label: 'تأیید کردن',
-          icon: <ChevronIcon />,
+          icon: <CircleCheck />,
           onClick: () => console.log('click'),
         },
         {
           label: 'رد کردن',
-          icon: <ChevronIcon />,
+          icon: <CircleX />,
+          onClick: () => console.log('click'),
+        },
+        {
+          label: 'منقضی کردن',
+          icon: <Ban />,
           onClick: () => console.log('click'),
         },
       ],
@@ -31,7 +37,7 @@ const ApiList = () => {
   return (
     <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
       <TableToolbar
-        title="کاربران"
+        title="لیست APIها"
         totalItems={totalItems}
         table={table}
         refreshLoading={isLoading}
