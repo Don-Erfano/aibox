@@ -57,7 +57,7 @@ const buttonVariants = cva(
       {
         variant: 'ghost',
         isFilled: false,
-        className: `bg-transparent border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200 
+        className: `bg-transparent text-zinc-700 border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200 
                     acitve:ring-0 active:border-teal-600 aria-selected:bg-teal-600 aria-selected:text-white hover:text-teal-600`,
       },
     ],
