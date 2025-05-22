@@ -37,6 +37,7 @@ export function TablePagination<TData>({
           </p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
+            dir="rtl"
             onValueChange={(value) => {
               table.setPageSize(Number(value));
             }}
