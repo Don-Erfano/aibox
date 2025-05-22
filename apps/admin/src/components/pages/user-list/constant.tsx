@@ -36,7 +36,7 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'nickname',
     enableColumnFilter: true,
     meta: { label: 'Nickname', variant: 'text' },
-    maxSize: 80,
+    maxSize: 100,
   },
   {
     header: 'Email',
