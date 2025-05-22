@@ -20,13 +20,6 @@ const UserToken: FC = () => {
 
   return (
     <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
-      <div className="flex mb-2">
-        <h3>توکن‌ها</h3>
-        <div className="h-8 w-8 mr-2 rounded-full bg-slate-950 text-center">
-          <p className="w-full text-sm mt-1.5 text-white">{totalItems}</p>
-        </div>
-      </div>
-
       <TableToolbar
         table={table}
         title="لیست توکن‌ها"
