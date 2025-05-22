@@ -147,6 +147,9 @@ importers:
       jsdom:
         specifier: ~22.1.0
         version: 22.1.0
+      lucide-react:
+        specifier: ^0.503.0
+        version: 0.503.0(react@18.3.1)
       motion:
         specifier: ^12.9.2
         version: 12.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -294,7 +297,7 @@ importers:
         specifier: ^1.1.6
         version: 1.1.6(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-slot':
-        specifier: ^1.2.0
+        specifier: ^1.2.2
         version: 1.2.2(@types/react@18.3.1)(react@19.0.0)
       '@radix-ui/react-tabs':
         specifier: ^1.1.11
@@ -317,9 +320,6 @@ importers:
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      lucide-react:
-        specifier: ^0.503.0
-        version: 0.503.0(react@19.0.0)
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -15743,9 +15743,9 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.503.0(react@19.0.0):
+  lucide-react@0.503.0(react@18.3.1):
     dependencies:
-      react: 19.0.0
+      react: 18.3.1
 
   luxon@3.6.1: {}
 

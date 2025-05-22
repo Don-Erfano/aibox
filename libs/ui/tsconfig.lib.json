@@ -8,10 +8,7 @@
       "@nx/react/typings/image.d.ts",
       "vite/client"
     ],
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "rootDir": "src",
     "jsx": "react-jsx",
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
@@ -32,5 +29,11 @@
     "**/*.stories.jsx",
     "**/*.stories.tsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../apps/admin/src/components/sidebar/type.ts"
+  ]
 }
