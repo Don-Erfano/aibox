@@ -11,6 +11,7 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { defaultValues, userSchema, UserSchemaType } from '../types/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FormWrapper } from '@/components';
 
 export const UITest = () => {
   const form = useForm<UserSchemaType>({
@@ -78,6 +79,14 @@ export const UITest = () => {
           <Button type="submit">ثبت</Button>
         </form>
       </Form>
+      <FormWrapper title="فرم">
+        <div className="bg-red-400 h-4" />
+        <div className="bg-blue-400 h-4" />
+        <div className="bg-red-400 h-4" />
+        <div className="bg-blue-400 h-4" />
+        <div className="bg-red-400 h-4" />
+        <div className="bg-blue-400 h-4" />
+      </FormWrapper>
     </div>
   );
 };
