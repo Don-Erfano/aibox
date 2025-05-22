@@ -15,11 +15,12 @@ export const useGetAccessTokenList = () => {
   let totalPages = 0;
   let totalItems = 0;
 
-  const { data: tokens = [], isLoading } = useQuery<
-    IGetUserTokenResponsePayload,
-    Error,
-    IUserToken[]
-  >({
+  const {
+    data: user = [],
+    isLoading,
+    refetch,
+    isFetching,
+  } = useQuery<IGetUserTokenResponsePayload, Error, IUserToken[]>({
     queryKey: ['accessTokenList', allQueryParams],
     queryFn: async ({ queryKey }) => {
       const { page, ...params } = queryKey[1] as IGetUserTokenRequestPayload;
@@ -37,5 +38,5 @@ export const useGetAccessTokenList = () => {
     placeholderData: keepPreviousData,
   });
 
-  return { tokens, totalItems, totalPages, isLoading };
+  return { user, totalItems, totalPages, isLoading, refetch, isFetching };
 };
