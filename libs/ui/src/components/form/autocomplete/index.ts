@@ -1,2 +1,3 @@
-export * from './rhf-autocomplete';
-export * from './aib-autocomplete';
+export { default as AibAutocomplete } from './aib-autocomplete';
+export * from './interface';
+export * from './helper';
