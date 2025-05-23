@@ -2,12 +2,10 @@ import { Control, FieldValues, Path } from 'react-hook-form';
 import { THeightSize, TVariant } from '../interface';
 import { ReactNode } from 'react';
 
-interface AIBAutocompleteProps {
-  options: { label: string; value: string }[];
-}
-
-interface RHFAutocompleteProps<TField extends FieldValues>
-  extends Omit<AIBAutocompleteProps, 'name'> {
+export interface RHFAutocompleteProps<
+  TField extends FieldValues,
+  TOption = { value: string; label: string }
+> {
   control: Control<TField>;
   name: Path<TField>;
   label: string;
@@ -22,6 +20,7 @@ interface RHFAutocompleteProps<TField extends FieldValues>
   readOnly?: boolean;
   isLoading?: boolean;
   tagAdornment?: ReactNode;
+  options: TOption[];
+  getOptionValue?: (opt: TOption) => string;
+  getOptionLabel?: (opt: TOption) => string;
 }
-
-export type { AIBAutocompleteProps, RHFAutocompleteProps };
