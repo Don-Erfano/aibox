@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { Check, ChevronsUpDown, Settings2 } from 'lucide-react';
-import { Button } from '../../button';
+import { Button } from '../../form';
 import { PopoverContent, PopoverTrigger, Popover } from '../../popover';
 import { Command, CommandGroup, CommandItem, CommandList } from '../../command';
 

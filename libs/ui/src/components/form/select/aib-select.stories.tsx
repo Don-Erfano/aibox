@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Select from './Select';
 import { SelectOption, SelectProps } from './interface';
+import { AibSelect } from './index';
 
 export default {
-  title: 'Components/Select',
-  component: Select,
+  title: 'Inputs/Select',
+  component: AibSelect,
   argTypes: {
     size: {
       control: 'radio',
@@ -16,7 +16,7 @@ export default {
     disabled: { control: 'boolean' },
     helperText: { control: 'text', description: 'Optional helper / hint text' },
   },
-} as ComponentMeta<typeof Select>;
+} as ComponentMeta<typeof AibSelect>;
 
 const baseOptions: SelectOption[] = [
   { value: 'fruit1', label: 'میوه1' },
@@ -24,8 +24,8 @@ const baseOptions: SelectOption[] = [
   { value: 'fruit3', label: 'میوه3' },
 ];
 
-const Template: ComponentStory<typeof Select> = (args) => (
-  <Select {...(args as SelectProps)} />
+const Template: ComponentStory<typeof AibSelect> = (args) => (
+  <AibSelect {...(args as SelectProps)} />
 );
 
 export const Default = Template.bind({});
@@ -53,10 +53,10 @@ WithDefaultValue.args = {
   defaultValue: 'fruit2',
 };
 
-export const Controlled: ComponentStory<typeof Select> = () => {
+export const Controlled: ComponentStory<typeof AibSelect> = () => {
   const [value, setValue] = useState<string>('fruit1');
   return (
-    <Select
+    <AibSelect
       options={baseOptions}
       value={value}
       onValueChange={setValue}
