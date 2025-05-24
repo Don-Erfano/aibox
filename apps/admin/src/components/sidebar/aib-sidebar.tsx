@@ -176,7 +176,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
             );
           })}
         </div>
-        <SidebarTrigger className="bg-[#020617] hover:bg-white/7 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none" />
+        <SidebarTrigger className="bg-[#020617] hover:bg-white/7 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-t-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none" />
       </SidebarContent>
     </SidebarShadCn>
   );
