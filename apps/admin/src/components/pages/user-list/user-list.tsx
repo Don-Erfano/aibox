@@ -1,12 +1,12 @@
-'use client';
-
 import { FC } from 'react';
 import { useDataTable, DataTable, TableToolbar, Button } from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
 import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const UserList: FC = () => {
+  const router = useRouter();
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
 
@@ -20,11 +20,11 @@ const UserList: FC = () => {
     },
   });
   const handleAddUser = () => {
-    console.log('clicked');
+    router.push('/dashboard/user-list/add-user');
   };
   return (
-    <div className="relative h-full">
-      <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
+    <>
+      <div className="relative h-full">
         <TableToolbar
           title="کاربران"
           totalItems={totalItems}
@@ -41,12 +41,12 @@ const UserList: FC = () => {
         <Button
           onClick={handleAddUser}
           variant="ghost"
-          className="absolute bottom-2 left-0 h-14 w-14 rounded-full bg-teal-600 shadow-2xl text-2xl cursor-pointer hover:bg-teal-700 "
+          className="absolute bottom-2 left-2 size-12 rounded-full bg-teal-600 shadow-2xl text-2xl hover:bg-teal-700"
         >
           <Plus strokeWidth={2.5} className="text-white size-6" />
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
