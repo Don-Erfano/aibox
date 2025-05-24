@@ -14,17 +14,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col">
-      <Header />
-      <div className="flex">
-        <SidebarProvider>
-          <Sidebar
-            sidebarData={sidebarData}
-            className="transition-all duration-300 ease-in-out"
-          />
-        </SidebarProvider>
-        <LayoutModeProvider>{children}</LayoutModeProvider>
-      </div>
+    <div className="flex overflow-hidden">
+      <SidebarProvider>
+        <Header />
+        <Sidebar sidebarData={sidebarData} />
+      </SidebarProvider>
+      <LayoutModeProvider>{children}</LayoutModeProvider>
     </div>
   );
 }

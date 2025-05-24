@@ -72,4 +72,180 @@ export const sidebarData: SidebarData = [
       },
     ],
   },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
+  {
+    title: 'API پلتفرم ارائه',
+    icon: <AppWindowMac height={20} width={20} />,
+    items: [
+      {
+        title: 'General',
+        url: '#',
+      },
+      {
+        title: 'Team',
+        url: '#',
+      },
+      {
+        title: 'Billing',
+        url: '#',
+      },
+      {
+        title: 'Limits',
+        url: '#',
+      },
+    ],
+  },
 ];
