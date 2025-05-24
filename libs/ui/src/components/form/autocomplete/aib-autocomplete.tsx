@@ -125,14 +125,10 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
           >
             <div
               ref={refs.inputRef}
-              className={clsx(
-                'w-full flex bg-white-10 rounded-2xl',
-                sizeClass,
-                {
-                  'rounded-b-none': isOpen,
-                  'cursor-not-allowed': inputDisabled,
-                }
-              )}
+              className={clsx('w-full flex bg-white rounded-2xl', sizeClass, {
+                'rounded-b-none': isOpen,
+                'cursor-not-allowed': inputDisabled,
+              })}
             >
               <div className="flex flex-grow items-center p-2 flex-wrap gap-2">
                 {variant === 'multiple' &&
@@ -240,7 +236,7 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
           <Portal>
             <div
               ref={refs.portalRef}
-              className="fixed shadow-lg rounded-lg bg-white"
+              className="fixed shadow-lg rounded-lg bg-white z-[10000] pointer-events-auto"
               style={{
                 left: offsets.left,
                 top: offsets.top,
@@ -255,7 +251,10 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
                 </div>
               ) : (
                 Array.from(grouped.entries()).map(([grp, opts]) => (
-                  <div key={grp || '__ungrouped__'}>
+                  <div
+                    key={grp || '__ungrouped__'}
+                    className="relative z-[10000] pointer-events-auto"
+                  >
                     {grp && (
                       <div className="px-4 py-2 text-xs font-normal border-b border-gray-200 text-zinc-700">
                         {grp}
@@ -274,7 +273,7 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
                             !disableOpt && handlers.pickOption(opt)
                           }
                           className={clsx(
-                            'w-full cursor-pointer text-sm px-4 py-2 h-10 flex justify-between last:rounded-b-lg',
+                            'w-full cursor-pointer pointer-events-auto text-sm px-4 py-2 h-10 flex justify-between last:rounded-b-lg',
                             {
                               'text-teal-600 hover:bg-teal-600/25':
                                 isSel && mode === 'light',

@@ -2,6 +2,11 @@ import { ColumnDef } from '@tanstack/react-table';
 import { AibStatus } from '@aibox/ui';
 import { ITicket } from '@/services/ticketing/ticketing-list/interface';
 
+export const toggleItems = [
+  { value: 'self', label: 'تخصیص به خود' },
+  { value: 'others', label: 'تخصیص به دیگران' },
+];
+
 const statusMap: Record<string, { label: string; bgColor: string }> = {
   opened: {
     label: 'باز',

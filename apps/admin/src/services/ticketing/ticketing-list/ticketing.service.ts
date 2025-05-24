@@ -45,7 +45,7 @@ export default class TicketingService extends AbstractAPI {
     return this.http.request({
       method: 'PUT',
       url: `${this.url}/${path.id}/assign/`,
-      data: payload,
+      data: payload.data,
     });
   }
 

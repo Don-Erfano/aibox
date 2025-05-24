@@ -11,12 +11,10 @@ import {
   ticketSchema,
   TicketSchemaType,
 } from '@/components/pages/ticketing/add-ticket/schema';
-
-const PRIORITY_LABELS: Record<TicketSchemaType['priority'], string> = {
-  low: 'کم',
-  medium: 'متوسط',
-  high: 'زیاد',
-};
+import {
+  PRIORITY_LABELS,
+  PriorityValue,
+} from '@/components/pages/ticketing/add-ticket/constant';
 
 const AddTicketPage: FC = () => {
   const { tickets, isLoading: isTicketsLoading } = useGetTicketList();
@@ -24,7 +22,9 @@ const AddTicketPage: FC = () => {
   const priorityOptions = useMemo(() => {
     const levels = Array.from(
       new Set(
-        tickets.map((ticket) => ticket.level as TicketSchemaType['priority'])
+        tickets
+          .map((ticket) => ticket.level as TicketSchemaType['priority'])
+          .filter((level): level is PriorityValue => level !== '')
       )
     );
     return levels.map((level) => ({
@@ -62,7 +62,7 @@ const AddTicketPage: FC = () => {
 
   const onSubmit: SubmitHandler<TicketSchemaType> = (data) => {
     console.log('form data', data);
-    // TODO: call your create-ticket mutation here
+    // TODO: call my create-ticket mutation here
   };
 
   return (
@@ -81,6 +81,7 @@ const AddTicketPage: FC = () => {
               name="priority"
               control={form.control}
               label="اولویت*"
+              h_size="sm"
               placeholder="انتخاب اولویت"
               options={priorityOptions}
               variant="single"
@@ -92,6 +93,7 @@ const AddTicketPage: FC = () => {
               name="category"
               control={form.control}
               label="دسته‌بندی*"
+              h_size="sm"
               placeholder="انتخاب دسته‌بندی"
               options={categoryOptions}
               variant="single"
@@ -104,6 +106,7 @@ const AddTicketPage: FC = () => {
               control={form.control}
               label="انتخاب کاربر*"
               placeholder="انتخاب کاربر"
+              h_size="sm"
               options={userOptions}
               variant="multiple"
               mode="light"

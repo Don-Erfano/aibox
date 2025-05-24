@@ -8,7 +8,7 @@ export interface RHFAutocompleteProps<
 > {
   control: Control<TField>;
   name: Path<TField>;
-  label: string;
+  label?: string;
   placeholder: string;
   description?: string;
   mode?: 'light' | 'dark';
