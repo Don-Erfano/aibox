@@ -1,15 +1,42 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react';
 
-interface AIBAutocompleteProps {
-  options: { label: string; value: string }[];
+export interface IAutocompleteProps
+  extends Omit<
+    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    | 'children'
+    | 'ref'
+    | 'className'
+    | 'style'
+    | 'size'
+    | 'contentEditable'
+    | 'onSelect'
+    | 'value'
+    | 'onChange'
+  > {
+  options: AutocompleteOption[];
+  onSelect: (selectedOptions: AutocompleteOption[]) => void;
+  tagAdornment?: ReactNode;
+  label?: string;
+  value?: string | string[];
+  h_size: THeightSize;
+  onChange?: (value: string) => void;
+  variant: TVariant;
+  mode: 'light' | 'dark';
+  disabled?: boolean;
+  enabled?: boolean;
+  limited_tag?: number;
+  isLoading?: boolean;
 }
 
-interface RHFAutocompleteProps<TField extends FieldValues>
-  extends Omit<AIBAutocompleteProps, 'name'> {
-  control?: Control<TField>;
-  name: Path<TField>;
-  description?: string;
+export interface AutocompleteOption {
+  id: string | number;
   label: string;
+  group?: string;
+  startAdornment?: string;
 }
 
-export type { AIBAutocompleteProps, RHFAutocompleteProps };
+export interface ISelectAutoRef {
+  focus: () => void;
+}
+export type THeightSize = `sm` | `md` | `lg`;
+export type TVariant = `single` | `multiple`;

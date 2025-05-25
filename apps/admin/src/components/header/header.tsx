@@ -23,7 +23,7 @@ const Header: FC = () => {
           items={[
             {
               label: 'پروفایل',
-              href: '/dashboard',
+              href: '/',
             },
             {
               label: 'خروج از حساب کاربری',
