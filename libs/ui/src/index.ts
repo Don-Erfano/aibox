@@ -16,7 +16,7 @@ export * from './components/command';
 export * from './components/data-table';
 export * from './components/accordion';
 export * from './components/profile-box';
-export * from './components/badges/status-box';
+export * from './components/badges/aib-status';
 export * from './components/form/autocomplete';
 export * from './components/form/autocomplete/custom-click-away';
 export * from './components/form';
