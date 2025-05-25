@@ -14,24 +14,25 @@ const AddUserPage: FC = () => {
     defaultValues,
   });
 
-  const { mutate: addUser, isSuccess } = useAddUser();
+  const { mutate: addUser, isPending } = useAddUser();
 
   const onSubmit: SubmitHandler<UserSchemaType> = (data) => {
-    addUser({
-      email: data.email,
-      is_admin: data.accessLevel === 'admin',
-    });
+    addUser(
+      {
+        email: data.email,
+        is_admin: data.accessLevel === 'admin',
+      },
+      {
+        onSuccess: () => {
+          router.push('/dashboard/user-list');
+        },
+      }
+    );
   };
   const handleCancel = () => {
     form.reset();
     router.push('/dashboard/user-list');
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      router.push('/dashboard/user-list');
-    }
-  }, [isSuccess, router]);
 
   return (
     <FormContainer title="افزودن کاربر جدید">
@@ -67,7 +68,7 @@ const AddUserPage: FC = () => {
           </FormWrapper>
 
           <div className="flex gap-5 justify-center mt-6">
-            <Button size="lg" isFilled type="submit">
+            <Button size="lg" isFilled type="submit" disabled={isPending}>
               ثبت
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>
