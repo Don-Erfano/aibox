@@ -7,7 +7,7 @@ import {
 
 export default class UserStatusServices extends AbstractAPI {
   constructor() {
-    super('v1/admin/wage_percentage'); // TODO: ADD API
+    super('v1/admin/'); // TODO: ADD API
   }
   public async getUserStatus(
     params: IUpdateUserStatusRequestPayload

@@ -2,6 +2,7 @@ import { IGetShareResponsePayload } from '@/services/user/info/user-setting/prov
 
 export interface ProviderShareProps {
   data?: IGetShareResponsePayload;
+  userId: string;
 }
 
 export type FormValues = {

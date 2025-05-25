@@ -4,8 +4,10 @@ import React, { FC, useEffect, useState } from 'react';
 import { BaseTextField, Button, Form, Modal, RHFInput } from '@aibox/ui';
 import { FormValues, ProviderShareProps } from './types';
 import { useForm } from 'react-hook-form';
+import { useUpdateProviderShare } from '@/services/user/info/user-setting/provider-share';
+import { convertPersianNumberToEnglish } from '@/utils';
 
-const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {
+const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
   const [providerShare, setProviderShare] = useState(
     data?.owner_earning_coefficient
   );
@@ -17,21 +19,43 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {
   const form = useForm<FormValues>({
     defaultValues: { providerShare: providerShare },
   });
-
   const { control, reset, handleSubmit } = form;
+
+  const { mutateAsync, isPending } = useUpdateProviderShare();
 
   useEffect(() => {
     setProviderShare(data?.owner_earning_coefficient);
     setPlatformShare(data?.withdraw_coefficient);
   }, [data]);
 
+  useEffect(() => {
+    if (open) {
+      reset({ providerShare: data?.owner_earning_coefficient });
+    }
+  }, [open, data, reset]);
+
   const handleCancel = () => {
     setOpen(false);
   };
 
-  const onSubmit = () => {
-    console.log('submit');
-    setOpen(false);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      if (data.providerShare) {
+        const rawValue = data.providerShare?.toString();
+        const fixedValue = convertPersianNumberToEnglish(rawValue);
+        const response = await mutateAsync({
+          id: userId,
+          earnings_coefficient_api: Number(fixedValue),
+        });
+        if (response.data.code === 'SUCCESS') {
+          console.log('success');
+          setOpen(false);
+        }
+      }
+    } catch (error) {
+      console.log('error:', error);
+      setOpen(false);
+    }
   };
 
   return (
@@ -80,8 +104,9 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {
                   variant="default"
                   isFilled
                   type="submit"
+                  disabled={isPending}
                 >
-                  ثبت
+                  {isPending ? 'در حال ثبت...' : 'ثبت'}
                 </Button>
                 <Button
                   className="flex-1"
