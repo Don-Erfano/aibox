@@ -26,6 +26,16 @@ export function TableColumnHeader<TData, TValue>({
   className,
   ...props
 }: TableColumnHeaderProps<TData, TValue>) {
+  if (!header.column.getCanSort()) {
+    return (
+      <p className="flex">
+        {header.isPlaceholder
+          ? null
+          : flexRender(header.column.columnDef.header, header.getContext())}
+      </p>
+    );
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger

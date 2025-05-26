@@ -14,6 +14,7 @@ const UserList: FC = () => {
     columns: userColumns,
     pageCount: totalPages,
     enableRowSelection: true,
+    enableExpand: true,
     actions: {
       onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
       onDelete: (row) => console.log(row.id),

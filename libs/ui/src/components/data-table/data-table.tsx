@@ -25,88 +25,85 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   return (
     <div
-      className={cn('flex w-full flex-col gap-2.5 overflow-auto', className)}
+      data-slot="table-container"
+      className={cn('flex w-full flex-col gap-2.5 overflow-x-auto', className)}
       {...props}
     >
-      <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  const columnDef = header.column.columnDef;
-                  const size = header.getSize();
+      <Table>
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const columnDef = header.column.columnDef;
+                const size = header.getSize();
 
-                  return (
-                    <TableHead
-                      key={header.id}
-                      style={{
-                        width: size,
-                        maxWidth: columnDef.maxSize,
-                        minWidth: columnDef.minSize,
-                      }}
-                      colSpan={header.colSpan}
-                      className="overflow-hidden text-ellipsis whitespace-nowrap"
-                    >
-                      <TableColumnHeader header={header} />
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
+                return (
+                  <TableHead
+                    key={header.id}
+                    style={{
+                      width: size,
+                      maxWidth: columnDef.maxSize,
+                      minWidth: columnDef.minSize,
+                    }}
+                    colSpan={header.colSpan}
+                    className="overflow-hidden text-ellipsis whitespace-nowrap"
+                  >
+                    <TableColumnHeader header={header} />
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
 
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <React.Fragment key={row.id}>
-                  <TableRow data-state={row.getIsSelected() && 'selected'}>
-                    {row.getVisibleCells().map((cell) => {
-                      const columnDef = cell.column.columnDef;
-                      const size = cell.column.getSize();
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <React.Fragment key={row.id}>
+                <TableRow data-state={row.getIsSelected() && 'selected'}>
+                  {row.getVisibleCells().map((cell) => {
+                    const columnDef = cell.column.columnDef;
+                    const size = cell.column.getSize();
 
-                      return (
-                        <TableCell
-                          key={cell.id}
-                          style={{
-                            width: size,
-                            maxWidth: columnDef.maxSize,
-                            minWidth: columnDef.minSize,
-                          }}
-                          className="overflow-hidden text-ellipsis whitespace-nowrap"
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                  {row.getIsExpanded() && (
-                    <TableRow>
-                      <TableCell colSpan={row.getVisibleCells().length}>
-                        {ChildComponent && (
-                          <ChildComponent row={row.original} />
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        style={{
+                          width: size,
+                          maxWidth: columnDef.maxSize,
+                          minWidth: columnDef.minSize,
+                        }}
+                        className="overflow-hidden text-ellipsis whitespace-nowrap"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
                         )}
                       </TableCell>
-                    </TableRow>
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={table.getAllColumns().length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+                    );
+                  })}
+                </TableRow>
+                {row.getIsExpanded() && (
+                  <TableRow className="h-5">
+                    <TableCell colSpan={row.getVisibleCells().length}>
+                      {ChildComponent && <ChildComponent row={row.original} />}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </React.Fragment>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                colSpan={table.getAllColumns().length}
+                className="h-24 text-center"
+              >
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
 
       <div className="flex flex-col gap-2.5">
         <TablePagination table={table} />
