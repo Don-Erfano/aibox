@@ -45,14 +45,14 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
   return (
     <div ref={containerRef} className="relative w-fit">
       <ToggleGroupRoot
-        className="border border-zinc-800 rounded-[10px] py-px px-[0.5px] flex gap-1 relative"
+        className="border border-zinc-800 rounded-[10px] py-px pl-[2px] flex gap-1 relative"
         type="single"
         value={value}
         onValueChange={onValueChange}
       >
         {value && (
           <div
-            className="absolute bg-teal-600 rounded-[8px] transition-all duration-300 pointer-events-none top-[2px]"
+            className="absolute bg-teal-600 rounded-[8px] transition-all duration-300 pointer-events-none top-[2px] right-px"
             style={{
               width: rect.width - 2,
               height: rect.height - 2,
