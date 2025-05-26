@@ -2,7 +2,6 @@ export * from './lib';
 export * as style from './global.css';
 export * from './hooks';
 export * from './components/icons';
-export * from './components/button';
 export * from './components/form';
 export * from './components/icons';
 export * from './components/table';
