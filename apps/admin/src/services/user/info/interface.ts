@@ -12,3 +12,10 @@ export interface IGetUserInfoRequestPayload {
 }
 
 export type IGetUserInfoResponsePayload = IUserDetail;
+
+export interface IUpdateUserInfoRequest {
+  id?: string;
+  is_admin?: boolean;
+  is_staff?: boolean;
+  is_active?: boolean;
+}

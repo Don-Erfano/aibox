@@ -6,6 +6,7 @@ import { UserSettingProps } from './types';
 import { useGetProviderShare } from '@/services/user/info/user-setting/provider-share';
 
 const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
+  console.log(userData);
   const userLevel = userData.is_admin
     ? 'admin'
     : userData.is_staff
@@ -16,7 +17,7 @@ const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
 
   return (
     <div className="flex flex-col mt-10 gap-12.5">
-      <UserAccessLevel userLevel={userLevel} />
+      <UserAccessLevel userLevel={userLevel} userId={userId} />
       <ProviderShareField data={providerShareData} userId={userId} />
       <UserStatusField status={userData.is_active} userId={userId} />
     </div>

@@ -4,14 +4,15 @@ import React, { FC, useState } from 'react';
 import { AibStatus, Button, Modal, ToggleGroup } from '@aibox/ui';
 import { UserStatusProps } from './types';
 import { toggleItems } from './constant';
-import { useUpdateUserStatus } from '@/services/user/info/user-setting/user-status';
+import { useUpdateUserInfo } from '@/services/user/info';
 
 const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
   const initialStatus = status ? 'active' : 'inactive';
   const [userStatus, setUserStatus] = useState(initialStatus);
+  const [tempStatus, setTempStatus] = useState(initialStatus);
   const [open, setOpen] = useState(false);
 
-  const mutation = useUpdateUserStatus();
+  const { mutateAsync, isPending } = useUpdateUserInfo();
 
   const handleCancel = () => {
     setUserStatus(initialStatus);
@@ -20,13 +21,20 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
 
   const handleSubmit = async () => {
     try {
-      // await mutation.mutateAsync({ id: userId }); TODO: set api
-      setOpen(false);
-      console.log(userStatus);
+      const response = await mutateAsync({
+        id: userId,
+        is_active: tempStatus === 'active',
+      });
+      if (response.data.code === 'SUCCESS') {
+        console.log('success');
+        setUserStatus(tempStatus);
+        setOpen(false);
+      }
       // TODO : toast
     } catch (error) {
       // TODO : toast
       console.log(error);
+      setOpen(false);
     }
   };
 
@@ -36,12 +44,17 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         وضعیت کاربر
       </p>
       <AibStatus
-        label={userStatus ? 'فعال' : 'غیرفعال'}
-        bgColor={`${userStatus ? 'bg-green-600' : ' bg-red-600'} text-zinc-700`}
+        label={userStatus == 'active' ? 'فعال' : 'غیرفعال'}
+        bgColor={`${
+          userStatus === 'active' ? 'bg-green-600' : ' text-zinc-700 bg-red-600'
+        }`}
       />
       <Modal
         open={open}
-        onOpenChange={setOpen}
+        onOpenChange={(isOpen) => {
+          setOpen(isOpen);
+          if (isOpen) setTempStatus(userStatus);
+        }}
         trigger={
           <Button variant="outline" isFilled className="self-start w-auto">
             تغییر وضعیت کاربر
@@ -52,8 +65,8 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         <div className=" flex flex-col gap-8 items-center ">
           <ToggleGroup
             items={toggleItems}
-            value={userStatus}
-            onValueChange={setUserStatus}
+            value={tempStatus}
+            onValueChange={setTempStatus}
           />
           <div className="flex items-center justify-center gap-5 ">
             <Button
@@ -62,6 +75,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
               isFilled
               type="submit"
               onClick={handleSubmit}
+              disabled={isPending}
             >
               ثبت
             </Button>
@@ -70,6 +84,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
               variant="default"
               onClick={handleCancel}
               type="button"
+              disabled={isPending}
             >
               لغو
             </Button>

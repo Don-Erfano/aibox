@@ -5,8 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Form, RHFRadioGroup } from '@aibox/ui';
 import { userAccessLevels } from './constant';
 import { FormValues, UserAccessLevelProps, UserLevels } from './types';
+import { useUpdateUserInfo } from '@/services/user/info';
 
-const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
+const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
   const [currentLevel, setCurrentLevel] = useState<UserLevels>(userLevel);
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -16,9 +17,26 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
 
   const { control, reset, handleSubmit } = form;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    setCurrentLevel(data.accessLevel);
-    setEditMode(false);
+  const { mutateAsync, isPending } = useUpdateUserInfo();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    try {
+      if (data.accessLevel) {
+        const response = await mutateAsync({
+          id: userId,
+          is_admin: data.accessLevel === 'admin',
+          is_staff: data.accessLevel === 'operator',
+        });
+
+        if (response.data.code === 'SUCCESS') {
+          console.log('success');
+          setEditMode(false);
+        }
+      }
+    } catch (error) {
+      console.log('error:', error);
+      setEditMode(false);
+    }
   };
 
   const handleCancel = () => {
@@ -45,13 +63,19 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel }) => {
         </div>
         {editMode ? (
           <div className="flex items-center gap-5 ">
-            <Button className="self-start w-auto" variant="outline" isFilled>
-              ثبت
+            <Button
+              className="self-start w-auto"
+              variant="outline"
+              isFilled
+              disabled={isPending}
+            >
+              {isPending ? 'در حال ثبت...' : 'ثبت'}
             </Button>
             <Button
               className="self-start w-auto"
               variant="outline"
               onClick={handleCancel}
+              disabled={isPending}
             >
               لغو
             </Button>

@@ -1,6 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UserInfoServices from './user-info.service';
-import { IGetUserInfoRequestPayload } from './interface';
+import {
+  IGetUserInfoRequestPayload,
+  IUpdateUserInfoRequest,
+} from './interface';
 
 const userInfoServices = new UserInfoServices();
 
@@ -16,4 +19,21 @@ export const useGetUserInfo = ({ id }: IGetUserInfoRequestPayload) => {
   });
 
   return { user, isPending };
+};
+
+export const useUpdateUserInfo = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, ...body }: IUpdateUserInfoRequest) => {
+      const response = await userInfoServices.UpdateUserInfo({ id, ...body });
+
+      return response;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ['userInfo', variables.id],
+      });
+    },
+  });
 };
