@@ -31,6 +31,7 @@ export function useTableColumns<T>(
       cell: ({ row }: { row: any }) =>
         row.getCanExpand() ? (
           <Button
+            key={row.id}
             aria-label={row.getIsExpanded() ? 'Expand' : 'Collapse'}
             onClick={row.getToggleExpandedHandler()}
             size="icon"
@@ -66,6 +67,7 @@ export function useTableColumns<T>(
       cell: ({ row }: { row: any }) =>
         enableSelection ? (
           <Checkbox
+            key={row.id}
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
             aria-label="Select row"
