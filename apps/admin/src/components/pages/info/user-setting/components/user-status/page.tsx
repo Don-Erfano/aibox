@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { Button, StatusBox } from '@aibox/ui';
+import { AibStatus, Button } from '@aibox/ui';
 import { UserStatusProps } from './types';
 
 const UserStatusField: FC<UserStatusProps> = ({ status }) => {
@@ -17,7 +17,10 @@ const UserStatusField: FC<UserStatusProps> = ({ status }) => {
       <p className="font-medium text-sm text-zinc-700 cursor-default">
         وضعیت کاربر
       </p>
-      <StatusBox isActive={userStatus} />
+      <AibStatus
+        label={userStatus ? 'فعال' : 'غیرفعال'}
+        bgColor={`${userStatus ? 'bg-green-600' : ' bg-red-600'} text-zinc-700`}
+      />
       <Button variant="outline" isFilled className="self-start w-auto">
         تغییر وضعیت کاربر
       </Button>

@@ -6,7 +6,6 @@ import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const UserList: FC = () => {
-  const router = useRouter();
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
 
