@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import {
+  IAddUserRequestPayload,
+  IAddUserResponsePayload,
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
 } from './interface';
@@ -17,6 +19,16 @@ export default class UserListsServices extends AbstractAPI {
       method: 'GET',
       url: `${this.url}/`,
       params,
+    });
+  }
+
+  public async addUser(
+    data: IAddUserRequestPayload
+  ): Promise<AxiosResponse<INetworkResponse<IAddUserResponsePayload>>> {
+    return this.http.request({
+      method: 'POST',
+      url: `${this.url}/`,
+      data,
     });
   }
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { Button, Modal, StatusBox, ToggleGroup } from '@aibox/ui';
+import { AibStatus, Button, Modal, ToggleGroup } from '@aibox/ui';
 import { UserStatusProps } from './types';
 import { toggleItems } from './constant';
 import { useUpdateUserStatus } from '@/services/user/info/user-setting/user-status';
@@ -35,7 +35,10 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
       <p className="font-medium text-sm text-zinc-700 cursor-default">
         وضعیت کاربر
       </p>
-      <StatusBox isActive={status} />
+      <AibStatus
+        label={userStatus ? 'فعال' : 'غیرفعال'}
+        bgColor={`${userStatus ? 'bg-green-600' : ' bg-red-600'} text-zinc-700`}
+      />
       <Modal
         open={open}
         onOpenChange={setOpen}
