@@ -22,7 +22,7 @@ const UserList: FC = () => {
   });
 
   return (
-    <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
+    <div className="w-full h-full shadow-2xl px-11 py-5 rounded-sm">
       <TableToolbar
         title="کاربران"
         totalItems={totalItems}
@@ -35,7 +35,7 @@ const UserList: FC = () => {
         noManageColumns
       />
 
-      <DataTable table={table} />
+      <DataTable table={table} isLoading={isLoading} />
     </div>
   );
 };

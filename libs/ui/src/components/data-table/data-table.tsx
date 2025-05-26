@@ -15,14 +15,43 @@ import {
   TableHeader,
   TableRow,
 } from '../table';
+import { NoData } from '../no-data';
+
+const TableSkeleton = ({
+  columnCount,
+  rowCount = 10,
+}: {
+  columnCount: number;
+  rowCount?: number;
+}) => (
+  <>
+    {Array.from({ length: rowCount }).map((_, index) => (
+      <TableRow key={`skeleton-${index}`}>
+        {Array.from({ length: columnCount }).map((_, cellIndex) => (
+          <TableCell key={`skeleton-cell-${cellIndex}`} className="h-10">
+            <div className="h-4 bg-gray-100 rounded animate-pulse" />
+          </TableCell>
+        ))}
+      </TableRow>
+    ))}
+  </>
+);
 
 export function DataTable<TData>({
   table,
   actionBar,
   childComponent: ChildComponent,
   className,
+  isLoading = false,
+  loadingRowCount = 10,
   ...props
-}: DataTableProps<TData>) {
+}: DataTableProps<TData> & {
+  isLoading?: boolean;
+  loadingRowCount?: number;
+}) {
+  const columnCount = table.getAllColumns().length;
+  const hasData = table.getRowModel().rows?.length > 0;
+
   return (
     <div
       data-slot="table-container"
@@ -57,7 +86,12 @@ export function DataTable<TData>({
         </TableHeader>
 
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <TableSkeleton
+              columnCount={columnCount}
+              rowCount={loadingRowCount}
+            />
+          ) : hasData ? (
             table.getRowModel().rows.map((row) => (
               <React.Fragment key={row.id}>
                 <TableRow data-state={row.getIsSelected() && 'selected'}>
@@ -94,11 +128,8 @@ export function DataTable<TData>({
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={table.getAllColumns().length}
-                className="h-24 text-center"
-              >
-                No results.
+              <TableCell colSpan={columnCount} className="py-2">
+                <NoData />
               </TableCell>
             </TableRow>
           )}
