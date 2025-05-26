@@ -10,11 +10,11 @@ const status: {
 } = {
   WAITING: {
     label: 'در انتضار تایید',
-    color: 'green-600',
+    color: 'blue-500',
   },
   WAITING_DEPRECATE: {
     label: 'درحال منقضی شدن',
-    color: 'cyan-300',
+    color: 'fuchsia-700 ',
   },
   DEPRECATED: {
     label: 'منتضی شده',
@@ -26,7 +26,7 @@ const status: {
   },
   PROCESSING: {
     label: 'ناقص',
-    color: 'red-600',
+    color: 'orange-500',
   },
   NOT_ACCEPTED: {
     label: 'مردود',
@@ -98,7 +98,7 @@ const userColumns: ColumnDef<IApiDetails>[] = [
   },
   {
     header: 'وضعیت',
-    cell: ({ row, getValue }) => {
+    cell: ({ row }) => {
       return (
         <div className="flex items-center space-x-2">
           <div
