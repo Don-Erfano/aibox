@@ -1,8 +1,7 @@
 'use client';
 
 import { UserSetting } from '@/components/pages/info/user-setting';
-import { Tab } from '@aibox/ui';
-import { Tab as TabType } from '../../../../../../../libs/ui/src/components/tabs/types';
+import { Tab, TabType } from '@aibox/ui';
 import { UserInfoProps } from '@/components/pages/info/type';
 import { useGetUserInfo } from '@/services/user/info';
 import { use } from 'react';

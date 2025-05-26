@@ -1,8 +1,8 @@
-export interface IGetShareRequestPayload {
+export interface IProviderShareRequest {
   id?: string;
 }
 
-export interface IGetShareResponsePayload {
+export interface IProviderShareResponse {
   owner_earning_coefficient: number;
   withdraw_coefficient: number;
 }
