@@ -1,6 +1,13 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import UserListsServices from '@/services/user/user-lists/user-lists.service';
 import {
+  IAddUserRequestPayload,
+  IAddUserResponsePayload,
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
   IUser,
@@ -37,4 +44,16 @@ export const useGetUserList = () => {
   });
 
   return { users, totalItems, totalPages, isLoading, isFetching, refetch };
+};
+
+export const useAddUser = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<IAddUserResponsePayload, Error, IAddUserRequestPayload>({
+    mutationFn: (newUserPayload: IAddUserRequestPayload) =>
+      userListsServices.addUser(newUserPayload).then((res) => res.data.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['userList'] });
+    },
+  });
 };
