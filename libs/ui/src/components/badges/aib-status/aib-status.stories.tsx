@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { AibStatus } from './index';
-
 const meta: Meta<typeof AibStatus> = {
   title: 'Boxes/AibStatus',
   component: AibStatus,
@@ -9,11 +8,8 @@ const meta: Meta<typeof AibStatus> = {
     bgColor: {},
   },
 };
-
 export default meta;
-
 type Story = StoryObj<typeof AibStatus>;
-
 export const Active: Story = {
   args: {
     label: 'aib status',

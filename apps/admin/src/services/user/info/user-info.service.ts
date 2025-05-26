@@ -11,15 +11,11 @@ export default class UserInfoServices extends AbstractAPI {
     super('v1/admin/user');
   }
 
-  public async getUserInfo(
-    params: IGetUserInfoRequestPayload
-  ): Promise<AxiosResponse<INetworkResponse<IGetUserInfoResponsePayload>>> {
-    const { id } = params;
-
-    if (!id) {
-      throw new Error('User ID is required');
-    }
-
+  public async getUserInfo({
+    id,
+  }: IGetUserInfoRequestPayload): Promise<
+    AxiosResponse<INetworkResponse<IGetUserInfoResponsePayload>>
+  > {
     return await this.http.request({
       method: 'GET',
       url: `${this.url}/${id}/`,

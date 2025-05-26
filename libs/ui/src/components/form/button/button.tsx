@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../lib';
+import { cn } from '../../../lib';
 
 const buttonVariants = cva(
   `flex flex-nowrap cursor-pointer w-full items-center justify-center
@@ -57,7 +57,7 @@ const buttonVariants = cva(
       {
         variant: 'ghost',
         isFilled: false,
-        className: `bg-transparent border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200 
+        className: `bg-transparent text-zinc-700 border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200 
                     acitve:ring-0 active:border-teal-600 aria-selected:bg-teal-600 aria-selected:text-white hover:text-teal-600`,
       },
     ],

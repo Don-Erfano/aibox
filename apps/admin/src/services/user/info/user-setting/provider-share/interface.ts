@@ -1,4 +1,4 @@
-export interface IGetShareRequestPayload {
+export interface IProviderShareRequest {
   id?: string;
 }
 
@@ -7,7 +7,7 @@ export interface IUpdateShareRequestPayload {
   earnings_coefficient_api: number;
 }
 
-export interface IGetShareResponsePayload {
+export interface IProviderShareResponse {
   owner_earning_coefficient: number;
   withdraw_coefficient: number;
 }

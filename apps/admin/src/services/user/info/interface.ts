@@ -1,5 +1,3 @@
-// userid: 639eed49-922d-40b5-98c8-be4cb132f043
-
 import { IUser } from '../user-lists/interface';
 
 export interface IUserDetail extends IUser {

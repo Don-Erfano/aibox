@@ -38,3 +38,18 @@ export interface IGetUserListRequestPayload {
 export interface IGetUserListResponsePayload extends IPaginationMeta {
   user: IUser[];
 }
+
+export interface IAddUserRequestPayload {
+  email: string;
+  is_admin: boolean;
+  first_name?: string;
+  last_name?: string;
+  nickname?: string;
+  gender?: 'M' | 'F' | 'U';
+  phone_number?: string;
+  is_staff?: boolean;
+}
+
+export interface IAddUserResponsePayload {
+  user: IUser;
+}

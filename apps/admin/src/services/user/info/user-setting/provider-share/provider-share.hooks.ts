@@ -1,13 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ProviderShareServices from './provider-share.service';
-import {
-  IGetShareRequestPayload,
-  IUpdateShareRequestPayload,
-} from './interface';
+import { IProviderShareRequest, IUpdateShareRequestPayload } from './interface';
 
 const providerShareService = new ProviderShareServices();
 
-export const useGetProviderShare = ({ id }: IGetShareRequestPayload) => {
+export const useGetProviderShare = ({ id }: IProviderShareRequest) => {
   const { data: providerShareData, isPending } = useQuery({
     queryKey: ['provider-share', id],
     queryFn: async () => {

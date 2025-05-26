@@ -1,7 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { IUser } from '@/services/user/user-token/interface';
 
-const tokenColumns: ColumnDef<IUser>[] = [
+import { IUserToken } from '@/services/user/user-token/interface';
+
+const tokenColumns: ColumnDef<IUserToken>[] = [
   {
     header: 'Email',
     accessorKey: 'email',

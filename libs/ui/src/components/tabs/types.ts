@@ -6,7 +6,7 @@ import {
   TabsContentProps,
 } from '@radix-ui/react-tabs';
 
-export interface Tab {
+export interface TabType {
   name: string;
   id: string;
   content: React.ReactNode;
@@ -14,7 +14,7 @@ export interface Tab {
 }
 
 export interface TabProps {
-  tabs: Tab[];
+  tabs: TabType[];
 }
 
 export type TabTitleProps = PropsWithChildren<{
