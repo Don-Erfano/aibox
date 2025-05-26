@@ -29,7 +29,6 @@ export default class UserInfoServices extends AbstractAPI {
   }: IUpdateUserInfoRequest): Promise<
     AxiosResponse<INetworkResponse<IGetUserInfoResponsePayload>>
   > {
-    console.log('body', body);
     return await this.http.request({
       method: 'PUT',
       url: `${this.url}/${id}/`,

@@ -6,7 +6,6 @@ import { UserSettingProps } from './types';
 import { useGetProviderShare } from '@/services/user/info/user-setting/provider-share';
 
 const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {
-  console.log(userData);
   const userLevel = userData.is_admin
     ? 'admin'
     : userData.is_staff

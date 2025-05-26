@@ -4,15 +4,14 @@ import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Form, RHFRadioGroup } from '@aibox/ui';
 import { userAccessLevels } from './constant';
-import { FormValues, UserAccessLevelProps, UserLevels } from './types';
+import { FormValues, UserAccessLevelProps } from './types';
 import { useUpdateUserInfo } from '@/services/user/info';
 
 const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
-  const [currentLevel, setCurrentLevel] = useState<UserLevels>(userLevel);
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const form = useForm<FormValues>({
-    defaultValues: { accessLevel: currentLevel },
+    defaultValues: { accessLevel: userLevel },
   });
 
   const { control, reset, handleSubmit } = form;
@@ -40,7 +39,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
   };
 
   const handleCancel = () => {
-    reset({ accessLevel: currentLevel });
+    reset({ accessLevel: userLevel });
     setEditMode(false);
   };
 
