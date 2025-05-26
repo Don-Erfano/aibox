@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@aibox/ui';
 import { ArrowLeft } from 'lucide-react';
 import { FC, PropsWithChildren } from 'react';
