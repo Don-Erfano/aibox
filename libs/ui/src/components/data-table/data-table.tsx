@@ -51,6 +51,12 @@ export function DataTable<TData>({
 }) {
   const columnCount = table.getAllColumns().length;
   const hasData = table.getRowModel().rows?.length > 0;
+  const hasExpandColumn = table
+    .getAllColumns()
+    .some((column) => column.id === 'expand');
+  const hasSelectionColumn = table
+    .getAllColumns()
+    .some((column) => column.id === 'select');
 
   return (
     <div
@@ -62,9 +68,12 @@ export function DataTable<TData>({
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map((header, headerIndex) => {
                 const columnDef = header.column.columnDef;
                 const size = header.getSize();
+                const isFirstColumn = headerIndex === 0;
+                const shouldAddPadding =
+                  isFirstColumn && !hasExpandColumn && !hasSelectionColumn;
 
                 return (
                   <TableHead
@@ -75,7 +84,13 @@ export function DataTable<TData>({
                       minWidth: columnDef.minSize,
                     }}
                     colSpan={header.colSpan}
-                    className="overflow-hidden text-ellipsis whitespace-nowrap"
+                    className={cn(
+                      'overflow-hidden text-ellipsis whitespace-nowrap',
+                      {
+                        'px-2': !header.column.getCanSort(),
+                        'pr-5': shouldAddPadding,
+                      }
+                    )}
                   >
                     <TableColumnHeader header={header} />
                   </TableHead>
@@ -95,9 +110,13 @@ export function DataTable<TData>({
             table.getRowModel().rows.map((row) => (
               <React.Fragment key={row.id}>
                 <TableRow data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => {
+                  {row.getVisibleCells().map((cell, cellIndex) => {
                     const columnDef = cell.column.columnDef;
                     const size = cell.column.getSize();
+                    const isFirstColumn = cellIndex === 0;
+
+                    const shouldAddPadding =
+                      isFirstColumn && !hasExpandColumn && !hasSelectionColumn;
 
                     return (
                       <TableCell
@@ -107,7 +126,12 @@ export function DataTable<TData>({
                           maxWidth: columnDef.maxSize,
                           minWidth: columnDef.minSize,
                         }}
-                        className="overflow-hidden text-ellipsis whitespace-nowrap"
+                        className={cn(
+                          'overflow-hidden text-ellipsis whitespace-nowrap',
+                          {
+                            'pr-5': shouldAddPadding,
+                          }
+                        )}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
