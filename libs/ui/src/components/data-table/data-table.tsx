@@ -128,7 +128,7 @@ export function DataTable<TData>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columnCount} className="py-2">
+              <TableCell colSpan={columnCount} className="py-18">
                 <NoData />
               </TableCell>
             </TableRow>

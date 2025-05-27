@@ -4,10 +4,17 @@ import {
   ChevronDownIcon,
   ChevronLeftIcon,
   SquarePen,
+  Trash,
 } from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
 import { Checkbox } from '../form/checkbox';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './../tooltip';
 import { Button } from '../form';
 import { cn } from '../../lib';
 
@@ -32,7 +39,7 @@ export function useTableColumns<T>(
         row.getCanExpand() ? (
           <Button
             key={row.id}
-            aria-label={row.getIsExpanded() ? 'Expand' : 'Collapse'}
+            aria-label={row.getIsExpanded() ? 'Collapse' : 'Expand'}
             onClick={row.getToggleExpandedHandler()}
             size="icon"
             variant="ghost"
@@ -82,39 +89,61 @@ export function useTableColumns<T>(
       header: actions ? 'عملیات' : undefined,
       cell: ({ row }: { row: any }) =>
         actions ? (
-          <div className="flex gap-2">
-            {actions.onEdit && (
-              <Button
-                aria-label="Edit"
-                variant="ghost"
-                onClick={() => actions.onEdit!(row.original)}
-                size="icon"
-              >
-                <SquarePen strokeWidth={1.5} className="size-5" />
-              </Button>
-            )}
-            {actions.onDelete && (
-              <Button
-                aria-label="Delete"
-                variant="ghost"
-                onClick={() => actions.onDelete!(row.original)}
-                size="icon"
-              >
-                <DeleteIcon strokeWidth={1.5} className="size-5" />
-              </Button>
-            )}
-            {actions.customActions?.map((action, idx) => (
-              <Button
-                key={idx}
-                aria-label={action.label}
-                size="icon"
-                variant="ghost"
-                onClick={() => action.onClick(row.original)}
-              >
-                {action.icon}
-              </Button>
-            ))}
-          </div>
+          <TooltipProvider>
+            <div className="flex gap-2">
+              {actions.onEdit && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      aria-label="Edit"
+                      variant="ghost"
+                      onClick={() => actions.onEdit!(row.original)}
+                      size="icon"
+                    >
+                      <SquarePen strokeWidth={1.5} className="size-5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>ویرایش</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              {actions.onDelete && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      aria-label="Delete"
+                      variant="ghost"
+                      onClick={() => actions.onDelete!(row.original)}
+                      size="icon"
+                    >
+                      <Trash strokeWidth={1.5} className="size-5" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>حذف</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              {actions.customActions?.map((action, idx) => (
+                <Tooltip key={idx}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      aria-label={action.label}
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => action.onClick(row.original)}
+                    >
+                      {action.icon}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{action.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+          </TooltipProvider>
         ) : null,
       size: 120,
     };
