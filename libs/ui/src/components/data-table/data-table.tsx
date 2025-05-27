@@ -91,6 +91,7 @@ export function DataTable<TData>({
                         'pr-5': shouldAddPadding,
                       }
                     )}
+                    data-debug={shouldAddPadding ? 'has-padding' : 'no-padding'}
                   >
                     <TableColumnHeader header={header} />
                   </TableHead>
@@ -132,6 +133,9 @@ export function DataTable<TData>({
                             'pr-5': shouldAddPadding,
                           }
                         )}
+                        data-debug={
+                          shouldAddPadding ? 'has-padding' : 'no-padding'
+                        }
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
