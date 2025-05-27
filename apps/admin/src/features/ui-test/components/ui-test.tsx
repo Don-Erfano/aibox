@@ -3,10 +3,10 @@
 import {
   Button,
   Form,
-  RHFAutocomplete,
   RHFCheckbox,
   RHFInput,
   RHFRadioGroup,
+  RHFAutocomplete,
 } from '@aibox/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { defaultValues, userSchema, UserSchemaType } from '../types/schema';
@@ -50,10 +50,18 @@ export const UITest = () => {
             label="Notification Type"
             description="Choose how you'd like to be notified."
             options={[
-              { value: 'all', label: 'All messages' },
-              { value: 'mentions', label: 'Mentions only' },
-              { value: 'none', label: 'None' },
+              { value: 'all', label: 'All messages1' },
+              { value: 'mentions', label: 'Mentions only1' },
+              { value: 'none', label: 'None1' },
+              { value: 'all1', label: 'All messages' },
+              { value: 'mentions2', label: 'Mentions only' },
+              { value: 'none2', label: 'None' },
             ]}
+            placeholder="erfe"
+            mode="light"
+            variant="multiple"
+            h_size="md"
+            limited_tag={3}
           />
 
           <RHFCheckbox

@@ -2,10 +2,10 @@
 import { FC, useState } from 'react';
 import * as RadixSelect from '@radix-ui/react-select';
 import { SelectProps } from './interface';
-import { CheckIcon, ChevronIcon } from '../../../icons';
-import { cn } from '../../../../lib';
+import { CheckIcon, ChevronIcon } from '../../icons';
+import { cn } from '../../../lib';
 
-const Select: FC<SelectProps> = ({
+const AibSelect: FC<SelectProps> = ({
   options,
   value,
   defaultValue,
@@ -117,4 +117,4 @@ const Select: FC<SelectProps> = ({
   );
 };
 
-export default Select;
+export default AibSelect;
