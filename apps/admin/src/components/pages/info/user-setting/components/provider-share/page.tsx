@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import { BaseTextField, Button, Form, Modal, RHFInput } from '@aibox/ui';
+import { Button, Form, Modal, RHFInput } from '@aibox/ui';
 import { FormValues, ProviderShareProps } from './types';
 import { useForm } from 'react-hook-form';
 
@@ -66,13 +66,6 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {
                 endAdornment={<>%</>}
                 defaultValue={providerShare}
               />
-              {/* <BaseTextField
-                label="سهم ارائه دهنده"
-                name="providerShare"
-                endAdornment={<>%</>}
-                direction="ltr"
-                defaultValue={providerShare}
-              /> */}
 
               <div className="flex items-center w-full  gap-5 ">
                 <Button
