@@ -8,7 +8,7 @@ import { useDatePickerProvider } from '../../providers/useDatePickerProvider';
 const Days: FC<IDays> = ({ onClick }) => {
   const { currentDate, datePickerValue, today } = useDatePickerProvider();
   return (
-    <div className={'grid w-[360px] grid-cols-7'}>
+    <div className={'grid w-[304px] grid-cols-7'}>
       {getDaysOfCurrentMonth(currentDate).map((item, i) =>
         !item ? (
           <div key={i} />

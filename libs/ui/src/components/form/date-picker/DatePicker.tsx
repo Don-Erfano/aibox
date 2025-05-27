@@ -9,11 +9,17 @@ import { DatePickerContext } from './providers/DatePickerProvider';
 import { Days, Header, Input, WeekDays } from './components';
 import { jalaliToDateTime } from './helpers/convertors';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
+import DatePickerInput from './components/Input/DatePickerInput';
 
-const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
+const CustomDatePicker: FC<IDatePicker> = ({
+  onChange,
+  value,
+  label,
+  isMulti,
+}) => {
   const today = moment(new Date()).format('jYYYY/jM/jD');
   const [show, setShow] = useState(false);
-  const [datePickerValue, SetDatePickerValue] = useState('');
+  const [datePickerValue, SetDatePickerValue] = useState<string[]>(['', '']);
   const [calendarState, setCalendarState] = useState<ECalendarState>(
     ECalendarState.DAY
   );
@@ -23,11 +29,11 @@ const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
   });
 
   useEffect(() => {
-    onChange(jalaliToDateTime(datePickerValue));
+    onChange(datePickerValue.map((d) => jalaliToDateTime(d)));
   }, [datePickerValue, onChange, value]);
 
   useEffect(() => {
-    SetDatePickerValue(moment(value).format('jYYYY/jM/jD') || '');
+    SetDatePickerValue([moment(value).format('jYYYY/jM/jD') || '']);
   }, [!!value]);
 
   useEffect(() => {
@@ -35,15 +41,28 @@ const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
   }, [show === true]);
 
   const clearAction = () => {
-    SetDatePickerValue('');
+    SetDatePickerValue(['']);
   };
 
   const toggleShow = () => {
     setShow(!show);
   };
 
+  console.log(new Date(moment(value).toLocaleString()).getTime());
+
   const handleChangeDate = (e: string) => {
-    SetDatePickerValue(e);
+    if (isMulti) {
+      if (
+        new Date(moment(e).toLocaleString()).getTime() >
+        new Date(moment(datePickerValue[0]).toLocaleString()).getTime()
+      ) {
+        SetDatePickerValue([datePickerValue[0], e]);
+      } else {
+        SetDatePickerValue([e, datePickerValue[1]]);
+      }
+    } else {
+      SetDatePickerValue([e]);
+    }
   };
 
   return (
@@ -57,7 +76,13 @@ const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
       }}
     >
       <Popover open={show} onOpenChange={toggleShow}>
-        <PopoverTrigger>Open</PopoverTrigger>
+        <PopoverTrigger>
+          <DatePickerInput
+            value={datePickerValue.join(' - ')}
+            label={label}
+            clearAction={clearAction}
+          />
+        </PopoverTrigger>
         <PopoverContent>
           {calendarState === ECalendarState.DAY ? (
             <>

@@ -1,7 +1,8 @@
 export interface IDatePicker {
-  onChange: (date: string) => void;
+  onChange: (date: string | string[]) => void;
   value: string;
   label: string;
+  isMulti?: boolean;
 }
 
 export interface IPortalProps {

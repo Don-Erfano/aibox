@@ -2,10 +2,9 @@ import { FC } from 'react';
 import clsx from 'clsx';
 
 import { jalaliMonth } from '../../constants';
-import HeaderAction from '../HeaderAction/HeaderAction';
 import { useDatePickerProvider } from '../../providers/useDatePickerProvider';
 import { ECalendarState } from '../../types';
-import { ChevronLeft } from 'lucide-react';
+import { Button } from '../../../button';
 
 const MonthAndYear: FC = () => {
   const { setCalendarState, today, currentDate, setCurrentDate } =
@@ -19,22 +18,14 @@ const MonthAndYear: FC = () => {
   console.log(Number(sepratedToday[0]));
 
   return (
-    <div className="flex h-[372px] w-[360px] flex-col gap-4">
-      <div>
-        <div className="flex justify-end">
-          <HeaderAction onClick={handleCalendarState}>
-            <ChevronLeft />
-          </HeaderAction>
-        </div>
-        <hr className="border-teal-600" />
-      </div>
-      <div className="grid grid-cols-3 gap-2">
+    <div className="flex h-[372px] w-[304px] flex-col justify-between gap-3">
+      <div className="grid grid-cols-3 gap-2 px-5">
         {jalaliMonth.map((month, i) => (
           <div
             key={i}
             className={clsx(
-              `flex cursor-pointer items-center justify-center rounded-lg px-1  text-[14px] font-normal
-              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white`,
+              `flex cursor-pointer items-center justify-center rounded-lg px-1 text-[14px] font-normal
+              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white w-20`,
               {
                 'border border-teal-600': Number(sepratedToday[1]) === i + 1,
                 'text-white': currentDate.month === i + 1,
@@ -46,7 +37,6 @@ const MonthAndYear: FC = () => {
                 ...currentDate,
                 month: i + 1,
               });
-              handleCalendarState();
             }}
           >
             <p className="body-3">{month}</p>
@@ -60,9 +50,10 @@ const MonthAndYear: FC = () => {
             key={i}
             className={clsx(
               `flex cursor-pointer items-center justify-center rounded-lg px-1 text-[14px] font-normal
-              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white`,
+              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white w-[60px]`,
               {
-                'border border-teal-600': Number(sepratedToday[0]) === i + 1357,
+                'outline outline-teal-600':
+                  Number(sepratedToday[0]) === i + 1357,
                 'text-white': currentDate.year === i + 1357,
               }
             )}
@@ -73,12 +64,22 @@ const MonthAndYear: FC = () => {
                 ...currentDate,
                 year: i + 1357,
               });
-              handleCalendarState();
             }}
           >
             <p className="body-3">{i + 1357}</p>
           </div>
         ))}
+      </div>
+      <div>
+        <hr className="border-teal-600" />
+        <div className="flex justify-center py-4 gap-5">
+          <Button onClick={handleCalendarState} size="default" isFilled>
+            تایید
+          </Button>
+          <Button onClick={handleCalendarState} size="default">
+            بازگشت
+          </Button>
+        </div>
       </div>
     </div>
   );

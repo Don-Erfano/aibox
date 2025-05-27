@@ -7,5 +7,5 @@ export interface IDatePickerCtx {
   today: string;
   currentDate: IcurrentDate;
   setCurrentDate: Dispatch<SetStateAction<IcurrentDate>>;
-  datePickerValue: string;
+  datePickerValue: string[];
 }

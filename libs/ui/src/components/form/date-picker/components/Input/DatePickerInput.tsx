@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { IDatePickerInput } from './types';
+import { AIBInput } from '../../../input/input';
 
 const DatePickerInput: FC<IDatePickerInput> = ({
   value,
@@ -8,20 +9,7 @@ const DatePickerInput: FC<IDatePickerInput> = ({
   helperText,
   clearAction,
 }) => {
-  return (
-    <></>
-    // <BaseInput
-    //   label={label}
-    //   value={value}
-    //   size="sm"
-    //   helperText={helperText}
-    //   onChange={(e) => e.preventDefault()}
-    //   leftIcon={{
-    //     icon: value && 'X',
-    //     action: clearAction,
-    //   }}
-    // />
-  );
+  return <AIBInput value={value} onChange={(e) => e.preventDefault()} />;
 };
 
 export default DatePickerInput;

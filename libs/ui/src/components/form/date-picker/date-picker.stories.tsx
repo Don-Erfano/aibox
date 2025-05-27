@@ -13,3 +13,9 @@ export const General: Story = {
     onChange: (e) => console.log(e),
   },
 };
+export const Range: Story = {
+  args: {
+    isMulti: true,
+    onChange: (e) => console.log(e),
+  },
+};

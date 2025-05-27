@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { ISelectableDay } from './types';
+import moment from 'moment-jalaali';
 
 const WeekDay: FC<ISelectableDay> = ({
   day: { WeekDay, day, month, year },
@@ -10,7 +11,20 @@ const WeekDay: FC<ISelectableDay> = ({
   today,
 }) => {
   const isToday = today === `${year.j}/${month.j}/${day.j}`;
-  const isSelected = selectedDate === `${year.j}/${month.j}/${day.j}`;
+  const inRange =
+    new Date(moment(selectedDate[0]).toLocaleString()).getTime() <
+      new Date(
+        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+      ).getTime() &&
+    new Date(moment(selectedDate[1]).toLocaleString()).getTime() >
+      new Date(
+        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+      ).getTime();
+  const isSelected =
+    selectedDate[0] === `${year.j}/${month.j}/${day.j}` ||
+    selectedDate[1] === `${year.j}/${month.j}/${day.j}`;
+
+  console.log(inRange);
 
   const weekEndClasses = (commonClass: string) =>
     clsx(commonClass, {
@@ -20,24 +34,25 @@ const WeekDay: FC<ISelectableDay> = ({
 
   return (
     <div
-      className="size-12 p-0.5"
+      className="size-10 p-0.5"
       onClick={() => onClick(`${year.j}/${month.j}/${day.j}`)}
     >
       <div
         className={clsx(
-          `flex size-11 cursor-pointer flex-col rounded-lg px-2 py-1
-          hover:bg-teal-600/25 aria-selected:bg-teal-600
+          `flex items-center justify-center size-9 cursor-pointer flex-col rounded-lg px-0.5 py-0.5
+          hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-checked:bg-teal-600/12
           aria-selected:text-white`,
           {
             'border border-teal-600': isToday,
           }
         )}
         aria-selected={isSelected}
+        aria-checked={inRange}
       >
-        <p className={weekEndClasses('text-[14px] text-center leading-s1')}>
+        <p className={weekEndClasses('text-[14px] text-center leading-5')}>
           {day.j}
         </p>
-        <div className={weekEndClasses('flex w-full justify-between gap-1')}>
+        {/* <div className={weekEndClasses('flex w-full justify-between gap-1')}>
           <p
             className={weekEndClasses(
               '!font-sans text-[9px] leading-[16px] font-light -mt-[1px]'
@@ -52,7 +67,7 @@ const WeekDay: FC<ISelectableDay> = ({
           >
             {day.h}
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
