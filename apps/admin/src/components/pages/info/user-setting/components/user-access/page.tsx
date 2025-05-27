@@ -49,7 +49,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 max-w-3xs"
       >
-        <p className="font-medium text-sm text-zinc-700 cursor-default">
+        <p className="font-medium text-sm text-zinc-800 cursor-default">
           سطح دسترسی
         </p>
         <div>
@@ -61,7 +61,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
           />
         </div>
         {editMode ? (
-          <div className="flex items-center gap-5 ">
+          <div className="flex items-center gap-2  ">
             <Button
               className="self-start w-auto"
               variant="outline"
