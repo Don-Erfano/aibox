@@ -6,7 +6,7 @@ function Table({ className, ...props }: React.ComponentProps<'table'>) {
     <table
       data-slot="table"
       className={cn(
-        'w-full border-1 rounded-md caption-bottom text-sm text-zinc-700 border-spacing-y-1 border-spacing-x-0',
+        'w-full rounded-md border-1 border-separate border-spacing-0 caption-bottom text-sm text-zinc-700 overflow-hidden',
         className
       )}
       {...props}
@@ -28,10 +28,7 @@ function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
   return (
     <tbody
       data-slot="table-body"
-      className={cn(
-        '[&_tr:last-child]:border-0 [&_tr]:h-12 [&_tr:hover]:bg-zinc-50',
-        className
-      )}
+      className={cn('[&_tr]:h-12 [&_tr:hover]:bg-zinc-50', className)}
       {...props}
     />
   );
@@ -55,7 +52,8 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'bg-transparent data-[state=selected]:bg-gray-100 data-[state=selected]:hover:bg-gray-200/70 border-b transition-colors',
+        'bg-transparent data-[state=selected]:bg-gray-100 data-[state=selected]:hover:bg-gray-200/70 transition-colors',
+        'data-[expanded=true]:bg-gray-100 data-[expanded=true]:hover:bg-gray-200/70',
         className
       )}
       {...props}

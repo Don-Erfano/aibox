@@ -110,7 +110,10 @@ export function DataTable<TData>({
           ) : hasData ? (
             table.getRowModel().rows.map((row) => (
               <React.Fragment key={row.id}>
-                <TableRow data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  data-state={row.getIsSelected() && 'selected'}
+                  data-expanded={row.getIsExpanded()}
+                >
                   {row.getVisibleCells().map((cell, cellIndex) => {
                     const columnDef = cell.column.columnDef;
                     const size = cell.column.getSize();
