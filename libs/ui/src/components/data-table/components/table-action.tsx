@@ -1,36 +1,37 @@
 'use client';
 
+import React from 'react';
 import { createPortal } from 'react-dom';
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Table } from '@tanstack/react-table';
-import { XIcon } from 'lucide-react';
+import type { Table } from '@tanstack/react-table';
+import { Loader, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Separator } from '../../separator';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
-
-import { TableActionBarSelectionProps } from '../types';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../lib';
 import { Button } from '../../form';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
+import { Separator } from '../../separator';
 
-interface TableActionBarProps<TData>
+interface DataTableActionBarProps<TData>
   extends React.ComponentProps<typeof motion.div> {
   table: Table<TData>;
   visible?: boolean;
   container?: Element | DocumentFragment | null;
 }
-export function TableActionBar<TData>({
+
+function DataTableActionBar<TData>({
   table,
   visible: visibleProp,
   container: containerProp,
   children,
-}: TableActionBarProps<TData>) {
-  const [mounted, setMounted] = useState(false);
+  className,
+  ...props
+}: DataTableActionBarProps<TData>) {
+  const [mounted, setMounted] = React.useState(false);
 
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         table.toggleAllRowsSelected(false);
@@ -60,8 +61,10 @@ export function TableActionBar<TData>({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2, ease: 'easeInOut' }}
           className={cn(
-            'fixed inset-x-0 bottom-6 z-50 mx-auto flex w-fit flex-wrap items-center justify-center gap-2 rounded-md border bg-background p-2 text-foreground shadow-sm'
+            'fixed inset-x-0 bottom-6 z-50 mx-auto flex w-fit flex-wrap items-center justify-center gap-2 rounded-md border bg-background p-2 text-foreground shadow-sm',
+            className
           )}
+          {...props}
         >
           {children}
         </motion.div>
@@ -71,17 +74,66 @@ export function TableActionBar<TData>({
   );
 }
 
-export function TableActionBarSelection<TData>({
+interface DataTableActionBarActionProps
+  extends React.ComponentProps<typeof Button> {
+  tooltip?: string;
+  isPending?: boolean;
+}
+
+function DataTableActionBarAction({
+  size = 'sm',
+  tooltip,
+  isPending,
+  disabled,
+  className,
+  children,
+  ...props
+}: DataTableActionBarActionProps) {
+  const trigger = (
+    <Button
+      size={size}
+      className={cn(
+        'gap-1.5 border border-secondary bg-secondary/50 hover:bg-secondary/70 [&>svg]:size-3.5',
+        size === 'icon' ? 'size-7' : 'h-7',
+        className
+      )}
+      disabled={disabled || isPending}
+      {...props}
+    >
+      {isPending ? <Loader className="animate-spin" /> : children}
+    </Button>
+  );
+
+  if (!tooltip) return trigger;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{trigger}</TooltipTrigger>
+      <TooltipContent
+        sideOffset={6}
+        className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
+      >
+        <p>{tooltip}</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
+interface DataTableActionBarSelectionProps<TData> {
+  table: Table<TData>;
+}
+
+function DataTableActionBarSelection<TData>({
   table,
-}: TableActionBarSelectionProps<TData>) {
-  const onClearSelection = useCallback(() => {
+}: DataTableActionBarSelectionProps<TData>) {
+  const onClearSelection = React.useCallback(() => {
     table.toggleAllRowsSelected(false);
   }, [table]);
 
   return (
     <div className="flex h-7 items-center rounded-md border pr-1 pl-2.5">
       <span className="whitespace-nowrap text-xs">
-        {table.getFilteredSelectedRowModel().rows.length} سطر انتخاب شده
+        {table.getFilteredSelectedRowModel().rows.length} انتخاب شده
       </span>
       <Separator
         orientation="vertical"
@@ -90,12 +142,12 @@ export function TableActionBarSelection<TData>({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             className="size-5"
             onClick={onClearSelection}
           >
-            <XIcon />
+            <X className="size-3.5" />
           </Button>
         </TooltipTrigger>
         <TooltipContent
@@ -105,7 +157,7 @@ export function TableActionBarSelection<TData>({
           <p>حذف انتخاب</p>
           <kbd className="select-none rounded border bg-background px-1.5 py-px font-mono font-normal text-[0.7rem] text-foreground shadow-xs">
             <abbr title="Escape" className="no-underline">
-              بستن
+              Esc
             </abbr>
           </kbd>
         </TooltipContent>
@@ -113,3 +165,9 @@ export function TableActionBarSelection<TData>({
     </div>
   );
 }
+
+export {
+  DataTableActionBar,
+  DataTableActionBarAction,
+  DataTableActionBarSelection,
+};

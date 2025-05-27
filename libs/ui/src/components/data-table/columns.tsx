@@ -103,7 +103,10 @@ export function useTableColumns<T>(
                       <SquarePen strokeWidth={1.5} className="size-5" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent
+                    sideOffset={6}
+                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
+                  >
                     <p>ویرایش</p>
                   </TooltipContent>
                 </Tooltip>
@@ -120,7 +123,10 @@ export function useTableColumns<T>(
                       <Trash strokeWidth={1.5} className="size-5" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent
+                    sideOffset={6}
+                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
+                  >
                     <p>حذف</p>
                   </TooltipContent>
                 </Tooltip>
@@ -137,7 +143,10 @@ export function useTableColumns<T>(
                       {action.icon}
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent
+                    sideOffset={6}
+                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
+                  >
                     <p>{action.label}</p>
                   </TooltipContent>
                 </Tooltip>

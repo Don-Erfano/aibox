@@ -1,7 +1,12 @@
 'use client';
 
 import { FC } from 'react';
-import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
+import {
+  useDataTable,
+  DataTable,
+  TableToolbar,
+  GenericActionBar,
+} from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
 
@@ -35,7 +40,22 @@ const UserList: FC = () => {
         noManageColumns
       />
 
-      <DataTable table={table} isLoading={isLoading} />
+      <DataTable
+        table={table}
+        isLoading={isLoading}
+        actionBar={
+          <GenericActionBar
+            table={table}
+            onDelete={(id) => {
+              console.log('Deleting:', id);
+              return Promise.resolve();
+            }}
+            onEdit={(ids) => {
+              console.log('Editing:', ids);
+            }}
+          />
+        }
+      />
     </div>
   );
 };
