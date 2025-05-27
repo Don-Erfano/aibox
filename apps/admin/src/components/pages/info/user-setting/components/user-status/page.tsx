@@ -14,7 +14,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status }) => {
 
   return (
     <div className="flex flex-col gap-4 max-w-3xs">
-      <p className="font-medium text-sm text-zinc-700 cursor-default">
+      <p className="font-medium text-sm text-zinc-800 cursor-default">
         وضعیت کاربر
       </p>
       <AibStatus
