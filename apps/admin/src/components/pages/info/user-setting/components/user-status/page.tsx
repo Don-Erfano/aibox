@@ -90,7 +90,6 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
             </Button>
           </div>
         </div>
-        ß
       </Modal>
     </div>
   );
