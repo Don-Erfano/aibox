@@ -70,17 +70,22 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                     <span className="text-xl">{item.icon}</span>
                   </TooltipTrigger>
                   {hasSubItems ? (
-                    <TooltipContent side="left" className="p-2">
-                      <ul className="space-y-1">
+                    <TooltipContent
+                      side="left"
+                      sideOffset={8}
+                      className="w-[180px] rounded-[4px] p-0 bg-white shadow-[0px_4px_4px_0px_#00000040]"
+                    >
+                      <ul className="space-y-1 pb-2">
+                        <div className="bg-teal-600 font-medium text-[14px] rounded-tl-[4px] rounded-tr-[4px] leading-[24px] tracking-normal text-right text-white p-2 mb-2">
+                          {item.title}
+                        </div>
                         {item.items?.map((sub: SidebarSubItem) => (
                           <li key={sub.title}>
                             <Link
                               href={sub.url}
-                              className="flex items-center gap-2 py-1 px-2 rounded cursor-pointer hover:bg-white/7"
+                              className="flex items-center gap-0.5 p-2 rounded cursor-pointer text-teal-600/70 hover:bg-black/10 font-normal text-[14px] leading-[20px] tracking-[0%] text-right"
                             >
-                              <span className="font-normal text-[14px] leading-[20px] tracking-[0%] text-right">
-                                {sub.title}
-                              </span>
+                              <span className="">{sub.title}</span>
                             </Link>
                           </li>
                         ))}
@@ -200,7 +205,13 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
             onClick={toggleSidebar}
             className="flex items-center justify-start gap-1 pr-5 bg-teal-950 hover:bg-white/7 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-t-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none"
           >
-            <ChevronsRight />
+            <ChevronsRight
+              width={20}
+              height={20}
+              className={`transition-transform duration-300 ease-linear${
+                isCollapsed && ' rotate-180'
+              } `}
+            />
             {!isCollapsed && (
               <span className="font-normal text-sm leading-5 tracking-normal text-right">
                 جمع شدن منو
