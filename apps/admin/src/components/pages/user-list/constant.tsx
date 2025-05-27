@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
-import { StatusBox } from '@aibox/ui';
+import { AibStatus } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
 
 const userColumns: ColumnDef<IUser>[] = [
@@ -31,30 +31,23 @@ const userColumns: ColumnDef<IUser>[] = [
         </div>
       );
     },
-    enableColumnFilter: true,
-    enableSorting: false,
-    meta: { label: 'Full Name', variant: 'text' },
   },
   {
     header: 'نام مستعار',
     accessorKey: 'nickname',
     id: 'nickname',
-    enableColumnFilter: true,
-    meta: { label: 'Nickname', variant: 'text' },
   },
   {
     header: 'Email',
     accessorKey: 'email',
     id: 'email',
-    enableColumnFilter: true,
-    meta: { label: 'Email', variant: 'text' },
-    maxSize: 140,
   },
   {
     header: 'تاریخ عضویت',
     accessorKey: 'created_at',
     id: 'created_at',
     cell: ({ getValue }) => new Date(getValue() as string).toLocaleString(),
+    enableColumnFilter: true,
     meta: { label: 'Created At', variant: 'date' },
   },
   {
@@ -63,19 +56,26 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'last_login',
     cell: ({ getValue }) =>
       getValue() ? new Date(getValue() as string).toLocaleString() : '—',
-    meta: { label: 'Last Login', variant: 'date' },
+    enableColumnFilter: true,
+    meta: { label: 'تاریخ عضویت', variant: 'date' },
   },
   {
     header: 'وضعیت',
     accessorKey: 'is_active',
     id: 'is_active',
-    cell: ({ getValue }) =>
-      (getValue() as boolean) ? (
-        <StatusBox isActive />
-      ) : (
-        <StatusBox isActive={false} />
-      ),
-    meta: { label: 'Is Active', variant: 'select' },
+    cell: ({ getValue }) => {
+      const isActive = getValue() as boolean;
+      return (
+        <AibStatus
+          label={isActive ? 'فعال' : 'غیرفعال'}
+          bgColor={
+            isActive ? 'bg-green-600 text-green-600' : 'bg-red-600 text-red-600'
+          }
+        />
+      );
+    },
+    enableColumnFilter: true,
+    meta: { label: 'وضعیت', variant: 'select' },
   },
   {
     header: 'دسترسی',
@@ -87,7 +87,8 @@ const userColumns: ColumnDef<IUser>[] = [
       ) : (
         <AdminBadge isAdmin={false} />
       ),
-    meta: { label: 'Is Admin', variant: 'select' },
+    enableColumnFilter: true,
+    meta: { label: 'دسترسی', variant: 'select' },
   },
 ];
 export default userColumns;

@@ -2,12 +2,12 @@
 
 import { useMemo } from 'react';
 import { Check, ChevronsUpDown, Settings2 } from 'lucide-react';
+import { Button } from '../../form';
 import { PopoverContent, PopoverTrigger, Popover } from '../../popover';
 import { Command, CommandGroup, CommandItem, CommandList } from '../../command';
 
 import { cn } from '../../../lib';
 import { TableViewOptionsProps } from '../types';
-import { Button } from '../../form';
 
 export function TableViewOptions<TData>({
   table,

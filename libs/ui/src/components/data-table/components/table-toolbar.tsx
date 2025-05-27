@@ -11,6 +11,7 @@ import { useQueryState } from 'nuqs';
 import { useEffect, useMemo, useState } from 'react';
 
 import { useDebouncedCallback } from '../../../hooks';
+import { Button } from '../../form';
 import { CustomChip } from '../../custom-chip';
 import { SearchBar } from '../../search-bar';
 import { viewModeList } from '../constant';
@@ -23,7 +24,6 @@ import {
   ViewModeButton,
 } from '../types';
 import { FilterForm } from './filter-form';
-import { Button } from '../../form';
 
 const ToolbarButton = (props: ToolbarButtonProps) => (
   <Button variant="ghost" size="icon" className="text-zinc-700" {...props} />

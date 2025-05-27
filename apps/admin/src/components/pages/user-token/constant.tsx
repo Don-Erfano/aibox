@@ -1,5 +1,6 @@
-import { IUserToken } from '@/services/user/user-token/interface';
 import { ColumnDef } from '@tanstack/react-table';
+
+import { IUserToken } from '@/services/user/user-token/interface';
 
 const tokenColumns: ColumnDef<IUserToken>[] = [
   {

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
+import { Button } from '../form';
 import { Checkbox } from '../form/checkbox';
 import {
   Tooltip,
@@ -15,7 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from './../tooltip';
-import { Button } from '../form';
 import { cn } from '../../lib';
 
 /**
