@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { StatusBox } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
+import { useState } from 'react';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -13,14 +14,19 @@ const userColumns: ColumnDef<IUser>[] = [
     cell: ({ row, getValue }) => {
       const url = row.original.profile_picture;
       const fullName = getValue() as string;
+
       return (
         <div className="flex items-center space-x-2">
           <Image
-            src={url ? url : '/images/default-user.svg'}
+            src={url}
             alt={fullName}
             width={32}
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement;
+              target.src = '/images/default-user.svg';
+            }}
           />
           <span>{fullName}</span>
         </div>
