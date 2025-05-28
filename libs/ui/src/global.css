@@ -83,6 +83,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-toast-progress: toast-progress var(--toast-duration) linear forwards;
   --animate-loading: loading 750ms infinite;
+  --animate-slide-in: slide-in 0.3s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  --animate-slide-out: slide-out 0.5s forwards;
 
   @keyframes accordion-down {
     from {
@@ -120,6 +122,31 @@
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    70% {
+      opacity: 1;
+      transform: translateY(5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-out {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-100%);
     }
   }
 }

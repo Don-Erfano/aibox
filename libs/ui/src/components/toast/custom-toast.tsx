@@ -13,7 +13,7 @@ export const CustomToast = (props: CustomToastProps) => {
   const isLoading = type === 'loading';
 
   return (
-    <div className="bg-white relative min-w-[320px] sm:min-w-[344px] max-w-[500px] w-fit min-h-12 pl-3 pr-4 py-2 gap-4 shadow-[0_2px_12px_0_#0000003D] border-none">
+    <div className="bg-white relative pl-3 pr-4 py-2 gap-4 border-none">
       {!isLoading && (
         <div
           className={`absolute right-3 top-2 bottom-2 w-1 rounded-full overflow-hidden ${toastType.progressBgColor}`}

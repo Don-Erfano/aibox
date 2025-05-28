@@ -1,5 +1,6 @@
 import {
   ToastContainer as ToastifyToastContainer,
+  cssTransition,
   toast as toastifyToast,
 } from 'react-toastify';
 
@@ -21,8 +22,14 @@ const ToastContainer = () => (
     hideProgressBar
     closeButton={false}
     icon={false}
-    toastClassName={() => 'overflow-hidden shadow-none mb-3'}
     rtl
+    transition={cssTransition({
+      enter: 'animate-slide-in',
+      exit: 'animate-slide-out',
+    })}
+    toastClassName={() =>
+      'rounded-sm overflow-hidden mb-3 shadow-[0_2px_12px_0_#0000003D] min-w-[320px] sm:min-w-[344px] max-w-[500px] w-fit min-h-12'
+    }
   />
 );
 
