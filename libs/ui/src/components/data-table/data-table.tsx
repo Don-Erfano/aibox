@@ -16,20 +16,14 @@ import {
   TableRow,
 } from '../table';
 import { NoData } from '../no-data';
-import { TableSkeleton } from './components/table-skeleton';
 
 export function DataTable<TData>({
   table,
   actionBar,
   childComponent: ChildComponent,
   className,
-  isLoading = false,
-  loadingRowCount = 10,
   ...props
-}: DataTableProps<TData> & {
-  isLoading?: boolean;
-  loadingRowCount?: number;
-}) {
+}: DataTableProps<TData>) {
   const columnCount = table.getAllColumns().length;
   const hasData = table.getRowModel().rows?.length > 0;
   const hasExpandColumn = table
@@ -83,12 +77,7 @@ export function DataTable<TData>({
         </TableHeader>
 
         <TableBody>
-          {isLoading ? (
-            <TableSkeleton
-              columnCount={columnCount}
-              rowCount={loadingRowCount}
-            />
-          ) : hasData ? (
+          {hasData ? (
             table.getRowModel().rows.map((row) => (
               <React.Fragment key={row.id}>
                 <TableRow

@@ -5,6 +5,7 @@ import {
   TableToolbar,
   GenericActionBar,
   Button,
+  DataTableSkeleton,
 } from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
@@ -30,6 +31,9 @@ const UserList: FC = () => {
   const handleAddUser = () => {
     router.push('/dashboard/user-list/add-user');
   };
+
+  if (isLoading) return <DataTableSkeleton columnCount={10} />;
+
   return (
     <>
       <div className="relative h-full">
@@ -47,7 +51,6 @@ const UserList: FC = () => {
 
         <DataTable
           table={table}
-          isLoading={isLoading}
           actionBar={
             <GenericActionBar
               table={table}
