@@ -24,7 +24,9 @@ const userColumns: ColumnDef<IUser>[] = [
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
           />
-          <span>{fullName}</span>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+            {fullName}
+          </span>
         </div>
       );
     },
@@ -33,6 +35,7 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام مستعار',
     accessorKey: 'nickname',
     id: 'nickname',
+    maxSize: 160,
   },
   {
     header: 'Email',

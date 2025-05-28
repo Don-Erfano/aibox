@@ -9,7 +9,7 @@ import {
 } from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
-import { Plus } from 'lucide-react';
+import { BookIcon, MoonIcon, Plus, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const UserList: FC = () => {
@@ -21,8 +21,6 @@ const UserList: FC = () => {
     data: users,
     columns: userColumns,
     pageCount: totalPages,
-    enableExpand: true,
-    enableRowSelection: true,
     actions: {
       onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
       onDelete: (row) => console.log(row.id),

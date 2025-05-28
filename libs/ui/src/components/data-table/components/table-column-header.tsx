@@ -28,7 +28,11 @@ export function TableColumnHeader<TData, TValue>({
 }: TableColumnHeaderProps<TData, TValue>) {
   if (!header.column.getCanSort()) {
     return (
-      <p className="flex">
+      <p
+        className={cn('flex', {
+          'justify-center': header.column.id === 'actions',
+        })}
+      >
         {header.isPlaceholder
           ? null
           : flexRender(header.column.columnDef.header, header.getContext())}

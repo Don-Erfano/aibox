@@ -89,7 +89,7 @@ export function useTableColumns<T>(
       cell: ({ row }: { row: any }) =>
         actions ? (
           <TooltipProvider>
-            <div className="flex gap-1">
+            <div className="flex gap-0.5 justify-center">
               {actions.onEdit && (
                 <Tooltip>
                   <TooltipTrigger asChild>
