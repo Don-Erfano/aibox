@@ -1,8 +1,15 @@
 import { FC } from 'react';
-import { useDataTable, DataTable, TableToolbar, Button } from '@aibox/ui';
+import {
+  useDataTable,
+  DataTable,
+  TableToolbar,
+  GenericActionBar,
+  Button,
+  DataTableSkeleton,
+} from '@aibox/ui';
 import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
-import { Plus } from 'lucide-react';
+import { BookIcon, MoonIcon, Plus, UserIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const UserList: FC = () => {
@@ -22,6 +29,9 @@ const UserList: FC = () => {
   const handleAddUser = () => {
     router.push('/dashboard/user-list/add-user');
   };
+
+  if (isLoading) return <DataTableSkeleton columnCount={10} />;
+
   return (
     <>
       <div className="relative h-full">
@@ -37,7 +47,21 @@ const UserList: FC = () => {
           noManageColumns
         />
 
-        <DataTable table={table} />
+        <DataTable
+          table={table}
+          actionBar={
+            <GenericActionBar
+              table={table}
+              onDelete={(id) => {
+                console.log('Deleting:', id);
+                return Promise.resolve();
+              }}
+              onEdit={(ids) => {
+                console.log('Editing:', ids);
+              }}
+            />
+          }
+        />
         <Button
           onClick={handleAddUser}
           variant="ghost"

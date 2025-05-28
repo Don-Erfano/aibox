@@ -93,25 +93,19 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
     [pagination, setPage, setPerPage]
   );
 
-  const [sortBy, setSortBy] = useQueryState(
-    'sortBy',
-    parseAsString.withOptions(queryStateOptions)
-  );
-
   const [orderBy, setOrderBy] = useQueryState(
-    'orderBy',
+    'ordering',
     parseAsString.withOptions(queryStateOptions)
   );
 
   const sorting: SortingState = React.useMemo(() => {
-    if (!sortBy) return [];
-    return [
-      {
-        id: sortBy,
-        desc: orderBy === 'desc',
-      },
-    ];
-  }, [sortBy, orderBy]);
+    if (!orderBy) return [];
+
+    const isDesc = orderBy.startsWith('-');
+    const id = isDesc ? orderBy.slice(1) : orderBy;
+
+    return [{ id, desc: isDesc }];
+  }, [orderBy]);
 
   const onSortingChange = React.useCallback(
     (updaterOrValue: Updater<SortingState>) => {
@@ -121,14 +115,13 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
           : updaterOrValue;
 
       if (newSorting.length > 0) {
-        void setSortBy(newSorting[0].id);
-        void setOrderBy(newSorting[0].desc ? 'desc' : 'asc');
+        const { id, desc } = newSorting[0];
+        void setOrderBy(desc ? `-${id}` : id);
       } else {
-        void setSortBy(null);
         void setOrderBy(null);
       }
     },
-    [sorting, setSortBy, setOrderBy]
+    [sorting, setOrderBy]
   );
 
   const filterableColumns = React.useMemo(() => {

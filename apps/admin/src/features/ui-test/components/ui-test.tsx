@@ -4,7 +4,7 @@ import {
   Button,
   Form,
   RHFCheckbox,
-  RHFInput,
+  RHFSelect,
   RHFRadioGroup,
   RHFAutocomplete,
 } from '@aibox/ui';
@@ -27,7 +27,7 @@ export const UITest = () => {
       <h1 className="text-2xl font-bold">Example Test Form Page</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <RHFInput
+          <RHFSelect
             name="username"
             control={form.control}
             label="Username"
@@ -35,7 +35,7 @@ export const UITest = () => {
             placeholder="johndoe"
           />
 
-          <RHFInput
+          <RHFSelect
             name="email"
             control={form.control}
             label="Email"
