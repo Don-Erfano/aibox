@@ -15,16 +15,26 @@ export const RHFInput = <TFieldValues extends FieldValues>({
   control,
   label,
   description,
+  type,
   ...props
 }: RhfInputProps<TFieldValues>) => (
   <FormField
     name={name}
     control={control}
-    render={({ field, fieldState: { error } }) => (
+    render={({ field: { onChange, ...rest }, fieldState: { error } }) => (
       <FormItem>
         {label && <FormLabel>{label}</FormLabel>}
         <FormControl>
-          <AIBInput {...field} {...props} />
+          <AIBInput
+            onChange={(e) => {
+              onChange(
+                type === 'number' ? e.target.valueAsNumber : e.target.value
+              );
+            }}
+            type={type}
+            {...rest}
+            {...props}
+          />
         </FormControl>
         {!error && description && (
           <FormDescription>{description}</FormDescription>
