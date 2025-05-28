@@ -27,3 +27,4 @@ export * from './components/modal';
 export * from './components/search-bar';
 export * from './components/form/autocomplete/custom-autocomplete';
 export * from './components/form/select';
+export * from './components/toast';
