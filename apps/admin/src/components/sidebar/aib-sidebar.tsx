@@ -12,19 +12,13 @@ import {
   SidebarMenuItem,
   useSidebar,
   SidebarHeader,
-} from '../../../../../libs/ui/src/components/sidebar';
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '../../../../../libs/ui/src/components/tooltip';
-
-import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '../../../../../libs/ui/src/components/collapsible';
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@aibox/ui';
 
 import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
 import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
