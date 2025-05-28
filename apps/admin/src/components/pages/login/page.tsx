@@ -22,6 +22,10 @@ const LoginPage: FC = () => {
   const { mutateAsync, isPending } = useLoginMutation();
   const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
   });
 
   const submitHandler = async (data: IForm) => {
@@ -57,7 +61,12 @@ const LoginPage: FC = () => {
             type="password"
           />
           <div className="mt-3 w-full flex gap-3 flex-col">
-            <Button variant="default" type="submit" disabled={isPending}>
+            <Button
+              variant="default"
+              isFilled
+              type="submit"
+              disabled={isPending}
+            >
               ورود
             </Button>
             <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">
