@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AiBoxTextIcon, Button, ChevronIcon, Form, RHFInput } from '@aibox/ui';
+import { AiBoxTextIcon, Button, Form, RHFInput } from '@aibox/ui';
 
 import { HOME_ROUTES } from '@/routes';
 import { zodSchema } from './constants';
