@@ -9,6 +9,7 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام کاربر',
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
+    enableSorting: false,
     maxSize: 140,
     cell: ({ row, getValue }) => {
       const url = row.original.profile_picture;

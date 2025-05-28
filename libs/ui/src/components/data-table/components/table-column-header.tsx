@@ -42,7 +42,7 @@ export function TableColumnHeader<TData, TValue>({
         {...props}
         className={cn(
           'flex items-center gap-2 px-2 py-1 rounded-md border border-transparent',
-          '[&_svg]:text-muted-foreground [&_svg]:size-4',
+          '[&_svg]:text-gray-500 [&_svg]:size-4',
           {
             'hover:bg-teal-600/12 hover:border-teal-600/25 cursor-pointer':
               header.column.getCanSort(),

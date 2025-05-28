@@ -92,11 +92,8 @@ function DataTableActionBarAction({
   const trigger = (
     <Button
       size={size}
-      className={cn(
-        'gap-1.5 border border-secondary bg-secondary/50 hover:bg-secondary/70 [&>svg]:size-3.5',
-        size === 'icon' ? 'size-7' : 'h-7',
-        className
-      )}
+      variant="ghost"
+      className={cn(size === 'icon' ? 'size-7' : 'h-7', className)}
       disabled={disabled || isPending}
       {...props}
     >
@@ -109,10 +106,7 @@ function DataTableActionBarAction({
   return (
     <Tooltip>
       <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-      <TooltipContent
-        sideOffset={6}
-        className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
-      >
+      <TooltipContent sideOffset={6}>
         <p>{tooltip}</p>
       </TooltipContent>
     </Tooltip>
@@ -150,10 +144,7 @@ function DataTableActionBarSelection<TData>({
             <X className="size-3.5" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent
-          sideOffset={10}
-          className="flex items-center gap-2 border bg-accent px-2 py-1 font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
-        >
+        <TooltipContent sideOffset={10}>
           <p>حذف انتخاب</p>
           <kbd className="select-none rounded border bg-background px-1.5 py-px font-mono font-normal text-[0.7rem] text-foreground shadow-xs">
             <abbr title="Escape" className="no-underline">

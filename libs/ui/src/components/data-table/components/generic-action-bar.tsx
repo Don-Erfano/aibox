@@ -12,6 +12,7 @@ import {
 import { exportTableToCSV } from '../lib/export';
 import { Separator } from '../../separator';
 import { Modal } from '../../modal';
+import { Button } from '../../form';
 
 type GenericActionBarProps<TData extends { id: string | number }> = {
   table: Table<TData>;
@@ -112,22 +113,50 @@ export function GenericActionBar<TData extends { id: string | number }>({
       <Modal
         title="حذف رکوردها"
         open={showDeleteConfirm}
-        onOpenChange={handleConfirmDelete}
         onClose={() => setShowDeleteConfirm(false)}
       >
-        <p>
-          آیا از حذف {currentDeleteIds.length} مورد انتخاب‌شده مطمئن هستید؟ این
-          عملیات قابل بازگشت نیست.
-        </p>
+        <div className="flex flex-col items-center gap-4">
+          <p>
+            آیا از حذف {currentDeleteIds.length} مورد انتخاب‌شده مطمئن هستید؟
+            این عملیات قابل بازگشت نیست.
+          </p>
+          <div className="flex gap-2">
+            <Button
+              className="w-fit"
+              variant="outline"
+              isFilled
+              onClick={handleConfirmDelete}
+            >
+              تایید
+            </Button>
+            <Button className="w-fit" variant="outline">
+              انصراف
+            </Button>
+          </div>
+        </div>
       </Modal>
 
       <Modal
         title="ویرایش گروهی"
         open={showEditModal}
-        onOpenChange={handleConfirmEdit}
         onClose={() => setShowEditModal(false)}
       >
-        <p>می‌خواهید {selectedIds.length} مورد را ویرایش کنید؟</p>
+        <div className="flex flex-col items-center gap-4">
+          <p>می‌خواهید {selectedIds.length} مورد را ویرایش کنید؟</p>
+          <div className="flex gap-2">
+            <Button
+              className="w-fit"
+              variant="outline"
+              isFilled
+              onClick={handleConfirmEdit}
+            >
+              تایید
+            </Button>
+            <Button className="w-fit" variant="outline">
+              انصراف
+            </Button>
+          </div>
+        </div>
       </Modal>
     </>
   );

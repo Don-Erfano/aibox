@@ -89,7 +89,7 @@ export function useTableColumns<T>(
       cell: ({ row }: { row: any }) =>
         actions ? (
           <TooltipProvider>
-            <div className="flex gap-2">
+            <div className="flex gap-1">
               {actions.onEdit && (
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -102,10 +102,7 @@ export function useTableColumns<T>(
                       <SquarePen strokeWidth={1.5} className="size-5" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={6}
-                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
-                  >
+                  <TooltipContent sideOffset={6}>
                     <p>ویرایش</p>
                   </TooltipContent>
                 </Tooltip>
@@ -122,10 +119,7 @@ export function useTableColumns<T>(
                       <Trash strokeWidth={1.5} className="size-5" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={6}
-                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
-                  >
+                  <TooltipContent sideOffset={6}>
                     <p>حذف</p>
                   </TooltipContent>
                 </Tooltip>
@@ -142,10 +136,7 @@ export function useTableColumns<T>(
                       {action.icon}
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent
-                    sideOffset={6}
-                    className="border bg-accent font-semibold text-foreground dark:bg-zinc-900 [&>span]:hidden"
-                  >
+                  <TooltipContent sideOffset={6}>
                     <p>{action.label}</p>
                   </TooltipContent>
                 </Tooltip>
