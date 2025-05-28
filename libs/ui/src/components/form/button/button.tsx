@@ -20,8 +20,7 @@ const buttonVariants = cva(
         disabled:!border-error-100/20`,
         outline: `border rounded-[6px] border-transparent bg-teal-600 active:ring
            disabled:bg-teal-600/12 disabled:border-teal-600/32 disabled:text-teal-600/32`,
-        secondary: `bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80`,
-        ghost: `p-2 overflow-hidden rounded-[14px]`,
+        ghost: `p-2 overflow-hidden rounded-[14px] hover:!bg-gray-100 !text-zinc-700 hover:!text-teal-600`,
         link: `!w-fit text-primary underline-offset-4 hover:!text-teal-600 !border-transparent !px-3 !py-1.5 hover:!bg-gray-200 text-teal-600 active:!border-gray-400 active:!ring-0 disabled:text-teal-600/32`,
       },
       size: {

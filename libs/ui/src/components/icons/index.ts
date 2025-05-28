@@ -16,6 +16,7 @@ import AiBoxTextIcon from './AiBoxTextIcon';
 import XIcon from './IconGallery';
 import PersonIcon from './PersonIcon';
 import AdminIcon from './AdminIcon';
+import NoDataIcon from './no-data-icon';
 import DeleteFactorIcon from './delete-factor';
 export {
   ChevronIcon,
@@ -35,5 +36,6 @@ export {
   XIcon,
   PersonIcon,
   AdminIcon,
+  NoDataIcon,
   DeleteFactorIcon,
 };

@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
 
 interface AIBInputProps extends React.ComponentProps<'input'> {
-  variant?: 'default' | 'secondary';
+  variant?: 'sm' | 'md' | 'lg';
   label?: string;
-  readOnly?: boolean;
   direction?: 'rtl' | 'ltr';
   endAdornment?: ReactNode;
   startAdornment?: ReactNode;
