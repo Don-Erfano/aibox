@@ -17,15 +17,11 @@ const userColumns: ColumnDef<IUser>[] = [
       return (
         <div className="flex items-center space-x-2">
           <Image
-            src={url}
+            src={url ? url : '/images/default-user.svg'}
             alt={fullName}
             width={32}
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
-            onError={(e) => {
-              const target = e.currentTarget as HTMLImageElement;
-              target.src = '/images/default-user.svg';
-            }}
           />
           <span>{fullName}</span>
         </div>

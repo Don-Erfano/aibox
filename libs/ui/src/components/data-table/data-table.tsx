@@ -16,26 +16,7 @@ import {
   TableRow,
 } from '../table';
 import { NoData } from '../no-data';
-
-const TableSkeleton = ({
-  columnCount,
-  rowCount = 10,
-}: {
-  columnCount: number;
-  rowCount?: number;
-}) => (
-  <>
-    {Array.from({ length: rowCount }).map((_, index) => (
-      <TableRow key={`skeleton-${index}`}>
-        {Array.from({ length: columnCount }).map((_, cellIndex) => (
-          <TableCell key={`skeleton-cell-${cellIndex}`} className="h-10">
-            <div className="h-4 bg-gray-100 rounded animate-pulse" />
-          </TableCell>
-        ))}
-      </TableRow>
-    ))}
-  </>
-);
+import { TableSkeleton } from './components/table-skeleton';
 
 export function DataTable<TData>({
   table,

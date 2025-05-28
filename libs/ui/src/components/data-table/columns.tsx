@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import {
-  DeleteIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
   SquarePen,
@@ -47,7 +46,7 @@ export function useTableColumns<T>(
             {row.getIsExpanded() ? <ChevronDownIcon /> : <ChevronLeftIcon />}
           </Button>
         ) : null,
-      size: 10,
+      size: 56,
     };
 
     const selectionCol: ColumnDef<T, any> = {
