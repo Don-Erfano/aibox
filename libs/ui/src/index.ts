@@ -10,7 +10,6 @@ export * from './components/tooltip';
 export * from './components/separator';
 export * from './components/popover';
 export * from './components/dropdown-menu';
-export * from './components/form/input/input';
 export * from './components/label';
 export * from './components/command';
 export * from './components/data-table';

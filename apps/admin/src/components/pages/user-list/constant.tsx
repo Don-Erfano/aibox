@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus } from '@aibox/ui';
@@ -8,21 +9,24 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام کاربر',
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
+    enableSorting: false,
+    maxSize: 140,
     cell: ({ row, getValue }) => {
       const url = row.original.profile_picture;
       const fullName = getValue() as string;
+
       return (
         <div className="flex items-center space-x-2">
-          {url ? (
-            <img
-              src={url}
-              alt={fullName}
-              className="h-8 w-8 rounded-full object-cover"
-            />
-          ) : (
-            <div className="h-8 w-8 rounded-full bg-neutral-200 border border-teal-600" />
-          )}
-          <span>{fullName}</span>
+          <Image
+            src={url ? url : '/images/default-user.svg'}
+            alt={fullName}
+            width={32}
+            height={32}
+            className="object-cover border-1 border-teal-600 rounded-full"
+          />
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+            {fullName}
+          </span>
         </div>
       );
     },
@@ -31,6 +35,7 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'نام مستعار',
     accessorKey: 'nickname',
     id: 'nickname',
+    maxSize: 160,
   },
   {
     header: 'Email',
