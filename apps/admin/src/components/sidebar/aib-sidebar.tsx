@@ -18,6 +18,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  AiBoxIcon,
 } from '@aibox/ui';
 
 import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
@@ -38,16 +39,17 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
     >
       {isMobile && (
         <SidebarHeader
-          className={`bg-teal-950 flex items-end w-full text-[#DAECEF] p-2`}
+          className={`bg-teal-950 flex flex-row justify-between items-center w-full text-[#DAECEF] pt-2 px-3 pb-6`}
         >
+          <AiBoxIcon className="w-12 h-12" />
           <X onClick={toggleSidebar} />
         </SidebarHeader>
       )}
       <SidebarContent className={`bg-teal-950 ${!isMobile && 'pt-8'} relative`}>
         <div
           className={`flex flex-col overflow-y-auto overflow-x-hidden ${
-            !isMobile ? 'h-[calc(100vh-140px)]' : 'h-100vh'
-          }  pb-16 gap-3 scrollbar`}
+            !isMobile ? 'h-[calc(100vh-140px)] gap-3' : 'h-100vh'
+          }  pb-16  scrollbar`}
         >
           {sidebarDataWithActive.map((item: SidebarItem) => {
             const hasSubItems = item.items && item.items.length > 0;
@@ -101,12 +103,16 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                   title={item.title}
                   className="group/collapsible"
                 >
-                  <SidebarGroup className="p-0">
+                  <SidebarGroup
+                    className={`p-0 ${
+                      isMobile && 'border-b-1 border-teal-600/32'
+                    } `}
+                  >
                     <SidebarGroupLabel
                       asChild
-                      className={`text-sm h-11 rounded-none hover:bg-white/7 ${
-                        item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'
-                      }`}
+                      className={`text-sm  rounded-none hover:bg-white/10 ${
+                        isMobile ? 'h-14' : 'h-11'
+                      } ${item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'}`}
                     >
                       <CollapsibleTrigger
                         className={`flex items-center w-full pr-[20px] pl-[8px] py-[10px] ${
@@ -114,7 +120,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                         }`}
                       >
                         <div className="flex items-center w-full justify-between cursor-pointer">
-                          <div className="flex items-center w-full justify-start gap-1">
+                          <div className="flex items-center w-full justify-start gap-2">
                             <span className="text-xl shrink-0">
                               {item.icon}
                             </span>
@@ -136,16 +142,16 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                     <CollapsibleContent>
                       <SidebarGroupContent>
                         <SidebarMenu
-                          className={`gap-2  ${
+                          className={`gap-2 py-2  ${
                             !isMobile &&
-                            'border-r-1 border-[#0F766E52] mr-[30px]'
+                            'border-r-1 border-teal-600/85 mr-[30px]'
                           }`}
                         >
                           {item.items?.map((subItem: SidebarSubItem) => (
                             <SidebarMenuItem key={subItem.title}>
                               <SidebarMenuButton
                                 asChild
-                                className={`flex items-center w-full hover:bg-white/7 active:bg-white/7 ${
+                                className={`flex items-center w-full hover:bg-white/10 active:bg-white/10 ${
                                   item.isActive
                                     ? 'text-[#6EE1F8] hover:text-[#6EE1F8] active:text-[#6EE1F8]'
                                     : 'text-[#DAECEF] hover:text-[#DAECEF] active:text-[#DAECEF]'
@@ -174,17 +180,19 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
               <SidebarGroup key={item.title} className="p-0 justify-start ">
                 <SidebarGroupLabel
                   asChild
-                  className={`text-sm h-11 rounded-none hover:bg-white/7 ${
+                  className={`text-sm ${
+                    isMobile ? 'h-14 border-b-1 border-teal-600/32' : 'h-11'
+                  } rounded-none hover:bg-white/10 ${
                     item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'
                   }`}
                 >
                   <Link
                     href={item.url || '#'}
-                    className={`flex items-center justify-start w-full pr-[20px] pl-[8px] py-[10px] ${
+                    className={`flex items-center justify-start w-full pr-[20px] pl-[8px] py-[10px] gap-2 ${
                       item.isActive ? 'border-r-2 border-[#6EE1F8]' : ''
                     }`}
                   >
-                    <span className="text-xl shrink-0 ml-1">{item.icon}</span>
+                    <span className="text-xl shrink-0">{item.icon}</span>
                     <span className="font-normal text-[14px] leading-[20px] tracking-[0%] text-right">
                       {item.title}
                     </span>
@@ -197,7 +205,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
         {!isMobile && (
           <div
             onClick={toggleSidebar}
-            className="flex items-center justify-start gap-1 pr-5 bg-teal-950 hover:bg-white/7 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-t-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none"
+            className="flex items-center justify-start gap-1 pr-5 bg-teal-950 hover:bg-white/10 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-t-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none"
           >
             <ChevronsRight
               width={20}
