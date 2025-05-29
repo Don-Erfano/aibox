@@ -52,9 +52,7 @@ export const factorStatusOptions: {
 ];
 
 export const addFactorSchema = z.object({
-  user: z
-    .string({ message: 'انتخاب گزینه الزامی است.' })
-    .min(1, 'انتخاب گزینه الزامی است.'),
+  user: z.string().min(1, 'انتخاب گزینه الزامی است.'),
   price: z
     .number({ message: 'وارد کردن این فیلد الزامی است.' })
     .max(999999999, 'مقدار این فیلد بیش از حد مجاز است.'),
