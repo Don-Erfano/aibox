@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="selection:bg-teal-600 selection:text-white">
         <QueryProvider dehydratedState={dehydratedState}>
           {children}
           <Notifications />

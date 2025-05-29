@@ -22,7 +22,7 @@ import type { ISemiCircleProps } from './interface';
  * );
  */
 
-const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label }) => {
+const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label, isLoading }) => {
   const options: ApexOptions = {
     chart: {
       type: 'radialBar',
@@ -56,12 +56,16 @@ const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label }) => {
     labels: [label],
   };
 
+  if (isLoading)
+    return (
+      <div className="bg-gray-100 animate-pulse w-[100px] h-[100px] mx-auto rounded-full" />
+    );
   return (
     <Chart.default
       options={options}
       series={[Math.abs(data)]}
       type="radialBar"
-      height={272}
+      width={204}
     />
   );
 };

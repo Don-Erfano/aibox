@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { Mail } from 'lucide-react';
 
-import { Button } from '../form';
 import { Modal } from './modal';
+import { Button } from '../form';
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',

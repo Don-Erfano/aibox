@@ -9,8 +9,8 @@ const AreaChart: FC<IChartProps> = ({
   data,
   title = '',
   height = 350,
-  lineColor = '#2A918E',
-  fillColor = '#2A918E',
+  horizontalCategories,
+  fillColor = '#BAFBF9',
   enableTooltip = true,
 }) => {
   const [windowWidth, setWindowWidth] = useState<number>(0);
@@ -25,9 +25,6 @@ const AreaChart: FC<IChartProps> = ({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const maxValue = Math.max(...data.map((item) => item.y));
-  const padding = maxValue * 0.000001;
 
   const defaultOptions: ApexOptions = {
     chart: {
@@ -89,8 +86,8 @@ const AreaChart: FC<IChartProps> = ({
     },
     stroke: {
       curve: 'smooth' as const,
-      width: 2,
-      colors: [lineColor],
+      width: [2, 1, 1],
+      colors: ['#0D9488', '#A21CAF', '#C2410C'],
     },
     fill: {
       type: 'gradient',
@@ -100,16 +97,42 @@ const AreaChart: FC<IChartProps> = ({
         opacityTo: 0.05,
         stops: [0, 100],
         colorStops: [
-          {
-            offset: 0,
-            color: fillColor,
-            opacity: 0.45,
-          },
-          {
-            offset: 100,
-            color: fillColor,
-            opacity: 0.05,
-          },
+          [
+            {
+              offset: 0,
+              color: fillColor,
+              opacity: 1,
+            },
+            {
+              offset: 100,
+              color: '#fff',
+              opacity: 0,
+            },
+          ],
+          [
+            {
+              offset: 0,
+              color: '#fff',
+              opacity: 0,
+            },
+            {
+              offset: 100,
+              color: '#fff',
+              opacity: 0,
+            },
+          ],
+          [
+            {
+              offset: 0,
+              color: '#fff',
+              opacity: 0,
+            },
+            {
+              offset: 100,
+              color: '#fff',
+              opacity: 0,
+            },
+          ],
         ],
       },
     },
@@ -117,7 +140,7 @@ const AreaChart: FC<IChartProps> = ({
       show: false,
     },
     xaxis: {
-      categories: data.map((item) => item.x),
+      categories: horizontalCategories,
       labels: {
         style: {
           colors: '#5E6566',
@@ -136,7 +159,6 @@ const AreaChart: FC<IChartProps> = ({
     },
     yaxis: {
       min: 0,
-      max: maxValue + padding,
       tickAmount: windowWidth < 640 ? 3 : 4,
       labels: {
         style: {
@@ -207,13 +229,6 @@ const AreaChart: FC<IChartProps> = ({
     },
   };
 
-  const series = [
-    {
-      name: title,
-      data: data.map((item) => item.y),
-    },
-  ];
-
   return (
     <div
       className={clsx(
@@ -224,7 +239,7 @@ const AreaChart: FC<IChartProps> = ({
     >
       <Chart.default
         options={defaultOptions}
-        series={series}
+        series={data}
         type="area"
         height={height}
         width="100%"

@@ -30,6 +30,8 @@ const DonutChart: FC<IDonutChartProps> = ({
   title,
   showLegends,
   total,
+  loading,
+  colors,
 }) => {
   const chartOptions: ApexOptions = {
     chart: {
@@ -38,7 +40,7 @@ const DonutChart: FC<IDonutChartProps> = ({
     theme: {
       palette: 'palette1',
     },
-    colors: CHART_COLORS.primary,
+    colors: colors || CHART_COLORS.primary,
     labels: data.map((item) => item.name),
     tooltip: {
       custom: ({ series, seriesIndex }) =>
@@ -58,19 +60,11 @@ const DonutChart: FC<IDonutChartProps> = ({
             show: true,
             name: {
               show: true,
-              offsetY: -8,
+              offsetY: -0,
             },
             value: {
               show: true,
               offsetY: 2,
-            },
-            total: {
-              show: !!total?.value,
-              showAlways: true,
-              label: total?.label,
-              fontSize: '16px',
-              fontWeight: '500',
-              formatter: () => String(total?.value).toLocaleString(),
             },
           },
         },
@@ -89,8 +83,13 @@ const DonutChart: FC<IDonutChartProps> = ({
 
   const series = data.map((item) => item.amount);
 
+  if (loading)
+    return (
+      <div className="bg-gray-100 animate-pulse w-[120px] h-[120px] rounded-full" />
+    );
+
   return (
-    <div className="max-w-[398px] gap-x-6 gap-y-4">
+    <div className="gap-x-6 gap-y-4">
       {title ? (
         <h2 className="mb-6 text-center text-h4 font-medium text-[#322D73]">
           {title}
@@ -104,21 +103,30 @@ const DonutChart: FC<IDonutChartProps> = ({
           options={chartOptions}
           series={series}
           type="donut"
-          height={272}
+          height={120}
+          width={120}
         />
         {total?.suffix ? (
-          <div
-            className="absolute left-1/2 top-[52%] -translate-x-1/2 translate-y-4
-            text-h5 font-medium text-grey-main"
-          >
-            {total.suffix}
-          </div>
+          <>
+            <span
+              className="absolute left-1/2 top-[30%] -translate-x-1/2 translate-y-[calc(50%-10px)]
+            text-xl font-medium text-grey-main"
+            >
+              {total.value}
+            </span>
+            <span
+              className="absolute left-1/2 top-[50%] -translate-x-1/2 translate-y-[calc(50%-10px)]
+            text-sm font-medium text-grey-main"
+            >
+              {total.suffix}
+            </span>
+          </>
         ) : null}
       </div>
 
-      <div className="mt-6 flex w-full items-center justify-center gap-4">
-        {showLegends &&
-          data.map((item, index) => (
+      {showLegends && (
+        <div className="mt-6 flex w-full items-center justify-center gap-4">
+          {data.map((item, index) => (
             <div
               key={index}
               className="flex flex-col items-center justify-center gap-2"
@@ -148,7 +156,8 @@ const DonutChart: FC<IDonutChartProps> = ({
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

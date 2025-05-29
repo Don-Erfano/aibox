@@ -311,9 +311,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.6
         version: 1.2.6(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      apexcharts:
-        specifier: ^4.7.0
-        version: 4.7.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -336,9 +333,15 @@ importers:
       '@types/moment-jalaali':
         specifier: ^0.7.9
         version: 0.7.9
+      apexcharts:
+        specifier: ^4.7.0
+        version: 4.7.0
       moment-jalaali:
         specifier: ^0.10.4
         version: 0.10.4
+      react-apexcharts:
+        specifier: ^1.7.0
+        version: 1.7.0(apexcharts@4.7.0)(react@19.0.0)
       react-hook-form:
         specifier: ^7.56.2
         version: 7.56.2(react@19.0.0)
@@ -7286,6 +7289,12 @@ packages:
   raw-body@2.5.2:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
     engines: {node: '>= 0.8'}
+
+  react-apexcharts@1.7.0:
+    resolution: {integrity: sha512-03oScKJyNLRf0Oe+ihJxFZliBQM9vW3UWwomVn4YVRTN1jsIR58dLWt0v1sb8RwJVHDMbeHiKQueM0KGpn7nOA==}
+    peerDependencies:
+      apexcharts: '>=4.0.0'
+      react: '>=0.13'
 
   react-docgen-typescript@2.2.2:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
@@ -16706,6 +16715,12 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+
+  react-apexcharts@1.7.0(apexcharts@4.7.0)(react@19.0.0):
+    dependencies:
+      apexcharts: 4.7.0
+      prop-types: 15.8.1
+      react: 19.0.0
 
   react-docgen-typescript@2.2.2(typescript@5.7.3):
     dependencies:

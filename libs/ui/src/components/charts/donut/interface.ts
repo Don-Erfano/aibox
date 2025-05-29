@@ -1,5 +1,5 @@
 export interface IDonutChartProps {
-  title: string;
+  title?: string;
   showLegends?: boolean;
   total?: {
     value: string | number;
@@ -11,4 +11,6 @@ export interface IDonutChartProps {
     name: string;
     amount: number;
   }[];
+  loading?: boolean;
+  colors?: string[];
 }
