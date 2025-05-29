@@ -22,7 +22,7 @@ const Dashboard = () => {
         <IncomeCard />
       </div>
       <div className="grid 2xl:grid-cols-[minmax(0,_1fr)_minmax(0,_2fr)_minmax(0,_1fr)] gap-5">
-        <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-1">
           <APIMarketCard />
           <GpuComputingCard />
         </div>
