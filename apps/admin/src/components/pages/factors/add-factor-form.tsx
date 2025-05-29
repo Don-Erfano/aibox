@@ -30,7 +30,6 @@ const AddFactorForm = () => {
   const { control, handleSubmit } = form;
 
   const onSubmit = (data: IAddFactor) => {
-    console.log(data);
     const formData = Object.fromEntries(
       Object.entries(data).filter(([_, val]) => val)
     ) as IAddFactor;
@@ -50,63 +49,73 @@ const AddFactorForm = () => {
             <RHFAutocomplete
               control={control}
               name="user"
-              label=""
-              placeholder="کاربر*"
+              label="کاربر*"
+              placeholder=""
               options={
                 allUsers?.data.data.users.map((user) => ({
                   label: user.email,
                   value: user.id,
                 })) ?? []
               }
+              h_size="sm"
             />
             <RHFInput
               control={control}
               name="price"
               type="number"
-              placeholder="قیمت*"
+              label="قیمت*"
+              placeholder="قیمت به تومان"
+              variant="sm"
             />
             <RHFInput
               control={control}
               name="discount_percent"
-              placeholder="تخفیف"
+              label="تخفیف"
+              placeholder="تخفیف به درصد"
               type="number"
+              variant="sm"
             />
             <RHFAutocomplete
               control={control}
               name="department"
-              label=""
-              placeholder="دپارتمان"
+              label="دپارتمان"
+              placeholder=""
               options={
                 allDepartments?.data.data.department.map((department) => ({
                   label: department.title,
                   value: department.id,
                 })) ?? []
               }
+              h_size="sm"
             />
             <RHFAutocomplete
               control={control}
               name="status"
-              label=""
-              placeholder="وضعیت"
+              label="وضعیت"
+              placeholder=""
               options={factorStatusOptions}
+              h_size="sm"
             />
 
             <RHFInput
               control={control}
               type="date"
               name="created_at"
-              placeholder="تاریخ فاکتور"
+              label="تاریخ فاکتور"
+              variant="sm"
             />
             <RHFInput
               control={control}
               type="date"
               name="due_date"
-              placeholder="تاریخ سررسید"
+              label="تاریخ سررسید"
+              variant="sm"
             />
             <RHFInput
               control={control}
               name="description"
-              placeholder="توضیحات"
+              label="توضیحات"
+              variant="sm"
             />
           </FormWrapper>
           <div className="flex gap-5 justify-center">

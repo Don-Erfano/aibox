@@ -18,6 +18,8 @@ import PersonIcon from './PersonIcon';
 import AdminIcon from './AdminIcon';
 import NoDataIcon from './no-data-icon';
 import DeleteFactorIcon from './delete-factor';
+import AvatarIcon from './avatar-icon';
+
 export {
   ChevronIcon,
   LaunchIcon,
@@ -38,4 +40,5 @@ export {
   AdminIcon,
   NoDataIcon,
   DeleteFactorIcon,
+  AvatarIcon,
 };

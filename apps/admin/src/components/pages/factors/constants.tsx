@@ -1,4 +1,4 @@
-import { AibStatus, Option } from '@aibox/ui';
+import { AibStatus, AvatarIcon, Option } from '@aibox/ui';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -12,20 +12,29 @@ export const statusMap: Record<
 > = {
   done: {
     label: 'پرداخت شده',
-    badge: <AibStatus label="پرداخت شده" bgColor="bg-green-600" />,
+    badge: (
+      <AibStatus label="پرداخت شده" bgColor="bg-green-600 text-zinc-700" />
+    ),
   },
 
   expired: {
     label: 'منقضی',
-    badge: <AibStatus label="منقضی" bgColor="bg-gray-500" />,
+    badge: <AibStatus label="منقضی" bgColor="bg-gray-500 text-zinc-700" />,
   },
   fail: {
     label: 'پرداخت ناموفق',
-    badge: <AibStatus label="پرداخت ناموفق" bgColor="bg-red-600" />,
+    badge: (
+      <AibStatus label="پرداخت ناموفق" bgColor="bg-red-600 text-zinc-700" />
+    ),
   },
   in_progress: {
     label: 'در انتظار پرداخت',
-    badge: <AibStatus label="در انتظار پرداخت" bgColor="bg-orange-500" />,
+    badge: (
+      <AibStatus
+        label="در انتظار پرداخت"
+        bgColor="bg-orange-500 text-zinc-700"
+      />
+    ),
   },
 };
 
@@ -86,6 +95,7 @@ export const getFacotrColumns = (
       header: 'کاربر',
       id: 'user',
       accessorKey: 'user',
+      enableSorting: false,
       enableColumnFilter: true,
       meta: {
         variant: 'select',
@@ -96,8 +106,8 @@ export const getFacotrColumns = (
         const { email, prfoile_picture } = row.original.user;
         return (
           <div className="flex items-center gap-2">
-            {prfoile_picture && (
-              <div className="size-8 flex justify-center items-center border border-teal-600 rounded-full">
+            <div className="size-8 flex justify-center items-center border border-teal-600 rounded-full">
+              {prfoile_picture ? (
                 <Image
                   src={prfoile_picture}
                   style={{ borderRadius: '100%' }}
@@ -105,8 +115,10 @@ export const getFacotrColumns = (
                   width={32}
                   height={32}
                 />
-              </div>
-            )}
+              ) : (
+                <AvatarIcon />
+              )}
+            </div>
             <p>{email}</p>
           </div>
         );
@@ -117,6 +129,7 @@ export const getFacotrColumns = (
       accessorKey: 'department',
       id: 'department',
       cell: ({ row }) => row.original.department?.title,
+      enableSorting: false,
       enableColumnFilter: true,
       meta: {
         variant: 'select',
@@ -137,7 +150,7 @@ export const getFacotrColumns = (
               hour: '2-digit',
               minute: '2-digit',
             })
-          : 'نامشخص',
+          : '-',
     },
     {
       header: 'تاریخ پرداخت',
@@ -152,7 +165,7 @@ export const getFacotrColumns = (
               hour: '2-digit',
               minute: '2-digit',
             })
-          : 'نامشخص',
+          : '-',
     },
     {
       header: 'مبلغ(تومان)',
@@ -170,6 +183,7 @@ export const getFacotrColumns = (
       accessorKey: 'status',
       id: 'status',
       cell: ({ getValue }) => statusMap[getValue() as FactorStatusType].badge,
+      enableSorting: false,
       enableColumnFilter: true,
       meta: {
         variant: 'select',
