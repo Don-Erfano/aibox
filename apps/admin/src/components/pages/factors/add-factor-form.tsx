@@ -122,7 +122,7 @@ const AddFactorForm = () => {
             <Button size="lg" isFilled type="submit" disabled={isPending}>
               {isPending ? <LoaderIcon className="animate-spin" /> : 'ثبت'}
             </Button>
-            <Button size="lg" onClick={() => router.back()}>
+            <Button size="lg" type="button" onClick={() => router.back()}>
               لغو عملیات
             </Button>
           </div>
