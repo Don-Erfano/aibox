@@ -81,11 +81,6 @@ export const getFacotrColumns = (
       header: 'شماره',
       id: 'num',
       accessorKey: 'num',
-      enableColumnFilter: true,
-      meta: {
-        variant: 'text',
-        label: 'alhvi',
-      },
     },
     {
       header: 'کاربر',

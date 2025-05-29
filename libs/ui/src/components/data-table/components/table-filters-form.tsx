@@ -61,7 +61,9 @@ export function TableFiltersForm<TData>({
                   id: option.value,
                 })) || []
               }
-              onSelect={(val) => column.setFilterValue(val[0].id)}
+              onSelect={(val) =>
+                column.setFilterValue(val.length ? val[0].id : '')
+              }
               h_size="sm"
               mode="light"
             />
