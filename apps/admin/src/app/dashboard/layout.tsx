@@ -2,11 +2,8 @@
 
 import { Header } from '@/components/header';
 import { LayoutModeProvider } from './layout-context';
-
-import { sidebarData } from '@/components/sidebar/constants';
-
-import { SidebarProvider } from '@aibox/ui';
-import { Sidebar } from '@/components/sidebar';
+import { AIBSidebar, SidebarProvider } from '@aibox/ui';
+import { sidebarData } from '@/constant/sidebar';
 
 export default function DashboardLayout({
   children,
@@ -17,7 +14,7 @@ export default function DashboardLayout({
     <div className="flex overflow-hidden">
       <SidebarProvider>
         <Header />
-        <Sidebar sidebarData={sidebarData} />
+        <AIBSidebar sidebarData={sidebarData} />
       </SidebarProvider>
       <LayoutModeProvider>{children}</LayoutModeProvider>
     </div>

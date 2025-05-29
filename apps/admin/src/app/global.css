@@ -2,24 +2,3 @@
 @source "../";
 @import 'tw-animate-css';
 @import '@aibox/ui/index.css';
-
-@layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: transparent;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #00897b50;
-    border-radius: 100vh;
-  }
-
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #00897b95;
-  }
-}
