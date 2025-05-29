@@ -2,8 +2,6 @@ import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import { AxiosResponse } from 'axios';
 import {
   IAddFactor,
-  IGetAllDepartments,
-  IGetAllUsers,
   IGetFactorsParams,
   IGetFactorsResponse,
 } from './interface';
@@ -20,24 +18,6 @@ export class FactorServices extends AbstractAPI {
       method: `POST`,
       url: this.url,
       data,
-    });
-  }
-
-  public async getAllUsers(): Promise<
-    AxiosResponse<INetworkResponse<IGetAllUsers>>
-  > {
-    return await this.http.request({
-      method: 'GET',
-      url: `v1/admin/user/all/`,
-    });
-  }
-
-  public async getAllDepartment(): Promise<
-    AxiosResponse<INetworkResponse<IGetAllDepartments>>
-  > {
-    return await this.http.request({
-      method: 'GET',
-      url: `v1/admin/department/all/`,
     });
   }
 

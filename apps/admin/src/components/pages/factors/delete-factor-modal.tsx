@@ -5,6 +5,7 @@ import { LoaderIcon } from 'lucide-react';
 import { useDeleteFactor } from '@/services/factor';
 
 import { DeleteFactorModalProps } from './interface';
+import { factorStrings } from './strings';
 
 export const DeleteFactorModal = ({
   modalState,
@@ -30,18 +31,22 @@ export const DeleteFactorModal = ({
     >
       <div className="flex flex-col justify-between items-center">
         <span className="text-teal-600 text-sm/6 font-medium">
-          آیا مطمئن هستید؟
+          {factorStrings.deleteModalTitle}
         </span>
         <span className="mt-3 mb-8 text-neutral-900 text-center text-sm/6 font-normal">
-          با حذف فاکتور، امکان دسترسی به آن دیگر وجود نخواهد داشت.
+          {factorStrings.deleteModalDecription}
         </span>
 
         <div className="flex flex-col sm:flex-row sm:justify-center items-center w-full gap-2">
           <Button size="lg" isFilled disabled={isPending} onClick={deleteFacor}>
-            {isPending ? <LoaderIcon className="animate-spin" /> : 'حذف کردن'}
+            {isPending ? (
+              <LoaderIcon className="animate-spin" />
+            ) : (
+              factorStrings.deleteButtonText
+            )}
           </Button>
           <Button size="lg" onClick={() => toggleModal({ show: false })}>
-            انصراف
+            {factorStrings.cancel}
           </Button>
         </div>
       </div>

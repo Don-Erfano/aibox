@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 import {
   IAddUserRequestPayload,
   IAddUserResponsePayload,
+  IGetAllUsers,
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
 } from './interface';
@@ -29,6 +30,15 @@ export default class UserListsServices extends AbstractAPI {
       method: 'POST',
       url: `${this.url}/`,
       data,
+    });
+  }
+
+  public async getAllUsers(): Promise<
+    AxiosResponse<INetworkResponse<IGetAllUsers>>
+  > {
+    return await this.http.request({
+      method: 'GET',
+      url: `${this.url}/all/`,
     });
   }
 }

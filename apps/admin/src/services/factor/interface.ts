@@ -1,4 +1,6 @@
 import { IPaginationMeta } from '@aibox/services';
+import { IUser } from '../user/user-lists/interface';
+import { IDepartment } from '../department';
 
 export const FactorStatus = {
   DONE: 'done',
@@ -20,29 +22,10 @@ export interface IAddFactor {
   discount_percent?: number;
 }
 
-export interface IFactorUser {
-  id: string;
-  email: string;
-  phone_number: string;
-}
-
-export interface IGetAllUsers {
-  users: IFactorUser[];
-}
-
-export interface IDepartment {
-  id: string;
-  title: string;
-}
-
-export interface IGetAllDepartments {
-  department: IDepartment[];
-}
-
 export interface IFactor {
   id: string;
   num: number;
-  user: Omit<IFactorUser, 'phone_number'> & { prfoile_picture: string };
+  user: Omit<IUser, 'phone_number'> & { prfoile_picture: string };
   status: FactorStatusType;
   description: string;
   price: number;

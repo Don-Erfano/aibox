@@ -1,20 +1,19 @@
 'use client';
 
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
-import { useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
-import {
-  useGetAllDepartments,
-  useGetAllUsers,
-  useGetFactors,
-} from '@/services/factor';
+import { useGetAllDepartments } from '@/services/department';
+import { useGetFactors } from '@/services/factor';
+import { useGetAllUsers } from '@/services/user/user-lists';
 
 import { getFacotrColumns } from './constants';
 import { DeleteFactorModal } from './delete-factor-modal';
 import { FactorTableChild } from './factor-table-child';
 import { DeleteModal } from './interface';
+import { factorStrings } from './strings';
 
-const FactorsTable = () => {
+const FactorsTable: FC = () => {
   const { factors, totalPages, totalItems, refetch, isLoading, isFetching } =
     useGetFactors();
 
@@ -69,7 +68,7 @@ const FactorsTable = () => {
         submitFilters={submitFilters}
         refreshLoading={isLoading || isFetching}
         noManageColumns
-        title="فاکتورها"
+        title={factorStrings.factors}
         totalItems={totalItems}
       />
       <DataTable table={table} childComponent={FactorTableChild} />

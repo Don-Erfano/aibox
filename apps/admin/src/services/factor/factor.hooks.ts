@@ -37,18 +37,6 @@ export const useDeleteFactor = () =>
     mutationKey: [`deleteFactor`],
   });
 
-export const useGetAllUsers = () =>
-  useQuery({
-    queryKey: ['allUsers'],
-    queryFn: () => factorServices.getAllUsers(),
-  });
-
-export const useGetAllDepartments = () =>
-  useQuery({
-    queryKey: ['allDepartments'],
-    queryFn: () => factorServices.getAllDepartment(),
-  });
-
 export const useGetFactors = () => {
   const allQueryParams = useQueryParams();
 
