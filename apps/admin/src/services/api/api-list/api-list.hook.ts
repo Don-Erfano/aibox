@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 
 import { useQueryParams } from '@/hooks/useQueryParams';
 
@@ -40,4 +40,41 @@ const useGetApiList = () => {
   return { apis, totalItems, totalPages, isLoading, refetch };
 };
 
-export { useGetApiList };
+const usePostApproveApi = () =>
+  useMutation({
+    mutationFn: async (id: string) => await apiListService.approveApi(id),
+    mutationKey: ['usePostApproveApi'],
+  });
+
+const usePostResolveProxyError = () =>
+  useMutation({
+    mutationFn: async (id: string) =>
+      await apiListService.resolveProxyError(id),
+    mutationKey: ['usePostResolveProxyError'],
+  });
+
+const usePostRejectApi = () =>
+  useMutation({
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: { title: string; description: string };
+    }) => await apiListService.rejectApi(id, data),
+    mutationKey: ['usePostResolveProxyError'],
+  });
+
+const usePostDeprecatetApi = () =>
+  useMutation({
+    mutationFn: async (id: string) => await apiListService.deprecate(id),
+    mutationKey: ['usePostResolveProxyError'],
+  });
+
+export {
+  useGetApiList,
+  usePostApproveApi,
+  usePostResolveProxyError,
+  usePostRejectApi,
+  usePostDeprecatetApi,
+};

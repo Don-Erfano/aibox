@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
 
 const buttonVariants = cva(
   `flex flex-nowrap cursor-pointer w-full items-center justify-center
@@ -69,19 +70,26 @@ function Button({
   size,
   asChild = false,
   isFilled,
+  tooltip,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    tooltip?: string;
   }) {
   const Comp = asChild ? Slot : 'button';
 
   return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className, isFilled }))}
-      {...props}
-    />
+    <Tooltip>
+      {tooltip && <TooltipContent aria-hidden>{tooltip}</TooltipContent>}
+      <TooltipTrigger>
+        <Comp
+          data-slot="button"
+          className={cn(buttonVariants({ variant, size, className, isFilled }))}
+          {...props}
+        />
+      </TooltipTrigger>
+    </Tooltip>
   );
 }
 
