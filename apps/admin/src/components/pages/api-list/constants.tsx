@@ -1,6 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { IApiDetails } from '@/services';
 import clsx from 'clsx';
+import ActionCell from './actions-cell';
 
 const status: {
   [x: string]: {
@@ -9,20 +10,20 @@ const status: {
   };
 } = {
   WAITING: {
-    label: 'در انتضار تایید',
+    label: 'در انتظار تایید',
     color: 'blue-500',
   },
   WAITING_DEPRECATE: {
     label: 'درحال منقضی شدن',
-    color: 'fuchsia-700 ',
+    color: 'fuchsia-700',
   },
   DEPRECATED: {
-    label: 'منتضی شده',
+    label: 'منقضی شده',
     color: 'gray-500',
   },
   ACCEPTED: {
     label: 'تایید شده',
-    color: 'orange-500',
+    color: 'green-600',
   },
   PROCESSING: {
     label: 'ناقص',
@@ -139,6 +140,10 @@ const userColumns: ColumnDef<IApiDetails>[] = [
         },
       ],
     },
+  },
+  {
+    header: 'عملیات',
+    cell: ({ row }) => <ActionCell {...row} />,
   },
 ];
 export default userColumns;
