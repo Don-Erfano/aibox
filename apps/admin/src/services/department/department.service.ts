@@ -5,7 +5,7 @@ import { IGetAllDepartments } from './interface';
 
 export class DepartmentService extends AbstractAPI {
   constructor() {
-    super(`v1/admin/department/`);
+    super(`v1/admin/department`);
   }
 
   public async getAllDepartments(): Promise<

@@ -1,8 +1,10 @@
 'use client';
 
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
+import { useRouter } from 'next/navigation';
 import { FC, useMemo, useState } from 'react';
 
+import { FabButton } from '@/components/fab-button';
 import { useGetAllDepartments } from '@/services/department';
 import { useGetFactors } from '@/services/factor';
 import { useGetAllUsers } from '@/services/user/user-lists';
@@ -14,6 +16,7 @@ import { DeleteModal } from './interface';
 import { factorStrings } from './strings';
 
 const FactorsTable: FC = () => {
+  const router = useRouter();
   const { factors, totalPages, totalItems, refetch, isLoading, isFetching } =
     useGetFactors();
 
@@ -72,6 +75,7 @@ const FactorsTable: FC = () => {
         totalItems={totalItems}
       />
       <DataTable table={table} childComponent={FactorTableChild} />
+      <FabButton onClick={() => router.push('/dashboard/factors/add')} />
     </>
   );
 };

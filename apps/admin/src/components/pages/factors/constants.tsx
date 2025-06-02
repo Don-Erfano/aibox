@@ -1,4 +1,4 @@
-import { AibStatus, AvatarIcon, Option } from '@aibox/ui';
+import { AibStatus, AvatarIcon, Option, formatJalali } from '@aibox/ui';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -96,7 +96,6 @@ export const getFacotrColumns = (
   users?: Option[],
   departments?: Option[]
 ): ColumnDef<IFactor>[] => {
-  console.log(departments);
   return [
     {
       header: factorStrings.num,
@@ -154,30 +153,14 @@ export const getFacotrColumns = (
       accessorKey: 'created_at',
       id: 'created_at',
       cell: ({ getValue }) =>
-        getValue()
-          ? new Date(getValue() as string).toLocaleString('fa-IR', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-            })
-          : '-',
+        getValue() ? formatJalali(getValue() as string) : '—',
     },
     {
       header: factorStrings.dueDate,
       accessorKey: 'pay_date',
       id: 'pay_date',
       cell: ({ getValue }) =>
-        getValue()
-          ? new Date(getValue() as string).toLocaleString('fa-IR', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-            })
-          : '-',
+        getValue() ? formatJalali(getValue() as string) : '—',
     },
     {
       header: factorStrings.priceColumn,
