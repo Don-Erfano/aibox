@@ -5,6 +5,7 @@ import { useDataTable, DataTable, TableToolbar } from '@aibox/ui';
 import tokenColumns from './constant';
 
 import { useGetAccessTokenList } from '@/services/user/user-token';
+import { UserTokenString } from '@/components/pages/user-token/string';
 
 const UserToken: FC = () => {
   const { user, totalItems, totalPages, isLoading, refetch } =
@@ -14,6 +15,7 @@ const UserToken: FC = () => {
     data: user,
     columns: tokenColumns,
     pageCount: totalPages,
+    actions: {},
   });
 
   if (isLoading) return <p>Loading…</p>;
@@ -22,7 +24,7 @@ const UserToken: FC = () => {
     <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
       <TableToolbar
         table={table}
-        title="لیست توکن‌ها"
+        title={UserTokenString.tokens_list}
         refetch={refetch}
         refreshLoading={isLoading}
         totalItems={totalItems}

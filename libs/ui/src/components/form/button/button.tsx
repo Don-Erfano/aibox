@@ -45,7 +45,7 @@ const buttonVariants = cva(
       {
         variant: 'outline',
         isFilled: false,
-        className: `hover:bg-gray-200/40 hover:border-teal-600 hover:text-teal-600 active:bg-teal-600/25 
+        className: `hover:bg-gray-200/40 hover:border-teal-600 hover:text-teal-600 active:bg-teal-600/25
                     active:ring-0 disabled:bg-white disabled:border-teal-600/32 disabled:text-teal-600/32`,
       },
       {
@@ -56,7 +56,7 @@ const buttonVariants = cva(
       {
         variant: 'ghost',
         isFilled: false,
-        className: `bg-transparent text-zinc-700 border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200 
+        className: `bg-transparent text-zinc-700 border border-transparent hover:bg-zinc-200 active:text-teal-600 !p-2 active:bg-zinc-200
                     acitve:ring-0 active:border-teal-600 aria-selected:bg-teal-600 aria-selected:text-white hover:text-teal-600`,
       },
     ],
