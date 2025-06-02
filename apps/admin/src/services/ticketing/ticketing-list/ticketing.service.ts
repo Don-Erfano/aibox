@@ -7,7 +7,6 @@ import {
   IAssignTicketPathParams,
   IAssignTicketResponse,
   IUpdateTicketStatusRequest,
-  IUpdateTicketStatus,
   IUpdateTicketStatusResponsePayload,
   ITicket,
 } from './interface';
@@ -50,15 +49,15 @@ export default class TicketingService extends AbstractAPI {
   }
 
   public async updateTicketStatus(
-    path: IUpdateTicketStatus,
     payload: IUpdateTicketStatusRequest
   ): Promise<
     AxiosResponse<INetworkResponse<IUpdateTicketStatusResponsePayload>>
   > {
+    const { id, status } = payload;
     return this.http.request({
       method: 'PUT',
-      url: `${this.url}/${path.id}/status/`,
-      data: payload,
+      url: `${this.url}/${id}/status/`,
+      data: { status },
     });
   }
 }
