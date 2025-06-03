@@ -1,6 +1,5 @@
 import { useQueryState } from 'nuqs';
-
-import { TabProps } from './types';
+import type { TabProps } from './types';
 import {
   TabTitle,
   Tabs,
@@ -8,35 +7,43 @@ import {
   TabsTrigger,
   TabsContent,
 } from './components';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 const Tab: React.FC<TabProps> = ({ tabs }) => {
-  const [tabId, setTabId] = useQueryState('tab');
+  const [rawTabId, setTabId] = useQueryState('tab');
+  const tabId = rawTabId ?? undefined; // no null allowed
+  let isValidTab = false;
 
-  const enabledTabs = tabs.filter((tab) => !tab.isDisabled);
-  const isValidTab = enabledTabs.some((tab) => tab.id === tabId);
+  const enabledTabs: TabProps['tabs'] = tabs.filter((t) => {
+    if (t.id === tabId && !t.isDisabled) isValidTab = true;
+    return !t.isDisabled;
+  });
 
-  const lastValidTabRef = useRef<string>(enabledTabs[0]?.id);
+  const allTabsDisabled = enabledTabs.length === 0;
 
   useEffect(() => {
-    if (isValidTab && tabId) {
-      lastValidTabRef.current = tabId;
-    } else if (tabId && !isValidTab) {
-      setTabId(lastValidTabRef.current);
-    }
-  }, [tabId, isValidTab, setTabId]);
+    if (allTabsDisabled) return;
 
-  const currentTabId =
-    (isValidTab ? tabId : lastValidTabRef.current) ?? undefined;
+    if (!tabId || !isValidTab) {
+      setTabId(enabledTabs[0].id);
+    }
+  }, [tabId, isValidTab, setTabId, allTabsDisabled]);
+
+  const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
+
+  if (allTabsDisabled) {
+    return (
+      <div className="p-4 text-center text-gray-500">
+        هیچ تب فعالی وجود ندارد.
+      </div>
+    );
+  }
 
   return (
     <Tabs
       value={currentTabId}
       onValueChange={(val) => {
-        const selectedTab = tabs.find((tab) => tab.id === val);
-        if (!selectedTab?.isDisabled) {
-          setTabId(val);
-        }
+        setTabId(val);
       }}
     >
       <TabsList>
@@ -55,4 +62,5 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
     </Tabs>
   );
 };
+
 export default Tab;

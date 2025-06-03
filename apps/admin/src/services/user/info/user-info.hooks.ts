@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import UserInfoServices from './user-info.service';
-import { IGetUserInfoRequestPayload } from './interface';
+import type { IGetUserInfoRequestPayload } from './interface';
 
 const userInfoServices = new UserInfoServices();
 

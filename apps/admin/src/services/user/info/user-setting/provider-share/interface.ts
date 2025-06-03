@@ -1,8 +1,10 @@
-export interface IProviderShareRequest {
+interface IProviderShareRequest {
   id?: string;
 }
 
-export interface IProviderShareResponse {
+interface IProviderShareResponse {
   owner_earning_coefficient: number;
   withdraw_coefficient: number;
 }
+
+export type { IProviderShareRequest, IProviderShareResponse };

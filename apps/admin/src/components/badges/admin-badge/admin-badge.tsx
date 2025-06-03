@@ -4,14 +4,14 @@ import { AdminIcon } from '@aibox/ui';
 
 const AdminBadge: FC<AdminBoxStatusProps> = ({ isAdmin }) => {
   return (
-    <div className=" flex items-center space-x-2 text-sm">
+    <div className=" flex items-center space-x-2 text-sm text-zinc-700">
       {isAdmin ? (
         <>
           <AdminIcon />
-          <p className="text-black">ادمین</p>
+          <p>ادمین</p>
         </>
       ) : (
-        <p className="text-black ">کاربر</p>
+        <p>کاربر</p>
       )}
     </div>
   );

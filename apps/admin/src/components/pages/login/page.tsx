@@ -23,7 +23,7 @@ const LoginPage: FC = () => {
   const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
     defaultValues: {
-      username: '09309747818',
+      username: '',
       password: '',
     },
   });
@@ -59,11 +59,14 @@ const LoginPage: FC = () => {
             placeholder="کلمه عبور*"
             name="password"
             type="password"
-            description="this is password description"
-            label='"کلمه عبور*'
           />
           <div className="mt-3 w-full flex gap-3 flex-col">
-            <Button variant="default" type="submit" disabled={isPending}>
+            <Button
+              variant="default"
+              isFilled
+              type="submit"
+              disabled={isPending}
+            >
               ورود
             </Button>
             <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">

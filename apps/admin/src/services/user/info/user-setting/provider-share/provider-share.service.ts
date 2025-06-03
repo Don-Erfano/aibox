@@ -1,6 +1,9 @@
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import { AxiosResponse } from 'axios';
-import { IProviderShareRequest, IProviderShareResponse } from './interface';
+import type {
+  IProviderShareRequest,
+  IProviderShareResponse,
+} from './interface';
 
 export default class ProviderShareServices extends AbstractAPI {
   constructor() {

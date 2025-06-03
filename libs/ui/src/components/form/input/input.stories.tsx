@@ -1,44 +1,38 @@
+import { Search } from 'lucide-react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { BaseTextField } from './aib-input';
 
-const meta: Meta<typeof BaseTextField> = {
-  component: BaseTextField,
-  title: 'Input',
+import { AIBInput } from './input';
+
+const meta: Meta<typeof AIBInput> = {
+  component: AIBInput,
+  title: 'form/Input',
 };
 export default meta;
-type Story = StoryObj<typeof BaseTextField>;
+type Story = StoryObj<typeof AIBInput>;
 
 export const Sm: Story = {
   args: {
     placeholder: 'placeholder',
-    startAdornment: <>start</>,
-    endAdornment: <>end</>,
+    startAdornment: <Search />,
+    endAdornment: <Search />,
     disabled: false,
-    readOnly: false,
+    'aria-readonly': false,
   },
 };
 
 export const md: Story = {
   args: {
     placeholder: 'placeholder',
-    startAdornment: <>start</>,
-    endAdornment: <>end</>,
+    startAdornment: <Search />,
+    endAdornment: <Search />,
+    'aria-readonly': false,
   },
 };
 
 export const lg: Story = {
   args: {
     placeholder: 'placeholder',
-    startAdornment: <>start</>,
-    endAdornment: <>end</>,
-  },
-};
-
-export const WithLabel: Story = {
-  args: {
-    placeholder: 'placeholder',
-    startAdornment: <>start</>,
-    label: 'label',
-    endAdornment: <>end</>,
+    startAdornment: <Search />,
+    endAdornment: <Search />,
   },
 };
