@@ -8,6 +8,7 @@ import {
   DataTableSkeleton,
 } from '@aibox/ui';
 import { useGetUserList } from '@/services/user/user-lists';
+import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { UserStrings } from '@/components/pages/user/user-list/string';
 import { FabButton } from '@/components/fab-button';
@@ -23,7 +24,7 @@ const UserList: FC = () => {
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
+      onEdit: (row) => router.push(`/dashboard/user-list/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });

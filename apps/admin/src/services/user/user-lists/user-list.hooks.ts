@@ -10,9 +10,11 @@ import {
   IAddUserResponsePayload,
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
+  IPutUser,
   IUser,
 } from '@/services/user/user-lists/interface';
 import { useQueryParams } from '@/hooks/useQueryParams';
+import { showNotification } from '@/utils/notifications';
 
 const userListsServices = new UserListsServices();
 
@@ -58,6 +60,40 @@ export const useAddUser = () => {
       userListsServices.addUser(newUserPayload).then((res) => res.data.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userList'] });
+    },
+  });
+};
+
+export const useGetUser = (userId: string) =>
+  useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => userListsServices.getUser(userId),
+  });
+
+export const usePostActivateEmail = () =>
+  useMutation({
+    mutationKey: ['postActivateEmail'],
+    mutationFn: (email: string) => userListsServices.postActivateEmail(email),
+    onSuccess: () => {
+      showNotification({
+        message: 'درخواست ارسال مجدد ایمیل فعالسازی با موفقیت ثبت شد.',
+        type: 'success',
+      });
+    },
+  });
+
+export const usePutUserById = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['putUserById'],
+    mutationFn: (data: IPutUser) => userListsServices.putUserById(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      showNotification({
+        message: 'اطلاعات کاربر با موفقیت ویرایش شد.',
+        type: 'success',
+      });
     },
   });
 };
