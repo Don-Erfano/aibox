@@ -59,7 +59,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
   return (
     <div>
       {editMode ? (
-        <div className="border border-neutral-200 px-5 pt-5 pb-12 rounded-lg">
+        <div className="border border-neutral-200 px-5 pt-5 pb-12 rounded-lg xl:px-6 mx-auto max-w-[1376px]">
           <p className="pb-4 text-sm/5 font-medium text-slate-900 border-b border-neutral-200">
             {userInfoStrings.editUserAccountInfo}
           </p>
@@ -72,6 +72,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
                   type="submit"
                   isFilled
                   size="lg"
+                  variant="outline"
                   disabled={isPutUserPending}
                 >
                   {userInfoStrings.sumbitChanges}
@@ -79,6 +80,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
                 <Button
                   type="button"
                   size="lg"
+                  variant="outline"
                   onClick={() => setEditMode(false)}
                 >
                   {userInfoStrings.cancel}

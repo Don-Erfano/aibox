@@ -93,7 +93,7 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
               <span>{userInfoStrings.deacitvedEmail}</span>
             </p>
             <Button
-              variant="ghost"
+              variant="link"
               size="lg"
               className="!w-fit"
               onClick={() => postActivateEmail(user.email)}
@@ -107,6 +107,12 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           <p className="text-sm/6 font-normal text-red-700 flex items-center gap-2">
             <Circle className="fill-red-700" size="8" />
             <span>{userInfoStrings.deactivedPhoneNumber}</span>
+          </p>
+        )}
+        {!user.phone_number && (
+          <p className="text-sm/6 font-normal text-red-700 flex items-center gap-2">
+            <Circle className="fill-red-700" size="8" />
+            <span>{userInfoStrings.notRegisteredPhoneNumber}</span>
           </p>
         )}
       </div>

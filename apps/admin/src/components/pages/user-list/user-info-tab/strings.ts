@@ -1,5 +1,6 @@
 export const userInfoStrings = {
   deactivedPhoneNumber: 'شماره موبایل کاربر فعال نشده است.',
+  notRegisteredPhoneNumber: 'شماره موبایل کاربر ثبت نشده است.',
   resendActivationEmail: 'ارسال مجدد ایمیل فعالسازی',
   deacitvedEmail: 'ایمیل کاربر فعال نشده است.',
   has: 'دارد',

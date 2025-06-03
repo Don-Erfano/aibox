@@ -8,7 +8,6 @@ import {
   DataTableSkeleton,
 } from '@aibox/ui';
 import { useGetUserList } from '@/services/user/user-lists';
-import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { UserStrings } from '@/components/pages/user/user-list/string';
 import { FabButton } from '@/components/fab-button';

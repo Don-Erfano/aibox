@@ -16,7 +16,7 @@ export const UserInfoFormFields: FC<{ user: IUser }> = ({ user }) => {
   const { control } = useFormContext<UserInfoForm>();
 
   return (
-    <div className="flex flex-col gap-12 lg:flex-row items-center lg:items-start w-full py-12">
+    <div className="flex flex-col gap-10 lg:flex-row items-center lg:items-start w-full py-12">
       <div className="size-24 shrink-0 flex justify-center items-center rounded-full border border-neutral-600">
         {user?.profile_picture ? (
           <Image
