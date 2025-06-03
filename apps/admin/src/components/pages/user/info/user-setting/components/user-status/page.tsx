@@ -57,7 +57,6 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
           />
           <div className="flex items-center justify-center gap-5 ">
             <Button
-              className="self-start "
               variant="default"
               isFilled
               type="submit"
@@ -65,12 +64,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
             >
               ثبت
             </Button>
-            <Button
-              className="self-start"
-              variant="default"
-              onClick={handleCancel}
-              type="button"
-            >
+            <Button variant="default" onClick={handleCancel} type="button">
               لغو
             </Button>
           </div>

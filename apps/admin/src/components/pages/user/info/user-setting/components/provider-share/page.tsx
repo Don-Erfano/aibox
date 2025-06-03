@@ -63,7 +63,7 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data }) => {
                 control={control}
                 label="سهم ارائه دهنده"
                 name="providerShare"
-                endAdornment={<>%</>}
+                endAdornment="%"
                 defaultValue={providerShare}
               />
 
