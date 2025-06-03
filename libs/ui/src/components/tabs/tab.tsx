@@ -1,5 +1,4 @@
 import { useQueryState } from 'nuqs';
-
 import { TabProps } from './types';
 import {
   TabTitle,
@@ -8,26 +7,47 @@ import {
   TabsTrigger,
   TabsContent,
 } from './components';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 const Tab: React.FC<TabProps> = ({ tabs }) => {
-  const [tabId, setTabId] = useQueryState('tab');
+  const [rawTabId, setTabId] = useQueryState('tab');
+  const tabId = rawTabId ?? undefined; // no null allowed
 
-  const enabledTabs = tabs.filter((tab) => !tab.isDisabled);
-  const isValidTab = enabledTabs.some((tab) => tab.id === tabId);
+  const enabledTabs: TabProps['tabs'] = [];
+  let defaultTabId: string | undefined;
+  let isValidTab = false;
 
-  const lastValidTabRef = useRef<string>(enabledTabs[0]?.id);
+  for (const tab of tabs) {
+    if (!tab.isDisabled) {
+      enabledTabs.push(tab);
+      if (!defaultTabId) defaultTabId = tab.id;
+      if (tab.id === tabId) isValidTab = true;
+    }
+  }
+
+  const allTabsDisabled = enabledTabs.length === 0; // = defaultTabId === undefined
 
   useEffect(() => {
-    if (isValidTab && tabId) {
-      lastValidTabRef.current = tabId;
-    } else if (tabId && !isValidTab) {
-      setTabId(lastValidTabRef.current);
-    }
-  }, [tabId, isValidTab, setTabId]);
+    if (allTabsDisabled) return;
 
-  const currentTabId =
-    (isValidTab ? tabId : lastValidTabRef.current) ?? undefined;
+    if (!tabId || !isValidTab) {
+      defaultTabId && setTabId(defaultTabId);
+    }
+  }, [tabId, isValidTab, setTabId, defaultTabId, allTabsDisabled]);
+
+  const currentTabId = allTabsDisabled
+    ? undefined
+    : isValidTab
+    ? tabId
+    : defaultTabId;
+
+  if (allTabsDisabled) {
+    return (
+      <div className="p-4 text-center text-gray-500">
+        هیچ تب فعالی وجود ندارد.
+      </div>
+    );
+  }
 
   return (
     <Tabs
@@ -55,4 +75,5 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
     </Tabs>
   );
 };
+
 export default Tab;

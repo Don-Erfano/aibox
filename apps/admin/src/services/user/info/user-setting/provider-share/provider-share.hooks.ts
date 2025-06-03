@@ -8,7 +8,6 @@ export const useGetProviderShare = ({ id }: IProviderShareRequest) => {
   const { data: providerShareData, isPending } = useQuery({
     queryKey: ['provider-share', id],
     queryFn: async () => {
-      if (!id) throw new Error('User ID is required');
       const response = await providerShareService.getProviderShare({ id });
       return response.data.data;
     },
