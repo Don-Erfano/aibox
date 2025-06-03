@@ -236,13 +236,22 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
           <Portal>
             <div
               ref={refs.portalRef}
-              className="fixed shadow-lg rounded-lg bg-white z-[10000] pointer-events-auto"
+              className={clsx(
+                'fixed shadow-lg rounded-lg bg-white  z-[10000] pointer-events-auto',
+                'overflow-y-auto max-h-[200px]',
+                // Firefox
+                '[scrollbar-width:thin]',
+                '[scrollbar-color:rgba(0,0,0,0.2)_transparent]',
+                // WebKit
+                '[&::-webkit-scrollbar]:w-[2px]',
+                '[&::-webkit-scrollbar-track]:bg-transparent',
+                '[&::-webkit-scrollbar-thumb]:bg-[rgba(0,0,0,0.2)]',
+                '[&::-webkit-scrollbar-thumb]:rounded-[8px]'
+              )}
               style={{
-                left: offsets.left,
+                left: offsets.left - 2,
                 top: offsets.top,
-                width: offsets.width,
-                maxHeight: '200px',
-                overflowY: 'auto',
+                width: offsets.width + 4,
               }}
             >
               {isLoading ? (

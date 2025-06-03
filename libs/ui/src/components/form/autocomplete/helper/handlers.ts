@@ -32,7 +32,7 @@ export function makeOnInputChange(
   setSelectedOptions: SetState<AutocompleteOption[]>,
   setIsOpen: SetState<boolean>,
   propOnChange?: (value: string) => void
-): (e: ChangeEvent<HTMLInputElement>) => void {
+) {
   return (e: ChangeEvent<HTMLInputElement>) => {
     if (atLimit) return;
     setInputValue(e.target.value);
@@ -66,7 +66,7 @@ export function makePickOption(
   setIsOpen: SetState<boolean>,
   setHighlightedId: SetState<string | number | null>,
   onSelect: (opts: AutocompleteOption[]) => void
-): (opt: AutocompleteOption) => void {
+) {
   return (opt: AutocompleteOption) => {
     if (variant === 'multiple') {
       if (
@@ -95,7 +95,11 @@ export function makePickOption(
         setInputValue(opt.label);
       }
     }
-    setIsOpen(true);
+    if (variant === 'multiple') {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
     setHighlightedId(null);
   };
 }
@@ -111,7 +115,7 @@ export function makePickOption(
 export function makeRemoveOption(
   setSelectedOptions: SetState<AutocompleteOption[]>,
   onSelect: (opts: AutocompleteOption[]) => void
-): (opt: AutocompleteOption) => void {
+) {
   return (opt: AutocompleteOption) => {
     setSelectedOptions((prev) => {
       const next = prev.filter((x) => x.id !== opt.id);
