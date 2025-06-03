@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useMemo, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,66 +15,81 @@ import {
   Modal,
   ToggleGroup,
 } from '@aibox/ui';
-import {
-  MessageSquareX,
-  MessagesSquare,
-  Plus,
-  UserRoundPlus,
-} from 'lucide-react';
+import { MessageSquareX, MessagesSquare, UserRoundPlus } from 'lucide-react';
 
-import ticketColumns, {
-  toggleItems,
-} from '@/components/pages/ticketing/constant';
+import ticketColumns, { toggleItems } from './constant';
 import {
   useGetTicketList,
   useAssignTicket,
+  useUpdateTicketStatus,
 } from '@/services/ticketing/ticketing-list';
-import type { IAssignTicketRequest } from '@/services/ticketing/ticketing-list/interface';
+import type {
+  IAssignTicketRequest,
+  IUpdateTicketStatusRequest,
+} from '@/services/ticketing/ticketing-list/interface';
 
 import {
   assignTicketSchema,
   type AssignTicketFormValues,
   assignTicketDefaultValues,
-} from '@/components/pages/ticketing/schema';
+} from './schema';
+import { useGetAllUserList } from '@/services/user/user-all';
+import { TicketingString } from './string';
+import { FabButton } from '@/components/fab-button';
 
 export const TicketingPage: FC = () => {
   const router = useRouter();
   const { tickets, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetTicketList();
   const assignMutation = useAssignTicket();
+  const statusMutation = useUpdateTicketStatus();
+  const {
+    users: adminUsers,
+    isLoading: isUsersLoading,
+    isFetching: isUsersFetching,
+  } = useGetAllUserList({ is_admin: true });
 
-  const [modalKey, setModalKey] = useState<string>('init');
+  const adminOptions = adminUsers.map((u) => ({
+    value: u.id,
+    label: u.email,
+  }));
+
+  const [modalKey, setModalKey] = useState('init');
   const [selectedTicket, setSelectedTicket] = useState<{ id: string } | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const userOptions = useMemo(
-    () =>
-      Array.from(new Set(tickets.map((t) => t.user_id))).map((user) => ({
-        value: user,
-        label: user,
-      })),
-    [tickets]
-  );
+  const [closeModalKey, setCloseModalKey] = useState('init');
+  const [selectedCloseTicket, setSelectedCloseTicket] = useState<{
+    id: string;
+  } | null>(null);
+  const [isCloseModalOpen, setIsCloseModalOpen] = useState(false);
 
   const form = useForm<AssignTicketFormValues>({
     resolver: zodResolver(assignTicketSchema),
     defaultValues: assignTicketDefaultValues,
   });
-
   const assignMe = form.watch('assign_me');
   useEffect(() => {
-    if (assignMe) {
-      form.setValue('operator_id', '');
-    }
+    if (assignMe) form.setValue('operator_id', '');
   }, [assignMe, form]);
 
   const openModalFor = (ticket: { id: string }) => {
     setSelectedTicket(ticket);
-    setModalKey(`${ticket.id}-${Date.now()}`);
+    setModalKey(`${ticket.id}`);
     form.reset(assignTicketDefaultValues);
     setIsModalOpen(true);
+  };
+
+  const openCloseModalFor = (ticket: { id: string }) => {
+    setSelectedCloseTicket(ticket);
+    setCloseModalKey(`${ticket.id}`);
+    setIsCloseModalOpen(true);
+  };
+
+  const handleAddTicket = () => {
+    router.push('/dashboard/ticketing/add-ticket');
   };
 
   const onSubmit: SubmitHandler<AssignTicketFormValues> = (data) => {
@@ -83,14 +98,27 @@ export const TicketingPage: FC = () => {
       ? { assign_me: true }
       : { assign_me: false, operator_id: data.operator_id! };
     const payload: IAssignTicketRequest = { data: body };
+
     assignMutation.mutate(
       { path: { id: selectedTicket.id }, payload },
       {
         onSuccess: () => {
           setIsModalOpen(false);
+          refetch();
         },
       }
     );
+  };
+
+  const handleCloseConfirm = () => {
+    if (!selectedCloseTicket) return;
+    const payload: IUpdateTicketStatusRequest = {
+      id: selectedCloseTicket.id,
+      status: 'closed',
+    };
+    statusMutation.mutate(payload, {
+      onSuccess: () => setIsCloseModalOpen(false),
+    });
   };
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
@@ -112,21 +140,17 @@ export const TicketingPage: FC = () => {
         {
           label: 'بستن تیکت',
           icon: <MessageSquareX className="size-5" />,
-          onClick: (row) => console.log(`${row.id} ${row.status}`),
+          onClick: (row) => openCloseModalFor(row as { id: string }),
         },
       ],
     },
   });
 
-  const handleAddTicketing = () => {
-    router.push('/dashboard/ticketing/add-ticket');
-  };
-
   return (
     <>
-      <div className="relative h-full">
+      <div className="relative shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title="تیکت‌ها"
+          title={TicketingString.tickets}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}
@@ -137,23 +161,16 @@ export const TicketingPage: FC = () => {
           noManageColumns
         />
         <DataTable table={table} />
-        <Button
-          onClick={handleAddTicketing}
-          variant="ghost"
-          className="absolute bottom-2 left-2 size-12 rounded-full bg-teal-600 shadow-2xl text-2xl hover:bg-teal-700"
-        >
-          <Plus strokeWidth={2.5} className="text-white size-6" />
-        </Button>
       </div>
+
+      <FabButton onClick={handleAddTicket} />
 
       <Modal
         open={isModalOpen}
         onOpenChange={(open) => {
-          if (!open) {
-            setIsModalOpen(false);
-          }
+          if (!open) setIsModalOpen(false);
         }}
-        title="تخصیص تیکت"
+        title={TicketingString.assign_ticket}
       >
         <Form {...form}>
           <form
@@ -179,30 +196,71 @@ export const TicketingPage: FC = () => {
               <RHFAutocomplete
                 name="operator_id"
                 control={form.control}
-                placeholder="انتخاب اپراتور"
-                options={userOptions}
+                placeholder={TicketingString.choose_operator}
+                options={adminOptions}
                 variant="single"
                 mode="light"
                 h_size="md"
-                isLoading={isLoading || isFetching}
+                isLoading={isUsersLoading || isUsersFetching}
+                getOptionLabel={(opt) => opt.label}
+                getOptionValue={(opt) => opt.value}
               />
             )}
 
             <div className="flex justify-center items-center space-x-5 pt-4">
+              <Button variant="default" size="lg" type="submit" isFilled>
+                {TicketingString.submit}
+              </Button>
               <Button
                 variant="default"
                 size="lg"
                 type="button"
                 onClick={() => setIsModalOpen(false)}
               >
-                انصراف
-              </Button>
-              <Button variant="default" size="lg" type="submit" isFilled>
-                ثبت
+                {TicketingString.cancel}
               </Button>
             </div>
           </form>
         </Form>
+      </Modal>
+
+      <Modal
+        open={isCloseModalOpen}
+        onOpenChange={(open) => {
+          if (!open) setIsCloseModalOpen(false);
+        }}
+        title={TicketingString.close_ticket}
+      >
+        <div
+          key={closeModalKey}
+          className="space-y-4 px-4 sm:px-6 pb-6 text-center"
+        >
+          <h3 className="text-sm font-medium text-slate-950">
+            {TicketingString.close_ticket_title}
+          </h3>
+          <p className="text-sm text-gray-500">
+            {TicketingString.close_ticket_description}
+          </p>
+          <div className="flex justify-center items-center space-x-5 pt-4">
+            <Button
+              variant="default"
+              size="lg"
+              isFilled
+              type="button"
+              onClick={handleCloseConfirm}
+            >
+              {TicketingString.close_ticket}
+            </Button>
+            <Button
+              variant="default"
+              size="lg"
+              type="button"
+              onClick={() => setIsCloseModalOpen(false)}
+            >
+              {TicketingString.cancel}
+            </Button>
+          </div>
+        </div>
       </Modal>
     </>
   );
