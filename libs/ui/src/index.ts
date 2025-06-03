@@ -27,3 +27,5 @@ export * from './components/search-bar';
 export * from './components/form/autocomplete/custom-autocomplete';
 export * from './components/form/select';
 export * from './helper/time-formatter';
+export * from './components/form/uploader/aib-image-uploader';
+export * from './components/form/uploader/rhf-uploader';
