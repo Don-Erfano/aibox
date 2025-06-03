@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import UserAccessLevel from './components/user-access/page';
 import ProviderShareField from './components/provider-share/page';
 import UserStatusField from './components/user-status/page';
-import { UserSettingProps } from './types';
+import type { UserSettingProps } from './types';
 import { useGetProviderShare } from '@/services/user/info/user-setting/provider-share';
 
 const UserSetting: FC<UserSettingProps> = ({ userData, userId }) => {

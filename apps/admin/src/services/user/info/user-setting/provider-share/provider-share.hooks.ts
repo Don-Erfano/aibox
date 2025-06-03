@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import ProviderShareServices from './provider-share.service';
-import { IProviderShareRequest } from './interface';
+import type { IProviderShareRequest } from './interface';
 
 const providerShareService = new ProviderShareServices();
 

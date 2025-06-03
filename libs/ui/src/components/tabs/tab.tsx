@@ -1,5 +1,5 @@
 import { useQueryState } from 'nuqs';
-import { TabProps } from './types';
+import type { TabProps } from './types';
 import {
   TabTitle,
   Tabs,
@@ -12,34 +12,24 @@ import { useEffect } from 'react';
 const Tab: React.FC<TabProps> = ({ tabs }) => {
   const [rawTabId, setTabId] = useQueryState('tab');
   const tabId = rawTabId ?? undefined; // no null allowed
-
-  const enabledTabs: TabProps['tabs'] = [];
-  let defaultTabId: string | undefined;
   let isValidTab = false;
 
-  for (const tab of tabs) {
-    if (!tab.isDisabled) {
-      enabledTabs.push(tab);
-      if (!defaultTabId) defaultTabId = tab.id;
-      if (tab.id === tabId) isValidTab = true;
-    }
-  }
+  const enabledTabs: TabProps['tabs'] = tabs.filter((t) => {
+    if (t.id === tabId && !t.isDisabled) isValidTab = true;
+    return !t.isDisabled;
+  });
 
-  const allTabsDisabled = enabledTabs.length === 0; // = defaultTabId === undefined
+  const allTabsDisabled = enabledTabs.length === 0;
 
   useEffect(() => {
     if (allTabsDisabled) return;
 
     if (!tabId || !isValidTab) {
-      defaultTabId && setTabId(defaultTabId);
+      setTabId(enabledTabs[0].id);
     }
-  }, [tabId, isValidTab, setTabId, defaultTabId, allTabsDisabled]);
+  }, [tabId, isValidTab, setTabId, allTabsDisabled]);
 
-  const currentTabId = allTabsDisabled
-    ? undefined
-    : isValidTab
-    ? tabId
-    : defaultTabId;
+  const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
 
   if (allTabsDisabled) {
     return (
@@ -53,10 +43,7 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
     <Tabs
       value={currentTabId}
       onValueChange={(val) => {
-        const selectedTab = tabs.find((tab) => tab.id === val);
-        if (!selectedTab?.isDisabled) {
-          setTabId(val);
-        }
+        setTabId(val);
       }}
     >
       <TabsList>
