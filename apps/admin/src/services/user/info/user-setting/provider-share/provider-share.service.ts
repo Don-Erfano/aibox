@@ -1,6 +1,6 @@
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import { AxiosResponse } from 'axios';
-import {
+import type {
   IProviderShareRequest,
   IProviderShareResponse,
   IUpdateShareRequestPayload,

@@ -30,7 +30,11 @@ export const useGetUserList = () => {
     queryKey: ['userList', allQueryParams],
     queryFn: async ({ queryKey }) => {
       const { page, ...params } = queryKey[1] as IGetUserListRequestPayload;
-      const queryParams: IGetUserListRequestPayload = { page: page, ...params };
+      const queryParams: IGetUserListRequestPayload = {
+        page: page,
+        page_size: 10,
+        ...params,
+      };
 
       const response = await userListsServices.getUserList(queryParams);
       return response.data.data;

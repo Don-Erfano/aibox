@@ -1,2 +1,3 @@
-export { default as AibSelect } from './aib-select';
+export * from './aib-select';
+export * from './rhf-select';
 export * from './interface';

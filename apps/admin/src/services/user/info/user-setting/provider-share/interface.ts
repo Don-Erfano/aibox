@@ -1,18 +1,24 @@
-export interface IProviderShareRequest {
+interface IProviderShareRequest {
   id?: string;
 }
 
-export interface IUpdateShareRequestPayload {
+interface IProviderShareResponse {
+  owner_earning_coefficient: number;
+  withdraw_coefficient: number;
+}
+
+interface IUpdateShareRequestPayload {
   id: string;
   earnings_coefficient_api: number;
 }
-
-export interface IProviderShareResponse {
+interface IUpdateShareResponsePayload {
   owner_earning_coefficient: number;
   withdraw_coefficient: number;
 }
 
-export interface IUpdateShareResponsePayload {
-  owner_earning_coefficient: number;
-  withdraw_coefficient: number;
-}
+export type {
+  IProviderShareRequest,
+  IProviderShareResponse,
+  IUpdateShareRequestPayload,
+  IUpdateShareResponsePayload,
+};

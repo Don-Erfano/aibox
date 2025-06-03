@@ -12,6 +12,17 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fileshare.nextaibox.com',
+        port: '',
+        pathname: '/media/pictures/**',
+        search: '',
+      },
+    ],
+  },
 };
 
 const plugins = [

@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
-import {
+import type {
   IGetUserInfoRequestPayload,
   IGetUserInfoResponsePayload,
   IUpdateUserInfoRequest,

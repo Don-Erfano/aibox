@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import UserInfoServices from './user-info.service';
-import {
+import type {
   IGetUserInfoRequestPayload,
   IUpdateUserInfoRequest,
 } from './interface';

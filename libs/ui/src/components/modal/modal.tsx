@@ -34,10 +34,10 @@ export const Modal: FC<ModalProps> = ({
         >
           <div
             className={clsx(
-              'bg-teal-600 border-0 p-4 text-black rounded-t-md relative flex items-center',
+              'bg-teal-600 border-0 px-4 text-black rounded-t-md relative flex items-center',
               {
-                'h-20 justify-center': headerIcon,
-                'justify-between': !headerIcon,
+                'h-20 justify-center py-4': headerIcon,
+                'justify-between py-[10px]': !headerIcon,
               }
             )}
           >
