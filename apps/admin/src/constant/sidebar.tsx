@@ -1,4 +1,4 @@
-import { SidebarData } from '../../../../libs/ui/src/components/sidebar/type';
+import { SidebarData } from '@aibox/ui';
 import { DASHBOARD_BASE_ROUTE } from '@/routes/baseRoutes';
 import { routeNames } from '@/routes';
 import { AppWindowMac, BrainCircuit, Cpu, House } from 'lucide-react';

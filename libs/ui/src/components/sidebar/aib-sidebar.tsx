@@ -1,6 +1,8 @@
 'use client';
+
 import Link from 'next/link';
 import { ChevronDown, ChevronsRight, X } from 'lucide-react';
+import clsx from 'clsx';
 import {
   Sidebar,
   SidebarContent,
@@ -38,18 +40,22 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
       className="fixed h-[100vh] top-[64px] z-10"
     >
       {isMobile && (
-        <SidebarHeader
-          className={`bg-teal-950 flex flex-row justify-between items-center w-full text-slate-200 pt-2 px-3 pb-6`}
-        >
+        <SidebarHeader className="bg-teal-950 flex flex-row justify-between items-center w-full text-slate-200 pt-2 px-3 pb-6">
           <AiBoxIcon className="w-12 h-12" />
           <X onClick={toggleSidebar} />
         </SidebarHeader>
       )}
-      <SidebarContent className={`bg-teal-950 ${!isMobile && 'pt-8'} relative`}>
+      <SidebarContent
+        className={clsx('bg-teal-950 relative', { 'pt-8': !isMobile })}
+      >
         <div
-          className={`flex flex-col overflow-y-auto overflow-x-hidden ${
-            !isMobile ? 'h-[calc(100vh-140px)] gap-3' : 'h-100vh'
-          }  pb-16  scrollbar`}
+          className={clsx(
+            'flex flex-col overflow-y-auto overflow-x-hidden pb-16 scrollbar',
+            {
+              'h-[calc(100vh-140px)] gap-3': !isMobile,
+              'h-100vh': isMobile,
+            }
+          )}
         >
           {sidebarDataWithActive.map((item: SidebarItem) => {
             const hasSubItems = item.items && item.items.length > 0;
@@ -59,9 +65,13 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                 <Tooltip key={item.title}>
                   <TooltipTrigger
                     asChild
-                    className={`flex items-center justify-center w-full h-11 cursor-pointer ${
-                      item.isActive ? 'text-cyan-300' : 'text-slate-200'
-                    }`}
+                    className={clsx(
+                      'flex items-center justify-center w-full h-11 cursor-pointer',
+                      {
+                        'text-cyan-300': item.isActive,
+                        'text-slate-200': !item.isActive,
+                      }
+                    )}
                   >
                     <span className="text-xl">{item.icon}</span>
                   </TooltipTrigger>
@@ -81,7 +91,7 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                               href={sub.url}
                               className="flex items-center gap-0.5 p-2 rounded cursor-pointer text-teal-600/70 hover:bg-black/10 font-normal text-[14px] leading-[20px] tracking-[0%] text-right"
                             >
-                              <span className="">{sub.title}</span>
+                              <span>{sub.title}</span>
                             </Link>
                           </li>
                         ))}
@@ -104,20 +114,29 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                   className="group/collapsible"
                 >
                   <SidebarGroup
-                    className={`p-0 ${
-                      isMobile && 'border-b-1 border-teal-600/32'
-                    } `}
+                    className={
+                      isMobile ? 'p-0 border-b-1 border-teal-600/32' : 'p-0'
+                    }
                   >
                     <SidebarGroupLabel
                       asChild
-                      className={`text-sm  rounded-none hover:bg-white/10 ${
-                        isMobile ? 'h-14' : 'h-11'
-                      } ${item.isActive ? 'text-cyan-300' : 'text-slate-200 '}`}
+                      className={clsx(
+                        'text-sm rounded-none hover:bg-white/10',
+                        {
+                          'h-14': isMobile,
+                          'h-11': !isMobile,
+                          'text-cyan-300': item.isActive,
+                          'text-slate-200': !item.isActive,
+                        }
+                      )}
                     >
                       <CollapsibleTrigger
-                        className={`flex items-center w-full pr-[20px] pl-[8px] py-[10px] ${
-                          item.isActive ? 'border-r-2 border-cyan-300' : ''
-                        }`}
+                        className={clsx(
+                          'flex items-center w-full pr-[20px] pl-[8px] py-[10px]',
+                          {
+                            'border-r-2 border-cyan-300': item.isActive,
+                          }
+                        )}
                       >
                         <div className="flex items-center w-full justify-between cursor-pointer">
                           <div className="flex items-center w-full justify-start gap-2">
@@ -142,20 +161,24 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                     <CollapsibleContent>
                       <SidebarGroupContent>
                         <SidebarMenu
-                          className={`gap-2 py-2  ${
-                            !isMobile &&
-                            'border-r-1 border-teal-600/85 mr-[30px]'
-                          }`}
+                          className={clsx('gap-2 py-2', {
+                            'border-r-1 border-teal-600/85 mr-[30px]':
+                              !isMobile,
+                          })}
                         >
                           {item.items?.map((subItem: SidebarSubItem) => (
                             <SidebarMenuItem key={subItem.title}>
                               <SidebarMenuButton
                                 asChild
-                                className={`flex items-center w-full hover:bg-white/10 active:bg-white/10 ${
-                                  item.isActive
-                                    ? 'text-cyan-300 hover:text-cyan-300 active:text-cyan-300'
-                                    : 'text-slate-200  hover:text-slate-200  active:text-slate-200'
-                                }`}
+                                className={clsx(
+                                  'flex items-center w-full hover:bg-white/10 active:bg-white/10',
+                                  {
+                                    'text-cyan-300 hover:text-cyan-300 active:text-cyan-300':
+                                      item.isActive,
+                                    'text-slate-200 hover:text-slate-200 active:text-slate-200':
+                                      !item.isActive,
+                                  }
+                                )}
                               >
                                 <Link
                                   href={subItem.url}
@@ -177,20 +200,24 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
             }
 
             return (
-              <SidebarGroup key={item.title} className="p-0 justify-start ">
+              <SidebarGroup key={item.title} className="p-0 justify-start">
                 <SidebarGroupLabel
                   asChild
-                  className={`text-sm ${
-                    isMobile ? 'h-14 border-b-1 border-teal-600/32' : 'h-11'
-                  } rounded-none hover:bg-white/10 ${
-                    item.isActive ? 'text-cyan-300' : 'text-slate-200'
-                  }`}
+                  className={clsx('text-sm rounded-none hover:bg-white/10', {
+                    'h-14 border-b-1 border-teal-600/32': isMobile,
+                    'h-11': !isMobile,
+                    'text-cyan-300': item.isActive,
+                    'text-slate-200': !item.isActive,
+                  })}
                 >
                   <Link
                     href={item.url || '#'}
-                    className={`flex items-center justify-start w-full pr-[20px] pl-[8px] py-[10px] gap-2 ${
-                      item.isActive ? 'border-r-2 border-cyan-300' : ''
-                    }`}
+                    className={clsx(
+                      'flex items-center justify-start w-full pr-[20px] pl-[8px] py-[10px] gap-2',
+                      {
+                        'border-r-2 border-cyan-300': item.isActive,
+                      }
+                    )}
                   >
                     <span className="text-xl shrink-0">{item.icon}</span>
                     <span className="font-normal text-[14px] leading-[20px] tracking-[0%] text-right">
@@ -210,9 +237,9 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
             <ChevronsRight
               width={20}
               height={20}
-              className={`transition-transform duration-300 ease-linear${
-                isCollapsed && ' rotate-180'
-              } `}
+              className={clsx('transition-transform duration-300 ease-linear', {
+                'rotate-180': isCollapsed,
+              })}
             />
             {!isCollapsed && (
               <span className="font-normal text-sm leading-5 tracking-normal text-right">
