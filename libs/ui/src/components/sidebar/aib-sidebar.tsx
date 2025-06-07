@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { ChevronDown, ChevronsRight, X } from 'lucide-react';
 import {
-  Sidebar as SidebarShadCn,
+  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -10,7 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
   SidebarHeader,
   Collapsible,
   CollapsibleContent,
@@ -19,18 +18,19 @@ import {
   TooltipContent,
   TooltipTrigger,
   AiBoxIcon,
+  useSidebar,
 } from '@aibox/ui';
 
 import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
 import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
 
-export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
+export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
   const { state, isMobile, toggleSidebar } = useSidebar();
   const isCollapsed = state === 'collapsed';
   const sidebarDataWithActive = useSidebarItemsActive(sidebarData);
 
   return (
-    <SidebarShadCn
+    <Sidebar
       {...props}
       side="right"
       collapsible="icon"
@@ -39,7 +39,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
     >
       {isMobile && (
         <SidebarHeader
-          className={`bg-teal-950 flex flex-row justify-between items-center w-full text-[#DAECEF] pt-2 px-3 pb-6`}
+          className={`bg-teal-950 flex flex-row justify-between items-center w-full text-slate-200 pt-2 px-3 pb-6`}
         >
           <AiBoxIcon className="w-12 h-12" />
           <X onClick={toggleSidebar} />
@@ -60,7 +60,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                   <TooltipTrigger
                     asChild
                     className={`flex items-center justify-center w-full h-11 cursor-pointer ${
-                      item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'
+                      item.isActive ? 'text-cyan-300' : 'text-slate-200'
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>
@@ -112,11 +112,11 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                       asChild
                       className={`text-sm  rounded-none hover:bg-white/10 ${
                         isMobile ? 'h-14' : 'h-11'
-                      } ${item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'}`}
+                      } ${item.isActive ? 'text-cyan-300' : 'text-slate-200 '}`}
                     >
                       <CollapsibleTrigger
                         className={`flex items-center w-full pr-[20px] pl-[8px] py-[10px] ${
-                          item.isActive ? 'border-r-2 border-[#6EE1F8]' : ''
+                          item.isActive ? 'border-r-2 border-cyan-300' : ''
                         }`}
                       >
                         <div className="flex items-center w-full justify-between cursor-pointer">
@@ -153,8 +153,8 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                                 asChild
                                 className={`flex items-center w-full hover:bg-white/10 active:bg-white/10 ${
                                   item.isActive
-                                    ? 'text-[#6EE1F8] hover:text-[#6EE1F8] active:text-[#6EE1F8]'
-                                    : 'text-[#DAECEF] hover:text-[#DAECEF] active:text-[#DAECEF]'
+                                    ? 'text-cyan-300 hover:text-cyan-300 active:text-cyan-300'
+                                    : 'text-slate-200  hover:text-slate-200  active:text-slate-200'
                                 }`}
                               >
                                 <Link
@@ -183,13 +183,13 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                   className={`text-sm ${
                     isMobile ? 'h-14 border-b-1 border-teal-600/32' : 'h-11'
                   } rounded-none hover:bg-white/10 ${
-                    item.isActive ? 'text-[#6EE1F8]' : 'text-[#DAECEF]'
+                    item.isActive ? 'text-cyan-300' : 'text-slate-200'
                   }`}
                 >
                   <Link
                     href={item.url || '#'}
                     className={`flex items-center justify-start w-full pr-[20px] pl-[8px] py-[10px] gap-2 ${
-                      item.isActive ? 'border-r-2 border-[#6EE1F8]' : ''
+                      item.isActive ? 'border-r-2 border-cyan-300' : ''
                     }`}
                   >
                     <span className="text-xl shrink-0">{item.icon}</span>
@@ -205,7 +205,7 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
         {!isMobile && (
           <div
             onClick={toggleSidebar}
-            className="flex items-center justify-start gap-1 pr-5 bg-teal-950 hover:bg-white/10 text-[#DAECEF] hover:text-[#DAECEF] border-t-1 border-t-[#0F766EB2] absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none"
+            className="flex items-center justify-start gap-1 pr-5 bg-teal-950 hover:bg-white/10 text-slate-200 hover:text-slate-200 border-t-1 border-t-teal-600/70 absolute bottom-[64px] right-0 w-full cursor-pointer h-11 rounded-none"
           >
             <ChevronsRight
               width={20}
@@ -222,6 +222,6 @@ export const Sidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
           </div>
         )}
       </SidebarContent>
-    </SidebarShadCn>
+    </Sidebar>
   );
 };

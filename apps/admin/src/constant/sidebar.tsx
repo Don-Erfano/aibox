@@ -1,4 +1,4 @@
-import { SidebarData } from './type';
+import { SidebarData } from '../../../../libs/ui/src/components/sidebar/type';
 import { DASHBOARD_BASE_ROUTE } from '@/routes/baseRoutes';
 import { routeNames } from '@/routes';
 import { AppWindowMac, BrainCircuit, Cpu, House } from 'lucide-react';
