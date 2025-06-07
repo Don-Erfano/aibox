@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { AibStatus } from '@aibox/ui';
+import { AibStatus, formatJalali } from '@aibox/ui';
 import { ITicket } from '@/services/ticketing/ticketing-list/interface';
 
 export const toggleItems = [
@@ -10,19 +10,19 @@ export const toggleItems = [
 const statusMap: Record<string, { label: string; bgColor: string }> = {
   opened: {
     label: 'باز',
-    bgColor: 'bg-blue-500 text-zinc-700',
+    bgColor: 'bg-blue-500',
   },
   waiting_user: {
     label: 'در انتظار پاسخ کاربر',
-    bgColor: 'bg-purple-600 text-zinc-700',
+    bgColor: 'bg-purple-600',
   },
   waiting_you: {
     label: 'در انتظار پاسخ شما',
-    bgColor: 'bg-teal-600 text-zinc-700',
+    bgColor: 'bg-teal-600',
   },
   closed: {
     label: 'بسته',
-    bgColor: 'bg-red-600 text-zinc-700',
+    bgColor: 'bg-red-600',
   },
 };
 
@@ -47,14 +47,16 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     id: 'ticket_num',
     header: 'شماره درخواست',
     meta: { label: 'شماره درخواست', variant: 'text' },
+    maxSize: 160,
   },
   {
     accessorKey: 'created_at',
     id: 'created_at',
     header: 'تاریخ ایجاد',
-    cell: ({ getValue }) => new Date(getValue() as string).toLocaleString(),
+    cell: ({ getValue }) => formatJalali(getValue() as string),
     enableColumnFilter: true,
     meta: { label: 'تاریخ ایجاد', variant: 'date' },
+    maxSize: 160,
   },
   {
     accessorKey: 'operator_id',
@@ -62,6 +64,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     header: 'اپراتور',
     enableColumnFilter: true,
     meta: { label: 'اپراتور', variant: 'select' },
+    maxSize: 160,
   },
   {
     accessorKey: 'user_id',
@@ -69,6 +72,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     header: 'کاربر',
     enableColumnFilter: true,
     meta: { label: 'کاربر', variant: 'select' },
+    maxSize: 160,
   },
   {
     accessorKey: 'category',
@@ -76,6 +80,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     header: 'دسته بندی',
     enableColumnFilter: true,
     meta: { label: 'دسته بندی', variant: 'select' },
+    maxSize: 160,
   },
   {
     accessorKey: 'status',
@@ -91,6 +96,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     },
     enableColumnFilter: true,
     meta: { label: 'وضعیت', variant: 'select' },
+    maxSize: 160,
   },
 
   {
@@ -107,12 +113,14 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     },
     enableColumnFilter: true,
     meta: { label: 'اولویت', variant: 'select' },
+    maxSize: 160,
   },
   {
     accessorKey: 'subject',
     id: 'subject',
     header: 'عنوان درخواست',
     meta: { label: 'عنوان درخواست', variant: 'text' },
+    maxSize: 160,
   },
 ];
 
