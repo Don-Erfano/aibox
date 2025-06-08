@@ -61,3 +61,9 @@ export const useAddUser = () => {
     },
   });
 };
+
+export const useGetAllUsers = () =>
+  useQuery({
+    queryKey: ['allUsers'],
+    queryFn: () => userListsServices.getAllUsers(),
+  });
