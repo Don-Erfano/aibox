@@ -114,9 +114,9 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                   className="group/collapsible"
                 >
                   <SidebarGroup
-                    className={
-                      isMobile ? 'p-0 border-b-1 border-teal-600/32' : 'p-0'
-                    }
+                    className={clsx('p-0', {
+                      'border-b-1 border-teal-600/32': isMobile,
+                    })}
                   >
                     <SidebarGroupLabel
                       asChild
@@ -171,12 +171,14 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                               <SidebarMenuButton
                                 asChild
                                 className={clsx(
-                                  'flex items-center w-full hover:bg-white/10 active:bg-white/10',
+                                  'flex items-center w-full h-9 hover:bg-white/10 hover:rounded-none active:bg-white/10',
                                   {
                                     'text-cyan-300 hover:text-cyan-300 active:text-cyan-300':
                                       item.isActive,
                                     'text-slate-200 hover:text-slate-200 active:text-slate-200':
                                       !item.isActive,
+                                    'h-9': !isMobile,
+                                    'h-12': isMobile,
                                   }
                                 )}
                               >
