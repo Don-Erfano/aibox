@@ -2,6 +2,7 @@
 import { useCallback } from 'react';
 import { TableFiltersFormProps } from '../types';
 import { AIBInput } from '../../form/input/input';
+import { AibAutocomplete, AutocompleteOption } from '../../form';
 
 export function TableFiltersForm<TData>({
   column,
@@ -46,21 +47,47 @@ export function TableFiltersForm<TData>({
 
         case 'select':
           return (
-            <AIBInput
-              type="date"
+            <AibAutocomplete
               placeholder={columnMeta.placeholder ?? columnMeta.label}
-              value={(column.getFilterValue() as string) ?? ''}
-              onChange={(e) => column.setFilterValue(e.target.value)}
+              variant="single"
+              value={
+                columnMeta.options?.find(
+                  (o) => o.value === column.getFilterValue()
+                )?.label
+              }
+              options={
+                columnMeta.options?.map((option) => ({
+                  label: option.label,
+                  id: option.value,
+                })) || []
+              }
+              onSelect={(val) =>
+                column.setFilterValue(val.length ? val[0].id : '')
+              }
+              h_size="sm"
+              mode="light"
             />
           );
 
         case 'multiSelect':
           return (
-            <AIBInput
-              type="date"
+            <AibAutocomplete
               placeholder={columnMeta.placeholder ?? columnMeta.label}
-              value={(column.getFilterValue() as string) ?? ''}
-              onChange={(e) => column.setFilterValue(e.target.value)}
+              variant="single"
+              value={
+                columnMeta.options?.find(
+                  (o) => o.value === column.getFilterValue()
+                )?.label
+              }
+              options={
+                columnMeta.options?.map((option) => ({
+                  label: option.label,
+                  id: option.value,
+                })) || []
+              }
+              onSelect={(val) => column.setFilterValue(val[0].id)}
+              h_size="sm"
+              mode="light"
             />
           );
 
