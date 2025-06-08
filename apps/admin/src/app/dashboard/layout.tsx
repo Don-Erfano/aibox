@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 import { Header } from '@/components/header';
 import { Sidebar } from '@/components/sidebar';
-import { LayoutModeProvider } from './layoutContext';
 
 export default function DashboardLayout({
   children,
@@ -22,7 +21,7 @@ export default function DashboardLayout({
         >
           <Sidebar setIsOpen={setIsOpen} isOpen={isOpen} />
         </div>
-        <LayoutModeProvider>{children}</LayoutModeProvider>
+        <div className="w-full py-[16px] lg:py-[24px]">{children}</div>
       </div>
     </div>
   );
