@@ -50,14 +50,14 @@ export const Modal: FC<ModalProps> = ({
                   </div>
                 </DialogPrimitive.Close>
 
-                <div className="text-white absolute -top-1/5 -translate-y-1/2">
+                <div className="text-white absolute -top-1 -translate-y-1/2">
                   {headerIcon}
                 </div>
               </>
             ) : (
               <>
                 <DialogPrimitive.Title className="text-white text-base font-medium">
-                  {title}
+                  {title || ''}
                 </DialogPrimitive.Title>
                 <DialogPrimitive.Close asChild>
                   <CloseIcon className="text-neutral-300 hover:text-white cursor-pointer" />
