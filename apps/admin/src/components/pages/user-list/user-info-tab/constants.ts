@@ -33,7 +33,7 @@ export const userInfoSchema = z.object({
   phone_number: z
     .string()
     .regex(
-      /^[09|۰۹][0-9|۰۱۲۳۴۵۶۷۸۹]{10}$/,
+      /^[09][0-9]{10}$/,
       'فرمت صحیح شماره موبایل: 09xxxxx1234'
     )
     .optional()
