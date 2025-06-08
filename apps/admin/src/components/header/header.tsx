@@ -1,12 +1,14 @@
 'use client';
+
 import { FC } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { routeNames } from '@/routes';
 import { AiBoxIcon, MenuIcon, ProfileBox } from '@aibox/ui';
 
 const Header: FC = () => {
-  const title = routeNames[window.location.pathname];
-
+  const path = usePathname();
+  const title = routeNames[path];
   return (
     <div className="h-16 flex justify-between items-center xl:px-6 xl:py-3 md:px-4 md:py-2 py-4 sm:px-8 px-4 shadow-[0px_2px_4px_0px_rgba(0,_0,_0,_0.20),0px_4px_5px_0px_rgba(0,_0,_0,_0.14),0px_1px_10px_0px_rgba(0,_0,_0,_0.12)]">
       <div className="flex items-center order-1 gap-6 sm:order-2">
