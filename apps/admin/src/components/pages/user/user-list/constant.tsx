@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
-import { AibStatus } from '@aibox/ui';
+import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
 
 const userColumns: ColumnDef<IUser>[] = [
@@ -41,24 +41,31 @@ const userColumns: ColumnDef<IUser>[] = [
     header: 'Email',
     accessorKey: 'email',
     id: 'email',
+    maxSize: 160,
   },
+
   {
     header: 'تاریخ عضویت',
     accessorKey: 'created_at',
     id: 'created_at',
-    cell: ({ getValue }) => new Date(getValue() as string).toLocaleString(),
+    cell: ({ getValue }) => formatJalali(getValue() as string),
     enableColumnFilter: true,
     meta: { label: 'Created At', variant: 'date' },
+    maxSize: 160,
   },
   {
     header: 'آخرین دسترسی',
     accessorKey: 'last_login',
     id: 'last_login',
-    cell: ({ getValue }) =>
-      getValue() ? new Date(getValue() as string).toLocaleString() : '—',
+    cell: ({ getValue }) => {
+      const raw = getValue() as string;
+      return raw ? formatJalali(raw) : '—';
+    },
     enableColumnFilter: true,
-    meta: { label: 'تاریخ عضویت', variant: 'date' },
+    meta: { label: 'آخرین دسترسی', variant: 'date' },
+    maxSize: 160,
   },
+
   {
     header: 'وضعیت',
     accessorKey: 'is_active',
@@ -68,14 +75,13 @@ const userColumns: ColumnDef<IUser>[] = [
       return (
         <AibStatus
           label={isActive ? 'فعال' : 'غیرفعال'}
-          bgColor={
-            isActive ? 'bg-green-600 text-green-600' : 'bg-red-600 text-red-600'
-          }
+          bgColor={isActive ? 'bg-green-600' : 'bg-red-600'}
         />
       );
     },
     enableColumnFilter: true,
     meta: { label: 'وضعیت', variant: 'select' },
+    maxSize: 160,
   },
   {
     header: 'دسترسی',
@@ -87,8 +93,17 @@ const userColumns: ColumnDef<IUser>[] = [
       ) : (
         <AdminBadge isAdmin={false} />
       ),
+    enableSorting: false,
     enableColumnFilter: true,
     meta: { label: 'دسترسی', variant: 'select' },
+    maxSize: 160,
+  },
+  {
+    header: 'سامانه',
+    accessorKey: 'domain',
+    id: 'domain',
+    maxSize: 150,
+    enableSorting: false,
   },
 ];
 export default userColumns;
