@@ -1,7 +1,9 @@
-import { ColumnDef } from '@tanstack/react-table';
-import { IApiDetails } from '@/services';
 import clsx from 'clsx';
+import { ColumnDef } from '@tanstack/react-table';
+
+import { strings } from '@/constant';
 import ActionCell from './actions-cell';
+import { IApiDetails } from '@/services';
 
 const status: {
   [x: string]: {
@@ -10,41 +12,41 @@ const status: {
   };
 } = {
   WAITING: {
-    label: 'در انتظار تایید',
+    label: strings.waitingForAccept,
     color: 'blue-500',
   },
   WAITING_DEPRECATE: {
-    label: 'درحال منقضی شدن',
+    label: strings.deprecating,
     color: 'fuchsia-700',
   },
   DEPRECATED: {
-    label: 'منقضی شده',
+    label: strings.deprecated,
     color: 'gray-500',
   },
   ACCEPTED: {
-    label: 'تایید شده',
+    label: strings.approved,
     color: 'green-600',
   },
   PROCESSING: {
-    label: 'ناقص',
+    label: strings.incomplete,
     color: 'orange-500',
   },
   NOT_ACCEPTED: {
-    label: 'مردود',
+    label: strings.rejected,
     color: 'red-600',
   },
   PROXY_ERROR: {
-    label: 'خطای سرویس',
+    label: strings.serviceError,
     color: 'red-600',
   },
 };
 
 const userColumns: ColumnDef<IApiDetails>[] = [
   {
-    header: 'نام API',
+    header: strings.apiName,
     id: 'name',
     accessorFn: (row) => `${row.api.name}`,
-    cell: ({ row, getValue }) => {
+    cell: ({ getValue }) => {
       const apiName = getValue() as string;
       return (
         <div className="flex items-center space-x-2">
@@ -54,51 +56,51 @@ const userColumns: ColumnDef<IApiDetails>[] = [
       );
     },
     enableColumnFilter: true,
-    meta: { label: 'نام API', variant: 'text' },
+    meta: { label: strings.apiName, variant: 'text' },
   },
   {
-    header: 'ارائه دهنده',
+    header: strings.provider,
     accessorFn: (row) => `${row.api.user.nick_name}`,
     enableColumnFilter: true,
     meta: {
-      label: 'ارائه دهنده',
+      label: strings.provider,
       variant: 'text',
     },
   },
   {
-    header: 'ورژن',
+    header: strings.version,
     id: 'version',
     accessorKey: 'version',
   },
   {
-    header: 'تاریخ کسب تأییدیه',
+    header: strings.approvedDate,
     accessorKey: 'status_data',
     enableColumnFilter: true,
     meta: {
-      label: 'تاریخ کسب تاییدیه',
+      label: strings.approvedDate,
       variant: 'dateRange',
     },
   },
   {
-    header: 'تعداد کاربران',
+    header: strings.usersCount,
     accessorFn: () => '-',
     enableColumnFilter: true,
     meta: {
-      label: 'تعداد کاربران',
+      label: strings.usersCount,
       variant: 'range',
     },
   },
   {
-    header: 'مجموع فراخوانی‌ها',
+    header: strings.totalRequestsCount,
     accessorKey: 'requests',
     enableColumnFilter: true,
     meta: {
-      label: 'تعداد فراخوانی',
+      label: strings.requestsCount,
       variant: 'range',
     },
   },
   {
-    header: 'وضعیت',
+    header: strings.status,
     cell: ({ row }) => {
       return (
         <div className="flex items-center space-x-2">
@@ -114,35 +116,35 @@ const userColumns: ColumnDef<IApiDetails>[] = [
     },
     enableColumnFilter: true,
     meta: {
-      label: 'وضعیت',
+      label: strings.status,
       variant: 'select',
-      placeholder: 'وضعیت',
+      placeholder: strings.status,
       options: [
         {
-          label: 'در انتظار تایید',
+          label: strings.waitingForAccept,
           value: 'WAITING',
         },
         {
-          label: 'در حال منقضی شدن',
+          label: strings.deprecating,
           value: 'WAITING_DEPRECATE',
         },
         {
-          label: 'منقضی شده',
+          label: strings.deprecated,
           value: 'DEPRECATED',
         },
         {
-          label: 'تایید شده',
+          label: strings.approved,
           value: 'ACCEPTED',
         },
         {
-          label: 'ناقص',
+          label: strings.incomplete,
           value: 'PROCESSING',
         },
       ],
     },
   },
   {
-    header: 'عملیات',
+    header: strings.tableActions,
     cell: ({ row }) => <ActionCell {...row} />,
   },
 ];

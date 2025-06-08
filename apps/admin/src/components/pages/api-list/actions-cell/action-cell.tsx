@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+import Image from 'next/image';
 import { z, ZodType } from 'zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,11 +16,12 @@ import {
   usePostResolveProxyError,
 } from '@/services';
 import { Button, Form, Modal, RHFInput } from '@aibox/ui';
-import Image from 'next/image';
+
+import { strings } from '@/constant';
 
 const zodSchema: ZodType = z.object({
-  title: z.string().min(1, { message: 'عنوان اجباری‌ است' }),
-  description: z.string().min(1, { message: 'توضیحات اجباری‌ است' }),
+  title: z.string().min(1, { message: strings.titleIsRequired }),
+  description: z.string().min(1, { message: strings.descriptionIsRequired }),
 });
 
 const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
@@ -109,71 +112,85 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
         onOpenChange={() => setShowModal(undefined)}
       >
         <div className="flex flex-col gap-4">
-          <p className="text-center text-sm font-medium">آیا مطمئن هستید؟</p>
+          <p className="text-center text-sm font-medium">
+            {strings.areYouSure}
+          </p>
           <p className="text-sm text-center font-normal">
-            پس از منقضی شدن، دیگر امکان استفاده از این نسخه برای کاربران وجود
-            ندارد.
+            {strings.deprecateHintMessage}
           </p>
           <div className="flex justify-center gap-5 mt-4">
             <Button isFilled size="lg" onClick={handleDepcrecateApi}>
-              منقضی کردن API
+              {strings.deprecateAPI}
             </Button>
             <Button size="lg" onClick={() => setShowModal(undefined)}>
-              انصراف
+              {strings.cancel}
             </Button>
           </div>
         </div>
       </Modal>
       <Modal
         open={showModal === 'accept'}
-        title="تأیید کردن API"
+        title={strings.approveApi}
         onOpenChange={() => setShowModal(undefined)}
       >
         <div className="flex flex-col gap-4">
-          <p className="text-center text-sm font-medium">آیا مطمئن هستید؟</p>
+          <p className="text-center text-sm font-medium">
+            {strings.areYouSure}
+          </p>
           <p className="text-sm text-center font-normal">
-            با تأیید کردن، API در مارکت منتشر خواهد شد.
+            {strings.willShowInApiMarkert}
           </p>
           <div className="flex justify-center gap-5 mt-4">
             <Button isFilled size="lg" onClick={handleApprove}>
-              تأیید
+              {strings.approve}
             </Button>
             <Button size="lg" onClick={() => setShowModal(undefined)}>
-              انصراف
+              {strings.cancel}
             </Button>
           </div>
         </div>
       </Modal>
       <Modal
         open={showModal === 'reject'}
-        title="مردود کردن API"
+        title={strings.rejectAPI}
         onOpenChange={() => setShowModal(undefined)}
       >
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleRejectApi)}
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-6"
           >
             <RHFInput
               control={form.control}
               name="title"
-              placeholder="عنوان پیام به ارائه دهنده"
+              label={strings.rejectTitle}
             />
-            <div className="flex flex-col gap-2">
-              <span className="text-zinc-600 text-sm">توضیحات</span>
+            <div className="flex flex-col gap-2 relative">
+              <span
+                className={clsx('text-zinc-600 text-sm', {
+                  '!text-red-600': form.formState.errors.description?.message,
+                })}
+              >
+                {strings.description}
+              </span>
               <textarea
                 {...form.register('description')}
-                placeholder="توضیحات بیشتر را وارد کنید."
-                className="outline rounded p-3"
+                placeholder={strings.additionalDescription}
+                className={clsx('outline rounded p-3', {
+                  'outline-red-600': form.formState.errors.description?.message,
+                })}
                 rows={4}
               />
+              <span className="absolute text-red-600 text-xs font-light right-2 top-full mt-1">
+                {form.formState.errors.description?.message}
+              </span>
             </div>
             <div className="flex justify-center gap-5 mt-4">
               <Button isFilled size="lg" type="submit">
-                تأیید
+                {strings.rejectAPI}
               </Button>
               <Button size="lg" onClick={() => setShowModal(undefined)}>
-                مردود کردن API
+                {strings.cancel}
               </Button>
             </div>
           </form>
@@ -206,7 +223,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
           <Button
             variant="ghost"
             size="icon"
-            tooltip="تایید کردن"
+            tooltip={strings.approveApi}
             onClick={() => setShowModal('accept')}
           >
             <CircleCheck />
@@ -216,7 +233,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
           <Button
             variant="ghost"
             size="icon"
-            tooltip="رد کردن"
+            tooltip={strings.rejectAPI}
             onClick={() => setShowModal('reject')}
           >
             <CircleX />
@@ -226,7 +243,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
           <Button
             variant="ghost"
             size="icon"
-            tooltip="گزارش رفع مشکل"
+            tooltip={strings.reportResloveError}
             onClick={() => setShowModal('error')}
           >
             <Settings />
@@ -238,7 +255,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
           <Button
             variant="ghost"
             size="icon"
-            tooltip="منقضی کردن"
+            tooltip={strings.deprecateAPI}
             onClick={() => setShowModal('deprecate')}
           >
             <Ban />

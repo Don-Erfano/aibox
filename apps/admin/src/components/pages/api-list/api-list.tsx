@@ -1,15 +1,15 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { DataTable, Modal, TableToolbar, useDataTable } from '@aibox/ui';
+import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import userColumns from './constants';
 import { useGetApiList } from '@/services';
 
 const ApiList: FC = () => {
   const { apis, totalItems, totalPages, isLoading, refetch } = useGetApiList();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: apis,
@@ -21,7 +21,7 @@ const ApiList: FC = () => {
     <div>
       <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title="لیست APIها"
+          title={strings.apisList}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading}
@@ -34,17 +34,6 @@ const ApiList: FC = () => {
 
         <DataTable table={table} />
       </div>
-      <Modal
-        open={isModalOpen}
-        onOpenChange={(open) => {
-          if (!open) {
-            setIsModalOpen(false);
-          }
-        }}
-        title="تخصیص تیکت"
-      >
-        <>children</>
-      </Modal>
     </div>
   );
 };
