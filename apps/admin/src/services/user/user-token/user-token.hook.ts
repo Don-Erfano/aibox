@@ -24,7 +24,11 @@ export const useGetAccessTokenList = () => {
     queryKey: ['accessTokenList', allQueryParams],
     queryFn: async ({ queryKey }) => {
       const { page, ...params } = queryKey[1] as IGetUserTokenRequestPayload;
-      const queryParams: IGetUserTokenRequestPayload = { page, ...params };
+      const queryParams: IGetUserTokenRequestPayload = {
+        page,
+        page_size: 10,
+        ...params,
+      };
       const response = await userAccessTokenServices.getAccessTokenList(
         queryParams
       );

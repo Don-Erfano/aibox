@@ -13,7 +13,6 @@ import {
   IAssignTicketPathParams,
   IAssignTicketRequest,
   IAssignTicketResponse,
-  IUpdateTicketStatus,
   IUpdateTicketStatusRequest,
   IUpdateTicketStatusResponsePayload,
   IGetTicketListResponse,
@@ -40,6 +39,7 @@ export const useGetTicketList = () => {
       };
       const params: IGetTicketListRequest = {
         page_number: page ?? 1,
+        page_size: 10,
         ...rest,
       };
       const resp = await ticketingService.getTicketList(params);
@@ -92,14 +92,13 @@ export const useAssignTicket = () => {
 export const useUpdateTicketStatus = () => {
   const queryClient = useQueryClient();
 
-  type Vars = {
-    path: IUpdateTicketStatus;
-    payload: IUpdateTicketStatusRequest;
-  };
-
-  return useMutation<IUpdateTicketStatusResponsePayload, Error, Vars>({
-    mutationFn: async ({ path, payload }: Vars) => {
-      const resp = await ticketingService.updateTicketStatus(path, payload);
+  return useMutation<
+    IUpdateTicketStatusResponsePayload,
+    Error,
+    IUpdateTicketStatusRequest
+  >({
+    mutationFn: async (payload) => {
+      const resp = await ticketingService.updateTicketStatus(payload);
       return resp.data.data;
     },
     onSuccess: () => {

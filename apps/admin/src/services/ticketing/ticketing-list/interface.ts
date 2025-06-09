@@ -21,17 +21,6 @@ export interface IAnswerAdmin {
   answer: string;
 }
 
-export interface IOperatorTicket {
-  category: string;
-  subject: string;
-  level: TicketLevel;
-  body: string[];
-  user_list: string[];
-  attachments?: string | null;
-  answers: IAnswerAdmin[] | null;
-  admin_data?: string;
-}
-
 export interface IOperatorTicketAssign {
   assign_me: boolean;
   operator_id?: string;
@@ -60,7 +49,14 @@ export interface IGetTicketListResponse extends IPaginationMeta {
 
 // add ticket
 export interface IPostTicketRequest {
-  data: IOperatorTicket;
+  category: string;
+  subject: string;
+  level: TicketLevel;
+  body: string;
+  user_list: string[];
+  attachments?: string | null;
+  answers: IAnswerAdmin[] | null;
+  admin_data?: string;
 }
 
 // assign ticket
@@ -74,17 +70,12 @@ export interface IAssignTicketPathParams {
 
 export type IAssignTicketResponse = IOperatorTicketAssign;
 
-export interface IOperatorTicketStatus {
+// update ticket status
+export interface IUpdateTicketStatusRequest {
+  id: string;
   status: TicketStatus;
 }
 
-// update ticket status
-export interface IUpdateTicketStatusRequest {
-  data: IOperatorTicketStatus;
-}
-
-export interface IUpdateTicketStatus {
-  id: string;
-}
-
-export type IUpdateTicketStatusResponsePayload = IOperatorTicketStatus;
+export type IUpdateTicketStatusResponsePayload = {
+  status: TicketStatus;
+};

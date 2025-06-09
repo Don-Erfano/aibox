@@ -1,7 +1,7 @@
 'use client';
 
 import { FormContainer, FormWrapper } from '@/components';
-import { useLayoutPadding } from './layoutContext';
+import { useLayoutPadding } from './layout-context';
 import { Button } from '@aibox/ui';
 
 export default function Dashboard() {

@@ -53,3 +53,7 @@ export interface IAddUserRequestPayload {
 export interface IAddUserResponsePayload {
   user: IUser;
 }
+
+export interface IGetAllUsers {
+  users: Pick<IUser, 'id' | 'email' | 'phone_number'>[];
+}
