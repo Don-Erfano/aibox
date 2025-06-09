@@ -9,7 +9,6 @@ import type {
 } from '@tanstack/react-table';
 import type { Row, RowData } from '@tanstack/react-table';
 import { FilterItemSchema } from '../lib/parsers';
-import { Dispatch, SetStateAction } from 'react';
 import { DataTableConfig } from '../constant';
 import { Options } from 'nuqs';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';

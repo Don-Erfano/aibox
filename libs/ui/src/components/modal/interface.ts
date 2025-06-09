@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface ModalProps {
-  title: string;
+  title?: string;
   headerIcon?: ReactNode;
   trigger?: ReactNode;
   children: ReactNode;

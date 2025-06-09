@@ -1,5 +1,8 @@
+'use client';
+
 import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+
 import { cn } from '../lib';
 
 function TooltipProvider({
@@ -49,7 +52,6 @@ function TooltipContent({
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
