@@ -1,11 +1,13 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Form, Modal, RHFInput } from '@aibox/ui';
+import { Button, Form, Modal, RHFInput, toast } from '@aibox/ui';
 import { FormValues, ProviderShareProps } from './types';
 import { useForm } from 'react-hook-form';
 import { useUpdateProviderShare } from '@/services/user/info/user-setting/provider-share';
 import { convertPersianNumberToEnglish } from '@/utils';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { providerShareSchema } from './schema';
 
 const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
   const [providerShare, setProviderShare] = useState(
@@ -17,6 +19,7 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<FormValues>({
+    resolver: zodResolver(providerShareSchema),
     defaultValues: { providerShare: providerShare },
   });
   const { control, reset, handleSubmit } = form;
@@ -40,20 +43,20 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      if (data.providerShare) {
-        const rawValue = data.providerShare?.toString();
-        const fixedValue = convertPersianNumberToEnglish(rawValue);
-        const response = await mutateAsync({
-          id: userId,
-          earnings_coefficient_api: Number(fixedValue),
-        });
-        if (response.data.code === 'SUCCESS') {
-          console.log('success');
-          setOpen(false);
-        }
+      const rawValue = data.providerShare?.toString();
+      const fixedValue = convertPersianNumberToEnglish(rawValue);
+      const response = await mutateAsync({
+        id: userId,
+        earnings_coefficient_api: Number(fixedValue),
+      });
+      if (response.data.code === 'SUCCESS') {
+        toast['success']('تغییر سهم ارائه دهنده با موفقیت انجام شد.');
+        setOpen(false);
       }
     } catch (error) {
-      console.log('error:', error);
+      console.error('error', error);
+
+      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
       setOpen(false);
     }
   };
@@ -83,13 +86,16 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
               onSubmit={handleSubmit(onSubmit)}
               className=" flex flex-col gap-8 items-center justify-center w-72"
             >
-              <RHFInput
-                control={control}
-                label="سهم ارائه دهنده"
-                name="providerShare"
-                endAdornment="%"
-                defaultValue={providerShare}
-              />
+              <div className="w-full">
+                <RHFInput
+                  control={control}
+                  label="سهم ارائه دهنده"
+                  name="providerShare"
+                  endAdornment="%"
+                  defaultValue={providerShare}
+                  type="number"
+                />
+              </div>
 
               <div className="flex items-center w-full  gap-5 ">
                 <Button

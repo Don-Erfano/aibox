@@ -6,5 +6,5 @@ export interface ProviderShareProps {
 }
 
 export type FormValues = {
-  providerShare?: number;
+  providerShare: number;
 };

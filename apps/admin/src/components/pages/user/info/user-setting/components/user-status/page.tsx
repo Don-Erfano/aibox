@@ -1,21 +1,19 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { AibStatus, Button, Modal, ToggleGroup } from '@aibox/ui';
+import { AibStatus, Button, Modal, toast, ToggleGroup } from '@aibox/ui';
 import { UserStatusProps } from './types';
 import { toggleItems } from './constant';
 import { useUpdateUserInfo } from '@/services/user/info';
 
 const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
   const initialStatus = status ? 'active' : 'inactive';
-  const [userStatus, setUserStatus] = useState(initialStatus);
   const [tempStatus, setTempStatus] = useState(initialStatus);
   const [open, setOpen] = useState(false);
 
   const { mutateAsync, isPending } = useUpdateUserInfo();
 
   const handleCancel = () => {
-    setUserStatus(initialStatus);
     setOpen(false);
   };
 
@@ -26,14 +24,16 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         is_active: tempStatus === 'active',
       });
       if (response.data.code === 'SUCCESS') {
-        console.log('success');
-        setUserStatus(tempStatus);
+        const userStatus = tempStatus === 'active' ? 'فعال' : 'غیرفعال';
+
+        toast['success'](
+          `تغییر سطح دسترسی به «${userStatus}» با موفقیت انجام شد.`
+        );
         setOpen(false);
       }
-      // TODO : toast
     } catch (error) {
-      // TODO : toast
-      console.log(error);
+      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
+      console.error(error);
       setOpen(false);
     }
   };
@@ -44,16 +44,13 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         وضعیت کاربر
       </p>
       <AibStatus
-        label={userStatus == 'active' ? 'فعال' : 'غیرفعال'}
-        bgColor={`${
-          userStatus === 'active' ? 'bg-green-600' : ' text-zinc-700 bg-red-600'
-        }`}
+        label={status ? 'فعال' : 'غیرفعال'}
+        bgColor={`${status ? 'bg-green-600' : ' text-zinc-700 bg-red-600'}`}
       />
       <Modal
         open={open}
         onOpenChange={(isOpen) => {
           setOpen(isOpen);
-          if (isOpen) setTempStatus(userStatus);
         }}
         trigger={
           <Button variant="outline" isFilled className="self-start w-auto">

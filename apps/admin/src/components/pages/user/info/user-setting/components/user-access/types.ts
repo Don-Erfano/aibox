@@ -1,7 +1,7 @@
 export type UserLevels = 'admin' | 'operator' | 'user';
 
 export interface UserAccessLevelProps {
-  userLevel: UserLevels;
+  accessLevel: UserLevels;
   userId: string;
 }
 

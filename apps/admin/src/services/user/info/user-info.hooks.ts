@@ -11,7 +11,6 @@ export const useGetUserInfo = ({ id }: IGetUserInfoRequestPayload) => {
   const { data: user = undefined, isPending } = useQuery({
     queryKey: ['userInfo', id],
     queryFn: async () => {
-      if (!id) throw new Error('User ID is required');
       const response = await userInfoServices.getUserInfo({ id });
       return response.data.data;
     },
@@ -26,9 +25,7 @@ export const useUpdateUserInfo = () => {
 
   return useMutation({
     mutationFn: async ({ id, ...body }: IUpdateUserInfoRequest) => {
-      const response = await userInfoServices.UpdateUserInfo({ id, ...body });
-
-      return response;
+      return await userInfoServices.UpdateUserInfo({ id, ...body });
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({

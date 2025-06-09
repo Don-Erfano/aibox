@@ -13,7 +13,7 @@ interface IGetUserInfoRequestPayload {
 
 type IGetUserInfoResponsePayload = IUserDetail;
 interface IUpdateUserInfoRequest {
-  id?: string;
+  id: string;
   is_admin?: boolean;
   is_staff?: boolean;
   is_active?: boolean;

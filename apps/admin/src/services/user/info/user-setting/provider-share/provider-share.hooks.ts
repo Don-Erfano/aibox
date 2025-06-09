@@ -28,11 +28,10 @@ export const useUpdateProviderShare = () => {
       id,
       earnings_coefficient_api,
     }: IUpdateShareRequestPayload) => {
-      const response = await providerShareService.updateProviderShare({
+      return await providerShareService.updateProviderShare({
         id,
         earnings_coefficient_api,
       });
-      return response;
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({

@@ -2,16 +2,16 @@
 
 import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Form, RHFRadioGroup } from '@aibox/ui';
+import { Button, Form, RHFRadioGroup, toast } from '@aibox/ui';
 import { userAccessLevels } from './constant';
 import { FormValues, UserAccessLevelProps } from './types';
 import { useUpdateUserInfo } from '@/services/user/info';
 
-const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
+const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const form = useForm<FormValues>({
-    defaultValues: { accessLevel: userLevel },
+    defaultValues: { accessLevel },
   });
 
   const { control, reset, handleSubmit } = form;
@@ -20,7 +20,9 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      if (data.accessLevel) {
+      if (accessLevel === data.accessLevel) {
+        setEditMode(false);
+      } else {
         const response = await mutateAsync({
           id: userId,
           is_admin: data.accessLevel === 'admin',
@@ -28,18 +30,25 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ userLevel, userId }) => {
         });
 
         if (response.data.code === 'SUCCESS') {
-          console.log('success');
+          const accessLevelLabel = userAccessLevels.find(
+            (level) => level.id === data.accessLevel
+          )?.label;
+
+          toast['success'](
+            `تغییر سطح دسترسی به «${accessLevelLabel}» با موفقیت انجام شد.`
+          );
           setEditMode(false);
         }
       }
     } catch (error) {
-      console.log('error:', error);
+      console.error('error:', error);
+      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
       setEditMode(false);
     }
   };
 
   const handleCancel = () => {
-    reset({ accessLevel: userLevel });
+    reset({ accessLevel });
     setEditMode(false);
   };
 

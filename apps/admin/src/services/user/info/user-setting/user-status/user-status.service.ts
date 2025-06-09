@@ -7,19 +7,13 @@ import {
 
 export default class UserStatusServices extends AbstractAPI {
   constructor() {
-    super('v1/admin/'); // TODO: ADD API
+    super('v1/admin/');
   }
-  public async getUserStatus(
-    params: IUpdateUserStatusRequestPayload
-  ): Promise<
+  public async getUserStatus({
+    id,
+  }: IUpdateUserStatusRequestPayload): Promise<
     AxiosResponse<INetworkResponse<IUpdateUserStatusResponsePayload>>
   > {
-    const { id } = params;
-
-    if (!id) {
-      throw new Error('User ID is required');
-    }
-
     return await this.http.request({
       method: 'PUT',
       url: `${this.url}/${id}/`,

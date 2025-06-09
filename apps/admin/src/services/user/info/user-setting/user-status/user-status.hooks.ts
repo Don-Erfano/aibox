@@ -9,7 +9,6 @@ export const useUpdateUserStatus = () => {
 
   return useMutation({
     mutationFn: async ({ id }: IUpdateUserStatusRequestPayload) => {
-      if (!id) throw new Error('User ID is required');
       const response = await userStatusService.getUserStatus({ id });
       return response.data.data;
     },
