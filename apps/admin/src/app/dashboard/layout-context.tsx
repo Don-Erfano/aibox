@@ -26,7 +26,14 @@ export function LayoutModeProvider({
 
   return (
     <LayoutModeContext.Provider value={{ setMode }}>
-      <div className={clsx('w-full', paddingVariants[mode])}>{children}</div>
+      <div
+        className={clsx(
+          'w-full mt-[64px] overflow-hidden z-5',
+          paddingVariants[mode]
+        )}
+      >
+        {children}
+      </div>
     </LayoutModeContext.Provider>
   );
 }
