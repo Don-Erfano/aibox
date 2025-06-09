@@ -6,9 +6,8 @@ import { DefaultAvatar } from '../../icons';
 
 const MostSellerApiCard: FC = () => {
   const { data, isFetching } = useGetMostSellerApi();
-  console.log(data);
   return (
-    <Card title="APIهای پرتقاضا" hasMoreOpt className="!h-[297px]">
+    <Card title="APIهای پردرآمد" hasMoreOpt className="!h-[297px]">
       <div className="flex flex-col gap-6">
         {!isFetching &&
           data?.version_info.map((api, index) => (
@@ -20,7 +19,9 @@ const MostSellerApiCard: FC = () => {
                   <span className="text-zinc-600">{api.version_name}</span>
                 </div>
               </div>
-              <span className="text-xs">{api.all_earnings}</span>
+              <span className="text-xs text-gray-500">
+                {api.all_earnings.toLocaleString()} تومان
+              </span>
             </div>
           ))}
       </div>

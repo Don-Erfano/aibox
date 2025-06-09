@@ -9,6 +9,18 @@ const NewUsersCard = () => {
     'weekly'
   );
 
+  const persianFilter = {
+    weekly: 'هفته',
+    monthly: 'ماه',
+    yearly: 'سال',
+  };
+
+  const toogleItems = [
+    { label: 'هفتگی', value: 'weekly' },
+    { label: 'ماهانه', value: 'monthly' },
+    { label: 'سالانه', value: 'yearly' },
+  ];
+
   const { data, refetch, isFetching, isPending } = useGetChartData(filter);
 
   useEffect(() => {
@@ -30,15 +42,11 @@ const NewUsersCard = () => {
   return (
     <Card
       title="کاربران جدید"
-      className="order:1 2xl:order-2 col-span-2 2xl:col-span-1 relative"
+      className="order:1 2xl:order-2 col-span-2 2xl:col-span-1 relative h-[488px]"
     >
       <div className="absolute top-6 left-[277px]">
         <ToggleGroup
-          items={[
-            { label: 'هفتگی', value: 'weekly' },
-            { label: 'ماهانه', value: 'monthly' },
-            { label: 'سالانه', value: 'yearly' },
-          ]}
+          items={toogleItems}
           onValueChange={(e) => {
             setFilter((prev) =>
               e ? (e as 'yearly' | 'monthly' | 'weekly') : prev
@@ -57,9 +65,10 @@ const NewUsersCard = () => {
               label={String(data?.growth_rate) + '%'}
             />
             <span className="text-center text-sm">
-              {Math.abs(Number(data?.growth_rate))}{' '}
-              {Number(data?.growth_rate) > 0 ? 'رشد' : 'کاهش'} نسبت به هفته
-              گذشته
+              {Math.abs(Number(data?.growth_rate))}
+              {'% '}
+              {Number(data?.growth_rate) > 0 ? 'رشد' : 'کاهش'} نسبت به{' '}
+              {persianFilter[filter]} گذشته
             </span>
           </div>
           <div className="flex flex-col gap-3">

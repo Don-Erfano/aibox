@@ -5,6 +5,7 @@ export interface IDonutChartProps {
     value: string | number;
     label?: string;
     suffix?: string;
+    suffixColor?: string;
   };
   data: {
     id: string;

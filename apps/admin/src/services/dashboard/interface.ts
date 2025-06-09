@@ -69,6 +69,13 @@ interface IMostSellerApiResponsePayload {
   }[];
 }
 
+interface ITicketApiResponsePayload {
+  ticket_info: {
+    category_name: string;
+    ticket_count: number;
+  }[];
+}
+
 interface IApiPlatformDataResponsePayload {
   version_info: {
     status: string;
@@ -87,4 +94,5 @@ export type {
   IGpuUsersResponsePayload,
   IMostSellerApiResponsePayload,
   IApiPlatformDataResponsePayload,
+  ITicketApiResponsePayload,
 };

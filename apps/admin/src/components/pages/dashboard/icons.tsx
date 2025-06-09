@@ -97,7 +97,7 @@ export const TicketIcon: FC = () => (
   >
     <g
       clipPath="url(#clip0_13359_11759)"
-      stroke="#A21CAF"
+      stroke="currentcolor"
       strokeWidth="1.5"
       strokeLinecap="round"
     >

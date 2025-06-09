@@ -36,64 +36,76 @@ const ApiPlatformCard: FC = () => {
             <div className="bg-gray-100 animate-pulse w-[200px] h-[80px] rounded-md" />
           ) : (
             <div className="flex flex-col w-fit">
-              <h2 className="text-4xl font-medium leading-14 text-left">
+              <h2 className="text-4xl font-medium leading-14 text-left text-zinc-700">
                 {data?.total_count}
               </h2>
-              <span className="text-sm font-normal">کل ورژن‌ها از ابتدا</span>
+              <span className="text-sm font-normal text-zinc-700">
+                کل ورژن‌ها از ابتدا
+              </span>
             </div>
           )}
         </div>
         <div className="flex flex-col mt-8 gap-3">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <div className="bg-teal-600/12 text-green-600 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p>تأیید شده</p>
+              <p className="text-zinc-700 text-sm font-medium">تأیید شده</p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
             ) : (
-              <span>{accepted}</span>
+              <span className="text-gray-500 text-sm font-medium">
+                {accepted}
+              </span>
             )}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <div className="bg-teal-600/12 text-orange-700 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p>در انتظار تأیید</p>
+              <p className="text-zinc-700 text-sm font-medium">
+                در انتظار تأیید
+              </p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
             ) : (
-              <span>{waiting}</span>
+              <span className="text-gray-500 text-sm font-medium">
+                {waiting}
+              </span>
             )}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between  items-center">
             <div className="flex gap-2 items-center">
               <div className="bg-teal-600/12 text-red-600 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p>مردود</p>
+              <p className="text-zinc-700 text-sm font-medium">مردود</p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
             ) : (
-              <span>{notAccepted}</span>
+              <span className="text-gray-500 text-sm font-medium">
+                {notAccepted}
+              </span>
             )}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <div className="bg-teal-600/12 text-gray-500 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p>منقضی</p>
+              <p className="text-zinc-700 text-sm font-medium">منقضی</p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
             ) : (
-              <span>{deprecated}</span>
+              <span className="text-gray-500 text-sm font-medium">
+                {deprecated}
+              </span>
             )}
           </div>
         </div>

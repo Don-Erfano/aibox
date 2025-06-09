@@ -5,13 +5,8 @@ import { DefaultAvatar } from '../../icons';
 
 const MostPopularAPICard: FC = () => {
   const { data, isFetching } = useGetPopularApis();
-  console.log(data);
   return (
-    <Card
-      title="APIهای پرتقاضا"
-      hasMoreOpt
-      className="gap-8 justify-start !h-[297px]"
-    >
+    <Card title="APIهای پرتقاضا" className="gap-8 justify-start !h-[297px]">
       <div className="flex flex-col gap-6">
         {!isFetching ? (
           data?.version_info.map((api, index) => (
@@ -23,7 +18,7 @@ const MostPopularAPICard: FC = () => {
                   <span className="text-zinc-600">{api.version_name}</span>
                 </div>
               </div>
-              <span className="text-xs">{api.requests}</span>
+              <span className="text-xs text-gray-500">{api.requests}</span>
             </div>
           ))
         ) : (

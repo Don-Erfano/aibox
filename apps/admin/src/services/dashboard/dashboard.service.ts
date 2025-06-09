@@ -11,6 +11,7 @@ import type {
   IIncomeResponsePayload,
   IMostSellerApiResponsePayload,
   IPopularApiResponsePayload,
+  ITicketApiResponsePayload,
   IUserCountResponsePayload,
 } from './interface';
 
@@ -91,7 +92,7 @@ export class DashboardServices extends AbstractAPI {
   }
 
   public async getTicketsCount(): Promise<
-    AxiosResponse<INetworkResponse<IMostSellerApiResponsePayload>>
+    AxiosResponse<INetworkResponse<ITicketApiResponsePayload>>
   > {
     return await this.http.request({
       method: `GET`,

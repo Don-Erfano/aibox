@@ -9,10 +9,10 @@ const GpuComputingCard: FC = () => {
     <Card className="!h-[297px]">
       <div className="flex flex-col gap-8">
         <div className="flex items-center gap-2">
-          <div className="bg-slate-200 p-2 rounded-md">
+          <div className="bg-orange-100 p-2 rounded-md">
             <GPUIcon />
           </div>
-          <p>API مارکت</p>
+          <p className="text-md font-medium text-zinc-700">رایانش گرافیکی</p>
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
@@ -23,15 +23,15 @@ const GpuComputingCard: FC = () => {
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
-              کاربران درحال استفاده
+              کاربران درحال پردازش
             </p>
             <span>{data?.running_users_count}</span>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
-              کل APIها
+              میانگین زمان استفاده (ساعت)
             </p>
-            <span>{data?.average_usage_time}</span>
+            <span>{Math.ceil(Number(data?.average_usage_time))}</span>
           </div>
         </div>
       </div>

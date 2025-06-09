@@ -18,6 +18,7 @@ const InfoCard: FC = () => {
       icon: <APIIcon />,
       buttonLabel: 'مشاهده',
       title: 'API در انتظار تأیید',
+      iconColor: 'text-teal-600',
       route: '',
       count: data?.waiting_version_count,
     },
@@ -30,7 +31,7 @@ const InfoCard: FC = () => {
       count: data?.waiting_ticket_count,
     },
     {
-      color: 'bg-ornage-100/20',
+      color: 'bg-orange-100',
       icon: <GPUIcon />,
       buttonLabel: 'مشاهده',
       title: 'کاربر در صف رایانش گرافیکی',
@@ -59,13 +60,13 @@ const InfoCard: FC = () => {
           <div className="flex justify-between items-center sm:flex-col sm:gap-4 2xl:flex-row">
             <div className="flex justify-between items-center gap-2 self-start">
               <div
-                className={clsx('bg-teal-600/12 p-2 rounded-md', data.color)}
+                className={clsx('p-2 rounded-md', data.color, data.iconColor)}
               >
                 {data.icon}
               </div>
-              <p>{data.title}</p>
+              <p className="text-md font-medium text-zinc-700">{data.title}</p>
             </div>
-            <h2 className="text-2xl md:text-[28px] font-medium leading-12 2xl:text-4xl">
+            <h2 className="text-2xl md:text-[28px] text-zinc-700 font-medium leading-12 2xl:text-4xl">
               {data.count}
             </h2>
           </div>

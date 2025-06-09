@@ -43,12 +43,16 @@ const DonutChart: FC<IDonutChartProps> = ({
     colors: colors || CHART_COLORS.primary,
     labels: data.map((item) => item.name),
     tooltip: {
+      style: {
+        fontSize: '14px',
+        fontFamily: 'iransans',
+      },
       custom: ({ series, seriesIndex }) =>
         '<div style="padding:8px; background-color: #171919; color: #fff; ">' +
         '<span>' +
-        series[seriesIndex] +
-        ' :' +
-        'API نام' +
+        data[seriesIndex].name +
+        ' : ' +
+        series[seriesIndex].toLocaleString() +
         '</span>' +
         '</div>',
     },
@@ -57,7 +61,7 @@ const DonutChart: FC<IDonutChartProps> = ({
         donut: {
           size: '75%',
           labels: {
-            show: true,
+            show: false,
             name: {
               show: true,
               offsetY: -0,
@@ -116,7 +120,7 @@ const DonutChart: FC<IDonutChartProps> = ({
             </span>
             <span
               className="absolute left-1/2 top-[50%] -translate-x-1/2 translate-y-[calc(50%-10px)]
-            text-sm font-medium text-grey-main"
+            text-sm font-medium text-grey-main text-gray-500"
             >
               {total.suffix}
             </span>
