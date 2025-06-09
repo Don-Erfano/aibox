@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react';
 import { ECalendarState, IDatePicker } from './types';
 import MonthAndYear from './components/MonthAndYear/MonthAndYear';
 import { DatePickerContext } from './providers/DatePickerProvider';
-import { Days, Header, Input, WeekDays } from './components';
+import { Days, Header, WeekDays } from './components';
 import { jalaliToDateTime } from './helpers/convertors';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
 import DatePickerInput from './components/Input/DatePickerInput';
@@ -48,17 +48,21 @@ const CustomDatePicker: FC<IDatePicker> = ({
     setShow(!show);
   };
 
-  console.log(new Date(moment(value).toLocaleString()).getTime());
-
   const handleChangeDate = (e: string) => {
     if (isMulti) {
-      if (
-        new Date(moment(e).toLocaleString()).getTime() >
-        new Date(moment(datePickerValue[0]).toLocaleString()).getTime()
-      ) {
-        SetDatePickerValue([datePickerValue[0], e]);
+      if (datePickerValue.length === 2) {
+        SetDatePickerValue([e]);
+      } else if (datePickerValue.length === 1) {
+        if (
+          new Date(moment(e).toLocaleString()).getTime() >
+          new Date(moment(datePickerValue[0]).toLocaleString()).getTime()
+        ) {
+          SetDatePickerValue([datePickerValue[0], e]);
+        } else {
+          SetDatePickerValue([e]);
+        }
       } else {
-        SetDatePickerValue([e, datePickerValue[1]]);
+        SetDatePickerValue([e]);
       }
     } else {
       SetDatePickerValue([e]);

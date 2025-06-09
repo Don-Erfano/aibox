@@ -15,8 +15,6 @@ const MonthAndYear: FC = () => {
     setCalendarState(ECalendarState.DAY);
   };
 
-  console.log(Number(sepratedToday[0]));
-
   return (
     <div className="flex h-[372px] w-[304px] flex-col justify-between gap-3">
       <div className="grid grid-cols-3 gap-2 px-5">
@@ -59,7 +57,6 @@ const MonthAndYear: FC = () => {
             )}
             aria-selected={currentDate.year === i + 1357}
             onClick={() => {
-              console.log(i);
               setCurrentDate({
                 ...currentDate,
                 year: i + 1357,

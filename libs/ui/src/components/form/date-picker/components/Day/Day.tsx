@@ -12,6 +12,7 @@ const WeekDay: FC<ISelectableDay> = ({
 }) => {
   const isToday = today === `${year.j}/${month.j}/${day.j}`;
   const inRange =
+    selectedDate.length === 2 &&
     new Date(moment(selectedDate[0]).toLocaleString()).getTime() <
       new Date(
         moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
@@ -23,8 +24,6 @@ const WeekDay: FC<ISelectableDay> = ({
   const isSelected =
     selectedDate[0] === `${year.j}/${month.j}/${day.j}` ||
     selectedDate[1] === `${year.j}/${month.j}/${day.j}`;
-
-  console.log(inRange);
 
   const weekEndClasses = (commonClass: string) =>
     clsx(commonClass, {
