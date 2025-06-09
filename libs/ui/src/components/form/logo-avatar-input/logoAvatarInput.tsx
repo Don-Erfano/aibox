@@ -1,48 +1,42 @@
 'use client';
 
-import {
-  FC,
-  ChangeEvent,
-  DragEvent,
-  MouseEventHandler,
-  useState,
-  useEffect,
-} from 'react';
+import { FC, ChangeEvent, DragEvent, useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { ILogoAvatar } from './interface';
+import { LogoAvatarProps } from './interface';
+import { Image, ImagePlus } from 'lucide-react';
 
 const ALLOWED_IMAGE_FORMATS = 'image/png, image/jpeg';
-const CAMERA_ICON = '/src/assets/logoAvatarInput/fluent_camera.svg';
 
-export const LogoAvatarInput: FC<ILogoAvatar> = ({
+export const LogoAvatarInput: FC<LogoAvatarProps> = ({
   label,
   src = '',
-  noImageSrc = '/src/assets/logoAvatarInput/new-no-image.svg',
   onChange,
   onClick,
   required = false,
-  customStyles,
-  isUploadButton = false,
+  mode = 'preview',
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [preview, setPreview] = useState<string>(src || noImageSrc);
+  const [preview, setPreview] = useState<string>(src);
 
   useEffect(() => {
-    setPreview(src || noImageSrc);
-  }, [src, noImageSrc]);
+    setPreview(src);
+  }, [src]);
 
-  useEffect(() => {
-    return () => {
-      if (preview.startsWith('blob:')) URL.revokeObjectURL(preview);
-    };
-  }, [preview]);
+  useEffect(
+    () => () => {
+      if (preview?.startsWith('blob:')) URL.revokeObjectURL(preview);
+    },
+    [preview]
+  );
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    if (mode !== 'upload') return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    if (mode !== 'upload') return;
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && ALLOWED_IMAGE_FORMATS.split(', ').includes(file.type)) {
@@ -56,6 +50,7 @@ export const LogoAvatarInput: FC<ILogoAvatar> = ({
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (mode !== 'upload') return;
     const file = e.target.files?.[0];
     if (file && ALLOWED_IMAGE_FORMATS.split(', ').includes(file.type)) {
       onChange?.(e);
@@ -69,33 +64,43 @@ export const LogoAvatarInput: FC<ILogoAvatar> = ({
     <>
       <div
         className={clsx(
-          'relative overflow-hidden rounded-full border border-gray-500 bg-center bg-no-repeat bg-cover transition-all duration-200',
-          { 'cursor-pointer': isUploadButton }
+          'relative overflow-hidden rounded-full border border-gray-500 transition-all duration-200',
+          { 'cursor-pointer': mode === 'upload' }
         )}
-        style={{
-          width: customStyles?.width ?? '70px',
-          height: customStyles?.height ?? '70px',
-          backgroundImage: `url(${encodeURI(preview)})`,
-        }}
-        onMouseEnter={() => isUploadButton && setIsHovering(true)}
-        onMouseLeave={() => isUploadButton && setIsHovering(false)}
-        onDragOver={isUploadButton ? handleDragOver : undefined}
-        onDrop={isUploadButton ? handleDrop : undefined}
+        style={{ width: '70px', height: '70px' }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        onClick={onClick}
       >
-        {isUploadButton && (
+        {preview && (
+          <img
+            src={encodeURI(preview)}
+            alt="Avatar"
+            className="w-full h-full object-cover"
+          />
+        )}
+        {isHovering && mode === 'upload' && (
+          <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
+            <ImagePlus />
+          </div>
+        )}
+
+        {mode === 'upload' && (
           <>
             <input
               id="logoImage"
               type="file"
               accept={ALLOWED_IMAGE_FORMATS}
               name="image"
-              className="opacity-0 w-full h-full cursor-pointer"
+              className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
               onChange={handleChange}
-              onClick={onClick as MouseEventHandler<HTMLInputElement>}
             />
-            {isHovering && (
+
+            {!preview && !isHovering && (
               <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
-                <img src={CAMERA_ICON} alt="Upload" className="w-6 h-6" />
+                <Image />
               </div>
             )}
           </>

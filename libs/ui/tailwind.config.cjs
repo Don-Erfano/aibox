@@ -14,8 +14,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  safelist: [
-    'bg-[url("/src/assets/logoAvatarInput/new-no-image.svg")]',
-    'hover:bg-[url("/src/assets/logoAvatarInput/fluent_camera.svg")]',
-  ],
 };
