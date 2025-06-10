@@ -28,7 +28,7 @@ export const SearchBar = ({
     clear: {
       icon: (
         <CircleX
-          className="text-zinc-600 hover:text-gray-500"
+          className="text-gray-500 hover:text-zinc-600"
           strokeWidth={1.5}
         />
       ),
@@ -61,7 +61,7 @@ export const SearchBar = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <AIBInput
-        className="rounded-lg"
+        className="rounded-lg h-10 border-gray-400 placeholder:text-gray-400"
         variant="sm"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
