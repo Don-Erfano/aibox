@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { formatJalali } from '@aibox/ui';
+
 import { strings } from '@/constant';
 import ActionCell from './actions-cell';
 import { IApiDetails } from '@/services';
@@ -57,6 +59,7 @@ const userColumns: ColumnDef<IApiDetails>[] = [
     },
     enableColumnFilter: true,
     meta: { label: strings.apiName, variant: 'text' },
+    enableSorting: false,
   },
   {
     header: strings.provider,
@@ -66,15 +69,20 @@ const userColumns: ColumnDef<IApiDetails>[] = [
       label: strings.provider,
       variant: 'text',
     },
+    enableSorting: false,
   },
   {
     header: strings.version,
     id: 'version',
     accessorKey: 'version',
+    enableSorting: false,
   },
   {
     header: strings.approvedDate,
-    accessorKey: 'status_data',
+    id: 'status_date',
+    accessorFn: ({ status_date }) =>
+      status_date ? formatJalali(status_date).split(' ')[1] : '-',
+    enableSorting: true,
     enableColumnFilter: true,
     meta: {
       label: strings.approvedDate,
@@ -146,6 +154,7 @@ const userColumns: ColumnDef<IApiDetails>[] = [
   {
     header: strings.tableActions,
     cell: ({ row }) => <ActionCell {...row} />,
+    maxSize: 110,
   },
 ];
 export default userColumns;

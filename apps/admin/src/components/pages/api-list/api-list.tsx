@@ -32,7 +32,10 @@ const ApiList: FC = () => {
           noManageColumns
         />
 
-        <DataTable table={table} />
+        <DataTable
+          table={table}
+          className="[&>table>thead>tr>th]:last:justify-items-center"
+        />
       </div>
     </div>
   );
