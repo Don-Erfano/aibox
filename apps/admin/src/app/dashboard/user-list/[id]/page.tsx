@@ -1,13 +1,14 @@
-import UserInfoTab from '@/components/pages/user-list/user-info-tab/user-info-tab';
+'use client';
 
-const UserInfoPage = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) => {
-  const id = (await params).id;
+import { use } from 'react';
+import { NextPage } from 'next';
+import { UserInfoPage } from '@/components/pages/user';
+import type { UserInfoProps } from '@/components/pages/user/info';
 
-  return <UserInfoTab userId={id} />;
+const UserInfo: NextPage<UserInfoProps> = ({ params }) => {
+  const { id } = use(params);
+
+  return <UserInfoPage id={id} />;
 };
 
-export default UserInfoPage;
+export default UserInfo;

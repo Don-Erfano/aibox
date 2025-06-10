@@ -1,17 +1,9 @@
 import { FC } from 'react';
-
-import {
-  useDataTable,
-  DataTable,
-  TableToolbar,
-  GenericActionBar,
-  DataTableSkeleton,
-} from '@aibox/ui';
+import { useDataTable, DataTable, TableToolbar, Button } from '@aibox/ui';
+import userColumns from '@/components/pages/user-list/constant';
 import { useGetUserList } from '@/services/user/user-lists';
+import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { UserStrings } from '@/components/pages/user/user-list/string';
-import { FabButton } from '@/components/fab-button';
-import userColumns from '@/components/pages/user/user-list/constant';
 
 const UserList: FC = () => {
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
@@ -31,14 +23,11 @@ const UserList: FC = () => {
   const handleAddUser = () => {
     router.push('/dashboard/user-list/add-user');
   };
-
-  if (isLoading) return <DataTableSkeleton columnCount={10} />;
-
   return (
-    <div className="min-h-screen flex-col">
-      <div className="relative w-full shadow-2xl px-11 py-5 rounded-sm">
+    <>
+      <div className="relative h-full">
         <TableToolbar
-          title={UserStrings.users}
+          title="کاربران"
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}
@@ -49,24 +38,16 @@ const UserList: FC = () => {
           noManageColumns
         />
 
-        <DataTable
-          table={table}
-          actionBar={
-            <GenericActionBar
-              table={table}
-              onDelete={(id) => {
-                console.log('Deleting:', id);
-                return Promise.resolve();
-              }}
-              onEdit={(ids) => {
-                console.log('Editing:', ids);
-              }}
-            />
-          }
-        />
+        <DataTable table={table} />
+        <Button
+          onClick={handleAddUser}
+          variant="ghost"
+          className="absolute bottom-2 left-2 size-12 rounded-full bg-teal-600 shadow-2xl text-2xl hover:bg-teal-700"
+        >
+          <Plus strokeWidth={2.5} className="text-white size-6" />
+        </Button>
       </div>
-      <FabButton onClick={handleAddUser} />
-    </div>
+    </>
   );
 };
 
