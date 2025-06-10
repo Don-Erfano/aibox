@@ -24,16 +24,12 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         is_active: tempStatus === 'active',
       });
       if (response.data.code === 'SUCCESS') {
-        const userStatus = tempStatus === 'active' ? 'فعال' : 'غیرفعال';
+        toast['success'](response.data.detail);
 
-        toast['success'](
-          `تغییر سطح دسترسی به «${userStatus}» با موفقیت انجام شد.`
-        );
         setOpen(false);
       }
-    } catch (error) {
-      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
-      console.error(error);
+    } catch (error: any) {
+      toast['error'](error.data.detail);
       setOpen(false);
     }
   };

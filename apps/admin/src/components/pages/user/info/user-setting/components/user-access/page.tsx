@@ -30,19 +30,12 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
         });
 
         if (response.data.code === 'SUCCESS') {
-          const accessLevelLabel = userAccessLevels.find(
-            (level) => level.id === data.accessLevel
-          )?.label;
-
-          toast['success'](
-            `تغییر سطح دسترسی به «${accessLevelLabel}» با موفقیت انجام شد.`
-          );
+          toast['success'](response.data.detail);
           setEditMode(false);
         }
       }
-    } catch (error) {
-      console.error('error:', error);
-      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
+    } catch (error: any) {
+      toast['error'](error.data.detail);
       setEditMode(false);
     }
   };

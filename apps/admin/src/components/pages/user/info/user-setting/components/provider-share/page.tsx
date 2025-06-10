@@ -50,13 +50,11 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
         earnings_coefficient_api: Number(fixedValue),
       });
       if (response.data.code === 'SUCCESS') {
-        toast['success']('تغییر سهم ارائه دهنده با موفقیت انجام شد.');
+        toast['success'](response.data.detail);
         setOpen(false);
       }
-    } catch (error) {
-      console.error('error', error);
-
-      toast['error']('خطایی رخ داده٬ لطفاً مجدد تلاش کنید.');
+    } catch (error: any) {
+      toast['error'](error.data.detail);
       setOpen(false);
     }
   };
