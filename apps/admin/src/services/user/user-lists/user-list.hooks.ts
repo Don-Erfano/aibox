@@ -14,7 +14,7 @@ import {
   IUser,
 } from '@/services/user/user-lists/interface';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { showNotification } from '@/utils/notifications';
+import { toast } from '@aibox/ui';
 
 const userListsServices = new UserListsServices();
 
@@ -74,6 +74,10 @@ export const useGetUser = (userId: string) =>
   useQuery({
     queryKey: ['user', userId],
     queryFn: () => userListsServices.getUser(userId),
+    select: ({ data }) => ({
+      ...data?.data,
+      phone_number: `0${data?.data.phone_number}`,
+    }),
   });
 
 export const usePostActivateEmail = () =>
@@ -81,10 +85,7 @@ export const usePostActivateEmail = () =>
     mutationKey: ['postActivateEmail'],
     mutationFn: (email: string) => userListsServices.postActivateEmail(email),
     onSuccess: () => {
-      showNotification({
-        message: 'درخواست ارسال مجدد ایمیل فعالسازی با موفقیت ثبت شد.',
-        type: 'success',
-      });
+      toast.success('درخواست ارسال مجدد ایمیل فعالسازی با موفقیت ثبت شد.');
     },
   });
 
@@ -96,10 +97,7 @@ export const usePutUserById = () => {
     mutationFn: (data: IPutUser) => userListsServices.putUserById(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
-      showNotification({
-        message: 'اطلاعات کاربر با موفقیت ویرایش شد.',
-        type: 'success',
-      });
+      toast.success('اطلاعات کاربر با موفقیت ویرایش شد.');
     },
   });
 };
