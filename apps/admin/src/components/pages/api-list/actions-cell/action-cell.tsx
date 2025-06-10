@@ -218,7 +218,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
         </div>
       </Modal>
 
-      <div className="flex justify-end gap-2">
+      <div className="flex justify-end gap-2 max-w-40">
         {original.status === 'WAITING' && (
           <Button
             variant="ghost"
