@@ -60,7 +60,7 @@ const DatePickerHeader: FC = () => {
             text-teal-600 hover:bg-info-200 leading-5 mb-0.5"
           onClick={() => setCalendarState(ECalendarState.MONTH)}
         >
-          {jalaliMonth[Number(month.j) - 1] + year.j}
+          {jalaliMonth[Number(month.j) - 1] + ' ' + year.j}
         </p>
         {/* <p className="text-center font-light text-[12px] text-grey-500 leading-5 text-gray-600">
           {gregorianTamplate}
