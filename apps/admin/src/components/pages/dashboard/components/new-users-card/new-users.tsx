@@ -42,9 +42,9 @@ const NewUsersCard = () => {
   return (
     <Card
       title="کاربران جدید"
-      className="order:1 2xl:order-2 col-span-2 2xl:col-span-1 relative h-[488px]"
+      className="order:1 2xl:order-2 col-span-2 2xl:col-span-1 relative min-h-[488px]"
     >
-      <div className="absolute top-6 left-[277px]">
+      <div className="absolute top-6 left-6">
         <ToggleGroup
           items={toogleItems}
           onValueChange={(e) => {
@@ -55,14 +55,14 @@ const NewUsersCard = () => {
           value={filter}
         />
       </div>
-      <div className="flex">
+      <div className="flex flex-wrap lg:flex-nowrap">
         <AreaChart
           data={ChartData || []}
           horizontalCategories={data?.dates}
           height={400}
-          className="-mt-10"
+          className="lg:-mt-10 lg:order-1 order-2 pt-4 lg:pt-0"
         />
-        <div className="border-r min-w-[252px] pr-6 flex flex-col gap-8">
+        <div className="lg:border-r border-b pb-6 w-full lg:min-w-[252px] lg:w-fit pr-6 flex flex-row lg:flex-col gap-8 lg:order-2 order-1 sm:gap-8">
           <div className="flex flex-col items-center gap-3">
             <SemiCircleChart
               isLoading={isFetching || isPending}
@@ -76,7 +76,7 @@ const NewUsersCard = () => {
               {persianFilter[filter]} گذشته
             </span>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 w-full">
             <div className="flex justify-between">
               <p className="text-sm font-medium text-zinc-700">کاربران جدید</p>
               <span className="text-sm text-gray-500">

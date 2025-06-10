@@ -13,7 +13,7 @@ const TicketCard: FC = () => {
   }
   return (
     <Card title="تیکت‌ها" className="gap-8 justify-start !h-[297px]">
-      <div className="h-[168px] overflow-x-auto pl-2 flex gap-3 flex-col">
+      <div className="h-[168px] overflow-hidden hover:overflow-auto pl-2 flex gap-4 flex-col">
         {data?.ticket_info.map((item, index) => (
           <div className="flex items-center justify-between" key={index}>
             <div className="flex gap-2 items-center text-gray-500">

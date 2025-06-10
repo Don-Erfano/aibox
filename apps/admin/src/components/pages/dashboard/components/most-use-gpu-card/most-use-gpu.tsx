@@ -8,7 +8,7 @@ const MostUseGpuCard: FC = () => {
   console.log(data);
   return (
     <Card title="GPUهای پرتقاضا" className="!h-[297px] justify-start">
-      <div className="flex flex-col gap-6 overflow-auto h-[168px] pl-2">
+      <div className="flex flex-col gap-6 overflow-hidden hover:overflow-auto h-[168px] pl-2">
         {!isFetching &&
           data?.packages.map((api, index) => (
             <div className="flex items-center justify-between" key={index}>
