@@ -1,3 +1,4 @@
+// c
 import './global.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
@@ -18,8 +19,8 @@ export default async function RootLayout({
   const dehydratedState = dehydrate(serverQueryClient);
 
   return (
-    <html lang="en">
-      <body className="selection:bg-teal-600 selection:text-white">
+    <html lang="fa" dir="rtl">
+      <body>
         <QueryProvider dehydratedState={dehydratedState}>
           {children}
           <Notifications />

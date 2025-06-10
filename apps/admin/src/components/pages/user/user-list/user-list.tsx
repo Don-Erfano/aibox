@@ -23,7 +23,7 @@ const UserList: FC = () => {
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
+      onEdit: (row) => router.push(`/dashboard/user-list/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });

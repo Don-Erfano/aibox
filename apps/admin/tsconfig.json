@@ -31,7 +31,8 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/hooks/useSidebarItemActive.ts"
   ],
   "exclude": [
     "out-tsc",
