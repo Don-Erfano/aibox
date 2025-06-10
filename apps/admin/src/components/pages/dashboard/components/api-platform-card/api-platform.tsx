@@ -28,7 +28,7 @@ const ApiPlatformCard: FC = () => {
   const colors = ['#34B853', '#DD4B39', '#B00020', '#757E7F'];
 
   return (
-    <Card title="کاربران فعال" className="justify-start h-fit">
+    <Card title="پلتفرم ارائه API" className="justify-start">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <DonutChart data={chartData} loading={isFetching} colors={colors} />

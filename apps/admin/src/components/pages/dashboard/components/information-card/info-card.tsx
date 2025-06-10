@@ -27,6 +27,7 @@ const InfoCard: FC = () => {
       icon: <TicketIcon />,
       buttonLabel: 'مشاهده',
       title: 'تیکت در انتظار پاسخ',
+      iconColor: 'text-fuchsia-700',
       route: '',
       count: data?.waiting_ticket_count,
     },

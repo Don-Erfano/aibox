@@ -143,9 +143,10 @@ const AreaChart: FC<IChartProps> = ({
       categories: horizontalCategories,
       labels: {
         style: {
-          colors: '#5E6566',
+          colors: '#52525B',
           fontFamily: 'inherit',
           fontSize: windowWidth < 640 ? '10px' : '12px',
+          fontWeight: 400,
         },
         rotate: windowWidth < 640 ? -45 : 0,
         offsetY: windowWidth < 640 ? 10 : 0,
@@ -225,6 +226,15 @@ const AreaChart: FC<IChartProps> = ({
         enabled: false,
         position: 'topRight',
         offsetY: 0,
+      },
+    },
+    legend: {
+      horizontalAlign: 'left',
+      itemMargin: {
+        horizontal: 8,
+      },
+      markers: {
+        offsetX: 4,
       },
     },
   };

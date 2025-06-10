@@ -19,19 +19,25 @@ const GpuComputingCard: FC = () => {
             <p className="text-sm font-medium text-zinc-700 leading-12">
               کاربران در صف
             </p>
-            <span>{data?.in_queue_users_count}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {data?.in_queue_users_count}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
               کاربران درحال پردازش
             </p>
-            <span>{data?.running_users_count}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {data?.running_users_count}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
               میانگین زمان استفاده (ساعت)
             </p>
-            <span>{Math.ceil(Number(data?.average_usage_time))}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {Math.ceil(Number(data?.average_usage_time))}
+            </span>
           </div>
         </div>
       </div>

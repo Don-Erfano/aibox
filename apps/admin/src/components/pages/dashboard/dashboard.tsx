@@ -20,12 +20,12 @@ const Dashboard: NextPage = () => {
       <div className="grid grid-cols-2 2xl:grid-cols-1 gap-5 md:grid-cols-1 xl:grid-cols-2">
         <NewUsersCard />
       </div>
-      <div className="flex gap-5 flex-row-reverse">
+      <div className="flex gap-5 flex-row-reverse flex-wrap xl:flex-nowrap">
         <ActiveUserCard />
         <IncomeCard />
         <ApiPlatformCard />
       </div>
-      <div className="grid 2xl:grid-cols-3 gap-5">
+      <div className="grid 2xl:grid-cols-3 gap-5 lg:grid-cols-2 grid-cols-1">
         <APIMarketCard />
         <MostPopularAPICard />
         <MostSellerApiCard />

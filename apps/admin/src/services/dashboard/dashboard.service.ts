@@ -10,6 +10,7 @@ import type {
   IGpuUsersResponsePayload,
   IIncomeResponsePayload,
   IMostSellerApiResponsePayload,
+  IMostUseGpuResponsePayload,
   IPopularApiResponsePayload,
   ITicketApiResponsePayload,
   IUserCountResponsePayload,
@@ -106,6 +107,15 @@ export class DashboardServices extends AbstractAPI {
     return await this.http.request({
       method: `GET`,
       url: `/v1/admin/ai_dashboard/api_platform/`,
+    });
+  }
+
+  public async getMostUseGpu(): Promise<
+    AxiosResponse<INetworkResponse<IMostUseGpuResponsePayload>>
+  > {
+    return await this.http.request({
+      method: `GET`,
+      url: `/v1/admin/resource_package/popular_packages/`,
     });
   }
 }

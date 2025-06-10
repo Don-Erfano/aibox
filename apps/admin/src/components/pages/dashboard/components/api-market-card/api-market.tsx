@@ -23,19 +23,25 @@ const APIMarketCard: FC = () => {
             <p className="text-sm font-medium text-zinc-700 leading-12">
               کاربران در صف
             </p>
-            <span>{data?.api_queue_user_count}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {data?.api_queue_user_count}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
               کاربران درحال استفاده
             </p>
-            <span>{data?.market_user_count}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {data?.market_user_count}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-zinc-700 leading-12">
               کل APIها
             </p>
-            <span>{data?.market_api_count}</span>
+            <span className="text-gray-500 text-sm font-medium">
+              {data?.market_api_count}
+            </span>
           </div>
         </div>
       </div>

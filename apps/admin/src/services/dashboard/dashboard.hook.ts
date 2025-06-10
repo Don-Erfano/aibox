@@ -93,3 +93,12 @@ export const useGetApiPlatformData = () =>
     },
     queryKey: [`useGetApiPlatformData`],
   });
+
+export const useGetMostUseGpu = () =>
+  useQuery({
+    queryFn: async () => {
+      const resp = await dashboardServices.getMostUseGpu();
+      return resp.data.data;
+    },
+    queryKey: [`useGetMostUseGpu`],
+  });

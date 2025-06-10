@@ -56,7 +56,12 @@ const NewUsersCard = () => {
         />
       </div>
       <div className="flex">
-        <AreaChart data={ChartData || []} horizontalCategories={data?.dates} />
+        <AreaChart
+          data={ChartData || []}
+          horizontalCategories={data?.dates}
+          height={400}
+          className="-mt-10"
+        />
         <div className="border-r min-w-[252px] pr-6 flex flex-col gap-8">
           <div className="flex flex-col items-center gap-3">
             <SemiCircleChart

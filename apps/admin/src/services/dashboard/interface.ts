@@ -84,6 +84,13 @@ interface IApiPlatformDataResponsePayload {
   total_count: number;
 }
 
+interface IMostUseGpuResponsePayload {
+  packages: {
+    gpu_name: string;
+    package_count: number;
+  }[];
+}
+
 export type {
   IUserCountResponsePayload,
   IIncomeResponsePayload,
@@ -95,4 +102,5 @@ export type {
   IMostSellerApiResponsePayload,
   IApiPlatformDataResponsePayload,
   ITicketApiResponsePayload,
+  IMostUseGpuResponsePayload,
 };

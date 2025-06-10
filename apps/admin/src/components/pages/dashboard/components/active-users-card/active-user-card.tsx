@@ -48,7 +48,10 @@ const ActiveUserCard: FC = () => {
             <div className="flex flex-col w-fit">
               <h2 className="text-left text-4xl font-medium text-zinc-700 leading-14">
                 {data?.data.all_user_count}
-                <span className="text-sm text-zinc-700 font-normal">کاربر</span>
+                <span className="text-sm text-zinc-700 font-normal">
+                  {' '}
+                  کاربر
+                </span>
               </h2>
               <p className="text-center text-md text-zinc-700 font-normal">
                 {Math.abs(Number(data?.data.monthly_growth_rate))}{' '}

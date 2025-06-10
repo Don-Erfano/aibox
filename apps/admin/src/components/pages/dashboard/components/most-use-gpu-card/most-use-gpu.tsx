@@ -1,13 +1,26 @@
 import { Card } from '@/components/cards';
-import { CloudAlertIcon } from 'lucide-react';
+import { useGetMostUseGpu } from '@/services';
 import { FC } from 'react';
+import { DefaultAvatar } from '../../icons';
 
 const MostUseGpuCard: FC = () => {
+  const { data, isFetching } = useGetMostUseGpu();
+  console.log(data);
   return (
-    <Card>
-      <div className="h-52 w-full flex justify-center items-center flex-col gap-2">
-        <CloudAlertIcon size={48} className="text-gray-500" />
-        <p>مشکلی رخ داده است</p>
+    <Card title="GPUهای پرتقاضا" className="!h-[297px] justify-start">
+      <div className="flex flex-col gap-6 overflow-auto h-[168px] pl-2">
+        {!isFetching &&
+          data?.packages.map((api, index) => (
+            <div className="flex items-center justify-between" key={index}>
+              <div className="flex gap-2 items-center">
+                <DefaultAvatar />
+                <div className="text-sm">
+                  <p className="font-medium text-zinc-700">{api.gpu_name}</p>
+                </div>
+              </div>
+              <span className="text-xs text-gray-500">{api.package_count}</span>
+            </div>
+          ))}
       </div>
     </Card>
   );
