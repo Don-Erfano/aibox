@@ -44,7 +44,6 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [activeAction, setActiveAction] = useState<ActionButton | null>(null);
   const [activeMode, setActiveMode] = useState<ViewModeButton>('table');
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [openSearchbar, setOpenSearchbar] = useState(false);
 
   const [search, setSearch] = useState('');
   const [searchParam, setSearchParam] = useQueryState('search', {
@@ -109,7 +108,7 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
           isFilterActive,
       })}
     >
-      <div className="relative w-full h-[104px] lg:h-12">
+      <div className="relative w-full h-40 sm:h-28 lg:h-12">
         <div className="absolute right-0 top-3 flex items-center gap-2">
           <span className="text-sm font-medium text-slate-950">{title}</span>
           <span className="size-6 flex items-center justify-center rounded-full bg-slate-950 text-sm font-medium text-white">
@@ -141,20 +140,15 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
             }
           )}
         >
-          <div className="flex items-center justify-end lg:justify-start gap-2">
+          <div className="flex items-end flex-col sm:flex-row sm:items-center justify-end lg:justify-start gap-2">
             <div className="w-full lg:w-[300px]">
               <SearchBar
-                open={openSearchbar}
-                toggleOpen={setOpenSearchbar}
                 value={search}
                 onValueChange={setSearch}
+                loading={refreshLoading}
               />
             </div>
-            <div
-              className={clsx('flex justify-center items-center gap-2', {
-                'hidden lg:flex': openSearchbar,
-              })}
-            >
+            <div className="flex justify-center items-center gap-2">
               {!noFilter && !!props.filterCount && (
                 <CustomChip
                   label={props.filterCount}
