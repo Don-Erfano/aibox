@@ -4,7 +4,6 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { X as CloseIcon } from 'lucide-react';
 import { FC } from 'react';
-
 import { ModalProps } from './interface';
 
 export const Modal: FC<ModalProps> = ({
