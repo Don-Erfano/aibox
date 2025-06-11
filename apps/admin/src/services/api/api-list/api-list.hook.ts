@@ -8,6 +8,8 @@ import {
   IGetApiListResponsePayload,
 } from './interface';
 import ApiListServices from './api-list.service';
+import { AxiosError } from 'axios';
+import { toast } from '@aibox/ui';
 
 const apiListService = new ApiListServices();
 
@@ -33,6 +35,14 @@ const useGetApiList = () => {
       };
       const response = await apiListService.getApiList(queryParams);
       return response.data.data;
+    },
+    retry: false,
+    throwOnError(error, query) {
+      toast.error(
+        (error as AxiosError<{ code: string; data: unknown; error: string }>)
+          ?.response?.data.error as string
+      );
+      return false;
     },
     select: (payload) => {
       totalPages = payload.page_count;

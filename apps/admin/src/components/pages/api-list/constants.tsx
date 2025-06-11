@@ -1,11 +1,12 @@
-import clsx from 'clsx';
 import { ColumnDef } from '@tanstack/react-table';
 
-import { formatJalali } from '@aibox/ui';
+import { AibStatus, formatJalali } from '@aibox/ui';
 
 import { strings } from '@/constant';
 import ActionCell from './actions-cell';
 import { IApiDetails } from '@/services';
+import Link from 'next/link';
+import { API_PLATFORM_ROUTES } from '@/routes';
 
 const status: {
   [x: string]: {
@@ -48,12 +49,17 @@ const userColumns: ColumnDef<IApiDetails>[] = [
     header: strings.apiName,
     id: 'name',
     accessorFn: (row) => `${row.api.name}`,
-    cell: ({ getValue }) => {
+    cell: ({ getValue, row }) => {
       const apiName = getValue() as string;
       return (
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-full bg-neutral-200 border border-teal-600" />
-          <span>{apiName}</span>
+          <Link
+            href={`${API_PLATFORM_ROUTES.APIS}/${row.original.id}`}
+            className="text-teal-600 text-sm font-normal underline"
+          >
+            {apiName}
+          </Link>
         </div>
       );
     },
@@ -111,15 +117,10 @@ const userColumns: ColumnDef<IApiDetails>[] = [
     header: strings.status,
     cell: ({ row }) => {
       return (
-        <div className="flex items-center space-x-2">
-          <div
-            className={clsx(
-              'w-4 h-4 rounded-full',
-              `bg-${status[row.original.status].color}`
-            )}
-          />
-          <p className="text-zinc-700">{status[row.original.status].label}</p>
-        </div>
+        <AibStatus
+          label={status[row.original.status].label}
+          bgColor={`bg-${status[row.original.status].color} ml-2`}
+        />
       );
     },
     enableColumnFilter: true,

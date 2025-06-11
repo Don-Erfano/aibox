@@ -11,6 +11,7 @@ import { HOME_ROUTES } from '@/routes';
 import { zodSchema } from './constants';
 import { setCookie } from '@/utils/action';
 import { useLoginMutation } from '@/services/login';
+import { useGetUserProfile } from '@/services/user/user-profile/user-profile.hook';
 
 interface IForm {
   username: string;
@@ -20,6 +21,7 @@ interface IForm {
 const LoginPage: FC = () => {
   const { push } = useRouter();
   const { mutateAsync, isPending } = useLoginMutation();
+  const { mutateAsync: profileMutation } = useGetUserProfile();
   const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
     defaultValues: {
@@ -32,8 +34,16 @@ const LoginPage: FC = () => {
     try {
       const response = await mutateAsync(data);
       if (response.data.code === 'SUCCESS') {
-        setCookie('token', response.data.data.token.access_token);
-        push(HOME_ROUTES.DASHBOARD);
+        setCookie('refreshToken', response.data.data.token.refresh_token);
+        await setCookie('token', response.data.data.token.access_token);
+        const userProfileResponse = await profileMutation();
+        if (userProfileResponse.data.code === 'SUCCESS') {
+          localStorage.setItem(
+            'userInfo',
+            JSON.stringify(userProfileResponse.data.data)
+          );
+          push(HOME_ROUTES.DASHBOARD);
+        }
       }
     } catch (e) {
       console.error(e);
