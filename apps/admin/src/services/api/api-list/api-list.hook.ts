@@ -24,8 +24,13 @@ const useGetApiList = () => {
   } = useQuery<IGetApiListResponsePayload, Error, IApiDetails[]>({
     queryKey: ['apiList', allQueryParams],
     queryFn: async ({ queryKey }) => {
-      const { page, ...params } = queryKey[1] as IGetApiListRequestPayload;
-      const queryParams: IGetApiListRequestPayload = { page, ...params };
+      const { page, page_size, ...params } =
+        queryKey[1] as IGetApiListRequestPayload;
+      const queryParams: IGetApiListRequestPayload = {
+        page,
+        ...params,
+        page_size: page_size || 10,
+      };
       const response = await apiListService.getApiList(queryParams);
       return response.data.data;
     },

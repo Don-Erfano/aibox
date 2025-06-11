@@ -1,11 +1,9 @@
 'use client';
 
 import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+import { ApiList } from '@/components';
+
+const Page: NextPage = () => <ApiList />;
 
 export default Page;
