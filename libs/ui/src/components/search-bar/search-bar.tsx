@@ -61,7 +61,7 @@ export const SearchBar = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <AIBInput
-        className="rounded-lg h-10 border-gray-400 placeholder:text-gray-400"
+        className="rounded-md h-10 outline-gray-400 placeholder:text-gray-400"
         variant="sm"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
