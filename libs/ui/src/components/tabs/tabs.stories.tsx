@@ -37,8 +37,8 @@ export const Preview: Story = {
         content: <p>test4</p>,
         isDisabled: false,
       },
-      { name: 'تنظیمات', id: '5', content: '', isDisabled: false },
-      { name: 'توکن', id: '6', content: '', isDisabled: true },
+      { name: 'تنظیمات', id: '5', content: 'test', isDisabled: false },
+      { name: 'توکن', id: '6', content: 'test22', isDisabled: true },
     ],
   },
   decorators: [

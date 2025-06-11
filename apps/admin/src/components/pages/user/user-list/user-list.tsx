@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 
 import {
@@ -14,16 +16,17 @@ import { FabButton } from '@/components/fab-button';
 import userColumns from '@/components/pages/user/user-list/constant';
 
 const UserList: FC = () => {
-  const router = useRouter();
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
+
+  const router = useRouter();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
+      onEdit: (row) => router.push(`/dashboard/user-list/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });

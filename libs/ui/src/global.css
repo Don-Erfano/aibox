@@ -244,3 +244,26 @@
     animation: accordion-up 0.2s ease-out;
   }
 }
+
+.apexcharts-text.apexcharts-datalabel-label {
+  direction: ltr !important;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00897b50;
+  border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00897b95;
+}

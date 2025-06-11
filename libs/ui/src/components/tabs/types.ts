@@ -6,31 +6,35 @@ import {
   TabsContentProps,
 } from '@radix-ui/react-tabs';
 
-export interface Tab {
+interface TabType {
   name: string;
   id: string;
   content: React.ReactNode;
   isDisabled: boolean;
 }
 
-export interface TabProps {
-  tabs: Tab[];
+interface TabProps {
+  tabs: TabType[];
 }
 
-export type TabTitleProps = PropsWithChildren<{
+type TabTitleProps = PropsWithChildren<{
   disabled?: boolean;
 }>;
 
-export type TabsPropsWithoutClassName = Omit<TabsProps, 'className'>;
+type TabsPropsWithoutClassName = Omit<TabsProps, 'className'>;
 
-export type TabsTriggerPropsWithoutClassName = Omit<
-  TabsTriggerProps,
-  'className'
->;
+type TabsTriggerPropsWithoutClassName = Omit<TabsTriggerProps, 'className'>;
 
-export type TabsListPropsWithoutClassName = Omit<TabsListProps, 'className'>;
+type TabsListPropsWithoutClassName = Omit<TabsListProps, 'className'>;
 
-export type TabsContentPropsWithoutClassName = Omit<
-  TabsContentProps,
-  'className'
->;
+type TabsContentPropsWithoutClassName = Omit<TabsContentProps, 'className'>;
+
+export type {
+  TabType,
+  TabProps,
+  TabTitleProps,
+  TabsPropsWithoutClassName,
+  TabsTriggerPropsWithoutClassName,
+  TabsListPropsWithoutClassName,
+  TabsContentPropsWithoutClassName,
+};
