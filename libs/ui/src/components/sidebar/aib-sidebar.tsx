@@ -13,15 +13,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  useSidebar,
+} from '@aibox/ui';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  AiBoxIcon,
-  useSidebar,
-} from '@aibox/ui';
+} from '../collapsible';
+import { AiBoxIcon } from '../icons';
 
 import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
 import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
