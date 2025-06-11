@@ -1,6 +1,11 @@
 'use client';
 
-import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
+import {
+  DataTable,
+  DataTableSkeleton,
+  TableToolbar,
+  useDataTable,
+} from '@aibox/ui';
 import { useRouter } from 'next/navigation';
 import { FC, useMemo, useState } from 'react';
 
@@ -55,7 +60,8 @@ const FactorsTable: FC = () => {
     },
   });
 
-  if (isDepartmnetsPending || isUsersPending) return <p>Loading...</p>;
+  if (isDepartmnetsPending || isUsersPending)
+    return <DataTableSkeleton columnCount={10} />;
 
   return (
     <>

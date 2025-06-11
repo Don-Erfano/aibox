@@ -1,7 +1,7 @@
 import { SidebarData } from '@aibox/ui';
 import { DASHBOARD_BASE_ROUTE } from '@/routes/baseRoutes';
 import { routeNames } from '@/routes';
-import { AppWindowMac, BrainCircuit, Cpu, House } from 'lucide-react';
+import { AppWindowMac, BrainCircuit, Cpu, House ,ChartCandlestick} from 'lucide-react';
 
 export const sidebarData: SidebarData = [
   {
@@ -73,24 +73,20 @@ export const sidebarData: SidebarData = [
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'امور مالی',
+    icon: <ChartCandlestick height={20} width={20} />,
     items: [
       {
-        title: 'General',
+        title: 'تراکنش‌ها',
         url: '#',
       },
       {
-        title: 'Team',
-        url: '#',
+        title: 'فاکتورها',
+        url: '/dashboard/factors',
       },
       {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: 'کد دعوت',
+        url: '/dashboard/gift-code',
       },
     ],
   },
