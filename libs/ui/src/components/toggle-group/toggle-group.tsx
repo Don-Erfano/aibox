@@ -63,7 +63,9 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
 
         {items.map((item, index) => (
           <ToggleGroupItem
-            ref={(el) => (itemRefs.current[index] = el)}
+            ref={(el) => {
+              itemRefs.current[index] = el;
+            }}
             key={item.value}
             value={item.value}
             aria-label={`toggle ${item.value}`}

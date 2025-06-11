@@ -1,5 +1,5 @@
 import { Content } from '@radix-ui/react-tabs';
-import { TabsContentPropsWithoutClassName } from '../types';
+import type { TabsContentPropsWithoutClassName } from '../types';
 
 export const TabsContent: React.FC<TabsContentPropsWithoutClassName> = ({
   ...props

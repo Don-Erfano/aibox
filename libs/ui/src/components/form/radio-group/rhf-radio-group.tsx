@@ -22,6 +22,7 @@ export const RHFRadioGroup = <
   description,
   options,
   className,
+  disabled,
 }: RHFRadioGroupProps<TFieldValues, Name>) => {
   return (
     <FormField
@@ -37,6 +38,7 @@ export const RHFRadioGroup = <
               className={className}
               onValueChange={field.onChange}
               value={field.value as string}
+              disabled={disabled}
             >
               {options.map(({ id, label: optionLabel }) => (
                 <FormItem
@@ -44,9 +46,12 @@ export const RHFRadioGroup = <
                   className="flex items-center space-x-3 space-y-0"
                 >
                   <FormControl>
-                    <RadioGroupItem value={id} id={id} />
+                    <RadioGroupItem value={id} id={id} disabled={disabled} />
                   </FormControl>
-                  <FormLabel className="font-normal" htmlFor={id}>
+                  <FormLabel
+                    className="font-normal text-sm leading-6 text-zinc-600"
+                    htmlFor={id}
+                  >
                     {optionLabel}
                   </FormLabel>
                 </FormItem>

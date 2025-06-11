@@ -245,23 +245,25 @@
   }
 }
 
-@layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
+.apexcharts-text.apexcharts-datalabel-label {
+  direction: ltr !important;
+}
 
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    background: transparent;
-  }
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
 
-  .scrollbar::-webkit-scrollbar-thumb {
-    background: #00897b50;
-    border-radius: 100vh;
-  }
+::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  background: transparent;
+}
 
-  .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #00897b95;
-  }
+::-webkit-scrollbar-thumb {
+  background: #00897b50;
+  border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00897b95;
 }
