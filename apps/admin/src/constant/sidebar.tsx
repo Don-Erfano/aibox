@@ -1,250 +1,195 @@
 import { SidebarData } from '@aibox/ui';
-import { DASHBOARD_BASE_ROUTE } from '@/routes/baseRoutes';
-import { routeNames } from '@/routes';
-import { AppWindowMac, BrainCircuit, Cpu, House } from 'lucide-react';
+import {
+  AI_SERVICES_ROUTES,
+  API_PLATFORM_ROUTES,
+  FINANCE_ROUTES,
+  GPU_ROUTES,
+  HOME_ROUTES,
+  MARKETING_ROUTES,
+  MESSAGES_ROUTES,
+  routeNames,
+  SUPPORT_ROUTES,
+  USERS_ROUTES,
+} from '@/routes';
+import {
+  Cpu,
+  Headset,
+  House,
+  Landmark,
+  Mail,
+  Megaphone,
+  Microchip,
+  UserRound,
+  Webhook,
+} from 'lucide-react';
 
 export const sidebarData: SidebarData = [
   {
-    title: routeNames[DASHBOARD_BASE_ROUTE],
-    url: DASHBOARD_BASE_ROUTE,
+    title: routeNames[HOME_ROUTES.DASHBOARD],
+    url: HOME_ROUTES.DASHBOARD,
     icon: <House height={20} width={20} />,
-    isActive: true,
   },
   {
     title: 'رایانش گرافیکی',
+    icon: <Microchip height={20} width={20} />,
+    items: [
+      {
+        title: routeNames[GPU_ROUTES.GPUS],
+        url: GPU_ROUTES.GPUS,
+      },
+      {
+        title: routeNames[GPU_ROUTES.DISKS],
+        url: GPU_ROUTES.DISKS,
+      },
+      {
+        title: routeNames[GPU_ROUTES.CONFIGURATION],
+        url: GPU_ROUTES.CONFIGURATION,
+      },
+      {
+        title: routeNames[GPU_ROUTES.MOTHERBOARDS],
+        url: GPU_ROUTES.MOTHERBOARDS,
+      },
+      {
+        title: routeNames[GPU_ROUTES.SERVERS],
+        url: GPU_ROUTES.SERVERS,
+      },
+      {
+        title: routeNames[GPU_ROUTES.SOURCE],
+        url: GPU_ROUTES.SOURCE,
+      },
+      {
+        title: routeNames[GPU_ROUTES.LOGS],
+        url: GPU_ROUTES.LOGS,
+      },
+    ],
+  },
+  {
+    title: 'سرویس‌های AI',
     icon: <Cpu height={20} width={20} />,
     items: [
       {
-        title: 'Genesis',
-        url: '#',
+        title: routeNames[AI_SERVICES_ROUTES.COLLECTION],
+        url: AI_SERVICES_ROUTES.COLLECTION,
       },
       {
-        title: 'Explorer',
-        url: '#',
+        title: routeNames[AI_SERVICES_ROUTES.CATEGORIES],
+        url: AI_SERVICES_ROUTES.CATEGORIES,
       },
       {
-        title: 'Quantum',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'سرویس‌های Ai',
-    icon: <BrainCircuit height={20} width={20} />,
-    items: [
-      {
-        title: 'Introduction',
-        url: '#',
+        title: routeNames[AI_SERVICES_ROUTES.SERVERS],
+        url: AI_SERVICES_ROUTES.SERVERS,
       },
       {
-        title: 'Get Started',
-        url: '#',
+        title: routeNames[AI_SERVICES_ROUTES.API_PARK],
+        url: AI_SERVICES_ROUTES.API_PARK,
       },
       {
-        title: 'Tutorials',
-        url: '#',
-      },
-      {
-        title: 'Changelog',
-        url: '#',
+        title: routeNames[AI_SERVICES_ROUTES.LOGS],
+        url: AI_SERVICES_ROUTES.LOGS,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'پلتفرم ارائه API',
+    icon: <Webhook height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
+        title: routeNames[API_PLATFORM_ROUTES.APIS],
+        url: API_PLATFORM_ROUTES.APIS,
       },
       {
-        title: 'Team',
-        url: '#',
+        title: routeNames[API_PLATFORM_ROUTES.SERVERS],
+        url: API_PLATFORM_ROUTES.SERVERS,
       },
       {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[API_PLATFORM_ROUTES.LOGS],
+        url: API_PLATFORM_ROUTES.LOGS,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'امور مالی',
+    icon: <Landmark height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
+        title: routeNames[FINANCE_ROUTES.TRANSACTIONS],
+        url: FINANCE_ROUTES.TRANSACTIONS,
       },
       {
-        title: 'Team',
-        url: '#',
+        title: routeNames[FINANCE_ROUTES.FACTORS],
+        url: FINANCE_ROUTES.FACTORS,
       },
       {
-        title: 'Billing',
-        url: '#',
+        title: routeNames[FINANCE_ROUTES.INVITATION_CODE],
+        url: FINANCE_ROUTES.INVITATION_CODE,
       },
       {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[FINANCE_ROUTES.GIFT_CODE],
+        url: FINANCE_ROUTES.GIFT_CODE,
+      },
+      {
+        title: routeNames[FINANCE_ROUTES.BANKS],
+        url: FINANCE_ROUTES.BANKS,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'پشتیبانی',
+    icon: <Headset height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
+        title: routeNames[SUPPORT_ROUTES.TICKETING],
+        url: SUPPORT_ROUTES.TICKETING,
       },
       {
-        title: 'Team',
-        url: '#',
+        title: routeNames[SUPPORT_ROUTES.FAQ],
+        url: SUPPORT_ROUTES.FAQ,
       },
       {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[SUPPORT_ROUTES.TERMS_AND_POLICIES],
+        url: SUPPORT_ROUTES.TERMS_AND_POLICIES,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'مارکتینگ',
+    icon: <Megaphone height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
-      },
-      {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[MARKETING_ROUTES.CAMPAIGN],
+        url: MARKETING_ROUTES.CAMPAIGN,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'کاربران',
+    icon: <UserRound height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
+        title: routeNames[USERS_ROUTES.LIST],
+        url: USERS_ROUTES.LIST,
       },
       {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[USERS_ROUTES.TOKENS],
+        url: USERS_ROUTES.TOKENS,
       },
     ],
   },
   {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
+    title: 'پیام‌ها',
+    icon: <Mail height={20} width={20} />,
     items: [
       {
-        title: 'General',
-        url: '#',
+        title: routeNames[MESSAGES_ROUTES.EMAIL],
+        url: MESSAGES_ROUTES.EMAIL,
       },
       {
-        title: 'Team',
-        url: '#',
+        title: routeNames[MESSAGES_ROUTES.SMS],
+        url: MESSAGES_ROUTES.SMS,
       },
       {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
-    items: [
-      {
-        title: 'General',
-        url: '#',
-      },
-      {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
-    items: [
-      {
-        title: 'General',
-        url: '#',
-      },
-      {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'API پلتفرم ارائه',
-    icon: <AppWindowMac height={20} width={20} />,
-    items: [
-      {
-        title: 'General',
-        url: '#',
-      },
-      {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: routeNames[MESSAGES_ROUTES.NOTIFICAITONS],
+        url: MESSAGES_ROUTES.NOTIFICAITONS,
       },
     ],
   },

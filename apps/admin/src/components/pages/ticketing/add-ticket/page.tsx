@@ -14,6 +14,7 @@ import { defaultValues, ticketSchema, TicketSchemaType } from './schema';
 import { PRIORITY_LABELS, PriorityValue } from './constant';
 import { IAnswerAdmin } from '@/services/ticketing/ticketing-list/interface';
 import { TicketingString } from '@/components/pages/ticketing/ticketing-list/string';
+import { SUPPORT_ROUTES } from '@/routes';
 
 const AddTicketPage: FC = () => {
   const router = useRouter();
@@ -88,14 +89,14 @@ const AddTicketPage: FC = () => {
         answers: answers.length ? answers : null,
       },
       {
-        onSuccess: () => router.push('/dashboard/ticketing'),
+        onSuccess: () => router.push(SUPPORT_ROUTES.TICKETING),
       }
     );
   };
 
   const handleCancel = () => {
     reset();
-    router.push('/dashboard/ticketing');
+    router.push(SUPPORT_ROUTES.TICKETING);
   };
 
   return (
