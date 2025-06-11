@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react';
 import { ECalendarState, IDatePicker } from './types';
 import MonthAndYear from './components/MonthAndYear/MonthAndYear';
 import { DatePickerContext } from './providers/DatePickerProvider';
-import { Days, Header, Input, WeekDays } from './components';
+import { Days, Header, WeekDays } from './components';
 import { jalaliToDateTime } from './helpers/convertors';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
 
@@ -34,9 +34,9 @@ const CustomDatePicker: FC<IDatePicker> = ({ onChange, value, label }) => {
     setCalendarState(ECalendarState.DAY);
   }, [show === true]);
 
-  const clearAction = () => {
-    SetDatePickerValue('');
-  };
+  // const clearAction = () => {
+  //   SetDatePickerValue('');
+  // };
 
   const toggleShow = () => {
     setShow(!show);

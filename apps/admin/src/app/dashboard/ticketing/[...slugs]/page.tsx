@@ -1,3 +1,5 @@
+'use client';
+
 import { NextPage } from 'next';
 import { AddTicketPage } from '@/components/pages/ticketing';
 

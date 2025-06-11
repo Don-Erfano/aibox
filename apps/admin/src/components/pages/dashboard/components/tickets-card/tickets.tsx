@@ -7,7 +7,6 @@ import { Card } from '@/components/cards';
 
 const TicketCard: FC = () => {
   const { data, error } = useGetTicketsCount();
-  console.log(data);
   if (error) {
     return <CardError />;
   }

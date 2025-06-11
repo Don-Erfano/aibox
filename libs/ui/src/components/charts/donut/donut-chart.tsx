@@ -1,7 +1,10 @@
+'use client';
+
 import { FC } from 'react';
-import { IDonutChartProps } from './interface';
+import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
-import * as Chart from 'react-apexcharts';
+import { IDonutChartProps } from './interface';
+
 /**
  * DonutChart component that visualizes data in a donut chart format
  *
@@ -33,6 +36,7 @@ const DonutChart: FC<IDonutChartProps> = ({
   loading,
   colors,
 }) => {
+  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const chartOptions: ApexOptions = {
     chart: {
       type: 'donut' as ApexChart['type'],
@@ -103,7 +107,7 @@ const DonutChart: FC<IDonutChartProps> = ({
         className="relative mx-auto flex w-full max-w-md items-center
           justify-center"
       >
-        <Chart.default
+        <Chart
           options={chartOptions}
           series={series}
           type="donut"
