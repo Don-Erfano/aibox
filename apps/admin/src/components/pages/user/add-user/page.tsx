@@ -9,6 +9,7 @@ import { userSchema, defaultValues, UserSchemaType } from './schema';
 import { useAddUser } from '@/services/user/user-lists';
 import { useRouter } from 'next/navigation';
 import { UserStrings } from '@/components/pages/user/user-list/string';
+import { USERS_ROUTES } from '@/routes';
 
 const AddUserPage: FC = () => {
   const router = useRouter();
@@ -27,14 +28,14 @@ const AddUserPage: FC = () => {
       },
       {
         onSuccess: () => {
-          router.push('/dashboard/user-list');
+          router.push(USERS_ROUTES.LIST);
         },
       }
     );
   };
   const handleCancel = () => {
     form.reset();
-    router.push('/dashboard/user-list');
+    router.push(USERS_ROUTES.LIST);
   };
 
   return (

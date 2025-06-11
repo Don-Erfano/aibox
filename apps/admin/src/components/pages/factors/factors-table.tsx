@@ -14,6 +14,7 @@ import { DeleteFactorModal } from './delete-factor-modal';
 import { FactorTableChild } from './factor-table-child';
 import { DeleteModal } from './interface';
 import { factorStrings } from './strings';
+import { FINANCE_ROUTES } from '@/routes';
 
 const FactorsTable: FC = () => {
   const router = useRouter();
@@ -75,7 +76,7 @@ const FactorsTable: FC = () => {
         totalItems={totalItems}
       />
       <DataTable table={table} childComponent={FactorTableChild} />
-      <FabButton onClick={() => router.push('/dashboard/factors/add')} />
+      <FabButton onClick={() => router.push(FINANCE_ROUTES.ADD_FACTORS)} />
     </>
   );
 };
