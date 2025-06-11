@@ -1,11 +1,13 @@
 'use client';
 import { FC } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { routeNames } from '@/routes';
 import { AiBoxIcon, MenuIcon, ProfileBox, useSidebar } from '@aibox/ui';
 
 const Header: FC = () => {
-  const title = routeNames[window.location.pathname];
+  const pathName = usePathname();
+  const title = routeNames[pathName] || '';
   const { toggleSidebar } = useSidebar();
 
   const onMenuHandler = () => {

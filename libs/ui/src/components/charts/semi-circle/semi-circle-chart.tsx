@@ -1,6 +1,8 @@
+'use client';
+
 import { FC } from 'react';
+import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
-import * as Chart from 'react-apexcharts';
 
 import type { ISemiCircleProps } from './interface';
 /**
@@ -23,6 +25,7 @@ import type { ISemiCircleProps } from './interface';
  */
 
 const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label, isLoading }) => {
+  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const options: ApexOptions = {
     chart: {
       type: 'radialBar',
@@ -61,7 +64,7 @@ const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label, isLoading }) => {
       <div className="bg-gray-100 animate-pulse w-[100px] h-[100px] mx-auto rounded-full" />
     );
   return (
-    <Chart.default
+    <Chart
       options={options}
       series={[Math.abs(data)]}
       type="radialBar"
