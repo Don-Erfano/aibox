@@ -29,6 +29,7 @@ export * from './components/collapsible';
 export * from './components/tooltip';
 export * from './components/form/autocomplete/custom-autocomplete';
 export * from './components/form/select';
+export * from './components/charts';
 export * from './helper/time-formatter';
 export * from './components/form/uploader/aib-image-uploader';
 export * from './components/form/uploader/rhf-uploader';

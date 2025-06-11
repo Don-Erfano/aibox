@@ -46,7 +46,8 @@ export const TableToolbar = <TData,>(props: TableToolbarProps<TData>) => {
   const [openFilterModal, setOpenFilterModal] = useState(false);
 
   const [search, setSearch] = useState('');
-  const [searchParam, setSearchParam] = useQueryState('search', {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_searchParam, setSearchParam] = useQueryState('search', {
     defaultValue: '',
     clearOnDefault: true,
   });

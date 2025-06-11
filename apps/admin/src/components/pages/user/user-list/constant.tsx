@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
+import Link from 'next/link';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -24,9 +25,11 @@ const userColumns: ColumnDef<IUser>[] = [
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
           />
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-            {fullName}
-          </span>
+          <Link href={`/dashboard/user-list/${row.original.id}`}>
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap text-teal-600">
+              {fullName}
+            </span>
+          </Link>
         </div>
       );
     },

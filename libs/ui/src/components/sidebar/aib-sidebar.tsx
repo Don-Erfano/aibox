@@ -14,7 +14,10 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   useSidebar,
-} from '@aibox/ui';
+} from './sidebar';
+
+import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
+import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
 import {
   Collapsible,
@@ -22,9 +25,6 @@ import {
   CollapsibleTrigger,
 } from '../collapsible';
 import { AiBoxIcon } from '../icons';
-
-import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
-import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
 
 export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
   const { state, isMobile, toggleSidebar } = useSidebar();
