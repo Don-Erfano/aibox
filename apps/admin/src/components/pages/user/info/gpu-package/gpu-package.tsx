@@ -15,7 +15,7 @@ const GpuPackage: FC<{ id: string }> = ({ id }) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="px-4 py-6 border border-teal-600/70 rounded-xl flex flex-col gap-5">
+      <div className="px-4 py-6 border border-gray-200 rounded-xl flex flex-col gap-5">
         <p className="font-semibold text-xl text-teal-600 leading-8">
           پلن {data?.data.data.plan.name} - {data?.data.data.payment_type} -
           {data?.data.data.gpu_motherboard.gpu.name}
