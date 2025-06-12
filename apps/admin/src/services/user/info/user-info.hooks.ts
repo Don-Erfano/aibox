@@ -54,7 +54,6 @@ export const useGetUserApiPackage = (id: string) => {
         ...params,
         page_size: page_size || 10,
       };
-      console.log(queryParams);
       const response = await userInfoServices.getUserApiPackages(
         id,
         queryParams
@@ -65,3 +64,15 @@ export const useGetUserApiPackage = (id: string) => {
   });
   return query;
 };
+
+export const useGetUserGpuPackage = (id: string) =>
+  useQuery({
+    queryFn: async () => await userInfoServices.getUserGpuPackages(id),
+    queryKey: ['useGetUserGpuPackage'],
+  });
+
+export const useGetUserGpuPackageInfo = (id: string) =>
+  useQuery({
+    queryFn: async () => await userInfoServices.getUserGpuPackageInfo(id),
+    queryKey: ['useGetUserGpuPackageInfo'],
+  });

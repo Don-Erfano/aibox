@@ -1,13 +1,18 @@
+import { useGetUserGpuPackage, useGetUserGpuPackageInfo } from '@/services';
 import { SemiCircleChart } from '@aibox/ui';
 import { Timer } from 'lucide-react';
 import { FC } from 'react';
 
-const GpuPackage: FC = () => {
+const GpuPackage: FC<{ id: string }> = ({ id }) => {
+  const { data } = useGetUserGpuPackage(id);
+  const { data: usageData } = useGetUserGpuPackageInfo(id);
+  console.log(usageData);
   return (
     <div className="flex flex-col gap-6">
       <div className="px-4 py-6 border border-teal-600/70 rounded-xl flex flex-col gap-10">
         <p className="font-semibold text-xl text-teal-600">
-          پلن پیشرفته - ماهانه - GeForce RTX 3080
+          پلن {data?.data.data.plan.name} - {data?.data.data.payment_type} -
+          {data?.data.data.gpu_motherboard.gpu.name}
         </p>
         <hr className="border-2 border-teal-600 rounded-full" />
         <div
@@ -15,32 +20,34 @@ const GpuPackage: FC = () => {
           dir="rtl"
         >
           <p className="order-5 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            Disc Storage: 200GB
+            Disc Storage: {data?.data.data.disk.capacity} GB
           </p>
           <p className="order-4 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            CUDA Cores: 8960
+            CUDA Cores: {data?.data.data.gpu_motherboard.gpu.cuda_cores}
           </p>
           <p className="order-3 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            Ram per GPU: 12GB
+            Ram per GPU: {data?.data.data.gpu_motherboard.gpu.ram} GB
           </p>
           <p className="order-2 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            CPU Cores: 16/48 Cores
+            CPU Cores: {data?.data.data.gpu_motherboard.motherboard.cpu_cores}
           </p>
           <p className="order-1 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            Reliability: 99%
+            Reliability: {data?.data.data.gpu_motherboard.gpu.reliability}
           </p>
           <p className="order-6 hidden xl:block" />
           <p className="order-7 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            IDE: jupyter notebook, vscode
+            IDE: {data?.data.data.plan.ide}
           </p>
-          <p className="order-8 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            libraries: pytorch, tensorflow
+          <p className="order-8 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2 truncate">
+            ...libraries:
+            {data?.data.data.plan.libraries.split(', ').slice(0, 2).join(', ')}
           </p>
           <p className="order-9 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            Utilities: SSH
+            Utilities: {data?.data.data.plan.utilities}
           </p>
           <p className="order-10 text-sm text-gray-800 after:content-[''] after:size-2 after:bg-teal-600 after:block after:rounded-full flex items-center gap-2">
-            Max Continuous Usage Hours: 5
+            Max Continuous Usage Hours:{' '}
+            {data?.data.data.plan.max_continuous_usage_hours}
           </p>
         </div>
       </div>

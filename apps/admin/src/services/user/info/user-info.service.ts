@@ -4,6 +4,7 @@ import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import type {
   IGetUserApiPackageRequestPayload,
   IGetUserApiPackageResponsePayload,
+  IGetUserGpuPckageResponsePayload,
   IGetUserInfoRequestPayload,
   IGetUserInfoResponsePayload,
   IUpdateUserInfoRequest,
@@ -48,6 +49,27 @@ export default class UserInfoServices extends AbstractAPI {
       method: 'GET',
       url: `v2/admin/api_package/user/?user=${id}`,
       params,
+    });
+  }
+  public async getUserGpuPackages(
+    id: string
+  ): Promise<
+    AxiosResponse<INetworkResponse<IGetUserGpuPckageResponsePayload>>
+  > {
+    return await this.http.request({
+      method: 'GET',
+      url: `v1/admin/resource_package/user_package_info/${id}/`,
+    });
+  }
+
+  public async getUserGpuPackageInfo(
+    id: string
+  ): Promise<
+    AxiosResponse<INetworkResponse<IGetUserGpuPckageResponsePayload>>
+  > {
+    return await this.http.request({
+      method: 'GET',
+      url: `v1/admin/resource_management/servers_statistic/${id}/`,
     });
   }
 }

@@ -26,7 +26,7 @@ const UserInfo: FC<{ id: string }> = ({ id }) => {
     {
       name: 'بسته‌های GPU',
       id: 'gpu-packages',
-      content: <GpuPackage />,
+      content: <GpuPackage id={id} />,
       isDisabled: false,
     },
     {
