@@ -5,7 +5,7 @@ import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Row } from '@tanstack/react-table';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CircleCheckBig, CircleOff, CircleX, Settings } from 'lucide-react';
+import { Ban, CircleCheckBig, CircleX, Settings } from 'lucide-react';
 
 import {
   IApiDetails,
@@ -230,7 +230,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
             tooltip={strings.approveApi}
             onClick={() => setShowModal('accept')}
           >
-            <CircleCheckBig className="scale-150" />
+            <CircleCheckBig className="scale-[140%]" strokeWidth={1.5} />
           </Button>
         )}
         {(original.status === '' || original.status === 'WAITING') && (
@@ -240,7 +240,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
             tooltip={strings.rejectAPI}
             onClick={() => setShowModal('reject')}
           >
-            <CircleX className="scale-150" />
+            <CircleX className="scale-[140%]" strokeWidth={1.5} />
           </Button>
         )}
         {original.status === 'PROXY_ERROR' && (
@@ -250,7 +250,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
             tooltip={strings.reportResloveError}
             onClick={() => setShowModal('error')}
           >
-            <Settings className="scale-150" />
+            <Settings className="scale-[140%]" strokeWidth={1.5} />
           </Button>
         )}
         {(original.status === 'ACCEPTED' ||
@@ -262,7 +262,7 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
             tooltip={strings.deprecateAPI}
             onClick={() => setShowModal('deprecate')}
           >
-            <CircleOff className="scale-150" />
+            <Ban className="scale-[140%]" strokeWidth={1.5} />
           </Button>
         )}
       </div>

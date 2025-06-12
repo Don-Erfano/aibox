@@ -44,7 +44,7 @@ const status: {
   },
 };
 
-const userColumns: ColumnDef<IApiDetails>[] = [
+const ApisColumn: ColumnDef<IApiDetails>[] = [
   {
     header: strings.apiName,
     id: 'name',
@@ -119,7 +119,7 @@ const userColumns: ColumnDef<IApiDetails>[] = [
       return (
         <AibStatus
           label={status[row.original.status].label}
-          bgColor={`bg-${status[row.original.status].color} ml-2`}
+          bgColor={`bg-${status[row.original.status].color}`}
         />
       );
     },
@@ -158,4 +158,4 @@ const userColumns: ColumnDef<IApiDetails>[] = [
     maxSize: 110,
   },
 ];
-export default userColumns;
+export { ApisColumn };

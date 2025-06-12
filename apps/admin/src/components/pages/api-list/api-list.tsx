@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 
 import { strings } from '@/constant';
-import userColumns from './constants';
+import { ApisColumn } from './constants';
 import { useGetApiList } from '@/services';
 
 const ApiList: FC = () => {
@@ -13,7 +13,7 @@ const ApiList: FC = () => {
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: apis,
-    columns: userColumns,
+    columns: ApisColumn,
     pageCount: totalPages,
   });
 
