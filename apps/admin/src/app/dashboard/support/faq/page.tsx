@@ -1,11 +1,5 @@
-'use client';
-
 import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
+import { FaqPage } from '@/components/pages/support/faq';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
-
-export default Page;
+const Faq: NextPage = () => <FaqPage />;
+export default Faq;
