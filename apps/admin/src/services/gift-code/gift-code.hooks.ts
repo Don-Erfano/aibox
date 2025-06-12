@@ -28,7 +28,6 @@ export const useGetAllGiftCodes = () => {
       const queryParams: GetGiftCodesParams = { page: page, ...params };
 
       const response = await giftCodeServices.getAllGiftCodes(queryParams);
-      console.log(response.data.data);
       return response.data.data;
     },
     select: (payload) => {
