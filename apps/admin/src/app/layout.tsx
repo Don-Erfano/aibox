@@ -1,7 +1,6 @@
 import './global.css';
 import { ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
-import { Notifications } from '@/components/notification/Notifications';
 import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
 
 export default async function RootLayout({
@@ -17,7 +16,6 @@ export default async function RootLayout({
       <body>
         <QueryProvider dehydratedState={dehydratedState}>
           {children}
-          <Notifications />
         </QueryProvider>
       </body>
     </html>

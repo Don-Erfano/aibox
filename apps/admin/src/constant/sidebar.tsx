@@ -119,17 +119,10 @@ export const sidebarData: SidebarData = [
         title: routeNames[FINANCE_ROUTES.FACTORS],
         url: FINANCE_ROUTES.FACTORS,
       },
-      {
-        title: routeNames[FINANCE_ROUTES.INVITATION_CODE],
-        url: FINANCE_ROUTES.INVITATION_CODE,
-      },
+
       {
         title: routeNames[FINANCE_ROUTES.GIFT_CODE],
         url: FINANCE_ROUTES.GIFT_CODE,
-      },
-      {
-        title: routeNames[FINANCE_ROUTES.BANKS],
-        url: FINANCE_ROUTES.BANKS,
       },
     ],
   },

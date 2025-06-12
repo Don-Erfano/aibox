@@ -4,17 +4,9 @@ import { useState } from 'react';
 import { SearchBar } from './search-bar';
 
 const SearchBarPreview = () => {
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
 
-  return (
-    <SearchBar
-      value={value}
-      onValueChange={setValue}
-      open={open}
-      toggleOpen={setOpen}
-    />
-  );
+  return <SearchBar value={value} onValueChange={setValue} loading={false} />;
 };
 
 const meta: Meta<typeof SearchBar> = {

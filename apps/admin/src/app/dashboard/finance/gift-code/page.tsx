@@ -1,11 +1,9 @@
 'use client';
 
 import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+import { GiftCodeTable } from '@/components/pages/gift-code';
 
-export default Page;
+const GiftCodePage: NextPage = () => <GiftCodeTable />;
+
+export default GiftCodePage;

@@ -57,9 +57,9 @@ export function handleMutationError(error: unknown) {
       );
     }
     // b) if it has a single "description" or "message" field
-    else if (data?.description || data?.message) {
+    else if (data?.error || data?.message) {
       toShow.push({
-        message: String(data.description ?? data.message),
+        message: String(data.error ?? data.message),
         type: 'error',
       });
     }

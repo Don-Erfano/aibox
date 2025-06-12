@@ -1,3 +1,5 @@
+'use client';
+
 import { useQueryState } from 'nuqs';
 import type { TabProps } from './types';
 import {
