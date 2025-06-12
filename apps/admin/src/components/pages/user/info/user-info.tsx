@@ -2,6 +2,8 @@ import { useGetUserInfo } from '@/services/user/info';
 import { TabType, Tab } from '@aibox/ui';
 import { FC } from 'react';
 import { UserSetting } from './user-setting';
+import { GpuPackage } from './gpu-package';
+import { ApiPackage } from './api-package';
 import UserInfoTab from '../../user-list/user-info-tab/user-info-tab';
 import UserTransactionPage from '../user-transaction/user-transaction';
 
@@ -18,13 +20,13 @@ const UserInfo: FC<{ id: string }> = ({ id }) => {
     {
       name: 'بسته‌های API',
       id: 'api-packages',
-      content: <p>api-packages</p>,
+      content: <ApiPackage id={id} />,
       isDisabled: false,
     },
     {
       name: 'بسته‌های GPU',
       id: 'gpu-packages',
-      content: <p>gpu-packages</p>,
+      content: <GpuPackage id={id} />,
       isDisabled: false,
     },
     {
