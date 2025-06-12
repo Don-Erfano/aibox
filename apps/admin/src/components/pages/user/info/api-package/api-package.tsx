@@ -14,6 +14,7 @@ const ApiPackage: FC<{ id: string }> = ({ id }) => {
     columns: USERAPIPACKAGES,
     pageCount: data?.data.data.page_count || 0,
   });
+  if (!data || isFetching || isLoading) return <p>Loading...</p>;
   return (
     <>
       <TableToolbar

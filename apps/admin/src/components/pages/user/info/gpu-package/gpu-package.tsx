@@ -4,9 +4,12 @@ import { Timer } from 'lucide-react';
 import { FC } from 'react';
 
 const GpuPackage: FC<{ id: string }> = ({ id }) => {
-  const { data } = useGetUserGpuPackage(id);
+  const { data, isLoading, isFetching } = useGetUserGpuPackage(id);
   const { data: usageData } = useGetUserGpuPackageInfo(id);
   console.log(usageData);
+
+  if (!data || isFetching || isLoading) return <p>Loading...</p>;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="px-4 py-6 border border-teal-600/70 rounded-xl flex flex-col gap-10">
