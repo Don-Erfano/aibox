@@ -16,7 +16,7 @@ import { userInfoStrings } from './strings';
 const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
   const [editMode, setEditMode] = useState(false);
 
-  const { data: user } = useGetUser(userId);
+  const { data: userInfo } = useGetUser(userId);
 
   const form = useForm<UserInfoForm>({
     mode: 'onChange',
@@ -40,6 +40,8 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
     );
   };
 
+  const user = userInfo?.data.data;
+
   useEffect(() => {
     form.reset({
       email: user?.email,
@@ -48,7 +50,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
       gender: user?.gender,
       is_active: user?.is_active + '',
       nickname: user?.nickname,
-      phone_number: user?.phone_number,
+      phone_number: user?.phone_number ? `0${user.phone_number}` : '',
     });
   }, [form, user]);
 

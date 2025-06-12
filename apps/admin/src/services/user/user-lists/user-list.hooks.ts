@@ -74,10 +74,6 @@ export const useGetUser = (userId: string) =>
   useQuery({
     queryKey: ['user', userId],
     queryFn: () => userListsServices.getUser(userId),
-    select: ({ data }) => ({
-      ...data?.data,
-      phone_number: `0${data?.data.phone_number}`,
-    }),
   });
 
 export const usePostActivateEmail = () =>

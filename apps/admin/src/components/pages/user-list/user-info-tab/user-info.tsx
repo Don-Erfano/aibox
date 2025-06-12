@@ -67,7 +67,9 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           })}
         >
           <Phone size="20" />
-          {user.phone_number || userInfoStrings.notRegistered}
+          {user.phone_number
+            ? `0${user.phone_number}`
+            : userInfoStrings.notRegistered}
         </div>
       </div>
       <div className="px-6 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-sm/6 font-normal text-teal-700">
