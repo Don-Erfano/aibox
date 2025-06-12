@@ -14,88 +14,111 @@ import {
 import { Transaction } from '@/services/transactions/transaction/interface';
 import { ReactNode } from 'react';
 
-const StatusIconMap: Record<string, ReactNode> = {
-  'در حال اقدام': <PendingIcon />,
-  ناموفق: <FailedIcon />,
-  'لغو شده': <ErrorIcon />,
-  موفق: <SuccessIcon className="rotate-180" />,
+const kindMap: Record<string, { label: string; icon: ReactNode }> = {
+  withdraw: { label: 'برداشت اعتبار', icon: <WithdrawIcon /> },
+  deposit: { label: 'افزایش اعتبار', icon: <DepositIcon /> },
 };
-const TransactionIconMap: Record<string, ReactNode> = {
-  'برداشت اعتبار': <WithdrawIcon />,
-  'افزایش اعتبار': <DepositIcon />,
+
+const titleMap: Record<string, { label: string }> = {
+  deposit: { label: 'افزایش اعتبار' },
+  withdraw: { label: 'برداشت اعتبار' },
+  api_buy: { label: 'خرید API' },
+  api_sale: { label: 'فروش API' },
+  compute: { label: 'محاسبه' },
+  wage: { label: 'دستمزد' },
+  package: { label: 'پکیج' },
+  gift_code: { label: 'کد هدیه' },
+  factor: { label: 'فاکتور' },
 };
+
+const statusMap: Record<string, { label: string; icon: ReactNode }> = {
+  in_progress: { label: 'در حال اقدام', icon: <PendingIcon /> },
+  fail: { label: 'ناموفق', icon: <FailedIcon /> },
+  cancel: { label: 'لغو شده', icon: <ErrorIcon /> },
+  done: { label: 'موفق', icon: <SuccessIcon className="rotate-180" /> },
+};
+
 const transactionColumns: ColumnDef<Transaction>[] = [
   {
     header: 'نوع تراکنش',
     accessorKey: 'kind',
     id: 'kind',
-    cell: ({ getValue }) => {
-      const label = getValue() as string;
-      const icon = TransactionIconMap[label];
-
-      return <AibStatus label={label} icon={icon} sizeClass="w-5 h-5" />;
-    },
-    maxSize: 120,
     meta: { label: 'نوع تراکنش', variant: 'select' },
     enableColumnFilter: true,
     enableSorting: false,
+    maxSize: 120,
+    cell: ({ getValue }) => {
+      const key = getValue() as string;
+      const { label, icon } = kindMap[key] || { label: key, icon: null };
+      return <AibStatus label={label} icon={icon} sizeClass="w-5 h-5" />;
+    },
   },
   {
     header: 'عنوان',
     accessorKey: 'title',
     id: 'title',
-    maxSize: 120,
     meta: { label: 'عنوان', variant: 'select' },
     enableColumnFilter: true,
     enableSorting: false,
+    maxSize: 120,
+    cell: ({ getValue }) => {
+      const key = getValue() as string;
+      const { label } = titleMap[key] || { label: key };
+      return <AibStatus label={label} />;
+    },
   },
   {
     header: 'زمان',
     accessorKey: 'date',
     id: 'date',
-    cell: ({ getValue }) => formatJalali(getValue() as string),
-    maxSize: 160,
     meta: { label: 'زمان', variant: 'date' },
     enableColumnFilter: true,
+    maxSize: 160,
+    cell: ({ getValue }) => formatJalali(getValue() as string),
   },
   {
     header: 'مبلغ (تومان)',
     accessorKey: 'amount',
     id: 'amount',
+    meta: { label: 'مبلغ', variant: 'text' },
+    enableColumnFilter: true,
+    enableSorting: false,
     maxSize: 100,
     cell: ({ getValue }) => {
       const amount = getValue() as number;
       return Math.abs(amount).toLocaleString();
     },
-    enableColumnFilter: true,
-    meta: { label: 'مبلغ', variant: 'text' },
   },
   {
     header: 'وضعیت',
     accessorKey: 'status',
     id: 'status',
-    maxSize: 60,
-    cell: ({ getValue, row }) => {
-      console.log(row);
-      const label = getValue() as string;
-      const icon = StatusIconMap[label];
-
-      return <AibStatus label={label} icon={icon} sizeClass="w-5 h-5" />;
-    },
     meta: { label: 'وضعیت', variant: 'select' },
     enableColumnFilter: true,
     enableSorting: false,
+    maxSize: 60,
+    cell: ({ getValue }) => {
+      const key = getValue() as string;
+      const { label, icon } = statusMap[key] || { label: key, icon: null };
+      return <AibStatus label={label} icon={icon} sizeClass="w-5 h-5" />;
+    },
   },
 ];
 
 export const statusToggleItems = [
-  { value: 'موفق', label: 'موفق' },
-  { value: 'ناموفق', label: 'ناموفق' },
+  { value: 'done', label: 'موفق' },
+  { value: 'fail', label: 'ناموفق' },
+  { value: 'in_progress', label: 'در حال اقدام' },
+  { value: 'cancel', label: 'لغو شده' },
 ];
 
 export const kindToggleItems = [
   { value: 'withdraw', label: 'برداشت' },
   { value: 'deposit', label: 'واریز' },
 ];
+
+export const titleToggleItems = Object.entries(titleMap).map(
+  ([value, { label }]) => ({ value, label })
+);
 
 export default transactionColumns;
