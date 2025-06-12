@@ -32,11 +32,9 @@ const API_PLATFORM_ROUTES = {
 };
 
 const FINANCE_ROUTES = {
-  BANKS: `${FINANCE_BASE_ROUTE}/banks`,
   FACTORS: `${FINANCE_BASE_ROUTE}/factors`,
   ADD_FACTORS: `${FINANCE_BASE_ROUTE}/factors/add`,
   GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code`,
-  INVITATION_CODE: `${FINANCE_BASE_ROUTE}/invitaion-code`,
   TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions`,
 };
 

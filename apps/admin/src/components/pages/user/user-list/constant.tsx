@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
-import { USERS_ROUTES } from '@/routes';
+import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -17,11 +17,10 @@ const userColumns: ColumnDef<IUser>[] = [
     cell: ({ row, getValue }) => {
       const picture = row.original.profile_picture;
       const fullName = getValue() as string;
-      const userId = row.original.id;
 
       return (
         <Link
-          href={`/dashboard/user-transaction/${userId}`}
+          href={`${USERS_BASE_ROUTE}/${row.original.id}`}
           className="flex items-center space-x-2 hover:underline"
         >
           <Image
@@ -31,7 +30,7 @@ const userColumns: ColumnDef<IUser>[] = [
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
           />
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-teal-600">
             {fullName}
           </span>
         </Link>

@@ -33,11 +33,7 @@ import { transactionFormSchema } from '@/components/pages/user/user-transaction/
 import { TransactionString } from '@/components/pages/user/user-transaction/string';
 
 type FormValues = z.infer<typeof transactionFormSchema>;
-const UserTransactionPage: FC = () => {
-  const params = useParams();
-  const rawId = params.id;
-  const userId = Array.isArray(rawId) ? rawId[0] : rawId ?? '';
-
+const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const {
     transactions,
     totalItems,
