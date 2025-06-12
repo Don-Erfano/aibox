@@ -174,9 +174,9 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                                   'flex items-center w-full h-9 hover:bg-white/10 hover:rounded-none active:bg-white/10',
                                   {
                                     'text-cyan-300 hover:text-cyan-300 active:text-cyan-300':
-                                      item.isActive,
+                                      subItem.isActive,
                                     'text-slate-200 hover:text-slate-200 active:text-slate-200':
-                                      !item.isActive,
+                                      !subItem.isActive,
                                     'h-9': !isMobile,
                                     'h-12': isMobile,
                                   }

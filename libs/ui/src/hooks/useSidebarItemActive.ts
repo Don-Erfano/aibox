@@ -13,6 +13,17 @@ export function useSidebarItemsActive(
 
   return sidebarData.map((item) => ({
     ...item,
+    ...(item.items
+      ? {
+          items: item.items.map((subItem) => ({
+            ...subItem,
+            isActive: isSidebarItemActive(
+              subItem as unknown as SidebarItem,
+              pathname
+            ),
+          })),
+        }
+      : {}),
     isActive: isSidebarItemActive(item, pathname),
   }));
 }
