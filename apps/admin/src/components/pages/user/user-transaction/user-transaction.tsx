@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useState, useMemo } from 'react';
-import { useParams } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -51,7 +50,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: {
-      status: 'موفق',
+      status: 'done',
       kind: 'withdraw',
       track_id: '',
       description: '',
@@ -63,10 +62,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const openCreateModal = (
-    tx: Transaction,
-    defaultStatus: 'موفق' | 'ناموفق'
-  ) => {
+  const openCreateModal = (tx: Transaction, defaultStatus: 'done' | 'fail') => {
     setSelectedTx(tx);
     reset({
       status: defaultStatus,
@@ -76,8 +72,8 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
     });
     setIsCreateModalOpen(true);
   };
-  const openApprove = (tx: Transaction) => openCreateModal(tx, 'موفق');
-  const openReject = (tx: Transaction) => openCreateModal(tx, 'ناموفق');
+  const openApprove = (tx: Transaction) => openCreateModal(tx, 'done');
+  const openReject = (tx: Transaction) => openCreateModal(tx, 'fail');
 
   const openEdit = (tx: Transaction) => {
     setSelectedTx(tx);
@@ -136,9 +132,9 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
           const kindLabel = row.getValue('kind') as string;
           const titleLabel = row.getValue('title') as string;
           if (
-            statusLabel === 'در حال اقدام' &&
-            kindLabel === 'برداشت اعتبار' &&
-            titleLabel === 'برداشت مبلغ'
+            statusLabel === 'in_progress' &&
+            kindLabel === 'withdraw' &&
+            titleLabel === 'withdraw'
           ) {
             return (
               <div className="flex items-center justify-center space-x-2 ">
