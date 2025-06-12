@@ -1,9 +1,10 @@
+'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
-import Link from 'next/link';
 import { USERS_ROUTES } from '@/routes';
 
 const userColumns: ColumnDef<IUser>[] = [
@@ -14,24 +15,26 @@ const userColumns: ColumnDef<IUser>[] = [
     enableSorting: false,
     maxSize: 140,
     cell: ({ row, getValue }) => {
-      const url = row.original.profile_picture;
+      const picture = row.original.profile_picture;
       const fullName = getValue() as string;
+      const userId = row.original.id;
 
       return (
-        <div className="flex items-center space-x-2">
+        <Link
+          href={`/dashboard/user-transaction/${userId}`}
+          className="flex items-center space-x-2 hover:underline"
+        >
           <Image
-            src={url ? url : '/images/default-user.svg'}
+            src={picture || '/images/default-user.svg'}
             alt={fullName}
             width={32}
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
           />
-          <Link href={`${USERS_ROUTES.LIST}/${row.original.id}`}>
-            <span className="overflow-hidden text-ellipsis whitespace-nowrap text-teal-600">
-              {fullName}
-            </span>
-          </Link>
-        </div>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+            {fullName}
+          </span>
+        </Link>
       );
     },
   },
@@ -47,7 +50,6 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'email',
     maxSize: 160,
   },
-
   {
     header: 'تاریخ عضویت',
     accessorKey: 'created_at',
