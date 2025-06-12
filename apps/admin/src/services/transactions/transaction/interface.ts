@@ -10,7 +10,8 @@ export interface AdminTransactionListParams {
     | 'compute'
     | 'wage'
     | 'package'
-    | 'gift_code';
+    | 'gift_code'
+    | 'factor';
   kind?: 'withdraw' | 'deposit';
   status?: 'done' | 'fail' | 'in_progress' | 'cancel';
   abs_amount__lte?: number;
