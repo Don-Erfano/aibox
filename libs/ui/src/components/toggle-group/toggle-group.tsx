@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ToggleGroupItem,
   Root as ToggleGroupRoot,
@@ -70,7 +72,7 @@ export const ToggleGroup = (props: ToggleGroupProps) => {
             value={item.value}
             aria-label={`toggle ${item.value}`}
             className={clsx(
-              'relative text-teal-600 px-3 py-1 rounded-[8px] font-medium outline-0 transition-colors duration-300',
+              'relative cursor-pointer text-teal-600 px-3 py-1 rounded-[8px] font-medium outline-0 transition-colors duration-300',
               { '!text-stone-50': value === item.value }
             )}
           >
