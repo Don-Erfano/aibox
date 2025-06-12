@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useRef, useState, DragEvent, ChangeEvent } from 'react';
 import { AibImageUploaderProps } from './interface';
 import { cva, type VariantProps } from 'class-variance-authority';

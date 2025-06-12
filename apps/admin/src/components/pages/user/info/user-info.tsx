@@ -3,6 +3,7 @@ import { TabType, Tab } from '@aibox/ui';
 import { FC } from 'react';
 import { UserSetting } from './user-setting';
 import UserInfoTab from '../../user-list/user-info-tab/user-info-tab';
+import UserTransactionPage from '../user-transaction/user-transaction';
 
 const UserInfo: FC<{ id: string }> = ({ id }) => {
   const { user } = useGetUserInfo({ id });
@@ -30,6 +31,12 @@ const UserInfo: FC<{ id: string }> = ({ id }) => {
       name: 'APIهای ارائه شده',
       id: 'provided-apis',
       content: <p>provided-apis</p>,
+      isDisabled: false,
+    },
+    {
+      name: 'امور مالی',
+      id: 'finance',
+      content: <UserTransactionPage userId={id} />,
       isDisabled: false,
     },
     {
