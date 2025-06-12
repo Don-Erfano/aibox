@@ -36,7 +36,7 @@ const GpuComputingCard: FC = () => {
               میانگین زمان استفاده (ساعت)
             </p>
             <span className="text-gray-500 text-sm font-medium">
-              {Math.ceil(Number(data?.average_usage_time))}
+              {Math.ceil(Number(data?.average_usage_time)) || ''}
             </span>
           </div>
         </div>

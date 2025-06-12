@@ -32,7 +32,6 @@ export const UITest = () => {
             control={form.control}
             label="Username"
             description="Enter your user name."
-            placeholder="johndoe"
           />
 
           <RHFSelect
@@ -40,8 +39,6 @@ export const UITest = () => {
             control={form.control}
             label="Email"
             description="Enter your email address."
-            type="email"
-            placeholder="john@example.com"
           />
 
           <RHFAutocomplete

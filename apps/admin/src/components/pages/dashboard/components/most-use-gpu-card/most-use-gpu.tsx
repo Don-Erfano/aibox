@@ -5,7 +5,6 @@ import { DefaultAvatar } from '../../icons';
 
 const MostUseGpuCard: FC = () => {
   const { data, isFetching } = useGetMostUseGpu();
-  console.log(data);
   return (
     <Card title="GPUهای پرتقاضا" className="!h-[297px] justify-start">
       <div className="flex flex-col gap-6 overflow-hidden hover:overflow-auto h-[168px] pl-2">

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { FINANCE_ROUTES } from '@/routes';
 import { FormContainer, FormWrapper } from '@/components';
 import { useGetAllDepartments } from '@/services/department';
 import { IAddFactor, usePostFactor } from '@/services/factor';
@@ -35,7 +36,7 @@ const AddFactorForm: FC = () => {
 
     mutate(formData, {
       onSuccess: () => {
-        setTimeout(() => router.push('/dashboard/factors'), 1500);
+        setTimeout(() => router.push(FINANCE_ROUTES.FACTORS), 1500);
       },
     });
   };

@@ -1,8 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+'use client';
+
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+import { FC, useEffect, useState } from 'react';
 import { IChartProps } from './interface';
 import { ApexOptions } from 'apexcharts';
-import * as Chart from 'react-apexcharts';
 
 const AreaChart: FC<IChartProps> = ({
   className,
@@ -13,6 +15,7 @@ const AreaChart: FC<IChartProps> = ({
   fillColor = '#BAFBF9',
   enableTooltip = true,
 }) => {
+  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -247,7 +250,7 @@ const AreaChart: FC<IChartProps> = ({
         className
       )}
     >
-      <Chart.default
+      <Chart
         options={defaultOptions}
         series={data}
         type="area"

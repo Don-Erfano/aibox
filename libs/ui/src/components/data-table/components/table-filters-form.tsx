@@ -2,7 +2,7 @@
 import { useCallback } from 'react';
 import { TableFiltersFormProps } from '../types';
 import { AIBInput } from '../../form/input/input';
-import { AibAutocomplete, AutocompleteOption } from '../../form';
+import { AibAutocomplete } from '../../form';
 
 export function TableFiltersForm<TData>({
   column,

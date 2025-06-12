@@ -13,18 +13,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  AiBoxIcon,
   useSidebar,
-} from '@aibox/ui';
+} from './sidebar';
 
 import { AibSidebarProps, SidebarItem, SidebarSubItem } from './type';
 import { useSidebarItemsActive } from '../../hooks/useSidebarItemActive';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../collapsible';
+import { AiBoxIcon } from '../icons';
 
 export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
   const { state, isMobile, toggleSidebar } = useSidebar();
