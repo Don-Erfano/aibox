@@ -2,6 +2,8 @@ import { useGetUserInfo } from '@/services/user/info';
 import { TabType, Tab } from '@aibox/ui';
 import { FC } from 'react';
 import { UserSetting } from './user-setting';
+import { GpuPackage } from './gpu-package';
+import { ApiPackage } from './api-package';
 
 const UserInfo: FC<{ id: string }> = ({ id }) => {
   const { user } = useGetUserInfo({ id });
@@ -16,13 +18,13 @@ const UserInfo: FC<{ id: string }> = ({ id }) => {
     {
       name: 'بسته‌های API',
       id: 'api-packages',
-      content: <p>api-packages</p>,
+      content: <ApiPackage id={id} />,
       isDisabled: false,
     },
     {
       name: 'بسته‌های GPU',
       id: 'gpu-packages',
-      content: <p>gpu-packages</p>,
+      content: <GpuPackage />,
       isDisabled: false,
     },
     {

@@ -1,9 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import UserInfoServices from './user-info.service';
 import type {
+  IGetUserApiPackageRequestPayload,
   IGetUserInfoRequestPayload,
   IUpdateUserInfoRequest,
 } from './interface';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 const userInfoServices = new UserInfoServices();
 
@@ -33,4 +40,28 @@ export const useUpdateUserInfo = () => {
       });
     },
   });
+};
+
+export const useGetUserApiPackage = (id: string) => {
+  const allQueryParams = useQueryParams();
+
+  const query = useQuery({
+    queryKey: [`useGetUserApiPackage`, allQueryParams, id],
+    queryFn: async ({ queryKey }) => {
+      const { page_size, tab, ...params } =
+        queryKey[1] as IGetUserApiPackageRequestPayload;
+      const queryParams = {
+        ...params,
+        page_size: page_size || 10,
+      };
+      console.log(queryParams);
+      const response = await userInfoServices.getUserApiPackages(
+        id,
+        queryParams
+      );
+      return response;
+    },
+    placeholderData: keepPreviousData,
+  });
+  return query;
 };
