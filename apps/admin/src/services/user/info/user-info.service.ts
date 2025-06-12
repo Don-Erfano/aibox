@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import type {
+  IGetPackageUsageInfoResponsePayload,
   IGetUserApiPackageRequestPayload,
   IGetUserApiPackageResponsePayload,
   IGetUserGpuPckageResponsePayload,
@@ -65,7 +66,7 @@ export default class UserInfoServices extends AbstractAPI {
   public async getUserGpuPackageInfo(
     id: string
   ): Promise<
-    AxiosResponse<INetworkResponse<IGetUserGpuPckageResponsePayload>>
+    AxiosResponse<INetworkResponse<IGetPackageUsageInfoResponsePayload>>
   > {
     return await this.http.request({
       method: 'GET',

@@ -118,6 +118,21 @@ interface IGetUserGpuPckageResponsePayload {
   };
 }
 
+interface IGetPackageUsageInfoResponsePayload {
+  usage_time_sum: string;
+  volume_data: {
+    used_percent: number;
+    used_capacity: number;
+    free_capacity: number;
+    total_capacity: number;
+  };
+  free_data: {
+    expire_date: string;
+    total_free: number;
+    remind_free: number;
+  };
+}
+
 export type {
   IUserDetail,
   IGetUserInfoRequestPayload,
@@ -127,4 +142,5 @@ export type {
   IGetUserApiPackageRequestPayload,
   IUserApiPackageDetail,
   IGetUserGpuPckageResponsePayload,
+  IGetPackageUsageInfoResponsePayload,
 };

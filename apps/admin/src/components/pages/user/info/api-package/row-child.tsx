@@ -5,7 +5,7 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
     <div className="grid grid-cols-3 gap-x-24 gap-y-6 px-14 py-5 ">
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
-          <p className="text-teal-600 text-sm">زمان باقی‌مانده</p>
+          <p className="text-zinc-600 text-sm">زمان باقی‌مانده</p>
           <p className="text-teal-600 text-sm">15 روز</p>
         </div>
         <div className="w-full h-1 bg-gray-300 rounded-full">
@@ -18,7 +18,7 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
       </div>
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
-          <p className="text-teal-600 text-sm">
+          <p className="text-zinc-600 text-sm">
             تعداد فراخوانی ماهانه باقی‌مانده
           </p>
           <p className="text-teal-600 text-sm">50</p>
@@ -33,7 +33,7 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
       </div>
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
-          <p className="text-teal-600 text-sm">
+          <p className="text-zinc-600 text-sm">
             تعداد فراخوانی روزانه باقی‌مانده
           </p>
           <p className="text-teal-600 text-sm">10</p>
