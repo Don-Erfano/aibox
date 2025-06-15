@@ -11,8 +11,10 @@ import {
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
 import publicMessageColumns from './constant';
-import { useGetMassNotifications } from '@/services/messages/messages-list/message-list.hook';
-import { IMassNotification } from '@/services/messages/messages-list/interface';
+import {
+  IMassNotification,
+  useGetMassNotifications,
+} from '@/services/messages/public-messages';
 
 const PublicMessagePage: FC = () => {
   const router = useRouter();
