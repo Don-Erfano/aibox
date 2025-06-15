@@ -49,7 +49,7 @@ const PublicMessagePage: FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <div className="w-full">
         <TableToolbar
           title="پیام‌های همگانی"

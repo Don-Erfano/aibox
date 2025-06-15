@@ -41,6 +41,7 @@ const routeNames: { [x: string]: string } = {
   [MESSAGES_ROUTES.EMAIL]: 'ایمیل',
   [MESSAGES_ROUTES.NOTIFICAITONS]: 'اعلان',
   [MESSAGES_ROUTES.SMS]: 'پیامک',
+  [MESSAGES_ROUTES.PUBLIC_MESSAGE]: 'پیام‌های همگانی',
   [SUPPORT_ROUTES.ADD_TICKETING]: 'افزودن تیکت',
   [SUPPORT_ROUTES.FAQ]: 'سؤالات متداول',
   [SUPPORT_ROUTES.TERMS_AND_POLICIES]: 'قوانین و شرایط استفاده',
