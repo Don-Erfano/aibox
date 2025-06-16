@@ -1,11 +1,8 @@
 'use client';
 
+import { ApiLogs } from '@/components';
 import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+const Page: NextPage = () => <ApiLogs />;
 
 export default Page;
