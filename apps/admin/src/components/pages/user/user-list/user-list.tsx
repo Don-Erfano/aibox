@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 
 import {
@@ -12,23 +14,26 @@ import { useRouter } from 'next/navigation';
 import { UserStrings } from '@/components/pages/user/user-list/string';
 import { FabButton } from '@/components/fab-button';
 import userColumns from '@/components/pages/user/user-list/constant';
+import { USERS_ROUTES } from '@/routes';
+import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
 
 const UserList: FC = () => {
-  const router = useRouter();
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
     useGetUserList();
+
+  const router = useRouter();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: users,
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => console.log(`${row.first_name} ${row.last_name}`),
+      onEdit: (row) => router.push(`${USERS_BASE_ROUTE}/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });
   const handleAddUser = () => {
-    router.push('/dashboard/user-list/add-user');
+    router.push(USERS_ROUTES.ADD_USER);
   };
 
   if (isLoading) return <DataTableSkeleton columnCount={10} />;

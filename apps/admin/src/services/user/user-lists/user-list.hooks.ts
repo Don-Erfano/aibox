@@ -10,9 +10,11 @@ import {
   IAddUserResponsePayload,
   IGetUserListRequestPayload,
   IGetUserListResponsePayload,
+  IPutUser,
   IUser,
 } from '@/services/user/user-lists/interface';
 import { useQueryParams } from '@/hooks/useQueryParams';
+import { toast } from '@aibox/ui';
 
 const userListsServices = new UserListsServices();
 
@@ -67,3 +69,31 @@ export const useGetAllUsers = () =>
     queryKey: ['allUsers'],
     queryFn: () => userListsServices.getAllUsers(),
   });
+
+export const useGetUser = (userId: string) =>
+  useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => userListsServices.getUser(userId),
+  });
+
+export const usePostActivateEmail = () =>
+  useMutation({
+    mutationKey: ['postActivateEmail'],
+    mutationFn: (email: string) => userListsServices.postActivateEmail(email),
+    onSuccess: () => {
+      toast.success('درخواست ارسال مجدد ایمیل فعالسازی با موفقیت ثبت شد.');
+    },
+  });
+
+export const usePutUserById = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['putUserById'],
+    mutationFn: (data: IPutUser) => userListsServices.putUserById(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      toast.success('اطلاعات کاربر با موفقیت ویرایش شد.');
+    },
+  });
+};

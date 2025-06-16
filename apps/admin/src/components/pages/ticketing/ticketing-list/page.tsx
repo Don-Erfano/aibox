@@ -36,6 +36,7 @@ import {
 import { useGetAllUserList } from '@/services/user/user-all';
 import { TicketingString } from './string';
 import { FabButton } from '@/components/fab-button';
+import { SUPPORT_ROUTES } from '@/routes';
 
 export const TicketingPage: FC = () => {
   const router = useRouter();
@@ -89,7 +90,7 @@ export const TicketingPage: FC = () => {
   };
 
   const handleAddTicket = () => {
-    router.push('/dashboard/ticketing/add-ticket');
+    router.push(SUPPORT_ROUTES.TICKETING);
   };
 
   const onSubmit: SubmitHandler<AssignTicketFormValues> = (data) => {

@@ -17,6 +17,9 @@ export interface IUser {
   email_verified: boolean;
   phone_verified: boolean;
   is_staff: boolean;
+  my_api_count: number;
+  my_api_package_count: number;
+  gpu_package: boolean;
 }
 
 export interface IGetUserListRequestPayload {
@@ -56,4 +59,14 @@ export interface IAddUserResponsePayload {
 
 export interface IGetAllUsers {
   users: Pick<IUser, 'id' | 'email' | 'phone_number'>[];
+}
+
+export interface IPutUser {
+  id: string;
+  first_name?: string;
+  last_name?: string;
+  nickname?: string;
+  phone_number?: string;
+  gender?: string;
+  is_active?: string;
 }

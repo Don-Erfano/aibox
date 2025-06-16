@@ -19,6 +19,14 @@ import {
   AiBoxIcon,
   PersonIcon,
   AdminIcon,
+  QuestionIcon,
+  HintIcon,
+  PendingIcon,
+  FailedIcon,
+  ErrorIcon,
+  SuccessIcon,
+  DepositIcon,
+  WithdrawIcon,
 } from './index';
 
 type IconEntry = {
@@ -72,6 +80,14 @@ const IconGallery: FC = () => {
     { Component: AiBoxIcon, name: 'AIBoxIcon' },
     { Component: PersonIcon, name: 'PersonIcon' },
     { Component: AdminIcon, name: 'AdminIcon' },
+    { Component: QuestionIcon, name: 'QuestionIcon' },
+    { Component: HintIcon, name: 'HintIcon' },
+    { Component: PendingIcon, name: 'PendingIcon' },
+    { Component: FailedIcon, name: 'FailedIcon' },
+    { Component: ErrorIcon, name: 'ErrorIcon' },
+    { Component: SuccessIcon, name: 'SuccessIcon' },
+    { Component: DepositIcon, name: 'DepositIcon' },
+    { Component: WithdrawIcon, name: 'WithdrawIcon' },
   ];
 
   return (

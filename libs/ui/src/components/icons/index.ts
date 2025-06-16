@@ -19,7 +19,14 @@ import AdminIcon from './AdminIcon';
 import NoDataIcon from './no-data-icon';
 import DeleteFactorIcon from './delete-factor';
 import AvatarIcon from './avatar-icon';
-
+import QuestionIcon from './QuestionIcon';
+import HintIcon from './HintIcon';
+import PendingIcon from './PendingIcon';
+import FailedIcon from './FailedIcon';
+import ErrorIcon from './ErrorIcon';
+import SuccessIcon from './SuccessIcon';
+import DepositIcon from './DepositIcon';
+import WithdrawIcon from './WithdrawIcon';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -41,4 +48,12 @@ export {
   NoDataIcon,
   DeleteFactorIcon,
   AvatarIcon,
+  QuestionIcon,
+  HintIcon,
+  PendingIcon,
+  FailedIcon,
+  ErrorIcon,
+  SuccessIcon,
+  DepositIcon,
+  WithdrawIcon,
 };

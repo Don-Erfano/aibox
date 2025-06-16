@@ -1,5 +1,5 @@
 import { Trigger } from '@radix-ui/react-tabs';
-import { TabsTriggerPropsWithoutClassName } from '../types';
+import type { TabsTriggerPropsWithoutClassName } from '../types';
 import clsx from 'clsx';
 
 export const TabsTrigger: React.FC<TabsTriggerPropsWithoutClassName> = ({
@@ -10,10 +10,11 @@ export const TabsTrigger: React.FC<TabsTriggerPropsWithoutClassName> = ({
     <Trigger
       data-slot="tabs-trigger"
       className={clsx(
-        'group px-6 pt-1 pb-3 h-full border-b-[2.5px] border-transparent -mb-0.5 transition-all duration-150 focus:outline-none',
+        'group px-7 pt-0.5 pb-1 h-full border-b-[2.5px] border-transparent -mb-0.5 transition-all duration-150 focus:outline-none cursor-pointer ',
         'data-[state=active]:shadow-none data-[state=active]:border-teal-600',
-        disabled ? 'cursor-default' : 'cursor-pointer'
+        { '!cursor-default ': disabled }
       )}
+      disabled={disabled}
       {...props}
     />
   );
