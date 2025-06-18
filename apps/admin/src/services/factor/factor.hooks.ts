@@ -1,4 +1,9 @@
-import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { useQueryParams } from '@/hooks/useQueryParams';
 import { showNotification } from '@/utils/notifications';
@@ -9,32 +14,40 @@ import {
   IFactor,
   IGetFactorsParams,
   IGetFactorsResponse,
+  IUpdateFactor,
 } from './interface';
+import { toast } from '@aibox/ui';
 
 const factorServices = new FactorServices();
 
 export const usePostFactor = () =>
   useMutation({
-    mutationFn: (data: IAddFactor) => factorServices.postFactor(data),
-    onSuccess: () => {
-      showNotification({
-        message: 'فاکتور جدید با موفقیت ایجاد شد.',
-        type: 'success',
-      });
-    },
     mutationKey: [`postFactor`],
+    mutationFn: (data: IAddFactor) => factorServices.postFactor(data),
+    onSuccess: () => toast.success('فاکتور جدید با موفقیت ایجاد شد.'),
   });
+
+export const useUpdateFactor = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['updateFactor'],
+    mutationFn: (data: IUpdateFactor) => factorServices.updateFactor(data),
+    onSuccess: (res) => {
+      const factorId = res.data.data.id;
+      queryClient.invalidateQueries({ queryKey: ['factors'] });
+      queryClient.invalidateQueries({ queryKey: ['factor', factorId] });
+
+      toast.success('فاکتور با موفقیت ویرایش شد.');
+    },
+  });
+};
 
 export const useDeleteFactor = () =>
   useMutation({
+    mutationKey: ['deleteFactor'],
     mutationFn: (id: string) => factorServices.deleteFactor(id),
-    onSuccess: () => {
-      showNotification({
-        message: 'فاکتور با موفقیت حذف شد.',
-        type: 'success',
-      });
-    },
-    mutationKey: [`deleteFactor`],
+    onSuccess: () => toast.success('فاکتور با موفقیت حذف شد.'),
   });
 
 export const useGetFactors = () => {
@@ -66,3 +79,11 @@ export const useGetFactors = () => {
 
   return { factors, totalItems, totalPages, isLoading, isFetching, refetch };
 };
+
+export const useGetFactor = (id?: string) =>
+  useQuery({
+    queryKey: ['factor', id],
+    queryFn: () => factorServices.getFactor(id),
+    enabled: !!id,
+    select: (res) => res.data.data,
+  });

@@ -46,7 +46,7 @@ export const DeleteFactorModal = ({
             )}
           </Button>
           <Button size="lg" onClick={() => toggleModal({ show: false })}>
-            {factorStrings.cancel}
+            {factorStrings.refuse}
           </Button>
         </div>
       </div>

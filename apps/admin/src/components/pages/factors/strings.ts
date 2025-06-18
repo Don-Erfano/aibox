@@ -24,5 +24,8 @@ export const factorStrings = {
   num: 'شماره',
   discountColumn: 'تخفیف(٪)',
   priceColumn: 'مبلغ(تومان)',
-  cancel: 'انصراف',
+  refuse: 'انصراف',
+  editFactor: 'ویرایش فاکتور',
+  submitChanges: 'ثبت تغییرات',
+  cancel: 'لغو',
 };

@@ -2,24 +2,34 @@
 
 import { Button, Form, RHFAutocomplete, RHFInput } from '@aibox/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoaderIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { FINANCE_ROUTES } from '@/routes';
 import { FormContainer, FormWrapper } from '@/components';
+import { FINANCE_ROUTES } from '@/routes';
 import { useGetAllDepartments } from '@/services/department';
-import { IAddFactor, usePostFactor } from '@/services/factor';
+import {
+  IAddFactor,
+  useGetFactor,
+  usePostFactor,
+  useUpdateFactor,
+} from '@/services/factor';
 import { useGetAllUsers } from '@/services/user/user-lists';
 
 import { addFactorSchema, factorStatusOptions } from './constants';
 import { factorStrings } from './strings';
 
-const AddFactorForm: FC = () => {
-  const router = useRouter();
-  const { mutate, isPending } = usePostFactor();
+export const FactorForm: FC<{ factorId?: string }> = ({ factorId }) => {
+  const isEdit = !!factorId;
 
+  const router = useRouter();
+  const { mutate: addFactor, isPending: isAddPending } = usePostFactor();
+  const { mutate: updateFactor, isPending: isUpdatePending } =
+    useUpdateFactor();
+  const isPending = isAddPending || isUpdatePending;
+
+  const { data: factor, isLoading } = useGetFactor(factorId);
   const { data: allUsers } = useGetAllUsers();
   const { data: allDepartments } = useGetAllDepartments();
 
@@ -27,24 +37,53 @@ const AddFactorForm: FC = () => {
     resolver: zodResolver(addFactorSchema),
     mode: 'onChange',
   });
-  const { control, handleSubmit } = form;
+  const { control, handleSubmit, reset } = form;
 
   const onSubmit = (data: IAddFactor) => {
     const formData = Object.fromEntries(
       Object.entries(data).filter(([_, val]) => val)
     ) as IAddFactor;
 
-    mutate(formData, {
-      onSuccess: () => {
-        setTimeout(() => router.push(FINANCE_ROUTES.FACTORS), 1500);
-      },
-    });
+    isEdit
+      ? updateFactor(
+          { id: factorId, ...formData },
+          { onSuccess: () => router.push(FINANCE_ROUTES.FACTORS) }
+        )
+      : addFactor(formData, {
+          onSuccess: () => router.push(FINANCE_ROUTES.FACTORS),
+        });
   };
 
+  useEffect(() => {
+    if (isEdit) {
+      const resetValues: Partial<IAddFactor> = {
+        user: factor?.user.id,
+        price: factor?.price,
+        discount_percent: factor?.discount_percent,
+        status: factor?.status,
+        description: factor?.description,
+        due_date: factor?.pay_date,
+        created_at: factor?.created_at,
+      };
+
+      if (factor?.department) resetValues.department = factor.department.id;
+
+      reset(resetValues);
+    }
+  }, [isEdit, reset, factor]);
+
+  if (isEdit && isLoading) return <p>Loading...</p>;
+
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer title={factorStrings.addNewFactor}>
+    <FormContainer
+      title={
+        isEdit
+          ? `${factorStrings.editFactor} ${factor?.num}#`
+          : factorStrings.addNewFactor
+      }
+    >
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FormWrapper>
             <RHFAutocomplete
               control={control}
@@ -118,22 +157,16 @@ const AddFactorForm: FC = () => {
               variant="sm"
             />
           </FormWrapper>
-          <div className="flex gap-5 justify-center">
+          <div className="flex gap-5 justify-center mt-12">
             <Button size="lg" isFilled type="submit" disabled={isPending}>
-              {isPending ? (
-                <LoaderIcon className="animate-spin" />
-              ) : (
-                factorStrings.submit
-              )}
+              {isEdit ? factorStrings.submitChanges : factorStrings.submit}
             </Button>
             <Button size="lg" type="button" onClick={() => router.back()}>
-              {factorStrings.cancelAction}
+              {isEdit ? factorStrings.cancel : factorStrings.cancelAction}
             </Button>
           </div>
-        </FormContainer>
-      </form>
-    </Form>
+        </form>
+      </Form>
+    </FormContainer>
   );
 };
-
-export default AddFactorForm;
