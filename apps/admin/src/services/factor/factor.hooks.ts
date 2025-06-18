@@ -1,3 +1,4 @@
+import { toast } from '@aibox/ui';
 import {
   keepPreviousData,
   useMutation,
@@ -6,7 +7,6 @@ import {
 } from '@tanstack/react-query';
 
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { showNotification } from '@/utils/notifications';
 
 import { FactorServices } from './factor.service';
 import {
@@ -16,17 +16,21 @@ import {
   IGetFactorsResponse,
   IUpdateFactor,
 } from './interface';
-import { toast } from '@aibox/ui';
 
 const factorServices = new FactorServices();
 
-export const usePostFactor = () =>
-  useMutation({
+export const usePostFactor = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationKey: [`postFactor`],
     mutationFn: (data: IAddFactor) => factorServices.postFactor(data),
-    onSuccess: () => toast.success('فاکتور جدید با موفقیت ایجاد شد.'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['factors'] });
+      toast.success('فاکتور جدید با موفقیت ایجاد شد.');
+    },
   });
-
+};
 export const useUpdateFactor = () => {
   const queryClient = useQueryClient();
 
