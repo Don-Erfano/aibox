@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import DatePicker from './DatePicker';
+import { DatePickerForm } from './rhf-date-picker';
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,
@@ -18,4 +19,9 @@ export const Range: Story = {
     isMulti: true,
     onChange: (e) => console.log(e),
   },
+};
+
+export const Rhf: Story = {
+  args: {},
+  decorators: () => <DatePickerForm />,
 };
