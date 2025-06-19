@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,7 @@ import {
   RHFInput,
   DatePicker,
   Switch,
+  toast,
 } from '@aibox/ui';
 import { FormContainer, FormWrapper } from '@/components';
 import { MessagesString } from '@/components/pages/messages/string';
@@ -23,6 +24,11 @@ import {
   PublicMessageSchemaType,
 } from './schema';
 import { CustomMessage } from '@/components/pages/messages/public-message/add-public-message/components/custom-message';
+import {
+  useCreateMassNotification,
+  useGetMassNotificationCategories,
+} from '@/services/messages/public-messages';
+import { useGetAllUserList } from '@/services/user/user-all';
 
 interface MessageItem {
   id: string;
@@ -76,8 +82,18 @@ const defaultMessages: MessageItem[] = [
   },
 ];
 
+const combineDateTime = (date: string, time: string) => {
+  const formattedDate = date.replace(/\//g, '-');
+  return `${formattedDate} ${time}`;
+};
+
 const AddPublicMessagePage: FC = () => {
   const router = useRouter();
+
+  const createMassNotificationMutation = useCreateMassNotification();
+  const { data: categories = { category: [] }, isLoading: categoriesLoading } =
+    useGetMassNotificationCategories();
+  const { users, isLoading: usersLoading } = useGetAllUserList();
 
   const form = useForm<PublicMessageSchemaType>({
     resolver: zodResolver(publicMessageSchema),
@@ -85,12 +101,33 @@ const AddPublicMessagePage: FC = () => {
   });
 
   const { watch, control, handleSubmit, setValue, reset } = form;
+  const watchedRecivers = watch('recivers');
+  const watchedCategory = watch('category');
 
+  useEffect(() => {
+    console.log('Selected recivers:', watchedRecivers);
+  }, [watchedRecivers]);
+
+  useEffect(() => {
+    console.log('Selected category:', watchedCategory);
+  }, [watchedCategory]);
   const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
   const [useDropdown, setUseDropdown] = useState(true);
   const [customText, setCustomText] = useState('');
+
+  const userOptions = [
+    { value: 'all', label: 'همه کاربران' },
+    ...(users?.map((user) => ({
+      value: user.id,
+      label: user.email,
+    })) || []),
+  ];
+
+  const categoryOptions = categories.category?.map((cat) => ({
+    value: cat.id,
+    label: cat.name,
+  }));
 
   const toggleSelection = (id: string, isNowChecked: boolean) => {
     setSelectedIds((prev) =>
@@ -98,13 +135,45 @@ const AddPublicMessagePage: FC = () => {
     );
   };
 
-  const onSubmit: SubmitHandler<PublicMessageSchemaType> = (data) => {
-    console.log('Submitted Form Data:', {
-      ...data,
-      selectedMessages: selectedIds,
-      defaultMessageType: useDropdown ? 'preset' : 'custom',
-      customMessage: useDropdown ? undefined : customText,
-    });
+  const onSubmit: SubmitHandler<PublicMessageSchemaType> = async (data) => {
+    console.log('Form submit data:', data);
+    try {
+      let userString = 'all';
+      if (data.recivers && data.recivers.value !== 'all') {
+        userString = data.recivers.value;
+      }
+
+      const from_time = combineDateTime(data.date_from, data.time_from);
+      const to_time = combineDateTime(data.date_to, data.time_to);
+
+      const payload = {
+        user: userString,
+        category: data.category!.value,
+        name: data.message_group || data.message_subject,
+        from_time,
+        to_time,
+        subject: data.message_subject,
+        message: useDropdown
+          ? selectedIds
+              .map((id) => {
+                const selectedMessage = defaultMessages.find(
+                  (msg) => msg.id === id
+                );
+                return selectedMessage?.message || '';
+              })
+              .join('\n')
+          : customText,
+        message_text: '',
+        notif_type: 'in_app',
+      };
+      await createMassNotificationMutation.mutateAsync(payload);
+
+      toast.success('پیام عمومی با موفقیت ایجاد شد');
+      router.push('/dashboard/messages');
+    } catch (error) {
+      console.error('Error creating mass notification:', error);
+      toast.error('خطا در ایجاد پیام عمومی');
+    }
   };
 
   const handleCancel = () => {
@@ -122,12 +191,10 @@ const AddPublicMessagePage: FC = () => {
               control={control}
               label="دریافت کنندگان *"
               placeholder="انتخاب دریافت کننده"
-              options={[
-                { value: 'all_users', label: 'همه کاربران' },
-                { value: 'group_a', label: 'گروه A' },
-              ]}
-              variant="single"
+              options={userOptions}
+              variant="multiple"
               mode="light"
+              isLoading={usersLoading}
             />
 
             <RHFInput
@@ -149,12 +216,10 @@ const AddPublicMessagePage: FC = () => {
               control={control}
               label="دسته‌بندی *"
               placeholder="انتخاب دسته‌بندی"
-              options={[
-                { value: 'selected_category', label: 'گزینه انتخاب شده' },
-                { value: 'finance', label: 'مالی' },
-              ]}
+              options={categoryOptions}
               variant="single"
               mode="light"
+              isLoading={categoriesLoading}
             />
 
             <Controller
@@ -207,13 +272,8 @@ const AddPublicMessagePage: FC = () => {
               />
             </div>
             <DropDownSelect
-              options={[
-                { value: 'all', label: 'همه' },
-                { value: 'public', label: 'عمومی' },
-                { value: 'financial', label: 'مالی' },
-                { value: 'commercial', label: 'تبلیغاتی' },
-                { value: 'invitation', label: 'دعوت نامه' },
-              ]}
+              options={categoryOptions}
+              placeholder="همه"
               value={selectedValue}
               onChange={(val) => setSelectedValue(val)}
               className="text-sm rounded-md"
@@ -221,7 +281,7 @@ const AddPublicMessagePage: FC = () => {
             />
           </div>
 
-          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] mt-6 flex space-x-6 overflow-x-auto">
+          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] mt-6 flex space-x-6 scroll-auto overflow-x-auto">
             {useDropdown ? (
               defaultMessages.map((item) => (
                 <DefaultMessage
@@ -234,15 +294,28 @@ const AddPublicMessagePage: FC = () => {
                 />
               ))
             ) : (
-              <CustomMessage />
+              <div className="w-full mr-1 mt-4">
+                <CustomMessage value={customText} onChange={setCustomText} />
+              </div>
             )}
           </div>
 
           <div className="flex gap-5 justify-center mt-12">
-            <Button size="lg" isFilled type="submit">
+            <Button
+              size="lg"
+              isFilled
+              type="submit"
+              loading={createMassNotificationMutation.isPending}
+              disabled={createMassNotificationMutation.isPending}
+            >
               {TicketingString.submit}
             </Button>
-            <Button size="lg" type="button" onClick={handleCancel}>
+            <Button
+              size="lg"
+              type="button"
+              onClick={handleCancel}
+              disabled={createMassNotificationMutation.isPending}
+            >
               {TicketingString.cancel_operation}
             </Button>
           </div>

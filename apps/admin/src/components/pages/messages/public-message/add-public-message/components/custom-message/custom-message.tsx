@@ -22,10 +22,10 @@ const CustomMessage: FC = () => {
   };
 
   return (
-    <div className=" mt-4 mr-1 flex-col w-full items-center justify-center">
+    <div className="flex-col items-center justify-center">
       {rows.map((text, idx) => (
         <div key={idx} className="flex items-center gap-4 mb-6">
-          <div className="flex-1">
+          <div className="flex-1 items-center justify-center">
             <AIBInput
               type="text"
               variant="md"
@@ -42,18 +42,19 @@ const CustomMessage: FC = () => {
           />
         </div>
       ))}
-
-      <Button
-        onClick={handleAdd}
-        variant="ghost"
-        className={clsx(
-          'flex items-center justify-center mx-auto mt-4',
-          'size-6 rounded-full bg-transparent text-2xl',
-          'hover:!bg-teal-600/40 border-1 border-gray-500'
-        )}
-      >
-        <Plus strokeWidth={1.5} className="text-zinc-700 size-6" />
-      </Button>
+      <div className="items-center justify-center flex ">
+        <Button
+          onClick={handleAdd}
+          variant="ghost"
+          className={clsx(
+            'relative items-center !mx-auto mt-4',
+            'size-6 rounded-full bg-transparent text-2xl',
+            'hover:!bg-teal-600/40 border-1 border-gray-500'
+          )}
+        >
+          <Plus strokeWidth={1} className="text-zinc-700 size-6" />
+        </Button>
+      </div>
     </div>
   );
 };
