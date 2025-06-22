@@ -19,7 +19,9 @@ const CustomDatePicker: FC<IDatePicker> = ({
 }) => {
   const today = moment(new Date()).format('jYYYY/jM/jD');
   const [show, setShow] = useState(false);
-  const [datePickerValue, SetDatePickerValue] = useState<string[]>(['', '']);
+  const [datePickerValue, SetDatePickerValue] = useState<string[]>(
+    value ? value.map((val) => moment(val).format('jYYYY/jM/jD')) : [today]
+  );
   const [calendarState, setCalendarState] = useState<ECalendarState>(
     ECalendarState.DAY
   );
@@ -30,11 +32,7 @@ const CustomDatePicker: FC<IDatePicker> = ({
 
   useEffect(() => {
     onChange(datePickerValue.map((d) => jalaliToDateTime(d)));
-  }, [datePickerValue, onChange, value]);
-
-  useEffect(() => {
-    SetDatePickerValue([moment(value).format('jYYYY/jM/jD') || '']);
-  }, [!!value]);
+  }, [datePickerValue]);
 
   useEffect(() => {
     setCalendarState(ECalendarState.DAY);
