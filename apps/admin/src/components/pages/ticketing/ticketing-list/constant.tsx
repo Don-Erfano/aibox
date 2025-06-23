@@ -1,42 +1,43 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { ITicket } from '@/services/ticketing/ticketing-list/interface';
+import { strings } from '@/constant';
 
 export const toggleItems = [
-  { value: 'self', label: 'تخصیص به خود' },
-  { value: 'others', label: 'تخصیص به دیگران' },
+  { value: 'self', label: strings.assignToMe },
+  { value: 'others', label: strings.assignToOthers },
 ];
 
 const statusMap: Record<string, { label: string; bgColor: string }> = {
   opened: {
-    label: 'باز',
+    label: strings.opened,
     bgColor: 'bg-blue-500',
   },
   waiting_user: {
-    label: 'در انتظار پاسخ کاربر',
+    label: strings.waitingforUser,
     bgColor: 'bg-purple-600',
   },
   waiting_you: {
-    label: 'در انتظار پاسخ شما',
+    label: strings.waitingForYou,
     bgColor: 'bg-teal-600',
   },
   closed: {
-    label: 'بسته',
+    label: strings.closed,
     bgColor: 'bg-red-600',
   },
 };
 
 const levelMap: Record<string, { label: string; bgColor: string }> = {
   high: {
-    label: 'بالا',
+    label: strings.up,
     bgColor: 'bg-orange-500',
   },
   medium: {
-    label: 'متوسط',
+    label: strings.medium,
     bgColor: 'bg-cyan-300',
   },
   low: {
-    label: 'پایین',
+    label: strings.down,
     bgColor: 'bg-gray-600',
   },
 };
@@ -45,47 +46,47 @@ const ticketColumns: ColumnDef<ITicket>[] = [
   {
     accessorKey: 'ticket_num',
     id: 'ticket_num',
-    header: 'شماره درخواست',
-    meta: { label: 'شماره درخواست', variant: 'text' },
+    header: strings.requestId,
+    meta: { label: strings.requestId, variant: 'text' },
     maxSize: 160,
   },
   {
     accessorKey: 'created_at',
     id: 'created_at',
-    header: 'تاریخ ایجاد',
+    header: strings.createdDate,
     cell: ({ getValue }) => formatJalali(getValue() as string),
     enableColumnFilter: true,
-    meta: { label: 'تاریخ ایجاد', variant: 'date' },
+    meta: { label: strings.createdDate, variant: 'date' },
     maxSize: 160,
   },
   {
     accessorKey: 'operator_id',
     id: 'operator_id',
-    header: 'اپراتور',
+    header: strings.operator,
     enableColumnFilter: true,
-    meta: { label: 'اپراتور', variant: 'select' },
+    meta: { label: strings.operator, variant: 'select' },
     maxSize: 160,
   },
   {
     accessorKey: 'user_id',
     id: 'user_id',
-    header: 'کاربر',
+    header: strings.user,
     enableColumnFilter: true,
-    meta: { label: 'کاربر', variant: 'select' },
+    meta: { label: strings.user, variant: 'select' },
     maxSize: 160,
   },
   {
     accessorKey: 'category',
     id: 'category',
-    header: 'دسته بندی',
+    header: strings.category,
     enableColumnFilter: true,
-    meta: { label: 'دسته بندی', variant: 'select' },
+    meta: { label: strings.category, variant: 'select' },
     maxSize: 160,
   },
   {
     accessorKey: 'status',
     id: 'status',
-    header: 'وضعیت',
+    header: strings.status,
     cell: ({ getValue }) => {
       const key = getValue() as string;
       const { label, bgColor } = statusMap[key] ?? {
@@ -95,14 +96,14 @@ const ticketColumns: ColumnDef<ITicket>[] = [
       return <AibStatus label={label} bgColor={bgColor} />;
     },
     enableColumnFilter: true,
-    meta: { label: 'وضعیت', variant: 'select' },
+    meta: { label: strings.status, variant: 'select' },
     maxSize: 160,
   },
 
   {
     accessorKey: 'level',
     id: 'level',
-    header: 'اولویت',
+    header: strings.priority,
     cell: ({ getValue }) => {
       const key = (getValue() as string).toLowerCase();
       const { label, bgColor } = levelMap[key] ?? {
@@ -112,14 +113,14 @@ const ticketColumns: ColumnDef<ITicket>[] = [
       return <AibStatus label={label} bgColor={bgColor} />;
     },
     enableColumnFilter: true,
-    meta: { label: 'اولویت', variant: 'select' },
+    meta: { label: strings.priority, variant: 'select' },
     maxSize: 160,
   },
   {
     accessorKey: 'subject',
     id: 'subject',
-    header: 'عنوان درخواست',
-    meta: { label: 'عنوان درخواست', variant: 'text' },
+    header: strings.subject,
+    meta: { label: strings.subject, variant: 'text' },
     maxSize: 160,
   },
 ];

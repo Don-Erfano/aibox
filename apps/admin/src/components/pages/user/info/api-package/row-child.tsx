@@ -1,3 +1,4 @@
+import { strings } from '@/constant';
 import { IUserApiPackageDetail } from '@/services';
 
 export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
@@ -5,8 +6,8 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
     <div className="grid grid-cols-3 gap-x-24 gap-y-6 px-14 py-5 ">
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
-          <p className="text-zinc-600 text-sm">زمان باقی‌مانده</p>
-          <p className="text-teal-600 text-sm">15 روز</p>
+          <p className="text-zinc-600 text-sm">{strings.remainingTime}</p>
+          <p className="text-teal-600 text-sm">15 {strings.day}</p>
         </div>
         <div className="w-full h-1 bg-gray-300 rounded-full">
           <div className="w-1/2 h-1 bg-teal-600 rounded-full mr-auto" />
@@ -19,7 +20,7 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
           <p className="text-zinc-600 text-sm">
-            تعداد فراخوانی ماهانه باقی‌مانده
+            {strings.remainingMonthlyRequest}
           </p>
           <p className="text-teal-600 text-sm">50</p>
         </div>
@@ -34,7 +35,7 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between mb-2">
           <p className="text-zinc-600 text-sm">
-            تعداد فراخوانی روزانه باقی‌مانده
+            {strings.remainingDailyRequest}
           </p>
           <p className="text-teal-600 text-sm">10</p>
         </div>
@@ -47,10 +48,14 @@ export const RowChild = ({ row }: { row: IUserApiPackageDetail }) => {
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="text-zinc-700 text-sm">قیمت: 920 تومان</p>
-        <p className="text-zinc-700 text-sm">تاریخ اتمام بسته: 1401/04/04</p>
         <p className="text-zinc-700 text-sm">
-          تعداد فراخوانی انجام شده: 224 عدد
+          {strings.price}: 920 {strings.toman}
+        </p>
+        <p className="text-zinc-700 text-sm">
+          {strings.packageExpireDate}: 1401/04/04
+        </p>
+        <p className="text-zinc-700 text-sm">
+          {strings.totalRequestCall}: 224 عدد
         </p>
       </div>
     </div>

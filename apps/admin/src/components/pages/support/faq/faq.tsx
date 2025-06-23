@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useGetFaqCategoryList } from '@/services/support/faq';
 import { Tab, TabProps } from '@aibox/ui';
 import { SupportAccordion } from '@/components/pages/support/component/support-accordion';
+import { strings } from '@/constant';
 
 const FaqPage: FC = () => {
   const { categories, isLoading, isFetching } = useGetFaqCategoryList({
@@ -13,9 +14,7 @@ const FaqPage: FC = () => {
 
   if (isLoading) {
     return (
-      <div className="p-8 text-center text-gray-500">
-        در حال بارگذاری سؤالات متداول...
-      </div>
+      <div className="p-8 text-center text-gray-500">{strings.loadingFaq}</div>
     );
   }
 
@@ -41,7 +40,7 @@ const FaqPage: FC = () => {
       <Tab tabs={tabs} />
       {isFetching && (
         <div className="mt-4 text-sm text-gray-400 text-center">
-          در حال بروزرسانی...
+          {strings.updating}
         </div>
       )}
     </div>

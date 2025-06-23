@@ -13,8 +13,8 @@ import { useTicketingCategoryUserApis } from '@/services/ticketing/ticketing-cat
 import { defaultValues, ticketSchema, TicketSchemaType } from './schema';
 import { PRIORITY_LABELS, PriorityValue } from './constant';
 import { IAnswerAdmin } from '@/services/ticketing/ticketing-list/interface';
-import { TicketingString } from '@/components/pages/ticketing/ticketing-list/string';
 import { SUPPORT_ROUTES } from '@/routes';
+import { strings } from '@/constant';
 
 const AddTicketPage: FC = () => {
   const router = useRouter();
@@ -100,7 +100,7 @@ const AddTicketPage: FC = () => {
   };
 
   return (
-    <FormContainer title={TicketingString.add_new_ticket}>
+    <FormContainer title={strings.add_new_ticket}>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
@@ -108,16 +108,16 @@ const AddTicketPage: FC = () => {
               name="subject"
               variant="sm"
               control={control}
-              label={TicketingString.subject}
-              placeholder={TicketingString.input_text}
+              label={strings.subject}
+              placeholder={strings.input_text}
             />
 
             <RHFAutocomplete
               name="priority"
               control={control}
-              label={TicketingString.priority}
+              label={strings.priority}
               h_size="sm"
-              placeholder={TicketingString.choose_priority}
+              placeholder={strings.choose_priority}
               options={priorityOptions}
               variant="single"
               mode="light"
@@ -126,9 +126,9 @@ const AddTicketPage: FC = () => {
             <RHFAutocomplete
               name="category"
               control={control}
-              label={TicketingString.category}
+              label={strings.category}
               h_size="sm"
-              placeholder={TicketingString.choose_category}
+              placeholder={strings.choose_category}
               options={categoryOptions}
               variant="single"
               mode="light"
@@ -139,9 +139,9 @@ const AddTicketPage: FC = () => {
             <RHFAutocomplete
               name="assignees"
               control={control}
-              label={TicketingString.choose_user}
+              label={strings.choose_user}
               h_size="sm"
-              placeholder={TicketingString.add_user}
+              placeholder={strings.add_user}
               options={userOptions}
               variant="multiple"
               mode="light"
@@ -168,8 +168,8 @@ const AddTicketPage: FC = () => {
               <RHFAutocomplete
                 name="version_id"
                 control={control}
-                label={TicketingString.version}
-                placeholder={TicketingString.choose_version}
+                label={strings.version}
+                placeholder={strings.choose_version}
                 h_size="sm"
                 options={versionOptions}
                 variant="single"
@@ -190,7 +190,7 @@ const AddTicketPage: FC = () => {
 
           <div className="flex gap-5 justify-center mt-12">
             <Button size="lg" isFilled type="submit" disabled={isCreating}>
-              {TicketingString.submit}
+              {strings.submit}
             </Button>
             <Button
               size="lg"
@@ -198,7 +198,7 @@ const AddTicketPage: FC = () => {
               onClick={handleCancel}
               disabled={isCreating}
             >
-              {TicketingString.cancel_operation}
+              {strings.cancel_operation}
             </Button>
           </div>
         </form>

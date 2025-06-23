@@ -3,22 +3,23 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { IMassNotification } from '@/services/messages/messages-list/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
+import { strings } from '@/constant';
 
 const statusMap: Record<string, { label: string; bgColor: string }> = {
   showing: {
-    label: 'در حال نمایش',
+    label: strings.showing,
     bgColor: 'bg-green-500 ',
   },
   in_progress: {
-    label: 'برنامه‌ریزی شده جهت ارسال',
+    label: strings.scheduledToSend,
     bgColor: 'bg-blue-500 ',
   },
   fail: {
-    label: 'ناموفق',
+    label: strings.unsuccessful,
     bgColor: 'bg-red-600 ',
   },
   send: {
-    label: 'ارسال شده',
+    label: strings.sent,
     bgColor: 'bg-gray-500 ',
   },
 };
@@ -30,19 +31,19 @@ const safeFormat = (dateStr?: string): string => {
 const publicMessageColumns: ColumnDef<IMassNotification>[] = [
   {
     accessorKey: 'user',
-    header: 'مقصد',
+    header: strings.destination,
   },
   {
     accessorKey: 'category',
-    header: 'دسته‌بندی',
+    header: strings.category,
   },
   {
     accessorKey: 'name',
-    header: 'نام پیام گروهی',
+    header: strings.generalMessageText,
   },
   {
     id: 'sendInterval',
-    header: 'بازه ارسال',
+    header: strings.sendTimeRange,
     cell: ({ row }) => {
       const from = safeFormat(row.original.from_time);
       const to = safeFormat(row.original.to_time);
@@ -57,11 +58,11 @@ const publicMessageColumns: ColumnDef<IMassNotification>[] = [
         </span>
       );
     },
-    meta: { label: 'بازه ارسال', variant: 'date' },
+    meta: { label: strings.sendTimeRange, variant: 'date' },
   },
   {
     accessorKey: 'status',
-    header: 'وضعیت',
+    header: strings.status,
     cell: ({ getValue }) => {
       const key = getValue() as string;
       const { label, bgColor } = statusMap[key] || {
@@ -70,11 +71,11 @@ const publicMessageColumns: ColumnDef<IMassNotification>[] = [
       };
       return <AibStatus label={label} bgColor={bgColor} />;
     },
-    meta: { label: 'وضعیت', variant: 'select' },
+    meta: { label: strings.status, variant: 'select' },
   },
   {
     accessorKey: 'message_title',
-    header: 'متن پیام',
+    header: strings.messageText,
   },
 ];
 

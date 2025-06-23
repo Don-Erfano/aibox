@@ -1,48 +1,47 @@
 import { formatJalali } from '@aibox/ui';
 import { ColumnDef } from '@tanstack/react-table';
 
+import { strings } from '@/constant';
 import { GiftCode } from '@/services/gift-code';
-
-import { giftCodeStrings } from './strings';
 
 export const giftCodeColumns: ColumnDef<GiftCode>[] = [
   {
-    header: giftCodeStrings.giftCode,
+    header: strings.giftCode,
     id: 'code',
     accessorKey: 'code',
     enableSorting: false,
     enableColumnFilter: true,
     meta: {
       label: '',
-      placeholder: giftCodeStrings.giftCode,
+      placeholder: strings.giftCode,
       variant: 'text',
     },
   },
   {
-    header: giftCodeStrings.tomanAmountValue,
+    header: strings.tomanAmountValue,
     id: 'amount',
     accessorKey: 'amount',
     cell: ({ getValue }) => (getValue() as number).toLocaleString(),
   },
   {
-    header: giftCodeStrings.expiredDate,
+    header: strings.expiredDate,
     id: 'expired_time',
     accessorKey: 'expired_time',
     cell: ({ getValue }) =>
       getValue() ? formatJalali(getValue() as string) : '—',
   },
   {
-    header: giftCodeStrings.totalCapacity,
+    header: strings.totalCapacity,
     id: 'allowed_count_use',
     accessorKey: 'allowed_count_use',
   },
   {
-    header: giftCodeStrings.usedCapacity,
+    header: strings.usedCapacity,
     id: 'count_user',
     accessorKey: 'count_user',
   },
   {
-    header: giftCodeStrings.remainingCapacity,
+    header: strings.remainingCapacity,
     id: 'remain_count_use',
     accessorKey: 'remain_count_use',
   },

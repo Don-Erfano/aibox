@@ -6,10 +6,11 @@ import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
 import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
+import { strings } from '@/constant';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
-    header: 'نام کاربر',
+    header: strings.userName,
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
     enableSorting: false,
@@ -38,7 +39,7 @@ const userColumns: ColumnDef<IUser>[] = [
     },
   },
   {
-    header: 'نام مستعار',
+    header: strings.nickName,
     accessorKey: 'nickname',
     id: 'nickname',
     maxSize: 160,
@@ -50,7 +51,7 @@ const userColumns: ColumnDef<IUser>[] = [
     maxSize: 160,
   },
   {
-    header: 'تاریخ عضویت',
+    header: strings.registerationDate,
     accessorKey: 'created_at',
     id: 'created_at',
     cell: ({ getValue }) => formatJalali(getValue() as string),
@@ -59,7 +60,7 @@ const userColumns: ColumnDef<IUser>[] = [
     maxSize: 160,
   },
   {
-    header: 'آخرین دسترسی',
+    header: strings.lastLogin,
     accessorKey: 'last_login',
     id: 'last_login',
     cell: ({ getValue }) => {
@@ -67,29 +68,29 @@ const userColumns: ColumnDef<IUser>[] = [
       return raw ? formatJalali(raw) : '—';
     },
     enableColumnFilter: true,
-    meta: { label: 'آخرین دسترسی', variant: 'date' },
+    meta: { label: strings.lastLogin, variant: 'date' },
     maxSize: 160,
   },
 
   {
-    header: 'وضعیت',
+    header: strings.status,
     accessorKey: 'is_active',
     id: 'is_active',
     cell: ({ getValue }) => {
       const isActive = getValue() as boolean;
       return (
         <AibStatus
-          label={isActive ? 'فعال' : 'غیرفعال'}
+          label={isActive ? strings.active : strings.deactive}
           bgColor={isActive ? 'bg-green-600' : 'bg-red-600'}
         />
       );
     },
     enableColumnFilter: true,
-    meta: { label: 'وضعیت', variant: 'select' },
+    meta: { label: strings.status, variant: 'select' },
     maxSize: 160,
   },
   {
-    header: 'دسترسی',
+    header: strings.access,
     accessorKey: 'is_admin',
     id: 'is_admin',
     cell: ({ getValue }) =>
@@ -100,11 +101,11 @@ const userColumns: ColumnDef<IUser>[] = [
       ),
     enableSorting: false,
     enableColumnFilter: true,
-    meta: { label: 'دسترسی', variant: 'select' },
+    meta: { label: strings.access, variant: 'select' },
     maxSize: 160,
   },
   {
-    header: 'سامانه',
+    header: strings.domain,
     accessorKey: 'domain',
     id: 'domain',
     maxSize: 150,

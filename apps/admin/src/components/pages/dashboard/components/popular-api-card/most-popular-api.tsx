@@ -1,12 +1,18 @@
+import { FC } from 'react';
+
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetPopularApis } from '@/services';
-import { FC } from 'react';
+
 import { DefaultAvatar } from '../../icons';
 
 const MostPopularAPICard: FC = () => {
   const { data, isFetching } = useGetPopularApis();
   return (
-    <Card title="APIهای پرتقاضا" className="gap-8 justify-start !h-[297px]">
+    <Card
+      title={strings.mostUsedApis}
+      className="gap-8 justify-start !h-[297px]"
+    >
       <div className="flex flex-col gap-6">
         {!isFetching ? (
           data?.version_info.map((api, index) => (

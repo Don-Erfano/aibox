@@ -4,46 +4,37 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import { z } from 'zod';
 
+import { strings } from '@/constant';
 import { FactorStatus, FactorStatusType, IFactor } from '@/services/factor';
-import { factorStrings } from './strings';
 
 export const statusMap: Record<
   FactorStatusType,
   { label: string; badge: ReactNode }
 > = {
   done: {
-    label: factorStrings.done,
+    label: strings.done,
     badge: (
-      <AibStatus
-        label={factorStrings.done}
-        bgColor="bg-green-600 text-zinc-700"
-      />
+      <AibStatus label={strings.done} bgColor="bg-green-600 text-zinc-700" />
     ),
   },
 
   expired: {
-    label: factorStrings.expired,
+    label: strings.expired,
     badge: (
-      <AibStatus
-        label={factorStrings.expired}
-        bgColor="bg-gray-500 text-zinc-700"
-      />
+      <AibStatus label={strings.expired} bgColor="bg-gray-500 text-zinc-700" />
     ),
   },
   fail: {
-    label: factorStrings.fail,
+    label: strings.fail,
     badge: (
-      <AibStatus
-        label={factorStrings.fail}
-        bgColor="bg-red-600 text-zinc-700"
-      />
+      <AibStatus label={strings.fail} bgColor="bg-red-600 text-zinc-700" />
     ),
   },
   in_progress: {
-    label: factorStrings.inPorgress,
+    label: strings.inPorgress,
     badge: (
       <AibStatus
-        label={factorStrings.inPorgress}
+        label={strings.inPorgress}
         bgColor="bg-orange-500 text-zinc-700"
       />
     ),
@@ -98,19 +89,19 @@ export const getFacotrColumns = (
 ): ColumnDef<IFactor>[] => {
   return [
     {
-      header: factorStrings.num,
+      header: strings.num,
       id: 'num',
       accessorKey: 'num',
     },
     {
-      header: factorStrings.user,
+      header: strings.user,
       id: 'user',
       accessorKey: 'user',
       enableSorting: false,
       enableColumnFilter: true,
       meta: {
         variant: 'select',
-        label: factorStrings.user,
+        label: strings.user,
         options: users,
       },
       cell: ({ row }) => {
@@ -136,7 +127,7 @@ export const getFacotrColumns = (
       },
     },
     {
-      header: factorStrings.department,
+      header: strings.department,
       accessorKey: 'department',
       id: 'department',
       cell: ({ row }) => row.original.department?.title,
@@ -144,37 +135,37 @@ export const getFacotrColumns = (
       enableColumnFilter: true,
       meta: {
         variant: 'select',
-        label: factorStrings.department,
+        label: strings.department,
         options: departments,
       },
     },
     {
-      header: factorStrings.createdDate,
+      header: strings.createdDate,
       accessorKey: 'created_at',
       id: 'created_at',
       cell: ({ getValue }) =>
         getValue() ? formatJalali(getValue() as string) : '—',
     },
     {
-      header: factorStrings.dueDate,
+      header: strings.dueDate,
       accessorKey: 'pay_date',
       id: 'pay_date',
       cell: ({ getValue }) =>
         getValue() ? formatJalali(getValue() as string) : '—',
     },
     {
-      header: factorStrings.priceColumn,
+      header: strings.priceColumn,
       accessorKey: 'price',
       id: 'price',
       cell: ({ getValue }) => (getValue() as number).toLocaleString(),
     },
     {
-      header: factorStrings.discountColumn,
+      header: strings.discountColumn,
       accessorKey: 'discount_percent',
       id: 'discount_percent',
     },
     {
-      header: factorStrings.status,
+      header: strings.status,
       accessorKey: 'status',
       id: 'status',
       cell: ({ getValue }) => statusMap[getValue() as FactorStatusType].badge,
@@ -182,7 +173,7 @@ export const getFacotrColumns = (
       enableColumnFilter: true,
       meta: {
         variant: 'select',
-        label: factorStrings.status,
+        label: strings.status,
         options: factorStatusOptions,
       },
     },

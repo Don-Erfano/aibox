@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { strings } from '@/constant';
 import { FINANCE_ROUTES } from '@/routes';
 import { FormContainer, FormWrapper } from '@/components';
 import { useGetAllDepartments } from '@/services/department';
@@ -14,7 +15,6 @@ import { IAddFactor, usePostFactor } from '@/services/factor';
 import { useGetAllUsers } from '@/services/user/user-lists';
 
 import { addFactorSchema, factorStatusOptions } from './constants';
-import { factorStrings } from './strings';
 
 const AddFactorForm: FC = () => {
   const router = useRouter();
@@ -44,12 +44,12 @@ const AddFactorForm: FC = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer title={factorStrings.addNewFactor}>
+        <FormContainer title={strings.addNewFactor}>
           <FormWrapper>
             <RHFAutocomplete
               control={control}
               name="user"
-              label={factorStrings.user + '*'}
+              label={strings.user + '*'}
               placeholder=""
               options={
                 allUsers?.data.data.users.map((user) => ({
@@ -63,22 +63,22 @@ const AddFactorForm: FC = () => {
               control={control}
               name="price"
               type="number"
-              label={factorStrings.price + '*'}
-              placeholder={factorStrings.priceToToman}
+              label={strings.price + '*'}
+              placeholder={strings.priceToToman}
               variant="sm"
             />
             <RHFInput
               control={control}
               name="discount_percent"
-              label={factorStrings.discount}
-              placeholder={factorStrings.percentageDiscount}
+              label={strings.discount}
+              placeholder={strings.percentageDiscount}
               type="number"
               variant="sm"
             />
             <RHFAutocomplete
               control={control}
               name="department"
-              label={factorStrings.department}
+              label={strings.department}
               placeholder=""
               options={
                 allDepartments?.data.data.department.map((department) => ({
@@ -91,7 +91,7 @@ const AddFactorForm: FC = () => {
             <RHFAutocomplete
               control={control}
               name="status"
-              label={factorStrings.status}
+              label={strings.status}
               placeholder=""
               options={factorStatusOptions}
               h_size="sm"
@@ -101,20 +101,20 @@ const AddFactorForm: FC = () => {
               control={control}
               type="date"
               name="created_at"
-              label={factorStrings.createdDate}
+              label={strings.createdDate}
               variant="sm"
             />
             <RHFInput
               control={control}
               type="date"
               name="due_date"
-              label={factorStrings.dueDate}
+              label={strings.dueDate}
               variant="sm"
             />
             <RHFInput
               control={control}
               name="description"
-              label={factorStrings.description}
+              label={strings.description}
               variant="sm"
             />
           </FormWrapper>
@@ -123,11 +123,11 @@ const AddFactorForm: FC = () => {
               {isPending ? (
                 <LoaderIcon className="animate-spin" />
               ) : (
-                factorStrings.submit
+                strings.submit
               )}
             </Button>
             <Button size="lg" type="button" onClick={() => router.back()}>
-              {factorStrings.cancelAction}
+              {strings.cancelAction}
             </Button>
           </div>
         </FormContainer>

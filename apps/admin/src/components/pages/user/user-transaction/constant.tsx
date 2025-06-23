@@ -13,37 +13,41 @@ import {
 } from '@aibox/ui';
 import { Transaction } from '@/services/transactions/transaction/interface';
 import { ReactNode } from 'react';
+import { strings } from '@/constant';
 
 const kindMap: Record<string, { label: string; icon: ReactNode }> = {
-  withdraw: { label: 'برداشت اعتبار', icon: <WithdrawIcon /> },
-  deposit: { label: 'افزایش اعتبار', icon: <DepositIcon /> },
+  withdraw: { label: strings.withdrawCharge, icon: <WithdrawIcon /> },
+  deposit: { label: strings.depositCharge, icon: <DepositIcon /> },
 };
 
 const titleMap: Record<string, { label: string }> = {
-  deposit: { label: 'افزایش اعتبار' },
-  withdraw: { label: 'برداشت اعتبار' },
-  api_buy: { label: 'خرید API' },
-  api_sale: { label: 'فروش API' },
-  compute: { label: 'محاسبه' },
-  wage: { label: 'دستمزد' },
-  package: { label: 'پکیج' },
-  gift_code: { label: 'کد هدیه' },
-  factor: { label: 'فاکتور' },
+  deposit: { label: strings.depositCharge },
+  withdraw: { label: strings.withdrawCharge },
+  api_buy: { label: strings.buyApi },
+  api_sale: { label: strings.saleApi },
+  compute: { label: strings.compute },
+  wage: { label: strings.wage },
+  package: { label: strings.package },
+  gift_code: { label: strings.giftCode },
+  factor: { label: strings.factor },
 };
 
 const statusMap: Record<string, { label: string; icon: ReactNode }> = {
-  in_progress: { label: 'در حال اقدام', icon: <PendingIcon /> },
-  fail: { label: 'ناموفق', icon: <FailedIcon /> },
-  cancel: { label: 'لغو شده', icon: <ErrorIcon /> },
-  done: { label: 'موفق', icon: <SuccessIcon className="rotate-180" /> },
+  in_progress: { label: strings.inprogress, icon: <PendingIcon /> },
+  fail: { label: strings.unsuccessful, icon: <FailedIcon /> },
+  cancel: { label: strings.canceled, icon: <ErrorIcon /> },
+  done: {
+    label: strings.successful,
+    icon: <SuccessIcon className="rotate-180" />,
+  },
 };
 
 const transactionColumns: ColumnDef<Transaction>[] = [
   {
-    header: 'نوع تراکنش',
+    header: strings.transactionType,
     accessorKey: 'kind',
     id: 'kind',
-    meta: { label: 'نوع تراکنش', variant: 'select' },
+    meta: { label: strings.transactionType, variant: 'select' },
     enableColumnFilter: true,
     enableSorting: false,
     maxSize: 120,
@@ -54,10 +58,10 @@ const transactionColumns: ColumnDef<Transaction>[] = [
     },
   },
   {
-    header: 'عنوان',
+    header: strings.title,
     accessorKey: 'title',
     id: 'title',
-    meta: { label: 'عنوان', variant: 'select' },
+    meta: { label: strings.title, variant: 'select' },
     enableColumnFilter: true,
     enableSorting: false,
     maxSize: 120,
@@ -68,19 +72,19 @@ const transactionColumns: ColumnDef<Transaction>[] = [
     },
   },
   {
-    header: 'زمان',
+    header: strings.date,
     accessorKey: 'date',
     id: 'date',
-    meta: { label: 'زمان', variant: 'date' },
+    meta: { label: strings.date, variant: 'date' },
     enableColumnFilter: true,
     maxSize: 160,
     cell: ({ getValue }) => formatJalali(getValue() as string),
   },
   {
-    header: 'مبلغ (تومان)',
+    header: strings.TomanPrice,
     accessorKey: 'amount',
     id: 'amount',
-    meta: { label: 'مبلغ', variant: 'text' },
+    meta: { label: strings.price, variant: 'text' },
     enableColumnFilter: true,
     enableSorting: false,
     maxSize: 100,
@@ -90,7 +94,7 @@ const transactionColumns: ColumnDef<Transaction>[] = [
     },
   },
   {
-    header: 'وضعیت',
+    header: strings.status,
     accessorKey: 'status',
     id: 'status',
     meta: { label: 'وضعیت', variant: 'select' },
@@ -106,15 +110,15 @@ const transactionColumns: ColumnDef<Transaction>[] = [
 ];
 
 export const statusToggleItems = [
-  { value: 'done', label: 'موفق' },
-  { value: 'fail', label: 'ناموفق' },
-  { value: 'in_progress', label: 'در حال اقدام' },
-  { value: 'cancel', label: 'لغو شده' },
+  { value: 'done', label: strings.successful },
+  { value: 'fail', label: strings.unsuccessful },
+  { value: 'in_progress', label: strings.inprogress },
+  { value: 'cancel', label: strings.canceled },
 ];
 
 export const kindToggleItems = [
-  { value: 'withdraw', label: 'برداشت' },
-  { value: 'deposit', label: 'واریز' },
+  { value: 'withdraw', label: strings.withdraw },
+  { value: 'deposit', label: strings.deposit },
 ];
 
 export const titleToggleItems = Object.entries(titleMap).map(
