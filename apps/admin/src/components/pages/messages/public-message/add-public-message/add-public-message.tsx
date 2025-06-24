@@ -27,6 +27,7 @@ import { CustomMessage } from '@/components/pages/messages/public-message/add-pu
 import {
   useCreateMassNotification,
   useGetMassNotificationCategories,
+  ICreateMassNotificationRequest,
 } from '@/services/messages/public-messages';
 import { useGetAllUserList } from '@/services/user/user-all';
 
@@ -91,8 +92,10 @@ const AddPublicMessagePage: FC = () => {
   const router = useRouter();
 
   const createMassNotificationMutation = useCreateMassNotification();
-  const { data: categories = { category: [] }, isLoading: categoriesLoading } =
-    useGetMassNotificationCategories();
+  const {
+    data: categories = { data: { category: [] } },
+    isLoading: categoriesLoading,
+  } = useGetMassNotificationCategories();
   const { users, isLoading: usersLoading } = useGetAllUserList();
 
   const form = useForm<PublicMessageSchemaType>({
@@ -100,7 +103,7 @@ const AddPublicMessagePage: FC = () => {
     defaultValues,
   });
 
-  const { watch, control, handleSubmit, setValue, reset } = form;
+  const { watch, control, handleSubmit, reset } = form;
   const watchedRecivers = watch('recivers');
   const watchedCategory = watch('category');
 
@@ -124,7 +127,7 @@ const AddPublicMessagePage: FC = () => {
     })) || []),
   ];
 
-  const categoryOptions = categories.category?.map((cat) => ({
+  const categoryOptions = categories.data.category?.map((cat) => ({
     value: cat.id,
     label: cat.name,
   }));
@@ -143,27 +146,34 @@ const AddPublicMessagePage: FC = () => {
         userString = data.recivers.value;
       }
 
+      if (!data.category) {
+        toast.error('لطفاً یک دسته‌بندی را انتخاب کنید');
+        return;
+      }
+
       const from_time = combineDateTime(data.date_from, data.time_from);
       const to_time = combineDateTime(data.date_to, data.time_to);
 
-      const payload = {
+      const messageContent = useDropdown
+        ? selectedIds
+            .map((id) => {
+              const selectedMessage = defaultMessages.find(
+                (msg) => msg.id === id
+              );
+              return selectedMessage?.message || '';
+            })
+            .join('\n')
+        : customText;
+
+      const payload: ICreateMassNotificationRequest = {
         user: userString,
-        category: data.category!.value,
+        category: data.category.value,
         name: data.message_group || data.message_subject,
         from_time,
         to_time,
         subject: data.message_subject,
-        message: useDropdown
-          ? selectedIds
-              .map((id) => {
-                const selectedMessage = defaultMessages.find(
-                  (msg) => msg.id === id
-                );
-                return selectedMessage?.message || '';
-              })
-              .join('\n')
-          : customText,
-        message_text: '',
+        message: messageContent,
+        message_text: messageContent,
         notif_type: 'in_app',
       };
       await createMassNotificationMutation.mutateAsync(payload);
