@@ -1,7 +1,10 @@
-import { useGetUserGpuPackage, useGetUserGpuPackageInfo } from '@/services';
-import { formatJalali, SemiCircleChart } from '@aibox/ui';
-import { Timer } from 'lucide-react';
 import { FC } from 'react';
+import { Timer } from 'lucide-react';
+
+import { formatJalali, SemiCircleChart } from '@aibox/ui';
+
+import { strings } from '@/constant';
+import { useGetUserGpuPackage, useGetUserGpuPackageInfo } from '@/services';
 
 const GpuPackage: FC<{ id: string }> = ({ id }) => {
   const { data, isLoading, isFetching } = useGetUserGpuPackage(id);
@@ -61,7 +64,7 @@ const GpuPackage: FC<{ id: string }> = ({ id }) => {
         <div className="border border-gray-200 rounded-lg flex flex-col justify-center items-center gap-6 p-5">
           <Timer width={52} height={52} className="text-slate-950" />
           <h4 className="font-medium text-md text-slate-800">
-            زمان پردازش شده
+            {strings.totalComputingTime}
           </h4>
           <h4 className="font-medium text-md text-slate-800">
             {usageData?.data.data.usage_time_sum}
@@ -69,12 +72,12 @@ const GpuPackage: FC<{ id: string }> = ({ id }) => {
         </div>
         <div className="border border-gray-200 rounded-lg flex flex-col justify-center items-center gap-8 p-5">
           <h4 className="font-medium text-md text-teal-600">
-            زمان استفاده رایگان
+            {strings.freeUseTime}
           </h4>
           <h4 className="font-medium text-md text-zinc-800">
-            {usageData?.data.data.free_data.total_free} ساعت{' '}
+            {usageData?.data.data.free_data.total_free} {strings.hour}{' '}
             <span className="font-normal text-sm text-zinc-600">
-              تا{' '}
+              {strings.to}{' '}
               {
                 formatJalali(
                   usageData?.data.data.free_data.expire_date || ''
@@ -93,14 +96,16 @@ const GpuPackage: FC<{ id: string }> = ({ id }) => {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500 text-xs">
-                {usageData?.data.data.free_data.total_free} ساعت
+                {usageData?.data.data.free_data.total_free} {strings.hour}
               </span>
-              <span className="text-gray-500 text-xs">0 ساعت</span>
+              <span className="text-gray-500 text-xs">0 {strings.hour}</span>
             </div>
           </div>
         </div>
         <div className="border border-gray-200 rounded-lg flex flex-col justify-center items-center gap-8 p-5 md:col-span-2 lg:col-span-1">
-          <h4 className="font-medium text-md text-teal-600">حجم مصرف شده</h4>
+          <h4 className="font-medium text-md text-teal-600">
+            {strings.useCapacity}
+          </h4>
           <div className="flex flex-col gap-2">
             <SemiCircleChart
               data={usageData?.data.data.volume_data.used_percent || 0}

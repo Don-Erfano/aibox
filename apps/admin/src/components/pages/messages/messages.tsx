@@ -1,35 +1,35 @@
 'use client';
 import { FC } from 'react';
 import { Tab } from '@aibox/ui';
-import { MessagesString } from '@/components/pages/messages/string';
 import { PublicMessagePage } from '@/components/pages/messages/index';
+import { strings } from '@/constant';
 
 const MessagesPage: FC = () => {
   const tabs = [
     {
       id: 'emails',
-      name: MessagesString.email,
+      name: strings.emails,
       content: (
         <div className="p-4 text-gray-700">این قسمت مربوط به پیامک‌هاست.</div>
       ),
     },
     {
       id: 'sms',
-      name: MessagesString.sms,
+      name: strings.sms,
       content: (
         <div className="p-4 text-gray-700">این قسمت مربوط به پیامک‌هاست.</div>
       ),
     },
     {
       id: 'notifications',
-      name: MessagesString.notifications,
+      name: strings.notifications,
       content: (
         <div className="p-4 text-gray-700">این قسمت مربوط به اعلان‌هاست.</div>
       ),
     },
     {
       id: 'public-message',
-      name: MessagesString.public_messages,
+      name: strings.public_messages,
       content: <PublicMessagePage />,
     },
   ];

@@ -22,6 +22,7 @@ import {
   UserRound,
   Webhook,
 } from 'lucide-react';
+import strings from './strings';
 
 export const sidebarData: SidebarData = [
   {
@@ -90,7 +91,7 @@ export const sidebarData: SidebarData = [
     ],
   },
   {
-    title: 'پلتفرم ارائه API',
+    title: strings.apiPlatform,
     icon: <Webhook height={20} width={20} />,
     items: [
       {

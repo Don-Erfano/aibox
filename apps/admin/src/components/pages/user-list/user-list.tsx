@@ -5,6 +5,7 @@ import { useGetUserList } from '@/services/user/user-lists';
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { USERS_ROUTES } from '@/routes';
+import { strings } from '@/constant';
 
 const UserList: FC = () => {
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
@@ -28,7 +29,7 @@ const UserList: FC = () => {
     <>
       <div className="relative h-full">
         <TableToolbar
-          title="کاربران"
+          title={strings.users}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}

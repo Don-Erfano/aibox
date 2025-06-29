@@ -29,7 +29,7 @@ import { FabButton } from '@/components/fab-button';
 import type { Transaction } from '@/services/transactions/transaction/interface';
 import { CircleCheckBig, CircleX } from 'lucide-react';
 import { transactionFormSchema } from '@/components/pages/user/user-transaction/schema';
-import { TransactionString } from '@/components/pages/user/user-transaction/string';
+import { strings } from '@/constant';
 
 type FormValues = z.infer<typeof transactionFormSchema>;
 const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
@@ -78,7 +78,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const openEdit = (tx: Transaction) => {
     setSelectedTx(tx);
     reset({
-      status: tx.status as 'موفق' | 'ناموفق',
+      status: tx.status as unknown as 'موفق' | 'ناموفق',
       kind: tx.kind as 'withdraw' | 'deposit',
       track_id: tx.track_id,
       description: tx.description,
@@ -175,19 +175,19 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
       <div className="min-h-screen p-4">
         <div className="flex flex-col md:flex-row gap-x-9 gap-y-6 items-center justify-center mb-8">
           <DetailCard
-            title={TransactionString.earned}
+            title={strings.earned}
             credit={earnAmount}
-            label={TransactionString.toman}
+            label={strings.toman}
           />
           <DetailCard
-            title={TransactionString.withdraw_amount}
+            title={strings.withdraw_amount}
             credit={withdrawAmount}
-            label={TransactionString.toman}
+            label={strings.toman}
           />
           <DetailCard
-            title={TransactionString.remain_charge}
+            title={strings.remain_charge}
             credit={remainCharge}
-            label={TransactionString.toman}
+            label={strings.toman}
           />
         </div>
 
@@ -232,7 +232,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
         onOpenChange={(open) => {
           if (!open) setIsCreateModalOpen(false);
         }}
-        title={TransactionString.submit_transaction}
+        title={strings.submit_transaction}
       >
         <Form {...form}>
           <form
@@ -246,7 +246,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
               render={({ field }) => (
                 <div className="flex justify-between">
                   <p className="text-sm text-zinc-600 font-normal">
-                    {TransactionString.transaction_status}
+                    {strings.transaction_status}
                   </p>
                   <ToggleGroup
                     items={statusToggleItems}
@@ -263,7 +263,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
               render={({ field }) => (
                 <div className="flex justify-between">
                   <p className="text-sm text-zinc-600 font-normal">
-                    {TransactionString.transaction_kind}
+                    {strings.transaction_kind}
                   </p>
                   <ToggleGroup
                     items={kindToggleItems}
@@ -277,13 +277,13 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
             <RHFInput
               name="track_id"
               control={control}
-              label={TransactionString.transaction_id}
+              label={strings.transaction_id}
             />
 
             <RHFInput
               name="description"
               control={control}
-              label={TransactionString.description}
+              label={strings.description}
               type="textarea"
             />
 
@@ -293,12 +293,12 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
                 size="lg"
                 isFilled
                 type="submit"
-                title={TransactionString.submit}
+                title={strings.submit}
               />
               <Button
                 variant="default"
                 size="lg"
-                title={TransactionString.cancel}
+                title={strings.cancel}
                 onClick={() => setIsCreateModalOpen(false)}
               />
             </div>
@@ -311,7 +311,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
         onOpenChange={(open) => {
           if (!open) setIsEditModalOpen(false);
         }}
-        title={TransactionString.edit}
+        title={strings.editTransaction}
       >
         <Form {...form}>
           <form
@@ -325,7 +325,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
               render={({ field }) => (
                 <div className="flex justify-between">
                   <p className="text-sm text-zinc-600 font-normal">
-                    {TransactionString.transaction_status}
+                    {strings.transaction_status}
                   </p>
                   <ToggleGroup
                     items={statusToggleItems}
@@ -342,7 +342,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
               render={({ field }) => (
                 <div className="flex justify-between">
                   <p className="text-sm text-zinc-600 font-normal">
-                    {TransactionString.transaction_kind}
+                    {strings.transaction_kind}
                   </p>
                   <ToggleGroup
                     items={kindToggleItems}
@@ -356,13 +356,13 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
             <RHFInput
               name="track_id"
               control={control}
-              label={TransactionString.transaction_id}
+              label={strings.transaction_id}
             />
 
             <RHFInput
               name="description"
               control={control}
-              label={TransactionString.description}
+              label={strings.description}
               type="textarea"
             />
 
@@ -372,13 +372,13 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
                 size="lg"
                 isFilled
                 type="submit"
-                title={TransactionString.edit}
+                title={strings.editTransaction}
               />
 
               <Button
                 variant="default"
                 size="lg"
-                title={TransactionString.cancel}
+                title={strings.cancel}
                 onClick={() => setIsEditModalOpen(false)}
               />
             </div>

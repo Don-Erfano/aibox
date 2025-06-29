@@ -1,4 +1,6 @@
+import { strings } from '@/constant';
+
 export const toggleItems = [
-  { label: 'فعال', value: 'active' },
-  { label: 'غیرفعال', value: 'inactive' },
+  { label: strings.active, value: 'active' },
+  { label: strings.deactive, value: 'inactive' },
 ];

@@ -1,10 +1,11 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { IUserToken } from '@/services/user/user-token/interface';
+import { strings } from '@/constant';
 
 const tokenColumns: ColumnDef<IUserToken>[] = [
   {
-    header: 'کاربر',
+    header: strings.user,
     accessorKey: 'email',
     id: 'email',
     meta: { label: 'Email', variant: 'text' },

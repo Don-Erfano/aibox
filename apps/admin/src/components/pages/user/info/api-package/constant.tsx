@@ -1,14 +1,15 @@
+import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { formatJalali } from '@aibox/ui';
 
-import Link from 'next/link';
+import { strings } from '@/constant';
 import { API_PLATFORM_ROUTES } from '@/routes';
 import { IUserApiPackageDetail } from '@/services';
 
 const USERAPIPACKAGES: ColumnDef<IUserApiPackageDetail>[] = [
   {
-    header: 'نام API',
+    header: strings.apiName,
     id: 'name',
     accessorFn: (row) => `${row.package.api}`,
     cell: ({ getValue, row }) => {
@@ -26,50 +27,50 @@ const USERAPIPACKAGES: ColumnDef<IUserApiPackageDetail>[] = [
       );
     },
     enableColumnFilter: true,
-    meta: { label: 'نام API', variant: 'text' },
+    meta: { label: strings.apiName, variant: 'text' },
     enableSorting: false,
   },
 
   {
-    header: 'ورژن',
+    header: strings.version,
     id: 'version',
     accessorKey: 'package.version',
     enableSorting: false,
   },
   {
-    header: 'نوع پلن',
+    header: strings.planType,
     id: 'paln',
     accessorFn: ({ package: apiPackage }) =>
-      apiPackage?.type === 'PER_USE' ? 'فراخوانی' : 'ماهانه',
+      apiPackage?.type === 'PER_USE' ? strings.request : strings.monthly,
     enableSorting: false,
   },
   {
-    header: 'تاریخ فعال‌سازی',
+    header: strings.activatedDate,
     id: 'status_date',
     accessorFn: ({ created_at }) =>
       created_at ? formatJalali(created_at).split(' ')[1] : '-',
     enableSorting: true,
     enableColumnFilter: true,
     meta: {
-      label: 'تاریخ فعال‌سازی',
+      label: strings.activatedDate,
       variant: 'dateRange',
     },
   },
   {
-    header: 'فراخوانی روزانه (بیشینه)',
+    header: strings.maxDailyRequest,
     accessorFn: ({ package: apiPackage }) => apiPackage?.daily_limit || '-',
     enableColumnFilter: true,
     meta: {
-      label: 'فراخوانی روزانه (بیشینه)',
+      label: strings.maxDailyRequest,
       variant: 'range',
     },
   },
   {
-    header: 'فراخوانی ماهانه (بیشینه)',
+    header: strings.maxMonthlyRequest,
     accessorFn: ({ package: apiPackage }) => apiPackage?.monthly_limit || '-',
     enableColumnFilter: true,
     meta: {
-      label: 'فراخوانی ماهانه (بیشینه)',
+      label: strings.maxMonthlyRequest,
       variant: 'range',
     },
   },

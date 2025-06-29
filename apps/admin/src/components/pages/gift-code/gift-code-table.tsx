@@ -7,11 +7,11 @@ import {
   useDataTable,
 } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { FabButton } from '@/components/fab-button';
 import { useGetAllGiftCodes } from '@/services/gift-code';
 
 import { giftCodeColumns } from './constants';
-import { giftCodeStrings } from './strings';
 
 const GiftCodeTable: React.FC = () => {
   const { giftCodes, isLoading, isFetching, refetch, totalItems, totalPages } =
@@ -39,7 +39,7 @@ const GiftCodeTable: React.FC = () => {
         submitFilters={submitFilters}
         refreshLoading={isLoading || isFetching}
         noManageColumns
-        title={giftCodeStrings.giftCode}
+        title={strings.giftCode}
         totalItems={totalItems}
       />
 

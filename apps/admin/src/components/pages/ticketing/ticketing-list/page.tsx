@@ -34,9 +34,9 @@ import {
   assignTicketDefaultValues,
 } from './schema';
 import { useGetAllUserList } from '@/services/user/user-all';
-import { TicketingString } from './string';
 import { FabButton } from '@/components/fab-button';
 import { SUPPORT_ROUTES } from '@/routes';
+import { strings } from '@/constant';
 
 export const TicketingPage: FC = () => {
   const router = useRouter();
@@ -151,7 +151,7 @@ export const TicketingPage: FC = () => {
     <>
       <div className="relative shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title={TicketingString.tickets}
+          title={strings.tickets}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}
@@ -171,7 +171,7 @@ export const TicketingPage: FC = () => {
         onOpenChange={(open) => {
           if (!open) setIsModalOpen(false);
         }}
-        title={TicketingString.assign_ticket}
+        title={strings.assign_ticket}
       >
         <Form {...form}>
           <form
@@ -197,7 +197,7 @@ export const TicketingPage: FC = () => {
               <RHFAutocomplete
                 name="operator_id"
                 control={form.control}
-                placeholder={TicketingString.choose_operator}
+                placeholder={strings.choose_operator}
                 options={adminOptions}
                 variant="single"
                 mode="light"
@@ -210,7 +210,7 @@ export const TicketingPage: FC = () => {
 
             <div className="flex justify-center items-center space-x-5 pt-4">
               <Button variant="default" size="lg" type="submit" isFilled>
-                {TicketingString.submit}
+                {strings.submit}
               </Button>
               <Button
                 variant="default"
@@ -218,7 +218,7 @@ export const TicketingPage: FC = () => {
                 type="button"
                 onClick={() => setIsModalOpen(false)}
               >
-                {TicketingString.cancel}
+                {strings.cancel}
               </Button>
             </div>
           </form>
@@ -230,17 +230,17 @@ export const TicketingPage: FC = () => {
         onOpenChange={(open) => {
           if (!open) setIsCloseModalOpen(false);
         }}
-        title={TicketingString.close_ticket}
+        title={strings.close_ticket}
       >
         <div
           key={closeModalKey}
           className="space-y-4 px-4 sm:px-6 pb-6 text-center"
         >
           <h3 className="text-sm font-medium text-slate-950">
-            {TicketingString.close_ticket_title}
+            {strings.close_ticket_title}
           </h3>
           <p className="text-sm text-gray-500">
-            {TicketingString.close_ticket_description}
+            {strings.close_ticket_description}
           </p>
           <div className="flex justify-center items-center space-x-5 pt-4">
             <Button
@@ -250,7 +250,7 @@ export const TicketingPage: FC = () => {
               type="button"
               onClick={handleCloseConfirm}
             >
-              {TicketingString.close_ticket}
+              {strings.close_ticket}
             </Button>
             <Button
               variant="default"
@@ -258,7 +258,7 @@ export const TicketingPage: FC = () => {
               type="button"
               onClick={() => setIsCloseModalOpen(false)}
             >
-              {TicketingString.cancel}
+              {strings.cancel}
             </Button>
           </div>
         </div>

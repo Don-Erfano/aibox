@@ -5,6 +5,7 @@ import { AibStatus, Button, Modal, toast, ToggleGroup } from '@aibox/ui';
 import { UserStatusProps } from './types';
 import { toggleItems } from './constant';
 import { useUpdateUserInfo } from '@/services/user/info';
+import { strings } from '@/constant';
 
 const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
   const initialStatus = status ? 'active' : 'inactive';
@@ -37,10 +38,10 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
   return (
     <div className="flex flex-col gap-4 max-w-3xs">
       <p className="font-medium text-sm text-zinc-800 cursor-default">
-        وضعیت کاربر
+        {strings.userStatus}
       </p>
       <AibStatus
-        label={status ? 'فعال' : 'غیرفعال'}
+        label={status ? strings.active : strings.deactive}
         bgColor={`${status ? 'bg-green-600' : ' text-zinc-700 bg-red-600'}`}
       />
       <Modal
@@ -50,10 +51,10 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
         }}
         trigger={
           <Button variant="outline" isFilled className="self-start w-auto">
-            تغییر وضعیت کاربر
+            {strings.changeUserStatus}
           </Button>
         }
-        title="تغییر وضعیت کاربر"
+        title={strings.changeUserStatus}
       >
         <div className=" flex flex-col gap-8 items-center ">
           <ToggleGroup
@@ -69,7 +70,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
               onClick={handleSubmit}
               disabled={isPending}
             >
-              ثبت
+              {strings.submit}
             </Button>
             <Button
               className="self-start"
@@ -78,7 +79,7 @@ const UserStatusField: FC<UserStatusProps> = ({ status, userId }) => {
               type="button"
               disabled={isPending}
             >
-              لغو
+              {strings.ignore}
             </Button>
           </div>
         </div>
