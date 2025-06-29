@@ -5,4 +5,6 @@ export interface ISelectableDay {
   selectedDate: string[];
   onClick: (agr: string) => void;
   today: string;
+  min?: string;
+  max?: string;
 }

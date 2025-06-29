@@ -5,6 +5,8 @@ export interface IDatePicker {
   value: string[];
   label?: string;
   isMulti?: boolean;
+  min?: string;
+  max?: string;
 }
 
 export interface IPortalProps {

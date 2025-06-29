@@ -8,4 +8,6 @@ export interface IDatePickerCtx {
   currentDate: IcurrentDate;
   setCurrentDate: Dispatch<SetStateAction<IcurrentDate>>;
   datePickerValue: string[];
+  min?: string;
+  max?: string;
 }

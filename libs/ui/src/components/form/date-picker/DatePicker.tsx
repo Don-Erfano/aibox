@@ -10,17 +10,20 @@ import { Days, Header, WeekDays } from './components';
 import { jalaliToDateTime } from './helpers/convertors';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
 import DatePickerInput from './components/Input/DatePickerInput';
+import DatePickerSingleInput from './components/Input/DatePickerSingleInput';
 
 const CustomDatePicker: FC<IDatePicker> = ({
   onChange,
   value,
   label,
   isMulti,
+  min,
+  max,
 }) => {
   const today = moment(new Date()).format('jYYYY/jM/jD');
   const [show, setShow] = useState(false);
   const [datePickerValue, SetDatePickerValue] = useState<string[]>(
-    value ? value.map((val) => moment(val).format('jYYYY/jM/jD')) : [today]
+    value ? value.map((val) => moment(val).format('jYYYY/jM/jD')) : ['']
   );
   const [calendarState, setCalendarState] = useState<ECalendarState>(
     ECalendarState.DAY
@@ -75,15 +78,27 @@ const CustomDatePicker: FC<IDatePicker> = ({
         setCurrentDate,
         setCalendarState,
         today,
+        min,
+        max,
       }}
     >
       <Popover open={show} onOpenChange={toggleShow}>
-        <PopoverTrigger>
-          <DatePickerInput
-            value={datePickerValue.join(' - ')}
-            label={label}
-            clearAction={clearAction}
-          />
+        <PopoverTrigger className="w-full">
+          {isMulti ? (
+            <DatePickerInput
+              value={datePickerValue}
+              label={label}
+              handleChange={(e) => SetDatePickerValue(e)}
+              clearAction={clearAction}
+            />
+          ) : (
+            <DatePickerSingleInput
+              value={datePickerValue}
+              label={label}
+              handleChange={(e) => SetDatePickerValue(e)}
+              clearAction={clearAction}
+            />
+          )}
         </PopoverTrigger>
         <PopoverContent>
           {calendarState === ECalendarState.DAY ? (

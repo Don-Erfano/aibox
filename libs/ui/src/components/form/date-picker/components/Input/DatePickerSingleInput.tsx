@@ -1,19 +1,17 @@
-import { FC, useEffect, useState } from 'react';
-
+import { FC, useState } from 'react';
 import { IDatePickerInput } from './types';
-import moment from 'moment-jalaali';
 import { Calendar, X } from 'lucide-react';
+import moment from 'moment-jalaali';
 
-const DatePickerInput: FC<IDatePickerInput> = ({
+const DatePickerSingleInput: FC<IDatePickerInput> = ({
+  clearAction,
+  handleChange,
   value,
   label,
-  handleChange,
-  clearAction,
 }) => {
   const [fromDate, setFromDate] = useState(
     moment(value[0]).format('YYYY-DD-MM')
   );
-  const [toDate, setToDate] = useState(moment(value[1]).format('YYYY-DD-MM'));
 
   return (
     <div className="flex flex-col items-start gap-2 w-full cursor-pointer">
@@ -35,33 +33,10 @@ const DatePickerInput: FC<IDatePickerInput> = ({
             className="outline-0 w-fit cursor-pointer"
           />
         </div>
-        <span>-</span>
-        <div className="flex w-full">
-          <div className="w-full">
-            <Calendar />
-          </div>
-          <input
-            value={toDate}
-            onChange={(e) => {
-              setToDate(e.target.value);
-              if (
-                new Date(
-                  moment(e.target.value.replaceAll('-', '/')).format()
-                ).getTime() > new Date(moment(fromDate).format()).getTime()
-              ) {
-                handleChange([value[0], e.target.value.replaceAll('-', '/')]);
-              }
-            }}
-            name="to"
-            onClick={(e) => e.preventDefault()}
-            type="date"
-            className="outline-0 w-fit cursor-pointer"
-          />
-        </div>
         {value.some((v) => v) && <X onClick={clearAction} />}
       </div>
     </div>
   );
 };
 
-export default DatePickerInput;
+export default DatePickerSingleInput;

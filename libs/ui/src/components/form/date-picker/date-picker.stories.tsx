@@ -23,6 +23,8 @@ export const Range: Story = {
   args: {
     isMulti: true,
     onChange: (e) => console.log(e),
+    max: '2025-06-29T00:00:00+03:30',
+    label: 'لیبل',
   },
 };
 
@@ -48,6 +50,7 @@ export const Rhf: Story = {
         dob: ['2025-04-04T00:00:00+03:30'],
       },
     });
+
     function onSubmit(data: z.infer<typeof FormSchema>) {
       console.log('You submitted the following values', {
         description: (
@@ -57,6 +60,7 @@ export const Rhf: Story = {
         ),
       });
     }
+
     return (
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

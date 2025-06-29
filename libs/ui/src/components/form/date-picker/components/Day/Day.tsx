@@ -9,8 +9,25 @@ const WeekDay: FC<ISelectableDay> = ({
   selectedDate,
   onClick,
   today,
+  max,
+  min,
 }) => {
+  const minimumDate = min
+    ? new Date(moment(min).toLocaleString()).getTime() >
+      new Date(
+        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+      ).getTime()
+    : false;
+
+  const maximumDate = max
+    ? new Date(moment(max).toLocaleString()).getTime() <
+      new Date(
+        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+      ).getTime()
+    : false;
+
   const isToday = today === `${year.j}/${month.j}/${day.j}`;
+
   const inRange =
     selectedDate.length === 2 &&
     new Date(moment(selectedDate[0]).toLocaleString()).getTime() <
@@ -21,6 +38,7 @@ const WeekDay: FC<ISelectableDay> = ({
       new Date(
         moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
       ).getTime();
+
   const isSelected =
     selectedDate[0] === `${year.j}/${month.j}/${day.j}` ||
     selectedDate[1] === `${year.j}/${month.j}/${day.j}`;
@@ -33,8 +51,9 @@ const WeekDay: FC<ISelectableDay> = ({
 
   return (
     <div
-      className="size-10 p-0.5"
+      className="size-10 p-0.5 aria-disabled:pointer-events-none aria-disabled:text-gray-400"
       onClick={() => onClick(`${year.j}/${month.j}/${day.j}`)}
+      aria-disabled={minimumDate || maximumDate}
     >
       <div
         className={clsx(
