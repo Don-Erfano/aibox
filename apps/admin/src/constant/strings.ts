@@ -15,6 +15,7 @@ const strings = {
   rejectTitle: 'عنوان پیام به ارائه دهنده',
   additionalDescription: 'توضیحات بیشتر را وارد کنید.',
   apisList: 'لیست APIها',
+  reports: 'گزارش‌ها',
   waitingForAccept: 'در انتظار تایید',
   deprecating: 'درحال منقضی شدن',
   deprecated: 'منقضی شده',
