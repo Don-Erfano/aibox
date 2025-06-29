@@ -20,10 +20,10 @@ const CustomDatePicker: FC<IDatePicker> = ({
   min,
   max,
 }) => {
-  const today = moment(new Date()).format('jYYYY/jM/jD');
+  const today = moment(new Date()).format('jYYYY/jMM/jDD');
   const [show, setShow] = useState(false);
   const [datePickerValue, SetDatePickerValue] = useState<string[]>(
-    value ? value.map((val) => moment(val).format('jYYYY/jM/jD')) : ['']
+    value ? value.map((val) => moment(val).format('jYYYY/jMM/jDD')) : ['']
   );
   const [calendarState, setCalendarState] = useState<ECalendarState>(
     ECalendarState.DAY

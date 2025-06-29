@@ -12,36 +12,63 @@ const WeekDay: FC<ISelectableDay> = ({
   max,
   min,
 }) => {
+  console.log(max);
   const minimumDate = min
     ? new Date(moment(min).toLocaleString()).getTime() >
       new Date(
-        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+        moment(
+          `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+            +day.j > 10 ? day.j : `0${day.j}`
+          }`
+        ).toLocaleString()
       ).getTime()
     : false;
 
   const maximumDate = max
     ? new Date(moment(max).toLocaleString()).getTime() <
       new Date(
-        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+        moment(
+          `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+            +day.j > 10 ? day.j : `0${day.j}`
+          }`
+        ).toLocaleString()
       ).getTime()
     : false;
 
-  const isToday = today === `${year.j}/${month.j}/${day.j}`;
+  const isToday =
+    today ===
+    `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+      +day.j > 10 ? day.j : `0${day.j}`
+    }`;
 
   const inRange =
     selectedDate.length === 2 &&
     new Date(moment(selectedDate[0]).toLocaleString()).getTime() <
       new Date(
-        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+        moment(
+          `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+            +day.j > 10 ? day.j : `0${day.j}`
+          }`
+        ).toLocaleString()
       ).getTime() &&
     new Date(moment(selectedDate[1]).toLocaleString()).getTime() >
       new Date(
-        moment(`${year.j}/${month.j}/${day.j}`).toLocaleString()
+        moment(
+          `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+            +day.j > 10 ? day.j : `0${day.j}`
+          }`
+        ).toLocaleString()
       ).getTime();
 
   const isSelected =
-    selectedDate[0] === `${year.j}/${month.j}/${day.j}` ||
-    selectedDate[1] === `${year.j}/${month.j}/${day.j}`;
+    selectedDate[0] ===
+      `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+        +day.j > 10 ? day.j : `0${day.j}`
+      }` ||
+    selectedDate[1] ===
+      `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+        +day.j > 10 ? day.j : `0${day.j}`
+      }`;
 
   const weekEndClasses = (commonClass: string) =>
     clsx(commonClass, {
@@ -52,7 +79,13 @@ const WeekDay: FC<ISelectableDay> = ({
   return (
     <div
       className="size-10 p-0.5 aria-disabled:pointer-events-none aria-disabled:text-gray-400"
-      onClick={() => onClick(`${year.j}/${month.j}/${day.j}`)}
+      onClick={() =>
+        onClick(
+          `${year.j}/${+month.j > 10 ? month.j : `0${month.j}`}/${
+            +day.j > 10 ? day.j : `0${day.j}`
+          }`
+        )
+      }
       aria-disabled={minimumDate || maximumDate}
     >
       <div

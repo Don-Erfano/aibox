@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { IDatePickerInput } from './types';
 import moment from 'moment-jalaali';
@@ -10,11 +10,6 @@ const DatePickerInput: FC<IDatePickerInput> = ({
   handleChange,
   clearAction,
 }) => {
-  const [fromDate, setFromDate] = useState(
-    moment(value[0]).format('YYYY-DD-MM')
-  );
-  const [toDate, setToDate] = useState(moment(value[1]).format('YYYY-DD-MM'));
-
   return (
     <div className="flex flex-col items-start gap-2 w-full cursor-pointer">
       <span>{label}</span>
@@ -24,11 +19,10 @@ const DatePickerInput: FC<IDatePickerInput> = ({
             <Calendar />
           </div>
           <input
-            value={fromDate}
-            onChange={(e) => {
-              setFromDate(e.target.value);
-              handleChange([e.target.value.replaceAll('-', '/'), value[1]]);
-            }}
+            value={value[0]?.replaceAll('/', '-')}
+            onChange={(e) =>
+              handleChange([e.target.value.replaceAll('-', '/'), value[1]])
+            }
             onClick={(e) => e.preventDefault()}
             name="from"
             type="date"
@@ -41,13 +35,12 @@ const DatePickerInput: FC<IDatePickerInput> = ({
             <Calendar />
           </div>
           <input
-            value={toDate}
+            value={value[1]?.replaceAll('/', '-')}
             onChange={(e) => {
-              setToDate(e.target.value);
               if (
                 new Date(
                   moment(e.target.value.replaceAll('-', '/')).format()
-                ).getTime() > new Date(moment(fromDate).format()).getTime()
+                ).getTime() > new Date(moment(value[0]).format()).getTime()
               ) {
                 handleChange([value[0], e.target.value.replaceAll('-', '/')]);
               }
@@ -58,7 +51,7 @@ const DatePickerInput: FC<IDatePickerInput> = ({
             className="outline-0 w-fit cursor-pointer"
           />
         </div>
-        {value.some((v) => v) && <X onClick={clearAction} />}
+        {value?.some((v) => v) && <X onClick={clearAction} />}
       </div>
     </div>
   );

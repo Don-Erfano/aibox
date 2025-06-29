@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { IDatePickerInput } from './types';
 import { Calendar, X } from 'lucide-react';
-import moment from 'moment-jalaali';
 
 const DatePickerSingleInput: FC<IDatePickerInput> = ({
   clearAction,
@@ -9,10 +8,6 @@ const DatePickerSingleInput: FC<IDatePickerInput> = ({
   value,
   label,
 }) => {
-  const [fromDate, setFromDate] = useState(
-    moment(value[0]).format('YYYY-DD-MM')
-  );
-
   return (
     <div className="flex flex-col items-start gap-2 w-full cursor-pointer">
       <span>{label}</span>
@@ -22,13 +17,12 @@ const DatePickerSingleInput: FC<IDatePickerInput> = ({
             <Calendar />
           </div>
           <input
-            value={fromDate}
+            value={value[0]?.replaceAll('/', '-')}
             onChange={(e) => {
-              setFromDate(e.target.value);
               handleChange([e.target.value.replaceAll('-', '/'), value[1]]);
             }}
             onClick={(e) => e.preventDefault()}
-            name="from"
+            name="date"
             type="date"
             className="outline-0 w-fit cursor-pointer"
           />

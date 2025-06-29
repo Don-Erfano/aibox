@@ -20,8 +20,8 @@ const Days: FC<IDays> = ({ onClick }) => {
             day={item}
             selectedDate={datePickerValue}
             today={today}
-            min={min ? moment(min).format('jYYYY/jM/jD') : ''}
-            max={max ? moment(max).format('jYYYY/jM/jD') : ''}
+            min={min ? moment(min).format('jYYYY/jMM/jDD') : ''}
+            max={max ? moment(max).format('jYYYY/jMM/jDD') : ''}
             onClick={onClick}
           />
         )
