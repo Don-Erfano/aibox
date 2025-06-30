@@ -1,3 +1,4 @@
+import { strings } from '@/constant';
 import { z } from 'zod';
 
 export const userInfoSchema = z.object({
@@ -32,10 +33,7 @@ export const userInfoSchema = z.object({
   email: z.string().email('فرمت ایمیل را به درستی و کامل وارد کنید.'),
   phone_number: z
     .string()
-    .regex(
-      /^[09][0-9]{10}$/,
-      'فرمت صحیح شماره موبایل: 09xxxxx1234'
-    )
+    .regex(/^[09][0-9]{10}$/, 'فرمت صحیح شماره موبایل: 09xxxxx1234')
     .optional()
     .or(z.literal('')),
   gender: z.string().optional(),
@@ -43,8 +41,8 @@ export const userInfoSchema = z.object({
 });
 
 export const statusOptions = [
-  { id: 'true', label: 'فعال' },
-  { id: 'false', label: 'غیرفعال' },
+  { id: 'true', label: strings.active },
+  { id: 'false', label: strings.deactive },
 ];
 
 export const genderOptions = [

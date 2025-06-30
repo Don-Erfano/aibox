@@ -2,10 +2,11 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
+import { strings } from '@/constant';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
-    header: 'نام کاربر',
+    header: strings.userName,
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
     cell: ({ row, getValue }) => {
@@ -28,7 +29,7 @@ const userColumns: ColumnDef<IUser>[] = [
     },
   },
   {
-    header: 'نام مستعار',
+    header: strings.nickName,
     accessorKey: 'nickname',
     id: 'nickname',
   },
@@ -38,7 +39,7 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'email',
   },
   {
-    header: 'تاریخ عضویت',
+    header: strings.registerationDate,
     accessorKey: 'created_at',
     id: 'created_at',
     cell: ({ getValue }) => new Date(getValue() as string).toLocaleString(),
@@ -46,16 +47,16 @@ const userColumns: ColumnDef<IUser>[] = [
     meta: { label: 'Created At', variant: 'date' },
   },
   {
-    header: 'آخرین دسترسی',
+    header: strings.lastLogin,
     accessorKey: 'last_login',
     id: 'last_login',
     cell: ({ getValue }) =>
       getValue() ? new Date(getValue() as string).toLocaleString() : '—',
     enableColumnFilter: true,
-    meta: { label: 'تاریخ عضویت', variant: 'date' },
+    meta: { label: strings.lastLogin, variant: 'date' },
   },
   {
-    header: 'وضعیت',
+    header: strings.status,
     accessorKey: 'is_active',
     id: 'is_active',
     cell: ({ getValue }) => {
@@ -70,10 +71,10 @@ const userColumns: ColumnDef<IUser>[] = [
       );
     },
     enableColumnFilter: true,
-    meta: { label: 'وضعیت', variant: 'select' },
+    meta: { label: strings.status, variant: 'select' },
   },
   {
-    header: 'دسترسی',
+    header: strings.access,
     accessorKey: 'is_admin',
     id: 'is_admin',
     cell: ({ getValue }) =>
@@ -83,7 +84,7 @@ const userColumns: ColumnDef<IUser>[] = [
         <AdminBadge isAdmin={false} />
       ),
     enableColumnFilter: true,
-    meta: { label: 'دسترسی', variant: 'select' },
+    meta: { label: strings.access, variant: 'select' },
   },
 ];
 export default userColumns;

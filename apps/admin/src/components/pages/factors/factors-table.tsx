@@ -9,6 +9,8 @@ import {
 import { useRouter } from 'next/navigation';
 import { FC, useMemo, useState } from 'react';
 
+import { strings } from '@/constant';
+import { FINANCE_ROUTES } from '@/routes';
 import { FabButton } from '@/components/fab-button';
 import { useGetAllDepartments } from '@/services/department';
 import { useGetFactors } from '@/services/factor';
@@ -18,8 +20,6 @@ import { getFacotrColumns } from './constants';
 import { DeleteFactorModal } from './delete-factor-modal';
 import { FactorTableChild } from './factor-table-child';
 import { DeleteModal } from './interface';
-import { factorStrings } from './strings';
-import { FINANCE_ROUTES } from '@/routes';
 
 const FactorsTable: FC = () => {
   const router = useRouter();
@@ -79,7 +79,7 @@ const FactorsTable: FC = () => {
         submitFilters={submitFilters}
         refreshLoading={isLoading || isFetching}
         noManageColumns
-        title={factorStrings.factors}
+        title={strings.factors}
         totalItems={totalItems}
       />
       <DataTable table={table} childComponent={FactorTableChild} />

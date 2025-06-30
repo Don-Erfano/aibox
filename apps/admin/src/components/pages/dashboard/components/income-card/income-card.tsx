@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { DonutChart } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
-import { AIIcon, APIIcon, CashIcon, GPUIcon } from '../../icons';
 import { useGetIncome } from '@/services/dashboard';
+
+import { AIIcon, APIIcon, CashIcon, GPUIcon } from '../../icons';
 
 const IncomeCard: FC = () => {
   const { data } = useGetIncome();
@@ -17,15 +19,19 @@ const IncomeCard: FC = () => {
   };
 
   const chartData = [
-    { id: '1', name: 'باقی مانده شارژ', amount: +incomeData.remain_charge },
-    { id: '2', name: 'رایانش گرافیکی', amount: +incomeData.compute },
-    { id: '3', name: 'استفاده از api', amount: +incomeData.api_buy },
-    { id: '4', name: 'برداشت شده', amount: +incomeData.withdraw_bank_account },
+    { id: '1', name: strings.remainCharge, amount: +incomeData.remain_charge },
+    { id: '2', name: strings.gpuComputing, amount: +incomeData.compute },
+    { id: '3', name: strings.usedApi, amount: +incomeData.api_buy },
+    {
+      id: '4',
+      name: strings.withDrawCharge,
+      amount: +incomeData.withdraw_bank_account,
+    },
   ];
 
   return (
     <Card
-      title="دریافتی‌ها"
+      title={strings.incomes}
       className="order-3 col-span-1 2xl:col-auto md:col-span-2  flex justify-start !gap-8"
     >
       <div className="flex flex-col">
@@ -34,10 +40,12 @@ const IncomeCard: FC = () => {
           <div className="flex flex-col w-full">
             <h2 className="text-left text-4xl font-medium leading-14 text-zinc-700">
               {incomeData?.total_income?.toLocaleString()}{' '}
-              <span className="text-sm font-normal text-zinc-700">تومان</span>
+              <span className="text-sm font-normal text-zinc-700">
+                {strings.toman}
+              </span>
             </h2>
             <p className="text-left text-md text-zinc-700">
-              مجموع دریافتی‌ها از ابتدا
+              {strings.totalIncome}
             </p>
           </div>
         </div>
@@ -48,11 +56,11 @@ const IncomeCard: FC = () => {
                 <CashIcon />
               </div>
               <p className="text-sm font-medium leading-6 text-zinc-700">
-                باقیمانده شارژ حساب کاربران
+                {strings.remainingUserCharges}
               </p>
             </div>
             <span className="text-sm font-medium text-gray-500">
-              {incomeData?.remain_charge?.toLocaleString()} تومان
+              {incomeData?.remain_charge?.toLocaleString()} {strings.toman}
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -61,11 +69,11 @@ const IncomeCard: FC = () => {
                 <GPUIcon />
               </div>
               <p className="text-sm font-medium leading-6 text-zinc-700">
-                رایانش گرافیکی
+                {strings.gpuComputing}
               </p>
             </div>
             <span className="text-sm font-medium text-gray-500">
-              {incomeData?.compute?.toLocaleString()} تومان
+              {incomeData?.compute?.toLocaleString()} {strings.toman}
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -74,11 +82,11 @@ const IncomeCard: FC = () => {
                 <AIIcon />
               </div>
               <p className="text-sm font-medium leading-6 text-zinc-700">
-                استفاده از API
+                {strings.usedApi}
               </p>
             </div>
             <span className="text-sm font-medium text-gray-500">
-              {incomeData.api_buy?.toLocaleString()} تومان
+              {incomeData.api_buy?.toLocaleString()} {strings.toman}
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -87,11 +95,12 @@ const IncomeCard: FC = () => {
                 <APIIcon />
               </div>
               <p className="text-sm font-medium leading-6 text-zinc-700">
-                سهم برداشت شده از ارائه‌دهندگان
+                {strings.providersWithDraw}
               </p>
             </div>
             <span className="text-sm font-medium text-gray-500">
-              {incomeData.withdraw_bank_account?.toLocaleString()} تومان
+              {incomeData.withdraw_bank_account?.toLocaleString()}{' '}
+              {strings.toman}
             </span>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { strings } from '@/constant';
 import { ILogData } from '@/services';
 import { formatJalali } from '@aibox/ui';
 import { ColumnDef } from '@tanstack/react-table';
@@ -6,7 +7,7 @@ import Link from 'next/link';
 
 const logsColumn: ColumnDef<ILogData>[] = [
   {
-    header: 'نام کاربر',
+    header: strings.userName,
     id: 'nick_name',
     enableSorting: false,
     maxSize: 140,
@@ -33,32 +34,32 @@ const logsColumn: ColumnDef<ILogData>[] = [
     },
   },
   {
-    header: 'تعداد APIها',
+    header: strings.apiCount,
     id: 'api_count',
     accessorKey: 'api_count',
   },
   {
-    header: 'اعتبار کسب شده (تومان)',
+    header: strings.earningProfit,
     id: 'header',
     accessorKey: 'all_earning',
   },
   {
-    header: 'مجموع فراخوانی‌ها',
+    header: strings.totalRequestsCount,
     id: 'header',
     accessorKey: 'all_requests',
   },
   {
-    header: 'میانگین تأخیر(ms)',
+    header: strings.avrageLatencyMs,
     id: 'header',
     accessorKey: 'avg_delay_time_millisecond',
   },
   {
-    header: 'میانگین رضایت کاربران',
+    header: strings.avrageSatisfaction,
     id: 'header',
     accessorKey: 'avg_api_rate',
   },
   {
-    header: 'زمان ثبت نام',
+    header: strings.registerDate,
     id: 'header',
     accessorFn: ({ created_at }) =>
       created_at ? formatJalali(created_at).split(' ')[1] : '-',

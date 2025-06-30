@@ -13,6 +13,7 @@ import { FabButton } from '@/components/fab-button';
 import publicMessageColumns from './constant';
 import { useGetMassNotifications } from '@/services/messages/messages-list/message-list.hook';
 import { IMassNotification } from '@/services/messages/messages-list/interface';
+import { strings } from '@/constant';
 
 const PublicMessagePage: FC = () => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const PublicMessagePage: FC = () => {
     <div className="min-h-screen flex flex-col ">
       <div className="w-full">
         <TableToolbar
-          title="پیام‌های همگانی"
+          title={strings.generalMessages}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}

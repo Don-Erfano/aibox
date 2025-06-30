@@ -10,7 +10,7 @@ interface TabType {
   name: string;
   id: string;
   content: React.ReactNode;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 }
 
 interface TabProps {

@@ -2,10 +2,10 @@ import { Button, DeleteFactorIcon, Modal } from '@aibox/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { LoaderIcon } from 'lucide-react';
 
+import { strings } from '@/constant';
 import { useDeleteFactor } from '@/services/factor';
 
 import { DeleteFactorModalProps } from './interface';
-import { factorStrings } from './strings';
 
 export const DeleteFactorModal = ({
   modalState,
@@ -31,10 +31,10 @@ export const DeleteFactorModal = ({
     >
       <div className="flex flex-col justify-between items-center">
         <span className="text-teal-600 text-sm/6 font-medium">
-          {factorStrings.deleteModalTitle}
+          {strings.deleteModalTitle}
         </span>
         <span className="mt-3 mb-8 text-neutral-900 text-center text-sm/6 font-normal">
-          {factorStrings.deleteModalDecription}
+          {strings.deleteModalDecription}
         </span>
 
         <div className="flex flex-col sm:flex-row sm:justify-center items-center w-full gap-2">
@@ -42,11 +42,11 @@ export const DeleteFactorModal = ({
             {isPending ? (
               <LoaderIcon className="animate-spin" />
             ) : (
-              factorStrings.deleteButtonText
+              strings.deleteButtonText
             )}
           </Button>
           <Button size="lg" onClick={() => toggleModal({ show: false })}>
-            {factorStrings.refuse}
+            {strings.cancel}
           </Button>
         </div>
       </div>

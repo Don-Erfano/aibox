@@ -8,6 +8,7 @@ import { useUpdateProviderShare } from '@/services/user/info/user-setting/provid
 import { convertPersianNumberToEnglish } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { providerShareSchema } from './schema';
+import { strings } from '@/constant';
 
 const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
   const [providerShare, setProviderShare] = useState(
@@ -62,19 +63,20 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
   return (
     <div className="flex flex-col gap-4 max-w-3xs">
       <p className="font-medium text-sm text-zinc-800 cursor-default">
-        سهم ارائه‌ دهنده
+        {strings.providerProfit}
       </p>
 
       <p className="font-normal text-sm text-zinc-600">
-        سهم ارائه دهنده: {providerShare}٪ - سهم پلتفرم: {platformShare}٪
+        {strings.providerProfit}: {providerShare}٪ - {strings.platformProfit}{' '}
+        {platformShare}٪
       </p>
       <Modal
         trigger={
           <Button variant="outline" isFilled className="self-start w-auto">
-            تغییر سهم ارائه‌ دهنده
+            {strings.changeProviderProfit}
           </Button>
         }
-        title="تغییر سهم ارائه دهنده"
+        title={strings.changeProviderProfit}
         open={open}
         onOpenChange={setOpen}
       >
@@ -87,7 +89,7 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
               <div className="w-full">
                 <RHFInput
                   control={control}
-                  label="سهم ارائه دهنده"
+                  label={strings.providerProfit}
                   name="providerShare"
                   endAdornment="%"
                   defaultValue={providerShare}
@@ -103,7 +105,7 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
                   type="submit"
                   disabled={isPending}
                 >
-                  {isPending ? 'در حال ثبت...' : 'ثبت'}
+                  {isPending ? 'در حال ثبت...' : strings.submit}
                 </Button>
                 <Button
                   className="flex-1"
@@ -111,7 +113,7 @@ const ProviderShareField: FC<ProviderShareProps> = ({ data, userId }) => {
                   onClick={handleCancel}
                   type="button"
                 >
-                  لغو
+                  {strings.ignore}
                 </Button>
               </div>
             </form>
