@@ -76,7 +76,8 @@ export const GiftCodeForm: React.FC<GiftCodeFormProps> = ({ giftCodeId }) => {
               control={control}
               type="number"
               name="amount"
-              label={`${strings.tomanAmountValue}*`}
+              label={`${strings.amountValue}*`}
+              placeholder={strings.tomanAmountValue}
               variant="sm"
             />
             <RHFInput
