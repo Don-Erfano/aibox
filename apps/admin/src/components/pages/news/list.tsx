@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import newsColumns from './list/constant';
+import newsColumns from './constant';
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 import { strings } from '@/constant';
 import { useRouter } from 'next/navigation';
