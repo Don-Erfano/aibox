@@ -265,6 +265,13 @@ const strings = {
   lastName: 'نام خانوادگی',
   phoneNumber: 'شماره موبایل',
   gender: 'جنسیت',
+  addNewGiftCode: 'افزودن کد هدیه جدید',
+  codeTitle: 'عنوان کد',
+  editGiftCode: 'ویرایش کد هدیه',
+  submitChanges: 'ثبت تغییرات',
+  deleteModalDescription:
+    'با حذف کد هدیه، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
+  delete: 'حذف کردن',
 };
 
 export default strings;
