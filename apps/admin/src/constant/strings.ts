@@ -265,6 +265,7 @@ const strings = {
   lastName: 'نام خانوادگی',
   phoneNumber: 'شماره موبایل',
   gender: 'جنسیت',
+  newsDescription: 'شرح خبر',
 };
 
 export default strings;
