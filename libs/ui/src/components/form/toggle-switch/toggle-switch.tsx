@@ -53,7 +53,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
             variant,
             isSecondItemSelected,
             selected: value === item.value,
-            disabled: disabled || readonly || value === item.value,
+            disabled: disabled || readonly,
           })}
         >
           <p className={labelClass({ size })}>{item.label}</p>

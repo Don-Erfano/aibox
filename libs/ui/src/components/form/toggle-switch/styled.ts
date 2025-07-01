@@ -52,7 +52,7 @@ export const toggleValueClass = cva(
 );
 
 export const toggleItemClass = cva(
-  'relative cursor-pointer text-teal-700/40 py-1 px-3 rounded-[5px] font-medium',
+  'relative cursor-pointer text-teal-600/50 py-1 px-3 rounded-[5px] font-medium',
   {
     variants: {
       selected: {
@@ -83,7 +83,7 @@ export const toggleItemClass = cva(
   }
 );
 
-export const labelClass = cva('text-nowrap', {
+export const labelClass = cva('text-nowrap text-sm font-medium', {
   variants: {
     size: {
       fixed: 'truncate',
