@@ -1,4 +1,4 @@
-import { z, ZodType } from 'zod';
+import { z } from 'zod';
 
 export const newsSchema = z.object({
   title: z.string().min(3, {
@@ -13,16 +13,25 @@ export const newsSchema = z.object({
       })
     )
     .optional(),
+
   summary: z
     .string()
     .min(10, { message: 'خلاصه باید حداقل ۱۰ کاراکتر باشد.' })
     .max(300, { message: 'خلاصه نباید بیش از ۳۰۰ کاراکتر باشد.' }),
 
   thumbnail: z
-    .any()
-    .refine((file) => file instanceof File, {
+    .instanceof(File, {
       message: 'یک تصویر معتبر انتخاب کنید.',
     })
+    .refine((file) => file.size <= 5000000, {
+      message: 'حجم فایل نباید بیش از ۵ مگابایت باشد.',
+    })
+    .refine(
+      (file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type),
+      {
+        message: 'فقط فایل‌های JPEG، PNG و WebP پذیرفته می‌شوند.',
+      }
+    )
     .optional(),
 
   slug: z.string().regex(/^[a-z0-9-]+$/, {
@@ -36,7 +45,7 @@ export const newsSchema = z.object({
 
 export type NewsSchemaType = z.infer<typeof newsSchema>;
 
-export const defaultValues: NewsSchemaType = {
+export const defaultValues: Partial<NewsSchemaType> = {
   content: '',
   slug: '',
   summary: '',
