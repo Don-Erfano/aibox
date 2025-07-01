@@ -9,6 +9,7 @@ import {
   MESSAGES_BASE_ROUTE,
   SUPPORT_BASE_ROUTE,
   USERS_BASE_ROUTE,
+  NEWS_BASE_ROUTE,
 } from './baseRoutes';
 
 const HOME_ROUTES = {
@@ -73,6 +74,12 @@ const USERS_ROUTES = {
   TOKENS: `${USERS_BASE_ROUTE}/tokens`,
 };
 
+const NEWS_ROUTES = {
+  LIST: `${NEWS_BASE_ROUTE}`,
+  ADD: `${NEWS_BASE_ROUTE}/add`,
+  EDIT: `${NEWS_BASE_ROUTE}/edit`,
+};
+
 export {
   AI_SERVICES_ROUTES,
   API_PLATFORM_ROUTES,
@@ -84,4 +91,5 @@ export {
   MESSAGES_ROUTES,
   SUPPORT_ROUTES,
   USERS_ROUTES,
+  NEWS_ROUTES,
 };

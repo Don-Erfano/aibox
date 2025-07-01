@@ -266,6 +266,7 @@ const strings = {
   phoneNumber: 'شماره موبایل',
   gender: 'جنسیت',
   newsDescription: 'شرح خبر',
+  edit: 'ویرایش',
 };
 
 export default strings;

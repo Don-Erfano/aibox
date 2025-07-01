@@ -13,8 +13,7 @@ export const useGetNewsList = () => {
 
   const {
     data: news = [],
-    isLoading,
-    isFetching,
+    isPending,
     refetch,
   } = useQuery<IGetNewsListResponse, Error, INews[]>({
     queryKey: ['newsList', allQueryParams],
@@ -38,5 +37,5 @@ export const useGetNewsList = () => {
     placeholderData: keepPreviousData,
   });
 
-  return { news, totalItems, totalPages, isLoading, isFetching, refetch };
+  return { news, totalItems, totalPages, isPending, refetch };
 };
