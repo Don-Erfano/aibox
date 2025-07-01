@@ -86,7 +86,7 @@ const newsColumns: ColumnDef<INews>[] = [
   {
     accessorKey: 'created_at',
     id: 'created_at',
-    header: strings.createdDate,
+    header: strings.publishDate,
     cell: ({ getValue }) => formatJalali(getValue() as string),
     enableColumnFilter: true,
     meta: { label: strings.createdDate, variant: 'date' },

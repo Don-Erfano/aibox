@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import newsColumns, { newsMockData } from './constant';
+import newsColumns from './constant';
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 import { strings } from '@/constant';
 import { useRouter } from 'next/navigation';
@@ -10,12 +10,12 @@ import { useGetNewsList } from '@/services/news';
 
 const News = () => {
   const router = useRouter();
-  // const { news, isPending, totalItems, totalPages, refetch } = useGetNewsList();
+  const { news, isPending, totalItems, totalPages, refetch } = useGetNewsList();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
-    data: newsMockData,
+    data: news,
     columns: newsColumns,
-    pageCount: 5,
+    pageCount: totalPages,
     actions: {
       onEdit: (row) => router.push(`${NEWS_ROUTES.EDIT}/${row.id}`),
       onDelete: (row) => console.log(row.id),
@@ -30,10 +30,11 @@ const News = () => {
     <>
       <div className="relative shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title={strings.tickets}
-          totalItems={5}
+          title={strings.news}
+          totalItems={totalItems}
           table={table}
-          refreshLoading={false}
+          refetch={refetch}
+          refreshLoading={isPending}
           submitFilters={submitFilters}
           resetFilters={resetFilters}
           filterCount={filterCount}

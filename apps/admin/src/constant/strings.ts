@@ -267,6 +267,14 @@ const strings = {
   gender: 'جنسیت',
   newsDescription: 'شرح خبر',
   edit: 'ویرایش',
+  addNewsTitle: 'افزودن خبر جدید',
+  news: 'اخبار',
+  publishDate: 'تاریخ انتشار',
+  tags: 'تگ‌ها',
+  thumbnail: 'تصویر شاخص (thumbnail)',
+  newsSummary: 'خلاصه اخبار',
+  addressSuffix: 'پسوند آدرس',
+  newsContent: 'شرح اخبار',
 };
 
 export default strings;

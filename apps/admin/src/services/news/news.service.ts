@@ -16,4 +16,14 @@ export default class NewsService extends AbstractAPI {
       params,
     });
   }
+
+  public async getNewsTags(
+    params: IGetNewsListRequest
+  ): Promise<AxiosResponse<INetworkResponse<IGetNewsListResponse>>> {
+    return this.http.request({
+      method: 'GET',
+      url: `${this.url}/tags`,
+      params,
+    });
+  }
 }

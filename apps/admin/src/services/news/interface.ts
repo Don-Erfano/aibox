@@ -7,7 +7,7 @@ export interface INews {
   created_at: string;
 }
 
-// get ticketing list
+// get news list
 export interface IGetNewsListRequest {
   title?: string;
   description: string;

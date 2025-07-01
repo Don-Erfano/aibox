@@ -1,7 +1,9 @@
-import NewsService from './news.service';
+import { useRouter } from 'next/navigation';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
 import { INews, IGetNewsListResponse, IGetNewsListRequest } from './interface';
+import { NEWS_ROUTES } from '@/routes';
+import NewsService from './news.service';
 
 const newsService = new NewsService();
 
@@ -38,4 +40,14 @@ export const useGetNewsList = () => {
   });
 
   return { news, totalItems, totalPages, isPending, refetch };
+};
+
+export const useCreateNews = () => {
+  const router = useRouter();
+  return useMutation<any, Error, any>({
+    mutationFn: (newUserPayload: any) => console.log('hello'),
+    onSuccess: () => {
+      router.push(NEWS_ROUTES.LIST);
+    },
+  });
 };
