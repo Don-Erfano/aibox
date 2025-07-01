@@ -1,9 +1,9 @@
 import { IPaginationMeta } from '@aibox/services';
 
 export interface INews {
-  id: string;
+  id: number;
   title: string;
-  description: string;
+  content: string;
   created_at: string;
 }
 

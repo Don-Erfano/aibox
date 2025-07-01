@@ -76,8 +76,8 @@ const newsColumns: ColumnDef<INews>[] = [
     maxSize: 160,
   },
   {
-    accessorKey: 'description',
-    id: 'description',
+    accessorKey: 'content',
+    id: 'content',
     header: strings.newsDescription,
     enableColumnFilter: true,
     meta: { label: strings.newsDescription, variant: 'text' },
