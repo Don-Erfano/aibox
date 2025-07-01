@@ -1,7 +1,12 @@
 'use client';
 import React from 'react';
 import newsColumns from './constant';
-import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
+import {
+  DataTable,
+  DataTableSkeleton,
+  TableToolbar,
+  useDataTable,
+} from '@aibox/ui';
 import { strings } from '@/constant';
 import { useRouter } from 'next/navigation';
 import { NEWS_ROUTES } from '@/routes';
@@ -10,7 +15,7 @@ import { useGetNewsList } from '@/services/news';
 
 const News = () => {
   const router = useRouter();
-  const { news, isPending, totalItems, totalPages, refetch } = useGetNewsList();
+  const { news, isLoading, totalItems, totalPages, refetch } = useGetNewsList();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: news,
@@ -26,6 +31,8 @@ const News = () => {
     router.push(NEWS_ROUTES.ADD);
   };
 
+  if (isLoading) return <DataTableSkeleton columnCount={4} />;
+
   return (
     <>
       <div className="relative shadow-2xl px-11 py-5 rounded-sm">
@@ -34,7 +41,7 @@ const News = () => {
           totalItems={totalItems}
           table={table}
           refetch={refetch}
-          refreshLoading={isPending}
+          refreshLoading={isLoading}
           submitFilters={submitFilters}
           resetFilters={resetFilters}
           filterCount={filterCount}
