@@ -10,13 +10,7 @@ import { defaultValues, NewsSchemaType, newsSchema } from '../schema';
 import { useGetNewsTags } from '@/services/news-tags';
 import { useRouter } from 'next/navigation';
 import { NEWS_ROUTES } from '@/routes';
-
-interface UserFormProps {
-  title: string;
-  initialData?: Partial<NewsSchemaType>;
-  onSubmit: (data: NewsSchemaType) => void;
-  isLoading?: boolean;
-}
+import { UserFormProps } from './interface';
 
 const NewsForm = ({
   title,

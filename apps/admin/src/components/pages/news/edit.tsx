@@ -1,16 +1,14 @@
 'use client';
 
-import NewsForm from '../components/news-form';
+import NewsForm from './components/news-form';
 import { useGetNews, usePutNewsById } from '@/services/news';
-import { NewsSchemaType } from '../schema';
+import { NewsSchemaType } from './schema';
 import { strings } from '@/constant';
 
 const EditNews = ({ id }: { id: string }) => {
   const { mutate: createNews, isPending } = usePutNewsById();
 
   const { data: news, isPending: isLoading } = useGetNews(id);
-
-  const newsTags = 
 
   const handleSubmit = (data: NewsSchemaType) => {
     createNews(data);

@@ -1,9 +1,9 @@
 'use client';
 
 import { FC } from 'react';
-import NewsForm from '../components/news-form';
+import NewsForm from './components/news-form';
 import { strings } from '@/constant';
-import { NewsSchemaType } from '../schema';
+import { NewsSchemaType } from './schema';
 import { useCreateNews } from '@/services/news';
 
 const AddNews: FC = () => {
