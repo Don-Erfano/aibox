@@ -12,5 +12,5 @@ export interface IGetNewsTagsRequest {
 }
 
 export interface IGetNewsTags extends IPaginationMeta {
-  data: INewsTags[];
+  results: INewsTags[];
 }

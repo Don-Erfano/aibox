@@ -18,6 +18,9 @@ export const useGetNewsTags = () => {
       const resp = await newsService.getNewsTags(params);
       return resp.data.data;
     },
+    select: (payload) => {
+      return payload.results;
+    },
   });
 
   return { newsTags, isPending };

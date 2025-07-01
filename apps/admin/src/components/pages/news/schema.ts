@@ -5,8 +5,14 @@ export const newsSchema = z.object({
     message: 'عنوان باید حداقل ۳ کاراکتر باشد.',
   }),
 
-  tags: z.array(z.string()).optional(),
-
+  tags: z
+    .array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+      })
+    )
+    .optional(),
   summary: z
     .string()
     .min(10, { message: 'خلاصه باید حداقل ۱۰ کاراکتر باشد.' })

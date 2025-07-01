@@ -268,6 +268,7 @@ const strings = {
   newsDescription: 'شرح خبر',
   edit: 'ویرایش',
   addNewsTitle: 'افزودن خبر جدید',
+  editNews: 'ویرایش خبر',
   news: 'اخبار',
   publishDate: 'تاریخ انتشار',
   tags: 'تگ‌ها',
@@ -275,6 +276,7 @@ const strings = {
   newsSummary: 'خلاصه اخبار',
   addressSuffix: 'پسوند آدرس',
   newsContent: 'شرح اخبار',
+  selectOption: 'انتخاب کنید',
 };
 
 export default strings;

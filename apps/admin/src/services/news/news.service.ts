@@ -1,5 +1,10 @@
 import { AxiosResponse } from 'axios';
-import { IGetNewsListRequest, IGetNewsListResponse } from './interface';
+import {
+  IAddNewsRequestPayload,
+  IGetNewsListRequest,
+  IGetNewsListResponse,
+  INews,
+} from './interface';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 
 export default class NewsService extends AbstractAPI {
@@ -17,13 +22,41 @@ export default class NewsService extends AbstractAPI {
     });
   }
 
-  public async getNewsTags(
-    params: IGetNewsListRequest
-  ): Promise<AxiosResponse<INetworkResponse<IGetNewsListResponse>>> {
+  public async getNewsById(
+    id: string
+  ): Promise<AxiosResponse<INetworkResponse<INews>>> {
     return this.http.request({
       method: 'GET',
-      url: `${this.url}/tags`,
-      params,
+      url: `${this.url}/${id}/`,
+    });
+  }
+
+  public async addNews(
+    data: IAddNewsRequestPayload
+  ): Promise<AxiosResponse<INetworkResponse<IGetNewsListResponse>>> {
+    return this.http.request({
+      method: 'POST',
+      url: `${this.url}/`,
+      data,
+    });
+  }
+
+  public async updateNews(
+    data: IAddNewsRequestPayload
+  ): Promise<AxiosResponse<INetworkResponse<IGetNewsListResponse>>> {
+    return this.http.request({
+      method: 'POST',
+      url: `${this.url}/${data.id}`,
+      data,
+    });
+  }
+
+  public async deleteNews(
+    id: string
+  ): Promise<AxiosResponse<INetworkResponse<void>>> {
+    return await this.http.request({
+      method: 'DELETE',
+      url: `${this.url + id}/`,
     });
   }
 }

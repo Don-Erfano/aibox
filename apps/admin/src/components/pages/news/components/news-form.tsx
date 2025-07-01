@@ -1,3 +1,5 @@
+'use client';
+
 import { strings } from '@/constant';
 import { FormContainer, FormWrapper } from '@/components';
 import { Button, Form, RHFAutocomplete, RHFInput } from '@aibox/ui';
@@ -55,7 +57,8 @@ const NewsForm = ({
               control={form.control}
               options={newsOptions}
               label={strings.tags}
-              placeholder={strings.password}
+              placeholder={strings.selectOption}
+              variant="multiple"
             />
 
             <RHFInput
@@ -73,7 +76,7 @@ const NewsForm = ({
             />
 
             <RHFInput
-              name="content"
+              name="slug"
               control={form.control}
               label={strings.addressSuffix}
               type="text"

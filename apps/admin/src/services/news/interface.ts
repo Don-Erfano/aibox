@@ -1,9 +1,16 @@
 import { IPaginationMeta } from '@aibox/services';
 
+export interface Tag {
+  id: string;
+  name: string;
+}
 export interface INews {
   id: number;
   title: string;
   content: string;
+  summary: string;
+  slug: string;
+  tags: Tag[];
   created_at: string;
 }
 
@@ -20,5 +27,15 @@ export interface IGetNewsListRequest {
 }
 
 export interface IGetNewsListResponse extends IPaginationMeta {
-  data: INews[];
+  results: INews[];
+}
+
+export interface IAddNewsRequestPayload {
+  id?: string;
+  title: string;
+  content: string;
+  thumbnail: File;
+  tags: string[];
+  summary: string;
+  slug: string;
 }
