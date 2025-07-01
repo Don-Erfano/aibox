@@ -2,7 +2,13 @@
 
 import { strings } from '@/constant';
 import { FormContainer, FormWrapper } from '@/components';
-import { Button, Form, RHFAutocomplete, RHFInput } from '@aibox/ui';
+import {
+  Button,
+  Form,
+  RHFAutocomplete,
+  RHFImageUploader,
+  RHFInput,
+} from '@aibox/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -26,6 +32,11 @@ const NewsForm = ({
 
   const handleSubmit: SubmitHandler<NewsSchemaType> = (data) => {
     onSubmit(data);
+  };
+
+  const handleCancel = () => {
+    form.reset();
+    router.push(NEWS_ROUTES.LIST);
   };
 
   const { newsTags } = useGetNewsTags();
@@ -55,11 +66,10 @@ const NewsForm = ({
               variant="multiple"
             />
 
-            <RHFInput
+            <RHFImageUploader
               name="thumbnail"
               control={form.control}
               label={strings.thumbnail}
-              type="file"
             />
 
             <RHFInput
@@ -94,11 +104,7 @@ const NewsForm = ({
             <Button size="lg" isFilled type="submit" disabled={isLoading}>
               {strings.submit}
             </Button>
-            <Button
-              size="lg"
-              type="button"
-              onClick={() => router.push(NEWS_ROUTES.LIST)}
-            >
+            <Button size="lg" type="button" onClick={handleCancel}>
               {strings.cancel_operation}
             </Button>
           </div>

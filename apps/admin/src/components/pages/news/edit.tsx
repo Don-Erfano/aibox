@@ -6,12 +6,12 @@ import { NewsSchemaType } from './schema';
 import { strings } from '@/constant';
 
 const EditNews = ({ id }: { id: string }) => {
-  const { mutate: createNews, isPending } = usePutNewsById();
+  const { mutate: updateNews, isPending } = usePutNewsById();
 
-  const { data: news, isPending: isLoading } = useGetNews(id);
+  const { data: news, isLoading } = useGetNews(id);
 
   const handleSubmit = (data: NewsSchemaType) => {
-    createNews(data);
+    updateNews(data);
   };
 
   if (isLoading || !news) return <p>loading...</p>;
@@ -26,7 +26,7 @@ const EditNews = ({ id }: { id: string }) => {
         summary: news.summary,
         slug: news.slug,
         title: news.title,
-        tags: news.tags.map(),
+        tags: news.tags.map((tag) => tag.id),
       }}
     />
   );
