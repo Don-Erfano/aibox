@@ -226,9 +226,6 @@ importers:
       '@aibox/services':
         specifier: workspace:*
         version: link:../../libs/services
-      '@aibox/theme':
-        specifier: workspace:*
-        version: link:../../libs/theme
       '@aibox/ui':
         specifier: workspace:*
         version: link:../../libs/ui
@@ -257,12 +254,6 @@ importers:
       nookies:
         specifier: ^2.5.2
         version: 2.5.2
-
-  libs/theme:
-    dependencies:
-      '@swc/helpers':
-        specifier: ~0.5.11
-        version: 0.5.15
 
   libs/ui:
     dependencies:
