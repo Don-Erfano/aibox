@@ -6,6 +6,7 @@ import { Button, Form, RHFRadioGroup, toast } from '@aibox/ui';
 import { userAccessLevels } from './constant';
 import { FormValues, UserAccessLevelProps } from './types';
 import { useUpdateUserInfo } from '@/services/user/info';
+import { strings } from '@/constant';
 
 const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -51,7 +52,9 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 max-w-3xs"
       >
-        <p className="font-medium text-sm text-zinc-800 ">سطح دسترسی</p>
+        <p className="font-medium text-sm text-zinc-800 ">
+          {strings.accessLevel}
+        </p>
         <div>
           <RHFRadioGroup
             control={control}
@@ -68,7 +71,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
               isFilled
               disabled={isPending}
             >
-              {isPending ? 'در حال ثبت...' : 'ثبت'}
+              {isPending ? 'در حال ثبت...' : strings.submit}
             </Button>
             <Button
               className="self-start w-auto"
@@ -76,7 +79,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
               onClick={handleCancel}
               disabled={isPending}
             >
-              لغو
+              {strings.ignore}
             </Button>
           </div>
         ) : (
@@ -86,7 +89,7 @@ const UserAccessLevel: FC<UserAccessLevelProps> = ({ accessLevel, userId }) => {
             variant="outline"
             isFilled
           >
-            تغییر سطح دسترسی
+            {strings.accessLevel}
           </Button>
         )}
       </form>

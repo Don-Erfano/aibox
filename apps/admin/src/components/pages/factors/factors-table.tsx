@@ -1,9 +1,16 @@
 'use client';
 
-import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
+import {
+  DataTable,
+  DataTableSkeleton,
+  TableToolbar,
+  useDataTable,
+} from '@aibox/ui';
 import { useRouter } from 'next/navigation';
 import { FC, useMemo, useState } from 'react';
 
+import { strings } from '@/constant';
+import { FINANCE_ROUTES } from '@/routes';
 import { FabButton } from '@/components/fab-button';
 import { useGetAllDepartments } from '@/services/department';
 import { useGetFactors } from '@/services/factor';
@@ -13,7 +20,6 @@ import { getFacotrColumns } from './constants';
 import { DeleteFactorModal } from './delete-factor-modal';
 import { FactorTableChild } from './factor-table-child';
 import { DeleteModal } from './interface';
-import { factorStrings } from './strings';
 
 const FactorsTable: FC = () => {
   const router = useRouter();
@@ -55,7 +61,8 @@ const FactorsTable: FC = () => {
     },
   });
 
-  if (isDepartmnetsPending || isUsersPending) return <p>Loading...</p>;
+  if (isDepartmnetsPending || isUsersPending)
+    return <DataTableSkeleton columnCount={10} />;
 
   return (
     <>
@@ -71,11 +78,11 @@ const FactorsTable: FC = () => {
         submitFilters={submitFilters}
         refreshLoading={isLoading || isFetching}
         noManageColumns
-        title={factorStrings.factors}
+        title={strings.factors}
         totalItems={totalItems}
       />
       <DataTable table={table} childComponent={FactorTableChild} />
-      <FabButton onClick={() => router.push('/dashboard/factors/add')} />
+      <FabButton onClick={() => router.push(FINANCE_ROUTES.ADD_FACTORS)} />
     </>
   );
 };

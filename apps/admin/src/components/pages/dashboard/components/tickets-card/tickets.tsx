@@ -1,9 +1,11 @@
 import { FC } from 'react';
 
+import { strings } from '@/constant';
+import { Card } from '@/components/cards';
 import { useGetTicketsCount } from '@/services';
+
 import { CardError } from '../error';
 import { TicketIcon } from '../../icons';
-import { Card } from '@/components/cards';
 
 const TicketCard: FC = () => {
   const { data, error } = useGetTicketsCount();
@@ -11,7 +13,7 @@ const TicketCard: FC = () => {
     return <CardError />;
   }
   return (
-    <Card title="تیکت‌ها" className="gap-8 justify-start !h-[297px]">
+    <Card title={strings.tickets} className="gap-8 justify-start !h-[297px]">
       <div className="h-[168px] overflow-hidden hover:overflow-auto pl-2 flex gap-4 flex-col">
         {data?.ticket_info.map((item, index) => (
           <div className="flex items-center justify-between" key={index}>

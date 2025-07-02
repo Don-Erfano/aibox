@@ -4,6 +4,7 @@ import { ComponentProps, ReactNode } from 'react';
 export interface SidebarSubItem {
   title: string;
   url: string;
+  isActive?: boolean;
 }
 
 export interface SidebarItem {

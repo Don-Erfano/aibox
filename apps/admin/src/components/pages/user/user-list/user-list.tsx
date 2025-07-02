@@ -11,9 +11,11 @@ import {
 } from '@aibox/ui';
 import { useGetUserList } from '@/services/user/user-lists';
 import { useRouter } from 'next/navigation';
-import { UserStrings } from '@/components/pages/user/user-list/string';
 import { FabButton } from '@/components/fab-button';
 import userColumns from '@/components/pages/user/user-list/constant';
+import { USERS_ROUTES } from '@/routes';
+import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
+import { strings } from '@/constant';
 
 const UserList: FC = () => {
   const { users, totalItems, totalPages, isLoading, isFetching, refetch } =
@@ -26,12 +28,12 @@ const UserList: FC = () => {
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => router.push(`/dashboard/user-list/${row.id}`),
+      onEdit: (row) => router.push(`${USERS_BASE_ROUTE}/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });
   const handleAddUser = () => {
-    router.push('/dashboard/user-list/add-user');
+    router.push(USERS_ROUTES.ADD_USER);
   };
 
   if (isLoading) return <DataTableSkeleton columnCount={10} />;
@@ -40,7 +42,7 @@ const UserList: FC = () => {
     <div className="min-h-screen flex-col">
       <div className="relative w-full shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title={UserStrings.users}
+          title={strings.users}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}

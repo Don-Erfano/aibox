@@ -1,41 +1,45 @@
+'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
-import Link from 'next/link';
+import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
+import { strings } from '@/constant';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
-    header: 'نام کاربر',
+    header: strings.userName,
     id: 'full_name',
     accessorFn: (row) => `${row.first_name} ${row.last_name}`,
     enableSorting: false,
     maxSize: 140,
     cell: ({ row, getValue }) => {
-      const url = row.original.profile_picture;
+      const picture = row.original.profile_picture;
       const fullName = getValue() as string;
 
       return (
-        <div className="flex items-center space-x-2">
+        <Link
+          href={`${USERS_BASE_ROUTE}/${row.original.id}`}
+          className="flex items-center space-x-2 hover:underline"
+        >
           <Image
-            src={url ? url : '/images/default-user.svg'}
+            src={picture || '/images/default-user.svg'}
             alt={fullName}
             width={32}
             height={32}
             className="object-cover border-1 border-teal-600 rounded-full"
           />
-          <Link href={`/dashboard/user-list/${row.original.id}`}>
-            <span className="overflow-hidden text-ellipsis whitespace-nowrap text-teal-600">
-              {fullName}
-            </span>
-          </Link>
-        </div>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-teal-600">
+            {fullName}
+          </span>
+        </Link>
       );
     },
   },
   {
-    header: 'نام مستعار',
+    header: strings.nickName,
     accessorKey: 'nickname',
     id: 'nickname',
     maxSize: 160,
@@ -46,9 +50,8 @@ const userColumns: ColumnDef<IUser>[] = [
     id: 'email',
     maxSize: 160,
   },
-
   {
-    header: 'تاریخ عضویت',
+    header: strings.registerationDate,
     accessorKey: 'created_at',
     id: 'created_at',
     cell: ({ getValue }) => formatJalali(getValue() as string),
@@ -57,7 +60,7 @@ const userColumns: ColumnDef<IUser>[] = [
     maxSize: 160,
   },
   {
-    header: 'آخرین دسترسی',
+    header: strings.lastLogin,
     accessorKey: 'last_login',
     id: 'last_login',
     cell: ({ getValue }) => {
@@ -65,29 +68,29 @@ const userColumns: ColumnDef<IUser>[] = [
       return raw ? formatJalali(raw) : '—';
     },
     enableColumnFilter: true,
-    meta: { label: 'آخرین دسترسی', variant: 'date' },
+    meta: { label: strings.lastLogin, variant: 'date' },
     maxSize: 160,
   },
 
   {
-    header: 'وضعیت',
+    header: strings.status,
     accessorKey: 'is_active',
     id: 'is_active',
     cell: ({ getValue }) => {
       const isActive = getValue() as boolean;
       return (
         <AibStatus
-          label={isActive ? 'فعال' : 'غیرفعال'}
+          label={isActive ? strings.active : strings.deactive}
           bgColor={isActive ? 'bg-green-600' : 'bg-red-600'}
         />
       );
     },
     enableColumnFilter: true,
-    meta: { label: 'وضعیت', variant: 'select' },
+    meta: { label: strings.status, variant: 'select' },
     maxSize: 160,
   },
   {
-    header: 'دسترسی',
+    header: strings.access,
     accessorKey: 'is_admin',
     id: 'is_admin',
     cell: ({ getValue }) =>
@@ -98,11 +101,11 @@ const userColumns: ColumnDef<IUser>[] = [
       ),
     enableSorting: false,
     enableColumnFilter: true,
-    meta: { label: 'دسترسی', variant: 'select' },
+    meta: { label: strings.access, variant: 'select' },
     maxSize: 160,
   },
   {
-    header: 'سامانه',
+    header: strings.domain,
     accessorKey: 'domain',
     id: 'domain',
     maxSize: 150,

@@ -8,7 +8,8 @@ import { Button, Form, RHFInput, RHFRadioGroup } from '@aibox/ui';
 import { userSchema, defaultValues, UserSchemaType } from './schema';
 import { useAddUser } from '@/services/user/user-lists';
 import { useRouter } from 'next/navigation';
-import { UserStrings } from '@/components/pages/user/user-list/string';
+import { USERS_ROUTES } from '@/routes';
+import { strings } from '@/constant';
 
 const AddUserPage: FC = () => {
   const router = useRouter();
@@ -27,25 +28,25 @@ const AddUserPage: FC = () => {
       },
       {
         onSuccess: () => {
-          router.push('/dashboard/user-list');
+          router.push(`${USERS_ROUTES.LIST}`);
         },
       }
     );
   };
   const handleCancel = () => {
     form.reset();
-    router.push('/dashboard/user-list');
+    router.push(`${USERS_ROUTES.LIST}`);
   };
 
   return (
-    <FormContainer title={UserStrings.add_user}>
+    <FormContainer title={strings.add_user}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
             <RHFInput
               name="email"
               control={form.control}
-              label={UserStrings.email}
+              label={strings.email}
               placeholder="example@domain.com"
               type="email"
             />
@@ -53,15 +54,15 @@ const AddUserPage: FC = () => {
             <RHFInput
               name="password"
               control={form.control}
-              label={UserStrings.password}
-              placeholder={UserStrings.password}
+              label={strings.password}
+              placeholder={strings.password}
               type="password"
             />
 
             <RHFRadioGroup
               name="accessLevel"
               control={form.control}
-              label={UserStrings.access_level}
+              label={strings.accessLevel}
               options={[
                 { id: 'user', label: 'کاربر' },
                 { id: 'admin', label: 'ادمین' },
@@ -72,10 +73,10 @@ const AddUserPage: FC = () => {
 
           <div className="flex gap-5 justify-center mt-12">
             <Button size="lg" isFilled type="submit" disabled={isPending}>
-              {UserStrings.submit}
+              {strings.submit}
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>
-              {UserStrings.cancel_operation}
+              {strings.cancel_operation}
             </Button>
           </div>
         </form>

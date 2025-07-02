@@ -6,10 +6,9 @@ import { Circle, Mail, Phone, SquareUserRound, UserRound } from 'lucide-react';
 import Image from 'next/image';
 import { FC } from 'react';
 
+import { strings } from '@/constant';
 import { usePostActivateEmail } from '@/services/user/user-lists';
 import { IUser } from '@/services/user/user-lists/interface';
-
-import { userInfoStrings } from './strings';
 
 export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
   const { mutate: postActivateEmail, isPending } = usePostActivateEmail();
@@ -38,7 +37,7 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           })}
         >
           {!hasFirstName && !hasLastName
-            ? userInfoStrings.notRegistered
+            ? strings.notRegistered
             : `${user.first_name} ${user.last_name}`}
         </span>
       </div>
@@ -58,7 +57,7 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           })}
         >
           <SquareUserRound size="20" />
-          <span>{user.nickname || userInfoStrings.notRegistered}</span>
+          <span>{user.nickname || strings.notRegistered}</span>
         </div>
 
         <div
@@ -67,22 +66,20 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           })}
         >
           <Phone size="20" />
-          {user.phone_number || userInfoStrings.notRegistered}
+          {user.phone_number ? `0${user.phone_number}` : strings.notRegistered}
         </div>
       </div>
       <div className="px-6 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 text-sm/6 font-normal text-teal-700">
         <span>
-          {userInfoStrings.registeredApi}: {user.my_api_count}
+          {strings.registeredApi}: {user.my_api_count}
         </span>
         <span>
-          {userInfoStrings.apiPackage}:{' '}
+          {strings.apiPackage}:{' '}
           <span dir="ltr">{user.my_api_package_count}</span>
         </span>
         <span>
-          {userInfoStrings.gpuPackage}:{' '}
-          {user.gpu_package
-            ? userInfoStrings.has
-            : userInfoStrings.doestNotHave}
+          {strings.gpuPackage}:{' '}
+          {user.gpu_package ? strings.has : strings.doestNotHave}
         </span>
       </div>
       <div className="flex w-full flex-col items-center sm:items-start sm:justify-start gap-4 px-4">
@@ -90,7 +87,7 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
           <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-4">
             <p className="text-sm/6  font-normal text-red-700 flex items-center gap-2">
               <Circle className="fill-red-700" size="8" />
-              <span>{userInfoStrings.deacitvedEmail}</span>
+              <span>{strings.deacitvedEmail}</span>
             </p>
             <Button
               variant="link"
@@ -99,20 +96,20 @@ export const UserInfo: FC<{ user: IUser }> = ({ user }) => {
               onClick={() => postActivateEmail(user.email)}
               disabled={isPending}
             >
-              {userInfoStrings.resendActivationEmail}
+              {strings.resendActivationEmail}
             </Button>
           </div>
         )}
         {user.phone_number && !user.phone_verified && (
           <p className="text-sm/6 font-normal text-red-700 flex items-center gap-2">
             <Circle className="fill-red-700" size="8" />
-            <span>{userInfoStrings.deactivedPhoneNumber}</span>
+            <span>{strings.deactivedPhoneNumber}</span>
           </p>
         )}
         {!user.phone_number && (
           <p className="text-sm/6 font-normal text-red-700 flex items-center gap-2">
             <Circle className="fill-red-700" size="8" />
-            <span>{userInfoStrings.notRegisteredPhoneNumber}</span>
+            <span>{strings.notRegisteredPhoneNumber}</span>
           </p>
         )}
       </div>

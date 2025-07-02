@@ -5,18 +5,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { strings } from '@/constant';
 import { useGetUser, usePutUserById } from '@/services/user/user-lists';
 
 import { userInfoSchema } from './constants';
 import { UserInfoForm } from './interface';
 import { UserInfo } from './user-info';
 import { UserInfoFormFields } from './user-info-form-fields';
-import { userInfoStrings } from './strings';
 
 const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
   const [editMode, setEditMode] = useState(false);
 
-  const { data: user } = useGetUser(userId);
+  const { data: userInfo } = useGetUser(userId);
 
   const form = useForm<UserInfoForm>({
     mode: 'onChange',
@@ -40,6 +40,8 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
     );
   };
 
+  const user = userInfo?.data.data;
+
   useEffect(() => {
     form.reset({
       email: user?.email,
@@ -48,7 +50,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
       gender: user?.gender,
       is_active: user?.is_active + '',
       nickname: user?.nickname,
-      phone_number: user?.phone_number,
+      phone_number: user?.phone_number ? `0${user.phone_number}` : '',
     });
   }, [form, user]);
 
@@ -59,7 +61,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
       {editMode ? (
         <div className="border border-neutral-200 px-5 pt-5 pb-12 rounded-lg xl:px-6 mx-auto max-w-[1376px]">
           <p className="pb-4 text-sm/5 font-medium text-slate-900 border-b border-neutral-200">
-            {userInfoStrings.editUserAccountInfo}
+            {strings.editUserAccountInfo}
           </p>
 
           <Form {...form}>
@@ -73,7 +75,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
                   variant="outline"
                   disabled={isPutUserPending}
                 >
-                  {userInfoStrings.sumbitChanges}
+                  {strings.sumbitChanges}
                 </Button>
                 <Button
                   type="button"
@@ -81,7 +83,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
                   variant="outline"
                   onClick={() => setEditMode(false)}
                 >
-                  {userInfoStrings.cancel}
+                  {strings.cancel}
                 </Button>
               </div>
             </form>
@@ -96,7 +98,7 @@ const UserInfoTab: FC<{ userId: string }> = ({ userId }) => {
             variant="link"
             onClick={() => setEditMode(true)}
           >
-            {userInfoStrings.editInfo}
+            {strings.editInfo}
           </Button>
         </div>
       )}

@@ -1,12 +1,15 @@
+import { FC } from 'react';
+
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetMostUseGpu } from '@/services';
-import { FC } from 'react';
+
 import { DefaultAvatar } from '../../icons';
 
 const MostUseGpuCard: FC = () => {
   const { data, isFetching } = useGetMostUseGpu();
   return (
-    <Card title="GPUهای پرتقاضا" className="!h-[297px] justify-start">
+    <Card title={strings.mostUseGpu} className="!h-[297px] justify-start">
       <div className="flex flex-col gap-6 overflow-hidden hover:overflow-auto h-[168px] pl-2">
         {!isFetching &&
           data?.packages.map((api, index) => (

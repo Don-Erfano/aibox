@@ -1,13 +1,15 @@
 import { FC } from 'react';
 
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetMostSellerApi } from '@/services';
+
 import { DefaultAvatar } from '../../icons';
 
 const MostSellerApiCard: FC = () => {
   const { data, isFetching } = useGetMostSellerApi();
   return (
-    <Card title="APIهای پردرآمد" className="!h-[297px]">
+    <Card title={strings.mostSellerApis} className="!h-[297px]">
       <div className="flex flex-col gap-6">
         {!isFetching &&
           data?.version_info.map((api, index) => (
@@ -20,7 +22,7 @@ const MostSellerApiCard: FC = () => {
                 </div>
               </div>
               <span className="text-xs text-gray-500">
-                {api.all_earnings.toLocaleString()} تومان
+                {api.all_earnings.toLocaleString()} {strings.toman}
               </span>
             </div>
           ))}

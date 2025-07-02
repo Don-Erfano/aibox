@@ -8,6 +8,7 @@ import { Card } from '@/components/cards';
 import { useGetDashboardInfo } from '@/services';
 
 import { AIIcon, APIIcon, GPUIcon, TicketIcon } from '../../icons';
+import { strings } from '@/constant';
 
 const InfoCard: FC = () => {
   const { push } = useRouter();
@@ -16,8 +17,8 @@ const InfoCard: FC = () => {
     {
       color: 'bg-teal-600/12',
       icon: <APIIcon />,
-      buttonLabel: 'مشاهده',
-      title: 'API در انتظار تأیید',
+      buttonLabel: strings.view,
+      title: strings.waitingForAccept,
       iconColor: 'text-teal-600',
       route: '',
       count: data?.waiting_version_count,
@@ -25,8 +26,8 @@ const InfoCard: FC = () => {
     {
       color: 'bg-teal-600/20',
       icon: <TicketIcon />,
-      buttonLabel: 'مشاهده',
-      title: 'تیکت در انتظار پاسخ',
+      buttonLabel: strings.view,
+      title: strings.notAnsweredTicket,
       iconColor: 'text-fuchsia-700',
       route: '',
       count: data?.waiting_ticket_count,
@@ -34,16 +35,16 @@ const InfoCard: FC = () => {
     {
       color: 'bg-orange-100',
       icon: <GPUIcon />,
-      buttonLabel: 'مشاهده',
-      title: 'کاربر در صف رایانش گرافیکی',
+      buttonLabel: strings.view,
+      title: strings.inGpuQueue,
       route: '',
       count: data?.gpu_queue_user_count,
     },
     {
       color: 'bg-slate-200',
       icon: <AIIcon />,
-      buttonLabel: 'مشاهده',
-      title: 'کاربر در صف استفاده از API',
+      buttonLabel: strings.view,
+      title: strings.inApiQueue,
       route: '',
       count: data?.api_queue_user_count,
     },

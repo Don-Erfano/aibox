@@ -6,11 +6,11 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { strings } from '@/constant';
 import { IUser } from '@/services/user/user-lists/interface';
 
 import { genderOptions, statusOptions } from './constants';
 import { UserInfoForm } from './interface';
-import { userInfoStrings } from './strings';
 
 export const UserInfoFormFields: FC<{ user: IUser }> = ({ user }) => {
   const { control } = useFormContext<UserInfoForm>();
@@ -33,26 +33,26 @@ export const UserInfoFormFields: FC<{ user: IUser }> = ({ user }) => {
         <RHFInput
           name="first_name"
           control={control}
-          label={userInfoStrings.firstName}
+          label={strings.firstName}
           variant="sm"
         />
         <RHFInput
           name="last_name"
           control={control}
-          label={userInfoStrings.lastName}
+          label={strings.lastName}
           variant="sm"
         />
         <RHFInput
           name="nickname"
           control={control}
-          label={userInfoStrings.nickname}
+          label={strings.nickName}
           variant="sm"
           disabled={!!user.nickname}
         />
         <RHFInput
           name="email"
           control={control}
-          label={`${userInfoStrings.email}*`}
+          label={`${strings.email}*`}
           type="email"
           variant="sm"
           disabled
@@ -60,13 +60,13 @@ export const UserInfoFormFields: FC<{ user: IUser }> = ({ user }) => {
         <RHFInput
           name="phone_number"
           control={control}
-          label={userInfoStrings.phoneNumber}
+          label={strings.phoneNumber}
           variant="sm"
         />
         <RHFAutocomplete
           name="gender"
           control={control}
-          label={userInfoStrings.gender}
+          label={strings.gender}
           placeholder=""
           options={genderOptions}
           h_size="sm"
@@ -74,7 +74,7 @@ export const UserInfoFormFields: FC<{ user: IUser }> = ({ user }) => {
         <RHFRadioGroup
           name="is_active"
           control={control}
-          label={userInfoStrings.status}
+          label={strings.status}
           options={statusOptions}
           className="flex gap-8"
         />

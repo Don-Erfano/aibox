@@ -2,42 +2,53 @@ import { useGetUserInfo } from '@/services/user/info';
 import { TabType, Tab } from '@aibox/ui';
 import { FC } from 'react';
 import { UserSetting } from './user-setting';
+import { GpuPackage } from './gpu-package';
+import { ApiPackage } from './api-package';
+import UserInfoTab from '../../user-list/user-info-tab/user-info-tab';
+import UserTransactionPage from '../user-transaction/user-transaction';
+import { strings } from '@/constant';
 
 const UserInfo: FC<{ id: string }> = ({ id }) => {
   const { user } = useGetUserInfo({ id });
 
   const tabs: TabType[] = [
     {
-      name: 'مشخصات کاربری',
+      name: strings.userInfo,
       id: 'user-profile',
-      content: <p>user-profile</p>,
+      content: <UserInfoTab userId={id} />,
       isDisabled: false,
     },
     {
-      name: 'بسته‌های API',
+      name: strings.apiPackages,
       id: 'api-packages',
-      content: <p>api-packages</p>,
+      content: <ApiPackage id={id} />,
       isDisabled: false,
     },
     {
-      name: 'بسته‌های GPU',
+      name: strings.gpuPackages,
       id: 'gpu-packages',
-      content: <p>gpu-packages</p>,
+      content: <GpuPackage id={id} />,
       isDisabled: false,
     },
     {
-      name: 'APIهای ارائه شده',
+      name: strings.myApi,
       id: 'provided-apis',
       content: <p>provided-apis</p>,
       isDisabled: false,
     },
     {
-      name: 'تنظیمات',
+      name: strings.finance,
+      id: 'finance',
+      content: <UserTransactionPage userId={id} />,
+      isDisabled: false,
+    },
+    {
+      name: strings.setting,
       id: 'setting',
       content: user && <UserSetting userData={user} userId={id} />,
       isDisabled: false,
     },
-    { name: 'توکن', id: 'token', content: 'token', isDisabled: true },
+    { name: strings.token, id: 'token', content: 'token', isDisabled: true },
   ];
 
   return (
