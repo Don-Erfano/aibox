@@ -20,7 +20,7 @@ export const TransactionFormModal = ({
   modalState,
   toggleModal,
 }: TransactionModalProps) => {
-  const { show, transactionStatus, id, isEdit } = modalState;
+  const { show, transactionData, id, isEdit } = modalState;
 
   const form = useForm<TransactionModalFormType>({
     mode: 'onChange',
@@ -45,8 +45,8 @@ export const TransactionFormModal = ({
   };
 
   useEffect(() => {
-    reset({ status: transactionStatus });
-  }, [reset, transactionStatus]);
+    reset(transactionData);
+  }, [reset, transactionData]);
 
   return (
     <Modal

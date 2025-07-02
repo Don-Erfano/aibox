@@ -59,28 +59,12 @@ export const TransactionsTable = () => {
         header: strings.actions,
         enableColumnFilter: false,
         cell: ({ row }) => {
-          const { id, status, title } = row.original;
+          const { id, status, title, description, track_id } = row.original;
 
           if (title === 'withdraw') {
             return (
               <div className="flex items-center justify-center gap-2">
                 {status === 'in_progress' && (
-                  <DataTableActionBarAction
-                    tooltip={strings.editTransaction}
-                    onClick={() =>
-                      setModalState({
-                        show: true,
-                        isEdit: true,
-                        transactionStatus: status,
-                        id,
-                      })
-                    }
-                  >
-                    <SquarePen strokeWidth={1.5} />
-                  </DataTableActionBarAction>
-                )}
-
-                {(status === 'done' || status === 'fail') && (
                   <>
                     <DataTableActionBarAction
                       tooltip={strings.successfulTransaction}
@@ -88,7 +72,9 @@ export const TransactionsTable = () => {
                         setModalState({
                           show: true,
                           isEdit: false,
-                          transactionStatus: 'done',
+                          transactionData: {
+                            status: 'done',
+                          },
                           id,
                         })
                       }
@@ -102,7 +88,9 @@ export const TransactionsTable = () => {
                         setModalState({
                           show: true,
                           isEdit: false,
-                          transactionStatus: 'fail',
+                          transactionData: {
+                            status: 'fail',
+                          },
                           id,
                         })
                       }
@@ -110,6 +98,26 @@ export const TransactionsTable = () => {
                       <CircleX strokeWidth={1.5} />
                     </DataTableActionBarAction>
                   </>
+                )}
+
+                {(status === 'done' || status === 'fail') && (
+                  <DataTableActionBarAction
+                    tooltip={strings.editTransaction}
+                    onClick={() =>
+                      setModalState({
+                        show: true,
+                        isEdit: true,
+                        transactionData: {
+                          status,
+                          track_id,
+                          description,
+                        },
+                        id,
+                      })
+                    }
+                  >
+                    <SquarePen strokeWidth={1.5} />
+                  </DataTableActionBarAction>
                 )}
               </div>
             );

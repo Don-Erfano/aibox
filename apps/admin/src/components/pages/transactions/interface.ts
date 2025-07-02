@@ -34,7 +34,7 @@ export type TransactionModalFormType = z.infer<
 
 export interface ModalState {
   show: boolean;
-  transactionStatus?: string;
+  transactionData?: Partial<TransactionModalFormType>;
   id?: string;
   isEdit?: boolean;
 }
