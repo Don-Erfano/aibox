@@ -5,6 +5,8 @@ export const newsSchema = z.object({
     message: 'عنوان باید حداقل ۳ کاراکتر باشد.',
   }),
 
+  thumbnail: z.string().optional(),
+
   tags: z.array(z.string()).optional(),
 
   summary: z
@@ -12,21 +14,13 @@ export const newsSchema = z.object({
     .min(10, { message: 'خلاصه باید حداقل ۱۰ کاراکتر باشد.' })
     .max(300, { message: 'خلاصه نباید بیش از ۳۰۰ کاراکتر باشد.' }),
 
-  thumbnail: z
+  uploader: z
     .instanceof(File, {
       message: 'یک تصویر معتبر انتخاب کنید.',
     })
     .refine((file) => file.size <= 5000000, {
       message: 'حجم فایل نباید بیش از ۵ مگابایت باشد.',
-    })
-    .refine(
-      (file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type),
-      {
-        message: 'فقط فایل‌های JPEG، PNG و WebP پذیرفته می‌شوند.',
-      }
-    )
-    .optional(),
-
+    }),
   slug: z.string().regex(/^[a-z0-9-]+$/, {
     message: 'آدرس باید فقط شامل حروف کوچک، اعداد و خط تیره باشد.',
   }),

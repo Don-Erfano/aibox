@@ -34,8 +34,8 @@ export interface IAddNewsRequestPayload {
   id?: string;
   title: string;
   content: string;
-  thumbnail: File;
-  tags: string[];
+  thumbnail?: string;
+  tags?: string[];
   summary: string;
   slug: string;
 }

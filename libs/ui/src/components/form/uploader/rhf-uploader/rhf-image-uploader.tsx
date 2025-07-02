@@ -13,7 +13,7 @@ import { AibImageUploader } from '../aib-image-uploader';
 export const RHFImageUploader = <TFieldValues extends FieldValues>(
   props: RHFImageUploaderProps<TFieldValues>
 ) => {
-  const { name, control, label, description, ...rest } = props;
+  const { name, control, label, description, onSubmitUpload, ...rest } = props;
 
   return (
     <FormField
@@ -26,9 +26,14 @@ export const RHFImageUploader = <TFieldValues extends FieldValues>(
             <AibImageUploader
               {...rest}
               initialImageUrl={field.value as string | string[]}
-              onFileChange={field.onChange}
               error={!!error}
-              errorMessage={error?.message ?? ''}
+              onFileChange={async (file) => {
+                field.onChange(file);
+
+                if (file && onSubmitUpload) {
+                  await onSubmitUpload(file);
+                }
+              }}
             />
           </FormControl>
           {!error && description && (

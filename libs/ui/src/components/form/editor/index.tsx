@@ -12,7 +12,6 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
 const modules = {
   toolbar: {
     container: [
-      [{ font: [] }],
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike'],
       [{ color: [] }, { background: [] }],
@@ -20,20 +19,8 @@ const modules = {
       ['blockquote', 'code-block'],
       [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
       [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
-      ['link', 'image', 'video'],
       ['clean'],
-      ['preview', 'edit'], // Added custom buttons
     ],
-    handlers: {
-      preview: function () {
-        console.log('Preview clicked');
-        // Add preview logic here
-      },
-      edit: function () {
-        console.log('Edit clicked');
-        // Add edit logic here
-      },
-    },
   },
 };
 
@@ -46,17 +33,6 @@ export const Editor = <TFieldValues extends FieldValues>({
   error,
   placeholder,
 }: EditorProps<TFieldValues>) => {
-  const editorClassNames = `
-    quill
-    [&_.ql-toolbar]:ltr
-    [&_.ql-container]:h-[${height}]
-    [&_.ql-container]:rtl
-    [&_.ql-editor]:text-right
-    border
-    rounded-md
-    [&_.ql-toolbar]:justify-start // Align toolbar icons to the left
-  `;
-
   return (
     <div>
       {control ? (
@@ -70,10 +46,12 @@ export const Editor = <TFieldValues extends FieldValues>({
                 {...field}
                 modules={modules}
                 placeholder={placeholder}
-                className={editorClassNames}
+                style={{
+                  height,
+                }}
               />
               {fieldState.error?.message && (
-                <p className="text-sm font-medium text-destructive mt-1">
+                <p className="text-xs font-light text-red-600 text-right mt-1">
                   {fieldState.error.message}
                 </p>
               )}
@@ -88,10 +66,12 @@ export const Editor = <TFieldValues extends FieldValues>({
             onChange={onChange}
             modules={modules}
             placeholder={placeholder}
-            className={editorClassNames}
+            style={{ height }}
           />
           {error && (
-            <p className="text-sm font-medium text-destructive mt-1">{error}</p>
+            <p className="text-xs font-light text-red-600 text-right mt-1">
+              {error}
+            </p>
           )}
         </>
       )}
