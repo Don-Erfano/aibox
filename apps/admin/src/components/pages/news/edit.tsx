@@ -26,7 +26,7 @@ const EditNews = ({ id }: { id: string }) => {
         summary: news.summary,
         slug: news.slug,
         title: news.title,
-        tags: news.tags.map((tag) => tag.id),
+        tags: news.tags?.map((tags) => tags.id),
         uploader: news?.thumbnail,
       }}
     />

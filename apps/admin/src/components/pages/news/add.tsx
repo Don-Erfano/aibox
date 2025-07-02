@@ -10,7 +10,11 @@ const AddNews: FC = () => {
   const { mutate: createNews, isPending } = useCreateNews();
 
   const handleSubmit = (data: NewsSchemaType) => {
-    createNews(data);
+    console.log(data);
+    createNews({
+      ...data,
+      tags: data.tags?.map((tags) => tags),
+    });
   };
 
   return (

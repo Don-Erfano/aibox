@@ -29,7 +29,7 @@ const NewsForm = ({
   const router = useRouter();
   const form = useForm<NewsSchemaType>({
     resolver: zodResolver(newsSchema),
-    defaultValues: initialData ? initialData : defaultValues,
+    defaultValues: initialData ?? defaultValues,
   });
 
   const { mutateAsync: uploadFile } = useUploadFile();
