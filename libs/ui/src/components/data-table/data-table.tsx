@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { flexRender } from '@tanstack/react-table';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { TablePagination } from './components/table-pagination';
 import { TableColumnHeader } from './components/table-column-header';
@@ -207,19 +207,6 @@ export function DataTable<TData>({
                   <React.Fragment key={row.id}>
                     {/* Main row with visible columns + expand button */}
                     <TableRow>
-                      {mobileVisibleColumns.map((col) => {
-                        const cell = row
-                          .getAllCells()
-                          .find((c) => c.column.id === col.id);
-                        if (!cell) return null;
-
-                        return (
-                          <TableCell key={col.id}>
-                            {flexRender(col.columnDef.cell, cell.getContext())}
-                          </TableCell>
-                        );
-                      })}
-
                       {/* Expand button cell - only show if there are hidden columns */}
                       {hiddenColumns.length > 0 && (
                         <TableCell className="w-10 p-2">
@@ -232,11 +219,24 @@ export function DataTable<TData>({
                             {isRowExpanded ? (
                               <ChevronDown className="h-4 w-4" />
                             ) : (
-                              <ChevronRight className="h-4 w-4" />
+                              <ChevronLeft className="h-4 w-4" />
                             )}
                           </Button>
                         </TableCell>
                       )}
+
+                      {mobileVisibleColumns.map((col) => {
+                        const cell = row
+                          .getAllCells()
+                          .find((c) => c.column.id === col.id);
+                        if (!cell) return null;
+
+                        return (
+                          <TableCell key={col.id}>
+                            {flexRender(col.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
 
                     {/* Expanded row with hidden columns */}
