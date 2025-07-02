@@ -12,6 +12,7 @@ import {
   RHFInput,
   toast,
   ToggleGroup,
+  ToggleSwitch,
 } from '@aibox/ui';
 
 import {
@@ -128,19 +129,24 @@ const ConfigurationForm: FC<{ id?: string }> = ({ id }) => {
             />
             <div className="flex flex-col gap-4">
               <span className="text-sm text-zinc-600">{strings.status}*</span>
-              <ToggleGroup
+              <ToggleSwitch
+                size="fixed"
                 items={[
-                  { label: strings.active, value: 'active' },
-                  { label: strings.deactive, value: 'deactive' },
+                  { label: 'فعال', value: 'active' },
+                  { label: 'غیرفعال', value: 'deactive' },
                 ]}
-                onValueChange={(e) => console.log(e)}
-                value="active"
+                value={form.getValues('is_active')}
+                onValueChange={(e) => form.setValue('is_active', e)}
               />
             </div>
           </FormWrapper>
           <div className="flex justify-center w-full gap-5">
-            <Button isFilled>{strings.submit}</Button>
-            <Button>{strings.cancelAction}</Button>
+            <Button isFilled type="submit">
+              {strings.submit}
+            </Button>
+            <Button onClick={() => push(GPU_ROUTES.CONFIGURATION)}>
+              {strings.cancelAction}
+            </Button>
           </div>
         </FormContainer>
       </form>

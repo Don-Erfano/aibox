@@ -6,6 +6,7 @@ interface IConfigurationForm {
   motherboard_id: string;
   hourly_price: string;
   discount: string;
+  is_active: string;
 }
 
 type TRequestData = z.infer<typeof configurationSchema>;

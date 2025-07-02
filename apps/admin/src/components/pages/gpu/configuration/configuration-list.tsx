@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { FC, useState } from 'react';
 import { CopyPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -18,7 +19,6 @@ import { FabButton } from '@/components/fab-button';
 import { useGetConfigurationData } from '@/services';
 
 import { ConfigurationCols } from './constants';
-import Image from 'next/image';
 
 const ConfigurationList: FC = () => {
   const { push } = useRouter();
@@ -91,4 +91,5 @@ const ConfigurationList: FC = () => {
     </>
   );
 };
+
 export default ConfigurationList;

@@ -66,6 +66,7 @@ export const ConfigurationCols: ColumnDef<IConfiguration>[] = [
     },
     enableColumnFilter: true,
     meta: { label: strings.status, variant: 'select' },
+    enableSorting: false,
   },
 ];
 
@@ -85,6 +86,7 @@ export const configurationSchema = z.object({
       })
   ),
   discount: z.string(),
+  is_active: z.string(),
 });
 
 export const defaultValues = {
@@ -92,4 +94,5 @@ export const defaultValues = {
   motherboard_id: '',
   hourly_price: '',
   discount: '',
+  is_active: 'active',
 };
