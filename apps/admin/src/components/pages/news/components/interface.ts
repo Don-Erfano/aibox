@@ -6,3 +6,12 @@ export interface UserFormProps {
   onSubmit: (data: NewsSchemaType) => void;
   isLoading?: boolean;
 }
+export interface DeleteModal {
+  show: boolean;
+  id: number;
+}
+
+export interface DeleteModalProps {
+  modalState: DeleteModal;
+  toggleModal: React.Dispatch<React.SetStateAction<DeleteModal>>;
+}

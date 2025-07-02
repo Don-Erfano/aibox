@@ -98,7 +98,7 @@ const strings = {
   cancelAction: 'لغو عملیات',
   deleteModalTitle: 'آیا مطمئن هستید؟',
   deleteModalDecription:
-    'با حذف فاکتور، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
+    'با حذف این مورد، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
   deleteButtonText: 'حذف کردن',
   factors: 'فاکتورها',
   done: 'پرداخت شده',

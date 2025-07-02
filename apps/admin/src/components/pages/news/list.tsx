@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import newsColumns from './constant';
 import {
   DataTable,
@@ -12,10 +12,16 @@ import { useRouter } from 'next/navigation';
 import { NEWS_ROUTES } from '@/routes';
 import { FabButton } from '@/components/fab-button';
 import { useGetNewsList } from '@/services/news';
+import { DeleteModal } from './components/interface';
+import { DeleteNewsModal } from './components/delete-modal';
 
 const News = () => {
   const router = useRouter();
   const { news, isLoading, totalItems, totalPages, refetch } = useGetNewsList();
+  const [deleteModalState, setDeleteModalState] = useState<DeleteModal>({
+    show: false,
+    id: 0,
+  });
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: news,
@@ -23,7 +29,7 @@ const News = () => {
     pageCount: totalPages,
     actions: {
       onEdit: (row) => router.push(`${NEWS_ROUTES.EDIT}/${row.id}`),
-      onDelete: (row) => console.log(row.id),
+      onDelete: (row) => setDeleteModalState({ show: true, id: row.id }),
     },
   });
 
@@ -36,6 +42,10 @@ const News = () => {
   return (
     <>
       <div className="relative shadow-2xl px-11 py-5 rounded-sm">
+        <DeleteNewsModal
+          modalState={deleteModalState}
+          toggleModal={setDeleteModalState}
+        />
         <TableToolbar
           title={strings.news}
           totalItems={totalItems}

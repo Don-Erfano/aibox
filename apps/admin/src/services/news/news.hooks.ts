@@ -10,6 +10,7 @@ import {
 import { NEWS_ROUTES } from '@/routes';
 import NewsService from './news.service';
 import { toast } from '@aibox/ui';
+import { showNotification } from '@/utils/notifications';
 
 const newsService = new NewsService();
 
@@ -78,3 +79,12 @@ export const usePutNewsById = () => {
     },
   });
 };
+
+export const useDeleteNews = () =>
+  useMutation({
+    mutationFn: (id: number) => newsService.deleteNews(id),
+    onSuccess: () => {
+      toast.success('خبر مورد نظر با موفقیت حذف شد.');
+    },
+    mutationKey: [`deleteNews`],
+  });

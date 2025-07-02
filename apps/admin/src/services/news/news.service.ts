@@ -52,11 +52,11 @@ export default class NewsService extends AbstractAPI {
   }
 
   public async deleteNews(
-    id: string
+    id: number
   ): Promise<AxiosResponse<INetworkResponse<void>>> {
     return await this.http.request({
       method: 'DELETE',
-      url: `${this.url + id}/`,
+      url: `${this.url}/${id}/`,
     });
   }
 }
