@@ -2,25 +2,43 @@
 
 import { FC, ChangeEvent, DragEvent, useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { Controller, FieldError, FieldValues } from 'react-hook-form';
 import { LogoAvatarProps } from './interface';
 import { Image, ImagePlus } from 'lucide-react';
 
 const ALLOWED_IMAGE_FORMATS = 'image/png, image/jpeg';
 
-export const LogoAvatarInput: FC<LogoAvatarProps> = ({
+const LogoAvatarBase: FC<
+  Omit<LogoAvatarProps<FieldValues>, 'control' | 'name'> & {
+    preview: string;
+    setPreview: (v: string) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    error?: FieldError;
+  }
+> = ({
   label,
   src = '',
   onChange,
   onClick,
   required = false,
   mode = 'preview',
+  size = 'small',
+  preview,
+  setPreview,
+  error,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [preview, setPreview] = useState<string>(src);
+
+  const sizeMap = {
+    small: { width: '54px', height: '54px' },
+    large: { width: '90px', height: '90px' },
+  } as const;
 
   useEffect(() => {
-    setPreview(src);
-  }, [src]);
+    if (mode === 'preview') {
+      setPreview(src);
+    }
+  }, [src, setPreview, mode]);
 
   useEffect(
     () => () => {
@@ -61,13 +79,17 @@ export const LogoAvatarInput: FC<LogoAvatarProps> = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <div
         className={clsx(
-          'relative overflow-hidden rounded-full border border-gray-500 transition-all duration-200',
-          { 'cursor-pointer': mode === 'upload' }
+          'relative overflow-hidden rounded-full border transition-all duration-200',
+          {
+            'border-gray-500': !error,
+            'border-red-600': !!error,
+            'cursor-pointer': mode === 'upload',
+          }
         )}
-        style={{ width: '70px', height: '70px' }}
+        style={sizeMap[size]}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         onDragOver={handleDragOver}
@@ -83,7 +105,7 @@ export const LogoAvatarInput: FC<LogoAvatarProps> = ({
         )}
         {isHovering && mode === 'upload' && (
           <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
-            <ImagePlus />
+            <ImagePlus className={clsx({ 'text-red-600': !!error })} />
           </div>
         )}
 
@@ -100,7 +122,7 @@ export const LogoAvatarInput: FC<LogoAvatarProps> = ({
 
             {!preview && !isHovering && (
               <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
-                <Image />
+                <Image className={clsx({ 'text-red-600': !!error })} />
               </div>
             )}
           </>
@@ -108,11 +130,49 @@ export const LogoAvatarInput: FC<LogoAvatarProps> = ({
       </div>
 
       {label && (
-        <label className="text-gray-400 mt-2">
+        <label
+          className={clsx('text-gray-400 mt-2', { 'text-red-600': !!error })}
+        >
           {label}
-          {required && <span className="ml-1">*</span>}
+          {required && (
+            <span className={clsx('ml-1', { 'text-red-600': !!error })}>*</span>
+          )}
         </label>
       )}
-    </>
+    </div>
+  );
+};
+
+export const LogoAvatarInput = <
+  TFieldValues extends Record<string, unknown> = Record<string, unknown>
+>(
+  props: LogoAvatarProps<TFieldValues>
+) => {
+  const [preview, setPreview] = useState<string>(props.src || '');
+
+  if (props.mode === 'upload') {
+    const { control, name, ...rest } = props;
+
+    return (
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <LogoAvatarBase
+            {...rest}
+            onChange={onChange}
+            preview={preview}
+            setPreview={setPreview}
+            src={typeof value === 'string' ? value : ''}
+            error={error}
+          />
+        )}
+      />
+    );
+  }
+
+  // preview mode only
+  return (
+    <LogoAvatarBase {...props} preview={preview} setPreview={setPreview} />
   );
 };
