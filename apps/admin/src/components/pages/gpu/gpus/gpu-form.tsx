@@ -2,6 +2,7 @@
 
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { usePathname } from 'next/navigation';
 
 import {
   Button,
@@ -15,11 +16,15 @@ import { FormContainer, FormWrapper } from '@/components/templates';
 
 const GpuForm: FC = () => {
   const form = useForm();
+  const pathname = usePathname();
+  const title = pathname.includes('edit')
+    ? 'ویرایش GPU - نام GPU'
+    : 'تعریف GPU جدید';
   return (
     <Form {...form}>
-      <FormContainer title="title">
+      <FormContainer title={title}>
         <FormWrapper>
-          <RHFInput name="price" label="قیمت" />
+          <RHFInput name="price" label="مدل*" />
           <RHFAutocomplete
             control={form.control}
             name="brand"

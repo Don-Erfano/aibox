@@ -80,4 +80,15 @@ export const GpuCols: ColumnDef<IGpuList>[] = [
     },
     enableSorting: true,
   },
+  {
+    id: 'status',
+    header: strings.status,
+    accessorFn: (row) => `${row.brand}`,
+    enableColumnFilter: true,
+    meta: {
+      label: strings.provider,
+      variant: 'text',
+    },
+    enableSorting: true,
+  },
 ];
