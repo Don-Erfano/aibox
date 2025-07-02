@@ -45,8 +45,8 @@ export default class NewsService extends AbstractAPI {
     data: IAddNewsRequestPayload
   ): Promise<AxiosResponse<INetworkResponse<IGetNewsListResponse>>> {
     return this.http.request({
-      method: 'POST',
-      url: `${this.url}/${data.id}`,
+      method: 'PUT',
+      url: `${this.url}/${data.id}/`,
       data,
     });
   }

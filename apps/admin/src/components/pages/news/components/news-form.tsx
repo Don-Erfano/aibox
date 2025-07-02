@@ -32,7 +32,7 @@ const NewsForm = ({
     defaultValues: initialData ?? defaultValues,
   });
 
-  const { mutateAsync: uploadFile } = useUploadFile();
+  const { mutateAsync: uploadFile, isPending: isUploading } = useUploadFile();
 
   const handleThumbnailUpload = async (input: File | File[] | null) => {
     if (!input) return;
@@ -118,7 +118,12 @@ const NewsForm = ({
           </div>
 
           <div className="flex gap-5 justify-center">
-            <Button size="lg" isFilled type="submit" disabled={isLoading}>
+            <Button
+              size="lg"
+              isFilled
+              type="submit"
+              disabled={isLoading || isUploading}
+            >
               {strings.submit}
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>

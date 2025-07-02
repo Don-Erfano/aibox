@@ -10,7 +10,6 @@ import {
 import { NEWS_ROUTES } from '@/routes';
 import NewsService from './news.service';
 import { toast } from '@aibox/ui';
-import { showNotification } from '@/utils/notifications';
 
 const newsService = new NewsService();
 
@@ -70,13 +69,11 @@ export const useCreateNews = () => {
   });
 };
 
-export const usePutNewsById = () => {
+export const usePutNewsById = (id: string) => {
   return useMutation({
     mutationKey: ['putNewsById'],
-    mutationFn: (data: IAddNewsRequestPayload) => newsService.updateNews(data),
-    onSuccess: () => {
-      toast.success('خبر مورد نظر با موفقیت ویرایش شد.');
-    },
+    mutationFn: (data: IAddNewsRequestPayload) =>
+      newsService.updateNews({ ...data, id: id }),
   });
 };
 
