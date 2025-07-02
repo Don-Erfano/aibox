@@ -78,7 +78,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const openEdit = (tx: Transaction) => {
     setSelectedTx(tx);
     reset({
-      status: tx.status as 'موفق' | 'ناموفق',
+      status: tx.status as 'done' | 'fail',
       kind: tx.kind as 'withdraw' | 'deposit',
       track_id: tx.track_id,
       description: tx.description,

@@ -108,11 +108,11 @@ const AddPublicMessagePage: FC = () => {
   const watchedCategory = watch('category');
 
   useEffect(() => {
-    console.log('Selected recivers:', watchedRecivers);
+    console.log('selected recivers:', watchedRecivers);
   }, [watchedRecivers]);
 
   useEffect(() => {
-    console.log('Selected category:', watchedCategory);
+    console.log('selected category:', watchedCategory);
   }, [watchedCategory]);
   const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -127,11 +127,11 @@ const AddPublicMessagePage: FC = () => {
     })) || []),
   ];
 
-  const categoryOptions = categories.data.category?.map((cat) => ({
-    value: cat.id,
-    label: cat.name,
-  }));
-
+  const categoryOptions =
+    categories?.data?.category?.map((cat) => ({
+      value: cat.id,
+      label: cat.name,
+    })) || [];
   const toggleSelection = (id: string, isNowChecked: boolean) => {
     setSelectedIds((prev) =>
       isNowChecked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id)
@@ -167,7 +167,7 @@ const AddPublicMessagePage: FC = () => {
 
       const payload: ICreateMassNotificationRequest = {
         user: userString,
-        category: data.category.value,
+        category: data.category,
         name: data.message_group || data.message_subject,
         from_time,
         to_time,
@@ -185,7 +185,6 @@ const AddPublicMessagePage: FC = () => {
       toast.error('خطا در ایجاد پیام عمومی');
     }
   };
-
   const handleCancel = () => {
     reset();
     router.push('/dashboard/messages');
@@ -276,9 +275,9 @@ const AddPublicMessagePage: FC = () => {
               <Switch
                 checked={useDropdown}
                 onCheckedChange={setUseDropdown}
-                withIcon
                 size="lg"
-                variant="primary"
+                dir="ltr"
+                variant="secondary"
               />
             </div>
             <DropDownSelect

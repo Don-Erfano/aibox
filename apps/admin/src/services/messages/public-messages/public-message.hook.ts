@@ -97,7 +97,6 @@ export const useGetMassNotificationCategories = () => {
       const response = await massNotificationsService.getMessageCategories();
       return response.data;
     },
-    select: (data) => data.data,
   });
 };
 export const useUpdateMassNotificationMessage = (id: string) => {

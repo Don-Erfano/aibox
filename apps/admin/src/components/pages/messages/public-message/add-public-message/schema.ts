@@ -5,20 +5,14 @@ const jalaliDateRegex =
 
 export const publicMessageSchema = z.object({
   recivers: z
-    .object({
-      label: z.string().min(1, 'برچسب انتخاب لازم است'),
-      value: z.string().min(1, 'مقدار انتخاب لازم است'),
-    })
+    .array(z.string().min(1, 'مقدار انتخاب لازم است'))
     .nullable()
     .refine((val) => val !== null, {
-      message: 'لطفاً یک دریافت‌کننده را انتخاب کنید',
+      message: 'لطفاً یک دریافت ‌کننده را انتخاب کنید',
     }),
 
   category: z
-    .object({
-      label: z.string().min(1, 'برچسب انتخاب لازم است'),
-      value: z.string().min(1, 'مقدار انتخاب لازم است'),
-    })
+    .string(z.string().min(1, 'مقدار انتخاب لازم است'))
     .nullable()
     .refine((val) => val !== null, {
       message: 'لطفاً یک دسته‌بندی را انتخاب کنید',
@@ -55,10 +49,10 @@ export const publicMessageSchema = z.object({
 export type PublicMessageSchemaType = z.infer<typeof publicMessageSchema>;
 
 export const defaultValues: PublicMessageSchemaType = {
-  recivers: null,
+  recivers: [],
   message_subject: '',
   message_group: '',
-  category: null,
+  category: '',
   time_from: '',
   time_to: '',
   date_from: '',
