@@ -28,6 +28,7 @@ const LogoAvatarBase: FC<
   error,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [hasError, setHasError] = useState(false); // ✅ internal error state
 
   const sizeMap = {
     small: { width: '54px', height: '54px' },
@@ -47,6 +48,8 @@ const LogoAvatarBase: FC<
     [preview]
   );
 
+  const isInvalid = hasError || !!error; // ✅ combined error state
+
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     if (mode !== 'upload') return;
     e.preventDefault();
@@ -57,35 +60,48 @@ const LogoAvatarBase: FC<
     if (mode !== 'upload') return;
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && ALLOWED_IMAGE_FORMATS.split(', ').includes(file.type)) {
-      const customEvent = {
-        target: { files: [file] },
-        currentTarget: { files: [file] },
-      } as unknown as ChangeEvent<HTMLInputElement>;
-      onChange?.(customEvent);
-      setPreview(URL.createObjectURL(file));
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setHasError(true);
+      setPreview('');
+      return;
     }
+
+    setHasError(false);
+    const customEvent = {
+      target: { files: [file] },
+      currentTarget: { files: [file] },
+    } as unknown as ChangeEvent<HTMLInputElement>;
+    onChange?.(customEvent);
+    setPreview(URL.createObjectURL(file));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (mode !== 'upload') return;
     const file = e.target.files?.[0];
-    if (file && ALLOWED_IMAGE_FORMATS.split(', ').includes(file.type)) {
-      onChange?.(e);
-      setPreview(URL.createObjectURL(file));
-    } else {
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
       e.target.value = '';
+      setHasError(true);
+      setPreview('');
+      return;
     }
+
+    setHasError(false);
+    onChange?.(e);
+    setPreview(URL.createObjectURL(file));
   };
 
   return (
     <div className="flex flex-col items-center">
       <div
         className={clsx(
-          'relative overflow-hidden rounded-full border transition-all duration-200',
+          'relative overflow-hidden rounded-full border transition-all duration-200 bg-gray-100',
           {
-            'border-gray-500': !error,
-            'border-red-600': !!error,
+            'border-gray-500': !isInvalid,
+            'border-red-600': isInvalid,
             'cursor-pointer': mode === 'upload',
           }
         )}
@@ -105,7 +121,12 @@ const LogoAvatarBase: FC<
         )}
         {isHovering && mode === 'upload' && (
           <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
-            <ImagePlus className={clsx({ 'text-red-600': !!error })} />
+            <ImagePlus
+              className={clsx({
+                'text-zinc-600': !isInvalid,
+                'text-red-600': isInvalid,
+              })}
+            />
           </div>
         )}
 
@@ -122,7 +143,12 @@ const LogoAvatarBase: FC<
 
             {!preview && !isHovering && (
               <div className="absolute inset-0 flex items-center justify-center bg-[rgba(133,133,133,0.44)] pointer-events-none">
-                <Image className={clsx({ 'text-red-600': !!error })} />
+                <Image
+                  className={clsx({
+                    'text-zinc-600': !isInvalid,
+                    'text-red-600': isInvalid,
+                  })}
+                />
               </div>
             )}
           </>
@@ -131,11 +157,15 @@ const LogoAvatarBase: FC<
 
       {label && (
         <label
-          className={clsx('text-gray-400 mt-2', { 'text-red-600': !!error })}
+          className={clsx('text-gray-400 mt-2 text-sm', {
+            'text-red-600': isInvalid,
+          })}
         >
           {label}
           {required && (
-            <span className={clsx('ml-1', { 'text-red-600': !!error })}>*</span>
+            <span className={clsx('ml-1', { 'text-red-600': isInvalid })}>
+              *
+            </span>
           )}
         </label>
       )}
@@ -171,7 +201,6 @@ export const LogoAvatarInput = <
     );
   }
 
-  // preview mode only
   return (
     <LogoAvatarBase {...props} preview={preview} setPreview={setPreview} />
   );
