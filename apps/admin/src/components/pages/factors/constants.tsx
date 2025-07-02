@@ -103,6 +103,7 @@ export const getFacotrColumns = (
         variant: 'select',
         label: strings.user,
         options: users,
+        mobileVisible: true,
       },
       cell: ({ row }) => {
         const { email, prfoile_picture } = row.original.user;
@@ -137,6 +138,7 @@ export const getFacotrColumns = (
         variant: 'select',
         label: strings.department,
         options: departments,
+        mobileVisible: true,
       },
     },
     {
