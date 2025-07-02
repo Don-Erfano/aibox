@@ -188,6 +188,7 @@ const strings = {
   planType: 'نوع پلن',
   request: 'فراخوانی',
   activatedDate: 'تاریخ فعال‌سازی',
+  activatedTime: 'زمان فعال‌سازی',
   maxDailyRequest: 'فراخوانی روزانه (بیشینه)',
   maxMonthlyRequest: 'فراخوانی ماهانه (بیشینه)',
   remainingTime: 'زمان باقی‌مانده',
@@ -286,6 +287,9 @@ const strings = {
   chooseBrand: 'برند را انتخاب کنید',
   discountPercent: 'درصد تخفیف',
   usage: 'میزان استفاده',
+  logs: 'گزارش‌ها',
+  packageStatus: 'وضعیت بسته',
+  packageName: 'نام بسته',
 };
 
 export default strings;

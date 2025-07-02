@@ -15,7 +15,7 @@ export const logsCol: ColumnDef<IGpuList>[] = [
     enableSorting: false,
   },
   {
-    header: strings.closed,
+    header: strings.packageName,
     id: 'ram',
     accessorFn: (row) => `${row.ram}`,
     enableColumnFilter: true,
@@ -27,7 +27,7 @@ export const logsCol: ColumnDef<IGpuList>[] = [
   },
   {
     id: 'brand',
-    header: strings.activatedDate,
+    header: strings.activatedTime,
     accessorFn: (row) => `${row.brand}`,
     enableColumnFilter: true,
     meta: {
@@ -49,13 +49,13 @@ export const logsCol: ColumnDef<IGpuList>[] = [
   },
   {
     id: 'status',
-    header: strings.status,
+    header: strings.packageStatus,
     accessorFn: (row) => `${row.brand}`,
     enableColumnFilter: true,
     meta: {
       label: strings.provider,
       variant: 'text',
     },
-    enableSorting: true,
+    enableSorting: false,
   },
 ];

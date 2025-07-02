@@ -73,7 +73,7 @@ const LogsList: FC = () => {
       </Modal>
       <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
-          title={strings.gpus}
+          title={strings.logs}
           totalItems={0}
           table={table}
           refreshLoading={false}
