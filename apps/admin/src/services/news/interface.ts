@@ -12,6 +12,7 @@ export interface INews {
   slug: string;
   tags: Tag[];
   created_at: string;
+  thumbnail: File;
 }
 
 // get news list

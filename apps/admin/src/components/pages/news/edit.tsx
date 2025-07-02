@@ -27,6 +27,7 @@ const EditNews = ({ id }: { id: string }) => {
         slug: news.slug,
         title: news.title,
         tags: news.tags.map((tag) => tag.id),
+        uploader: news?.thumbnail,
       }}
     />
   );

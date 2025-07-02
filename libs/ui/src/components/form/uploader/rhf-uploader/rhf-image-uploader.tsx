@@ -19,29 +19,32 @@ export const RHFImageUploader = <TFieldValues extends FieldValues>(
     <FormField
       name={name}
       control={control}
-      render={({ field, fieldState: { error } }) => (
-        <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
-          <FormControl>
-            <AibImageUploader
-              {...rest}
-              initialImageUrl={field.value as string | string[]}
-              error={!!error}
-              onFileChange={async (file) => {
-                field.onChange(file);
+      render={({ field, fieldState: { error } }) => {
+        console.log('value', field.value);
+        return (
+          <FormItem>
+            {label && <FormLabel>{label}</FormLabel>}
+            <FormControl>
+              <AibImageUploader
+                {...rest}
+                initialImageUrl={field.value as string | string[]}
+                error={!!error}
+                onFileChange={async (file) => {
+                  field.onChange(file);
 
-                if (file && onSubmitUpload) {
-                  await onSubmitUpload(file);
-                }
-              }}
-            />
-          </FormControl>
-          {!error && description && (
-            <FormDescription>{description}</FormDescription>
-          )}
-          <FormMessage />
-        </FormItem>
-      )}
+                  if (file && onSubmitUpload) {
+                    await onSubmitUpload(file);
+                  }
+                }}
+              />
+            </FormControl>
+            {!error && description && (
+              <FormDescription>{description}</FormDescription>
+            )}
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 };

@@ -45,7 +45,7 @@ const NewsForm = ({
 
     try {
       const result = await uploadFile(formData);
-      form.setValue('thumbnail', result.file);
+      form.setValue('thumbnail', result.id);
     } catch (err) {
       console.error('Image upload failed', err);
     }
@@ -111,13 +111,13 @@ const NewsForm = ({
 
           <div className="flex flex-col w-full">
             <div className="max-w-[1376px] xl:gap-x-[140px] 2xl:gap-x-[400px] xl:self-center grid grid-cols-1 gap-10 lg:place-content-between lg:grid-cols-[minmax(0,_480px)_minmax(0,_480px)] px-4 sm:px-8 md:px-16 lg:px-6 xl:px-[60px]">
-              <div className="lg:col-span-2 mt-4">
+              <div className="lg:col-span-2 mt-4 mb-12">
                 <Editor control={form.control} name="content" height="180px" />
               </div>
             </div>
           </div>
 
-          <div className="flex gap-5 justify-center mt-12">
+          <div className="flex gap-5 justify-center">
             <Button size="lg" isFilled type="submit" disabled={isLoading}>
               {strings.submit}
             </Button>
