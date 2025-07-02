@@ -17,7 +17,7 @@ import {
   toast,
 } from '@aibox/ui';
 import {
-  useGetTransactionListByUser,
+  useGetTransactions,
   useUpdateTransaction,
 } from '@/services/transactions/transaction/transaction.hook';
 import transactionColumns, {
@@ -43,7 +43,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
     earnAmount,
     withdrawAmount,
     remainCharge,
-  } = useGetTransactionListByUser(userId);
+  } = useGetTransactions(userId);
 
   const updateMutation = useUpdateTransaction();
 

@@ -36,6 +36,7 @@ const FINANCE_ROUTES = {
   ADD_FACTORS: `${FINANCE_BASE_ROUTE}/factors/add`,
   GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code`,
   TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions`,
+  ADD_TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions/add`,
 };
 
 const GPU_ROUTES = {
