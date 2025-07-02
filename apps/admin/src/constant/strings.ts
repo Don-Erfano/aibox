@@ -269,7 +269,7 @@ const strings = {
   model: 'مدل',
   ram: 'رم',
   brand: 'برند',
-  codaCore: 'برند',
+  codaCore: 'تعداد هسته Cuda',
   freeHours: 'ساعت استفاده رایگان',
   freeDays: 'بازه استفاده رایگان (روز)',
   motherboards: 'مادربردها',

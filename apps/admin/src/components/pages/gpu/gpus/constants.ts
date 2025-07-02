@@ -89,6 +89,6 @@ export const GpuCols: ColumnDef<IGpuList>[] = [
       label: strings.provider,
       variant: 'text',
     },
-    enableSorting: true,
+    enableSorting: false,
   },
 ];
