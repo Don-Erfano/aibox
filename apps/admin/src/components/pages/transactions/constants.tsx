@@ -43,7 +43,7 @@ const titleMap: Record<string, { label: string }> = {
 
 const statusMap: Record<string, { label: string; icon: ReactNode }> = {
   in_progress: {
-    label: strings.inProgress,
+    label: strings.inAwaitAction,
     icon: <PendingIcon />,
   },
   fail: {
@@ -63,7 +63,7 @@ const statusMap: Record<string, { label: string; icon: ReactNode }> = {
 export const statusOptions = [
   { value: 'done', label: strings.successful },
   { value: 'fail', label: strings.failed },
-  { value: 'in_progress', label: strings.inProgress },
+  { value: 'in_progress', label: strings.inAwaitAction },
   { value: 'cancel', label: strings.canceled },
 ];
 

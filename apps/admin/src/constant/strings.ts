@@ -285,6 +285,7 @@ const strings = {
   confirm: 'تأیید',
   placeholderText: 'متن راهنما پیش‌فرض',
   transactionStatus: 'وضعیت تراکنش',
+  inAwaitAction:"در انتظار اقدام"
 };
 
 export default strings;
