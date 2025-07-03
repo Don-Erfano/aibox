@@ -190,7 +190,7 @@ export function DataTable<TData>({
               <TableRow>
                 {/* Expand button header */}
                 {hiddenColumns.length > 0 && (
-                  <TableHead className="w-12 flex-shrink-0 p-2"></TableHead>
+                  <TableHead className="w-12 flex-shrink-0 p-2" />
                 )}
                 {mobileVisibleColumns.map((col) => (
                   <TableHead key={col.id} className="min-w-0 px-2 truncate">
