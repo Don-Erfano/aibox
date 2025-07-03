@@ -273,7 +273,7 @@ const strings = {
   publishDate: 'تاریخ انتشار',
   tags: 'تگ‌ها',
   thumbnail: 'تصویر شاخص (thumbnail)',
-  addressSuffix: 'پسوند آدرس',
+  addressSuffix: 'پسوند آدرس (slug)',
   newsContent: 'شرح اخبار',
   selectOption: 'انتخاب کنید',
 };
