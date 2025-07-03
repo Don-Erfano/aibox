@@ -1,52 +1,57 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import clsx from 'clsx';
 
 import { jalaliMonth } from '../../constants';
-import HeaderAction from '../HeaderAction/HeaderAction';
 import { useDatePickerProvider } from '../../providers/useDatePickerProvider';
 import { ECalendarState } from '../../types';
-import { ChevronLeft } from 'lucide-react';
+import { Button } from '../../../button';
+import { IcurrentDate } from '../Header/types';
 
 const MonthAndYear: FC = () => {
   const { setCalendarState, today, currentDate, setCurrentDate } =
     useDatePickerProvider();
   const sepratedToday = today.split('/');
+  const [selectedMonthYear, setSelectedMonthYear] =
+    useState<Partial<IcurrentDate>>();
 
   const handleCalendarState = () => {
+    setSelectedMonthYear(undefined);
     setCalendarState(ECalendarState.DAY);
   };
 
-  console.log(Number(sepratedToday[0]));
+  const handleSubmit = () => {
+    setCalendarState(ECalendarState.DAY);
+    setCurrentDate({
+      year: selectedMonthYear?.year || currentDate.year,
+      month: selectedMonthYear?.month || currentDate.month,
+    });
+  };
 
   return (
-    <div className="flex h-[372px] w-[360px] flex-col gap-4">
-      <div>
-        <div className="flex justify-end">
-          <HeaderAction onClick={handleCalendarState}>
-            <ChevronLeft />
-          </HeaderAction>
-        </div>
-        <hr className="border-teal-600" />
-      </div>
-      <div className="grid grid-cols-3 gap-2">
+    <div className="flex h-[372px] w-[304px] flex-col justify-between gap-3">
+      <div className="grid grid-cols-3 gap-2 px-5">
         {jalaliMonth.map((month, i) => (
           <div
             key={i}
             className={clsx(
-              `flex cursor-pointer items-center justify-center rounded-lg px-1  text-[14px] font-normal
-              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white`,
+              `flex cursor-pointer items-center justify-center rounded-lg px-1 text-[14px] font-normal aria-checked:text-foreground
+              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white w-20`,
               {
                 'border border-teal-600': Number(sepratedToday[1]) === i + 1,
                 'text-white': currentDate.month === i + 1,
               }
             )}
-            aria-selected={currentDate.month === i + 1}
+            aria-checked={currentDate.month === i + 1}
+            aria-selected={
+              selectedMonthYear?.month
+                ? selectedMonthYear.month === i + 1
+                : currentDate.month === i + 1
+            }
             onClick={() => {
-              setCurrentDate({
-                ...currentDate,
+              setSelectedMonthYear({
+                ...selectedMonthYear,
                 month: i + 1,
               });
-              handleCalendarState();
             }}
           >
             <p className="body-3">{month}</p>
@@ -59,26 +64,41 @@ const MonthAndYear: FC = () => {
           <div
             key={i}
             className={clsx(
-              `flex cursor-pointer items-center justify-center rounded-lg px-1 text-[14px] font-normal
-              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white`,
+              `flex cursor-pointer items-center justify-center rounded-lg px-1 text-[14px] font-normal aria-checked:text-foreground
+              py-2 hover:bg-teal-600/25 aria-selected:bg-teal-600 aria-selected:text-white w-[60px]`,
               {
-                'border border-teal-600': Number(sepratedToday[0]) === i + 1357,
+                'outline outline-teal-600':
+                  Number(sepratedToday[0]) === i + 1357,
                 'text-white': currentDate.year === i + 1357,
               }
             )}
-            aria-selected={currentDate.year === i + 1357}
+            aria-checked={currentDate.year === i + 1357}
+            aria-selected={
+              selectedMonthYear?.year
+                ? selectedMonthYear.year === i + 1357
+                : currentDate.year === i + 1357
+            }
             onClick={() => {
-              console.log(i);
-              setCurrentDate({
-                ...currentDate,
+              setSelectedMonthYear({
+                ...selectedMonthYear,
                 year: i + 1357,
               });
-              handleCalendarState();
             }}
           >
             <p className="body-3">{i + 1357}</p>
           </div>
         ))}
+      </div>
+      <div>
+        <hr className="border-teal-600" />
+        <div className="flex justify-center py-4 gap-5">
+          <Button onClick={handleSubmit} size="default" isFilled>
+            تایید
+          </Button>
+          <Button onClick={handleCalendarState} size="default">
+            بازگشت
+          </Button>
+        </div>
       </div>
     </div>
   );

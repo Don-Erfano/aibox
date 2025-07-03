@@ -99,7 +99,7 @@ const Card: FC<PropsWithChildren<CardProps>> = ({
       <CardBody>{children}</CardBody>
       {hasFooter ? (
         <CardFooter>
-          <Button variant="outline" size="default" onClick={props.clickHandler}>
+          <Button variant="outline" size="full" onClick={props.clickHandler}>
             {props.buttonLabel}
           </Button>
         </CardFooter>
