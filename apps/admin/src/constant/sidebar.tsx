@@ -7,6 +7,7 @@ import {
   HOME_ROUTES,
   MARKETING_ROUTES,
   MESSAGES_ROUTES,
+  NEWS_ROUTES,
   routeNames,
   SUPPORT_ROUTES,
   USERS_ROUTES,
@@ -21,6 +22,7 @@ import {
   Microchip,
   UserRound,
   Webhook,
+  NewspaperIcon,
 } from 'lucide-react';
 import strings from './strings';
 
@@ -186,5 +188,10 @@ export const sidebarData: SidebarData = [
         url: MESSAGES_ROUTES.NOTIFICAITONS,
       },
     ],
+  },
+  {
+    title: 'اخبار',
+    icon: <NewspaperIcon height={20} width={20} />,
+    url: NEWS_ROUTES.LIST,
   },
 ];
