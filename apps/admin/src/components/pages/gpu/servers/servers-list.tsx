@@ -1,7 +1,6 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 import {
   Button,
@@ -13,14 +12,11 @@ import {
 
 import { strings } from '@/constant';
 import { seversCol } from './constants';
-import { GPU_ROUTES } from '@/routes';
-import { FabButton } from '@/components/fab-button';
 import Image from 'next/image';
 import CollapseRow from './server-row-collapse';
 import { Power, SquareTerminal } from 'lucide-react';
 
 const ServersList: FC = () => {
-  const { push } = useRouter();
   const [openModal, setOpenModal] = useState<string | undefined>(undefined);
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: [
@@ -97,7 +93,6 @@ const ServersList: FC = () => {
 
         <DataTable table={table} childComponent={CollapseRow} />
       </div>
-      <FabButton onClick={() => push(`${GPU_ROUTES.MOTHERBOARDS}/add`)} />
     </div>
   );
 };
