@@ -27,6 +27,7 @@ import ErrorIcon from './ErrorIcon';
 import SuccessIcon from './SuccessIcon';
 import DepositIcon from './DepositIcon';
 import WithdrawIcon from './WithdrawIcon';
+import CategoryIcon from './category-icon';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -56,4 +57,5 @@ export {
   SuccessIcon,
   DepositIcon,
   WithdrawIcon,
+  CategoryIcon,
 };
