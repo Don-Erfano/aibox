@@ -51,7 +51,7 @@ export interface UserSummary {
   profile_picture: string;
 }
 export interface UpdateTransactionRequest {
-  status: 'موفق' | 'ناموفق';
+  status: 'done' | 'fail';
   description?: string;
   track_id: string;
 }
@@ -61,5 +61,5 @@ export interface UpdateTransactionParams {
   data: UpdateTransactionRequest;
 }
 
-export type UpdateTransactionResponse = Transaction;
-export type TransactionListNetworkResponse = TransactionListResponse;
+export type UpdateTransactionResponse = { data: { transactions: Transaction } };
+export type TransactionListNetworkResponse = { data: TransactionListResponse };
