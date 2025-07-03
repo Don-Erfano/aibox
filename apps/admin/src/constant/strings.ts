@@ -307,6 +307,27 @@ const strings = {
   deleteModalDescription:
     'با حذف کد هدیه، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
   delete: 'حذف کردن',
+  transactions: 'تراکنش‌ها',
+  actions: 'عملیات',
+  createNewTransaction: 'ایجاد تراکنش جدید',
+  amount: 'مبلغ',
+  amountToToman: 'مبلغ به تومان',
+  creditDeposit: 'افزایش اعتبار',
+  creditWithdraw: 'برداشت اعتبار',
+  buyAPI: 'خرید API',
+  saleAPI: 'فروش API',
+  inProgress: 'در حال اقدام',
+  failed: 'ناموفق',
+  time: 'زمان',
+  tomanAmount: 'مبلغ(تومان)',
+  submitTransaction: 'ثبت تراکنش',
+  failedTransaction: 'تراکنش ناموفق',
+  successfulTransaction: 'تراکنش موفق',
+  transactionNum: 'شماره تراکنش',
+  confirm: 'تأیید',
+  placeholderText: 'متن راهنما پیش‌فرض',
+  transactionStatus: 'وضعیت تراکنش',
+  inAwaitAction:"در انتظار اقدام"
 };
 
 export default strings;
