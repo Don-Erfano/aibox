@@ -193,13 +193,8 @@ export function DataTable<TData>({
                   <TableHead className="w-12 flex-shrink-0 p-2"></TableHead>
                 )}
                 {mobileVisibleColumns.map((col) => (
-                  <TableHead
-                    key={col.id}
-                    className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap px-2"
-                  >
-                    <div className="truncate">
-                      {col.columnDef.header as string}
-                    </div>
+                  <TableHead key={col.id} className="min-w-0 px-2 truncate">
+                    {col.columnDef.header as string}
                   </TableHead>
                 ))}
               </TableRow>
@@ -284,7 +279,7 @@ export function DataTable<TData>({
                                     )}
                                   >
                                     {!isActionsColumn && (
-                                      <span className="text-sm font-medium text-muted-foreground flex-shrink-0 min-w-0">
+                                      <span className="text-sm font-medium text-state-800 flex-shrink-0 min-w-0">
                                         {col.columnDef.header as string}:
                                       </span>
                                     )}

@@ -183,7 +183,7 @@ export function useTableColumns<T>(
                   key={idx}
                   variant="outline"
                   onClick={() => action.onClick(row.original)}
-                  className="w-full justify-start gap-2 h-8 text-xs"
+                  className="w-full gap-2 h-8 text-xs"
                   size="sm"
                 >
                   {action.icon}

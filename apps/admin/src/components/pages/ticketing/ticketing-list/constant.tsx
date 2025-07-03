@@ -47,7 +47,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     accessorKey: 'ticket_num',
     id: 'ticket_num',
     header: strings.requestId,
-    meta: { label: strings.requestId, variant: 'text' },
+    meta: { label: strings.requestId, variant: 'text', mobileVisible: true },
     maxSize: 160,
   },
   {
@@ -96,7 +96,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
       return <AibStatus label={label} bgColor={bgColor} />;
     },
     enableColumnFilter: true,
-    meta: { label: strings.status, variant: 'select' },
+    meta: { label: strings.status, variant: 'select', mobileVisible: true },
     maxSize: 160,
   },
 
