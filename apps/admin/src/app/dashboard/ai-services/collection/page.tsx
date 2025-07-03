@@ -1,11 +1,7 @@
 'use client';
 
-import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
+import { CollectionTable } from '@/components/pages/collection';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+const CollectionPage = () => <CollectionTable />;
 
-export default Page;
+export default CollectionPage;

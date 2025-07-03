@@ -281,7 +281,7 @@ const strings = {
   model: 'مدل',
   ram: 'رم',
   brand: 'برند',
-  codaCore: 'برند',
+  codaCore: 'تعداد هسته Cuda',
   freeHours: 'ساعت استفاده رایگان',
   freeDays: 'بازه استفاده رایگان (روز)',
   motherboards: 'مادربردها',
@@ -297,7 +297,6 @@ const strings = {
   remove: 'پاک کردن ',
   chooseBrand: 'برند را انتخاب کنید',
   discountPercent: 'درصد تخفیف',
-<<<<<<< apps/admin/src/constant/strings.ts
   processor: 'پردازنده',
   startTime: 'زمان شروع',
   finishReserve: 'زمان اتمام رزرو',
