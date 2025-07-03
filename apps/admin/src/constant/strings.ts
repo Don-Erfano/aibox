@@ -285,6 +285,7 @@ const strings = {
   remove: 'پاک کردن ',
   chooseBrand: 'برند را انتخاب کنید',
   discountPercent: 'درصد تخفیف',
+<<<<<<< apps/admin/src/constant/strings.ts
   processor: 'پردازنده',
   startTime: 'زمان شروع',
   finishReserve: 'زمان اتمام رزرو',
@@ -297,6 +298,8 @@ const strings = {
     'با پایین آوردن سرور، دسترسی نام کاربر به سرور پردازشی از بین خواهد رفت.',
   createDate: 'زمان ایجاد',
   errorMessage: 'متن خطا',
+  editFactor: 'ویرایش فاکتور',
+  submitChanges: 'ثبت تغییرات',
 };
 
 export default strings;
