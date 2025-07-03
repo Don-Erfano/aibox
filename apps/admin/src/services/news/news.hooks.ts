@@ -62,10 +62,14 @@ export const useGetNews = (id: string) =>
 
 export const useCreateNews = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   return useMutation<IGetNewsListResponse, Error, IAddNewsRequestPayload>({
     mutationFn: (newUserPayload: IAddNewsRequestPayload) =>
       newsService.addNews(newUserPayload).then((res) => res.data.data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['newsList'] });
+      toast.success('خبر جدید با موفقیت ایجاد شد');
       router.push(NEWS_ROUTES.LIST);
     },
   });
