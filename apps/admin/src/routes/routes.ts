@@ -36,6 +36,8 @@ const FINANCE_ROUTES = {
   ADD_FACTORS: `${FINANCE_BASE_ROUTE}/factors/add`,
   EDIT_FACTOR: `${FINANCE_BASE_ROUTE}/factors/edit`,
   GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code`,
+  ADD_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/add`,
+  EDIT_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/edit`,
   TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions`,
 };
 

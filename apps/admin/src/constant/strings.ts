@@ -109,7 +109,8 @@ const strings = {
   discountColumn: 'تخفیف(٪)',
   priceColumn: 'مبلغ(تومان)',
   giftCode: 'کد هدیه',
-  tomanAmountValue: 'مقدار اعتبار(تومان)',
+  amountValue: 'مقدار اعتبار',
+  tomanAmountValue: 'مقدار اعتبار به تومان',
   expiredDate: 'تاریخ انقضاء',
   totalCapacity: 'تعداد کل ظرفیت',
   usedCapacity: 'تعداد استفاده شده',
@@ -287,6 +288,12 @@ const strings = {
   discountPercent: 'درصد تخفیف',
   editFactor: 'ویرایش فاکتور',
   submitChanges: 'ثبت تغییرات',
+  addNewGiftCode: 'افزودن کد هدیه جدید',
+  codeTitle: 'عنوان کد',
+  editGiftCode: 'ویرایش کد هدیه',
+  deleteModalDescription:
+    'با حذف کد هدیه، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
+  delete: 'حذف کردن',
 };
 
 export default strings;
