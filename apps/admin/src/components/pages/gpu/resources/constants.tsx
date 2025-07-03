@@ -58,7 +58,7 @@ export const resourceCol: ColumnDef<any>[] = [
       label: strings.provider,
       variant: 'text',
     },
-    enableSorting: true,
+    enableSorting: false,
     maxSize: 400,
   },
 ];
@@ -85,17 +85,6 @@ export const modelCol: ColumnDef<any>[] = [
       variant: 'text',
     },
     enableSorting: false,
-  },
-  {
-    header: strings.usage,
-    id: 'createDate',
-    accessorFn: (row) => `${row.usage}`,
-    enableColumnFilter: true,
-    meta: {
-      label: strings.provider,
-      variant: 'text',
-    },
-    enableSorting: true,
   },
   {
     header: strings.status,

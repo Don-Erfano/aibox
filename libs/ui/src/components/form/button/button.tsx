@@ -25,7 +25,7 @@ const buttonVariants = cva(
         link: `!w-fit text-primary underline-offset-4 hover:!text-teal-600 !border-transparent !px-3 !py-1.5 hover:!bg-gray-200 text-teal-600 active:!border-gray-400 active:!ring-0 disabled:text-teal-600/32`,
       },
       size: {
-        default: `px-4 py-2 !w-fit`,
+        default: `px-4 py-2 !w-full`,
         sm: `gap-1.5 px-3 py-2`,
         lg: `w-[136px] px-2 py-2 has-[>svg]:px-4`,
         icon: `size-10`,
