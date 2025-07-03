@@ -1,9 +1,16 @@
 'use client';
 
-import { Controller, FieldValues } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import { EditorProps } from './interface';
 import 'react-quill-new/dist/quill.snow.css';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../form';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
@@ -32,30 +39,27 @@ export const Editor = <TFieldValues extends FieldValues>({
   onChange,
   error,
   placeholder,
+  label,
 }: EditorProps<TFieldValues>) => {
   return (
-    <div>
+    <>
       {control ? (
-        <Controller
+        <FormField
           name={name}
           control={control}
-          render={({ field, fieldState }) => (
-            <>
-              <ReactQuill
-                theme="snow"
-                {...field}
-                modules={modules}
-                placeholder={placeholder}
-                style={{
-                  height,
-                }}
-              />
-              {fieldState.error?.message && (
-                <p className="text-xs font-light text-red-600 text-right mt-1">
-                  {fieldState.error.message}
-                </p>
-              )}
-            </>
+          render={({ field }) => (
+            <FormItem>
+              {label && <FormLabel>{label}</FormLabel>}
+              <FormControl>
+                <ReactQuill
+                  theme="snow"
+                  {...field}
+                  modules={modules}
+                  placeholder={placeholder}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
         />
       ) : (
@@ -75,6 +79,6 @@ export const Editor = <TFieldValues extends FieldValues>({
           )}
         </>
       )}
-    </div>
+    </>
   );
 };

@@ -112,7 +112,12 @@ const NewsForm = ({
           <div className="flex flex-col w-full">
             <div className="max-w-[1376px] xl:gap-x-[140px] 2xl:gap-x-[400px] xl:self-center grid grid-cols-1 gap-10 lg:place-content-between lg:grid-cols-[minmax(0,_480px)_minmax(0,_480px)] px-4 sm:px-8 md:px-16 lg:px-6 xl:px-[60px]">
               <div className="lg:col-span-2 mt-4 mb-12">
-                <Editor control={form.control} name="content" height="180px" />
+                <Editor
+                  control={form.control}
+                  name="content"
+                  height="180px"
+                  label={strings.newsContent}
+                />
               </div>
             </div>
           </div>

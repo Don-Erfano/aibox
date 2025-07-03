@@ -22,4 +22,5 @@ export type EditorProps<TFieldValues extends FieldValues = FieldValues> = (
   height?: string;
   error?: string;
   placeholder?: string;
+  label?: string;
 };
