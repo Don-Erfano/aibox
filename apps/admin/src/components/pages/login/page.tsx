@@ -79,6 +79,7 @@ const LoginPage: FC = () => {
               isFilled
               type="submit"
               disabled={isPending}
+              size="full"
             >
               {strings.login}
             </Button>
