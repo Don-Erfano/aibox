@@ -54,7 +54,7 @@ const GPU_ROUTES = {
   LOGS: `${GPU_BASE_ROUTE}/logs`,
   MOTHERBOARDS: `${GPU_BASE_ROUTE}/motherboards`,
   SERVERS: `${GPU_BASE_ROUTE}/servers`,
-  SOURCE: `${GPU_BASE_ROUTE}/source`,
+  RESOURCE: `${GPU_BASE_ROUTE}/resource`,
 };
 
 const MARKETING_ROUTES = {
