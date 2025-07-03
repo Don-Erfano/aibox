@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "@aibox/services": "workspace:*",
-    "@aibox/theme": "workspace:*",
     "@aibox/ui": "workspace:*",
     "@tailwindcss/postcss": "^4.1.5",
     "postcss": "^8.5.3",
