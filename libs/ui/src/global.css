@@ -267,3 +267,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #00897b95;
 }
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
