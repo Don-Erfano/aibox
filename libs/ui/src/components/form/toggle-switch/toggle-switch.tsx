@@ -19,7 +19,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     value,
     onValueChange,
     readonly,
-    size = 'auto',
+    size = 'fixed',
     variant = 'default',
     disabled,
   } = props;
