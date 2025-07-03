@@ -21,8 +21,8 @@ export interface IGetNewsListRequest {
   description: string;
   created_at__lte?: string;
   created_at__gte?: string;
+  page?: number;
   page_size?: number;
-  page_number?: number;
   ordering?: string;
   search?: string;
 }

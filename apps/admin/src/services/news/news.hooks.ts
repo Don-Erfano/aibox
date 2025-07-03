@@ -26,15 +26,13 @@ export const useGetNewsList = () => {
   } = useQuery<IGetNewsListResponse, Error, INews[]>({
     queryKey: ['newsList', allQueryParams],
     queryFn: async ({ queryKey }) => {
-      const { page, ...rest } = queryKey[1] as IGetNewsListRequest & {
-        page?: number;
-      };
-      const params: IGetNewsListRequest = {
-        page_number: page ?? 1,
+      const { page, ...params } = queryKey[1] as IGetNewsListRequest;
+      const queryParams: IGetNewsListRequest = {
+        page: page,
         page_size: 10,
-        ...rest,
+        ...params,
       };
-      const resp = await newsService.getNewsList(params);
+      const resp = await newsService.getNewsList(queryParams);
       return resp.data.data;
     },
     select: (payload) => {
