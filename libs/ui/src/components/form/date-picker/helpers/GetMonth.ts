@@ -59,7 +59,5 @@ export const getDaysOfCurrentMonth = ({ month, year }: IDaysOfCurrentMonth) => {
     ...MonthDaysInRow,
   ];
 
-  console.log(MonthDaysInRow[0].WeekDay.value + 1);
-
   return MonthDays;
 };

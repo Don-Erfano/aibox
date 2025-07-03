@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
-import { toEnDigit } from '../../helpers/ArToEnDigits';
 import HeaderAction from '../HeaderAction/HeaderAction';
 import { getDaysOfCurrentMonth } from '../../helpers/GetMonth';
-import { georgianMonth, hijiMonthes, jalaliMonth } from '../../constants';
+import { jalaliMonth } from '../../constants';
 import { useDatePickerProvider } from '../../providers/useDatePickerProvider';
 import { ECalendarState } from '../../types';
 import { useCalendar } from './useCalendarActions';
@@ -30,45 +29,45 @@ const DatePickerHeader: FC = () => {
   )[0];
   const month = firstDayOfMonth?.month;
   const year = firstDayOfMonth?.year;
-  const hijirMonthIndex = Number(toEnDigit(month.h).split('')[0]);
-  const gregorianMonthIndex = Number(month.g);
+  // const hijirMonthIndex = Number(toEnDigit(month.h).split('')[0]);
+  // const gregorianMonthIndex = Number(month.g);
 
-  const hijriTemplate =
-    hijiMonthes[hijirMonthIndex - 1] +
-    ' - ' +
-    hijiMonthes[hijirMonthIndex] +
-    ' - ' +
-    year.h.replace('هـ', '');
+  // const hijriTemplate =
+  //   hijiMonthes[hijirMonthIndex - 1] +
+  //   ' - ' +
+  //   hijiMonthes[hijirMonthIndex] +
+  //   ' - ' +
+  //   year.h.replace('هـ', '');
 
-  const gregorianTamplate =
-    georgianMonth[gregorianMonthIndex - 1] +
-    ' - ' +
-    (georgianMonth[gregorianMonthIndex] || georgianMonth[0]) +
-    ' ' +
-    year.g;
+  // const gregorianTamplate =
+  //   georgianMonth[gregorianMonthIndex - 1] +
+  //   ' - ' +
+  //   (georgianMonth[gregorianMonthIndex] || georgianMonth[0]) +
+  //   ' ' +
+  //   year.g;
 
   return (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="flex justify-between items-center gap-2 mb-4">
       <HeaderAction onClick={onClickPrevioustMonth}>
         <ChevronRight strokeWidth={1.5} />
       </HeaderAction>
       <HeaderAction onClick={onClickPreviousYear}>
         <ChevronsRight strokeWidth={1.5} />
       </HeaderAction>
-      <div className="flex w-[168px] gap-0.5 flex-col items-center">
+      <div className="flex gap-0.5 flex-col items-center">
         <p
           className="text-[16px] font-medium w-fit cursor-pointer rounded-lg px-2 text-center
             text-teal-600 hover:bg-info-200 leading-5 mb-0.5"
           onClick={() => setCalendarState(ECalendarState.MONTH)}
         >
-          {jalaliMonth[Number(month.j) - 1] + year.j}
+          {jalaliMonth[Number(month.j) - 1] + ' ' + year.j}
         </p>
-        <p className="text-center font-light text-[12px] text-grey-500 leading-5 text-gray-600">
+        {/* <p className="text-center font-light text-[12px] text-grey-500 leading-5 text-gray-600">
           {gregorianTamplate}
         </p>
         <p className="text-center font-light text-[12px] text-grey-500 leading-5 text-gray-600">
           {hijriTemplate}
-        </p>
+        </p> */}
       </div>
       <HeaderAction onClick={onClickNextYear}>
         <ChevronsLeft strokeWidth={1.5} />
