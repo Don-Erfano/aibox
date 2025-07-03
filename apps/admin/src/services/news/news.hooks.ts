@@ -69,7 +69,7 @@ export const useCreateNews = () => {
       newsService.addNews(newUserPayload).then((res) => res.data.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['newsList'] });
-      toast.success('خبر جدید با موفقیت ایجاد شد');
+      toast.success('خبر جدید با موفقیت ایجاد شد.');
       router.push(NEWS_ROUTES.LIST);
     },
   });
