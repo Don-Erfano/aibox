@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   DataTableActionBarAction,
   DataTableSkeleton,
@@ -63,10 +64,11 @@ export const TransactionsTable = () => {
 
           if (title === 'withdraw') {
             return (
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-1.5">
                 {status === 'in_progress' && (
                   <>
                     <DataTableActionBarAction
+                      className="size-10"
                       tooltip={strings.successfulTransaction}
                       onClick={() =>
                         setModalState({
@@ -79,10 +81,11 @@ export const TransactionsTable = () => {
                         })
                       }
                     >
-                      <CircleCheckBig strokeWidth={1.5} />
+                      <CircleCheckBig className="size-5" strokeWidth={1.5} />
                     </DataTableActionBarAction>
 
                     <DataTableActionBarAction
+                      className="size-10"
                       tooltip={strings.failedTransaction}
                       onClick={() =>
                         setModalState({
@@ -95,13 +98,14 @@ export const TransactionsTable = () => {
                         })
                       }
                     >
-                      <CircleX strokeWidth={1.5} />
+                      <CircleX className="size-5" strokeWidth={1.5} />
                     </DataTableActionBarAction>
                   </>
                 )}
 
                 {(status === 'done' || status === 'fail') && (
                   <DataTableActionBarAction
+                    className="size-10"
                     tooltip={strings.editTransaction}
                     onClick={() =>
                       setModalState({
@@ -116,7 +120,7 @@ export const TransactionsTable = () => {
                       })
                     }
                   >
-                    <SquarePen strokeWidth={1.5} />
+                    <SquarePen className="size-5" strokeWidth={1.5} />
                   </DataTableActionBarAction>
                 )}
               </div>

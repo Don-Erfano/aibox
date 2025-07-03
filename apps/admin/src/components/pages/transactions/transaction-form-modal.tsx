@@ -83,11 +83,12 @@ export const TransactionFormModal = ({
             variant="lg"
           />
           <div className="flex justify-center items-center gap-5 mt-2">
-            <Button type="submit" isFilled disabled={isPending}>
+            <Button size="lg" type="submit" isFilled disabled={isPending}>
               {strings.confirm}
             </Button>
             <Button
               type="button"
+              size="lg"
               onClick={() => {
                 toggleModal({ show: false });
                 reset();
