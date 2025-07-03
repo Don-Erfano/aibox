@@ -20,7 +20,6 @@ export const RHFImageUploader = <TFieldValues extends FieldValues>(
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => {
-        console.log('value', field.value);
         return (
           <FormItem>
             {label && <FormLabel>{label}</FormLabel>}

@@ -14,6 +14,5 @@ export const useUploadFile = () =>
     },
     onSuccess: (payload) => {
       toast.success('فایل مورد نظر با موفقیت آپلود شد.');
-      console.log(payload);
     },
   });
