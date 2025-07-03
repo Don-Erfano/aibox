@@ -1,6 +1,11 @@
 import { useRouter } from 'next/navigation';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import {
   INews,
   IGetNewsListResponse,
@@ -53,7 +58,6 @@ export const useGetNews = (id: string) =>
       const rep = await newsService.getNewsById(id);
       return rep.data.data;
     },
-    enabled: !!id,
   });
 
 export const useCreateNews = () => {
@@ -68,10 +72,15 @@ export const useCreateNews = () => {
 };
 
 export const usePutNewsById = (id: string) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: ['putNewsById'],
     mutationFn: (data: IAddNewsRequestPayload) =>
       newsService.updateNews({ ...data, id: id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['news'] });
+    },
   });
 };
 
