@@ -56,7 +56,8 @@ const FactorsTable: FC = () => {
     pageCount: totalPages,
     enableExpand: true,
     actions: {
-      onEdit: (row) => console.log(row.id),
+      onEdit: (row) =>
+        router.push(`${FINANCE_ROUTES.EDIT_FACTOR}/${row.id}`),
       onDelete: (row) => setDeleteModalState({ show: true, id: row.id }),
     },
   });
