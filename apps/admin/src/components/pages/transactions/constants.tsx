@@ -169,7 +169,7 @@ export const getTransactionColumns = ({
 ];
 
 export const transactionModalFormSchema = z.object({
-  status: z.string(),
+  status: z.enum(['fail', 'done']),
   track_id: z.string().max(30),
   description: z.string().max(200).optional(),
 });

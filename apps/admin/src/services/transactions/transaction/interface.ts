@@ -51,7 +51,7 @@ export interface UserSummary {
   profile_picture: string;
 }
 export interface UpdateTransactionRequest {
-  status: string;
+  status: 'done' | 'fail';
   description?: string;
   track_id: string;
 }
