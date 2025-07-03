@@ -15,12 +15,22 @@ export const newsSchema = z.object({
     .max(300, { message: 'خلاصه نباید بیش از ۳۰۰ کاراکتر باشد.' }),
 
   uploader: z
-    .instanceof(File, {
-      message: 'یک تصویر معتبر انتخاب کنید.',
+    .any()
+    .refine((val) => val !== undefined && val !== null && val !== '', {
+      message: 'لطفا یک تصویر انتخاب کنید.',
     })
-    .refine((file) => file.size <= 5000000, {
-      message: 'حجم فایل نباید بیش از ۵ مگابایت باشد.',
-    }),
+    .refine(
+      (val) => {
+        if (val instanceof File) {
+          return val.size <= 5000000;
+        }
+        return true;
+      },
+      {
+        message: 'حجم فایل نباید بیش از ۵ مگابایت باشد.',
+      }
+    ),
+
   slug: z.string().regex(/^[a-z0-9-]+$/, {
     message: 'آدرس باید فقط شامل حروف کوچک، اعداد و خط تیره باشد.',
   }),
