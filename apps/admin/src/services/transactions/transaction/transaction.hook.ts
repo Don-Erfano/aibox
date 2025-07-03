@@ -8,19 +8,20 @@ import { useQueryParams } from '@/hooks/useQueryParams';
 import TransactionService from './transaction.service';
 import {
   AdminTransactionListParams,
-  TransactionListResponse,
   Transaction,
   UpdateTransactionResponse,
   UpdateTransactionRequest,
+  TransactionListResponse,
 } from './interface';
+import { toast } from '@aibox/ui';
 
 const transactionService = new TransactionService();
 
-export function useGetTransactionListByUser(userId: string) {
+export const useGetTransactions = (userId?: string) => {
   const raw = useQueryParams();
   const query: AdminTransactionListParams = {
     ...(raw as AdminTransactionListParams),
-    user: userId,
+    ...(userId ? { user: userId } : {}),
   };
 
   let totalItems = 0;
@@ -36,9 +37,10 @@ export function useGetTransactionListByUser(userId: string) {
     refetch,
   } = useQuery<TransactionListResponse, Error, Transaction[]>({
     queryKey: ['txList', query],
-    queryFn: async () => {
-      const { page: resize_page, ...rest } = query;
-      const page = resize_page ?? 1;
+    queryFn: async ({ queryKey }) => {
+      const { page: rawPage, ...rest } =
+        queryKey[1] as AdminTransactionListParams;
+      const page = rawPage ?? 1;
 
       const params: AdminTransactionListParams = {
         page,
@@ -47,7 +49,8 @@ export function useGetTransactionListByUser(userId: string) {
       };
 
       const res = await transactionService.getTransactionList(params);
-      return res.data;
+
+      return res.data.data;
     },
     select: (payload) => {
       totalItems = payload.total_count;
@@ -71,9 +74,9 @@ export function useGetTransactionListByUser(userId: string) {
     isFetching,
     refetch,
   };
-}
+};
 
-export function useUpdateTransaction() {
+export function useUpdateTransaction(isEdit?: boolean) {
   const queryClient = useQueryClient();
 
   return useMutation<
@@ -86,10 +89,22 @@ export function useUpdateTransaction() {
         .updateTransaction(transaction_id, data)
         .then((res) => res.data),
 
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
+      const { status } = data.transactions;
+
       queryClient.invalidateQueries({
         queryKey: ['txList'],
       });
+
+      if (isEdit) {
+        toast.success('ویرایش تراکنش با موفقیت انجام شد.');
+        return;
+      }
+
+      if (status === 'done')
+        toast.success('ثبت تراکنش با وضعیت «موفق» با موفقیت انجام شد.');
+      else if (status === 'fail')
+        toast.success('ثبت تراکنش با وضعیت «ناموفق» با موفقیت انجام شد.');
     },
   });
 }

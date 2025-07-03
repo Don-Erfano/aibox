@@ -31,6 +31,7 @@ export const Modal: FC<ModalProps> = ({
         <DialogPrimitive.Content
           aria-describedby=""
           className="fixed top-1/2 left-1/2 z-50 w-[320px] sm:w-[480px] max-h-[90dvh] translate-x-[-50%] translate-y-[-50%] overflow-visible rounded-lg border-0 bg-white shadow-[0_5px_5px_0_rgba(0,0,0,0.20),0_8px_10px_0px_rgba(0,0,0,0.14),0_3px_14px_0px_rgba(0,0,0,0.12)] [&>button]:hidden"
+          onOpenAutoFocus={(e) => e.preventDefault()}
         >
           <div
             className={clsx(

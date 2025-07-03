@@ -10,4 +10,5 @@ export interface RHFImageUploaderProps<TFieldValues extends FieldValues>
   name: Path<TFieldValues>;
   label?: string;
   description?: string;
+  onSubmitUpload?: (file: File | File[]) => void;
 }
