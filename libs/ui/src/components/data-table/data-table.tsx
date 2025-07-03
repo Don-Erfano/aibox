@@ -183,137 +183,156 @@ export function DataTable<TData>({
       </div>
 
       {/* Mobile Table */}
-      <div className="block md:hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {mobileVisibleColumns.map((col) => (
-                <TableHead key={col.id}>
-                  {col.columnDef.header as string}
-                </TableHead>
-              ))}
-              {/* Add expand column header if there are hidden columns */}
-              {hiddenColumns.length > 0 && (
-                <TableHead className="w-10"></TableHead>
-              )}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {hasData ? (
-              table.getRowModel().rows.map((row) => {
-                const isRowExpanded = expandedRows.has(row.id);
+      <div className="block md:hidden w-full overflow-hidden">
+        <div className="w-full overflow-x-hidden">
+          <Table className="w-full table-fixed">
+            <TableHeader>
+              <TableRow>
+                {/* Expand button header */}
+                {hiddenColumns.length > 0 && (
+                  <TableHead className="w-12 flex-shrink-0 p-2"></TableHead>
+                )}
+                {mobileVisibleColumns.map((col) => (
+                  <TableHead
+                    key={col.id}
+                    className="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap px-2"
+                  >
+                    <div className="truncate">
+                      {col.columnDef.header as string}
+                    </div>
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {hasData ? (
+                table.getRowModel().rows.map((row) => {
+                  const isRowExpanded = expandedRows.has(row.id);
 
-                return (
-                  <React.Fragment key={row.id}>
-                    {/* Main row with visible columns + expand button */}
-                    <TableRow>
-                      {/* Expand button cell - only show if there are hidden columns */}
-                      {hiddenColumns.length > 0 && (
-                        <TableCell className="w-10 p-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => toggleRowExpansion(row.id)}
-                            className="h-8 w-8 p-0"
+                  return (
+                    <React.Fragment key={row.id}>
+                      {/* Main row with visible columns + expand button */}
+                      <TableRow>
+                        {/* Expand button cell - only show if there are hidden columns */}
+                        {hiddenColumns.length > 0 && (
+                          <TableCell className="w-12 p-2 flex-shrink-0">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => toggleRowExpansion(row.id)}
+                              className="h-8 w-8 p-0 flex-shrink-0"
+                            >
+                              {isRowExpanded ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <ChevronLeft className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </TableCell>
+                        )}
+
+                        {mobileVisibleColumns.map((col) => {
+                          const cell = row
+                            .getAllCells()
+                            .find((c) => c.column.id === col.id);
+                          if (!cell) return null;
+
+                          return (
+                            <TableCell
+                              key={col.id}
+                              className="min-w-0 overflow-hidden px-2"
+                            >
+                              <div>
+                                {flexRender(
+                                  col.columnDef.cell,
+                                  cell.getContext()
+                                )}
+                              </div>
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+
+                      {/* Expanded row with hidden columns */}
+                      {isRowExpanded && hiddenColumns.length > 0 && (
+                        <TableRow className="bg-muted/20">
+                          <TableCell
+                            colSpan={
+                              mobileVisibleColumns.length +
+                              (hiddenColumns.length > 0 ? 1 : 0)
+                            }
+                            className="p-4"
                           >
-                            {isRowExpanded ? (
-                              <ChevronDown className="h-4 w-4" />
-                            ) : (
-                              <ChevronLeft className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </TableCell>
+                            <div className="space-y-3 w-full">
+                              {hiddenColumns.map((col) => {
+                                const cell = row
+                                  .getAllCells()
+                                  .find((c) => c.column.id === col.id);
+                                if (!cell) return null;
+
+                                return (
+                                  <div
+                                    key={col.id}
+                                    className="flex flex-row items-center justify-between gap-3 w-full"
+                                  >
+                                    <span className="text-sm font-medium text-muted-foreground flex-shrink-0 min-w-0">
+                                      {col.columnDef.header as string}:
+                                    </span>
+                                    <div className="text-sm break-words">
+                                      {flexRender(
+                                        col.columnDef.cell,
+                                        cell.getContext()
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </TableCell>
+                        </TableRow>
                       )}
 
-                      {mobileVisibleColumns.map((col) => {
-                        const cell = row
-                          .getAllCells()
-                          .find((c) => c.column.id === col.id);
-                        if (!cell) return null;
-
-                        return (
-                          <TableCell key={col.id}>
-                            {flexRender(col.columnDef.cell, cell.getContext())}
+                      {/* Child component expansion (original table expansion) */}
+                      {row.getIsExpanded() && ChildComponent && (
+                        <TableRow className="h-5">
+                          <TableCell
+                            colSpan={
+                              mobileVisibleColumns.length +
+                              (hiddenColumns.length > 0 ? 1 : 0)
+                            }
+                            className="w-full"
+                          >
+                            <div className="w-full overflow-hidden">
+                              <ChildComponent row={row.original} />
+                            </div>
                           </TableCell>
-                        );
-                      })}
-                    </TableRow>
-
-                    {/* Expanded row with hidden columns */}
-                    {isRowExpanded && hiddenColumns.length > 0 && (
-                      <TableRow className="bg-muted/20">
-                        <TableCell
-                          colSpan={
-                            mobileVisibleColumns.length +
-                            (hiddenColumns.length > 0 ? 1 : 0)
-                          }
-                          className="p-4"
-                        >
-                          <div className="space-y-3">
-                            {hiddenColumns.map((col) => {
-                              const cell = row
-                                .getAllCells()
-                                .find((c) => c.column.id === col.id);
-                              if (!cell) return null;
-
-                              return (
-                                <div
-                                  key={col.id}
-                                  className="flex items-center gap-3"
-                                >
-                                  <span className="text-sm font-medium text-muted-foreground min-w-0 flex-shrink-0">
-                                    {col.columnDef.header as string}:
-                                  </span>
-                                  <div className="text-sm flex-1">
-                                    {flexRender(
-                                      col.columnDef.cell,
-                                      cell.getContext()
-                                    )}
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    )}
-
-                    {/* Child component expansion (original table expansion) */}
-                    {row.getIsExpanded() && ChildComponent && (
-                      <TableRow className="h-5">
-                        <TableCell
-                          colSpan={
-                            mobileVisibleColumns.length +
-                            (hiddenColumns.length > 0 ? 1 : 0)
-                          }
-                        >
-                          <ChildComponent row={row.original} />
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </React.Fragment>
-                );
-              })
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={
-                    mobileVisibleColumns.length +
-                    (hiddenColumns.length > 0 ? 1 : 0)
-                  }
-                >
-                  <NoData />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+                        </TableRow>
+                      )}
+                    </React.Fragment>
+                  );
+                })
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={
+                      mobileVisibleColumns.length +
+                      (hiddenColumns.length > 0 ? 1 : 0)
+                    }
+                    className="text-center py-8"
+                  >
+                    <NoData />
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
         {/* Mobile pagination */}
-        <div className="mt-4">
+        <div className="mt-4 w-full">
           <TablePagination table={table} />
           {actionBar && table.getFilteredSelectedRowModel().rows.length > 0 && (
-            <div className="mt-3">{actionBar}</div>
+            <div className="mt-3 w-full">{actionBar}</div>
           )}
         </div>
       </div>
