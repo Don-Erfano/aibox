@@ -9,12 +9,6 @@ import {
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
 import { Checkbox } from '../form/checkbox';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from './../tooltip';
 import { cn } from '../../lib';
 
 /**
@@ -88,61 +82,42 @@ export function useTableColumns<T>(
       header: actions ? 'عملیات' : undefined,
       cell: ({ row }: { row: any }) =>
         actions ? (
-          <TooltipProvider>
-            <div className="flex gap-0.5 justify-center">
-              {actions.onEdit && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      aria-label="Edit"
-                      variant="ghost"
-                      onClick={() => actions.onEdit!(row.original)}
-                      size="icon"
-                    >
-                      <SquarePen strokeWidth={1.5} className="size-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent sideOffset={6}>
-                    <p>ویرایش</p>
-                  </TooltipContent>
-                </Tooltip>
-              )}
-              {actions.onDelete && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      aria-label="Delete"
-                      variant="ghost"
-                      onClick={() => actions.onDelete!(row.original)}
-                      size="icon"
-                    >
-                      <Trash strokeWidth={1.5} className="size-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent sideOffset={6}>
-                    <p>حذف</p>
-                  </TooltipContent>
-                </Tooltip>
-              )}
-              {actions.customActions?.map((action, idx) => (
-                <Tooltip key={idx}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      aria-label={action.label}
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => action.onClick(row.original)}
-                    >
-                      {action.icon}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent sideOffset={6}>
-                    <p>{action.label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div>
-          </TooltipProvider>
+          <div className="flex gap-0.5 justify-center">
+            {actions.onEdit && (
+              <Button
+                tooltip="ویرایش"
+                aria-label="Edit"
+                variant="ghost"
+                onClick={() => actions.onEdit!(row.original)}
+                size="icon"
+              >
+                <SquarePen strokeWidth={1.5} className="size-5" />
+              </Button>
+            )}
+            {actions.onDelete && (
+              <Button
+                tooltip="حذف"
+                aria-label="Delete"
+                variant="ghost"
+                onClick={() => actions.onDelete!(row.original)}
+                size="icon"
+              >
+                <Trash strokeWidth={1.5} className="size-5" />
+              </Button>
+            )}
+            {actions.customActions?.map((action, idx) => (
+              <Button
+                aria-label={action.label}
+                key={idx}
+                size="icon"
+                variant="ghost"
+                tooltip={action.label}
+                onClick={() => action.onClick(row.original)}
+              >
+                {action.icon}
+              </Button>
+            ))}
+          </div>
         ) : null,
       size: 120,
     };
