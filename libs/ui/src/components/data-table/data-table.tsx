@@ -270,15 +270,32 @@ export function DataTable<TData>({
                                   .find((c) => c.column.id === col.id);
                                 if (!cell) return null;
 
+                                // Check if this is the actions column
+                                const isActionsColumn = col.id === 'actions';
+
                                 return (
                                   <div
                                     key={col.id}
-                                    className="flex flex-row items-center justify-between gap-3 w-full"
+                                    className={cn(
+                                      'w-full',
+                                      isActionsColumn
+                                        ? ''
+                                        : 'flex flex-row items-center justify-between gap-3'
+                                    )}
                                   >
-                                    <span className="text-sm font-medium text-muted-foreground flex-shrink-0 min-w-0">
-                                      {col.columnDef.header as string}:
-                                    </span>
-                                    <div className="text-sm break-words">
+                                    {!isActionsColumn && (
+                                      <span className="text-sm font-medium text-muted-foreground flex-shrink-0 min-w-0">
+                                        {col.columnDef.header as string}:
+                                      </span>
+                                    )}
+                                    <div
+                                      className={cn(
+                                        'text-sm',
+                                        isActionsColumn
+                                          ? 'w-full'
+                                          : 'break-words'
+                                      )}
+                                    >
                                       {flexRender(
                                         col.columnDef.cell,
                                         cell.getContext()
