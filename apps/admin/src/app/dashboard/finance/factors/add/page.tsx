@@ -2,8 +2,8 @@
 
 import { NextPage } from 'next';
 
-import AddFactorForm from '@/components/pages/factors/add-factor-form';
+import { FactorForm } from '@/components/pages/factors';
 
-const AddFactorPage: NextPage = () => <AddFactorForm />;
+const AddFactorPage: NextPage = () => <FactorForm />;
 
 export default AddFactorPage;

@@ -35,4 +35,5 @@ export * from './components/form/uploader/aib-image-uploader';
 export * from './components/form/uploader/rhf-uploader';
 export * from './components/toast';
 export * from './components/form/editor';
+export * from './components/loading';
 export * from './components/form/toggle-switch';
