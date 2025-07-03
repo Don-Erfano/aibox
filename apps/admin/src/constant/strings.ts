@@ -286,10 +286,11 @@ const strings = {
   remove: 'پاک کردن ',
   chooseBrand: 'برند را انتخاب کنید',
   discountPercent: 'درصد تخفیف',
+  editFactor: 'ویرایش فاکتور',
+  submitChanges: 'ثبت تغییرات',
   addNewGiftCode: 'افزودن کد هدیه جدید',
   codeTitle: 'عنوان کد',
   editGiftCode: 'ویرایش کد هدیه',
-  submitChanges: 'ثبت تغییرات',
   deleteModalDescription:
     'با حذف کد هدیه، امکان دسترسی به آن دیگر وجود نخواهد داشت.',
   delete: 'حذف کردن',
