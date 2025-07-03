@@ -2,8 +2,10 @@ import { AbstractAPI, INetworkResponse } from '@aibox/services';
 import { AxiosResponse } from 'axios';
 import {
   IAddFactor,
+  IFactor,
   IGetFactorsParams,
   IGetFactorsResponse,
+  IUpdateFactor,
 } from './interface';
 
 export class FactorServices extends AbstractAPI {
@@ -15,9 +17,20 @@ export class FactorServices extends AbstractAPI {
     data: IAddFactor
   ): Promise<AxiosResponse<INetworkResponse<IAddFactor>>> {
     return await this.http.request({
-      method: `POST`,
+      method: 'POST',
       url: this.url,
       data,
+    });
+  }
+
+  public async updateFactor(
+    data: IUpdateFactor
+  ): Promise<AxiosResponse<INetworkResponse<IUpdateFactor>>> {
+    const { id, ...factorData } = data;
+    return await this.http.request({
+      method: 'PUT',
+      url: `${this.url}${id}/`,
+      data: factorData,
     });
   }
 
@@ -28,6 +41,15 @@ export class FactorServices extends AbstractAPI {
       method: 'GET',
       url: this.url,
       params: { ...params, page_size: 10 },
+    });
+  }
+
+  public async getFactor(
+    id?: string
+  ): Promise<AxiosResponse<INetworkResponse<IFactor>>> {
+    return await this.http.request({
+      method: 'GET',
+      url: `${this.url}${id}/`,
     });
   }
 

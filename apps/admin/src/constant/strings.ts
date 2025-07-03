@@ -285,6 +285,8 @@ const strings = {
   remove: 'پاک کردن ',
   chooseBrand: 'برند را انتخاب کنید',
   discountPercent: 'درصد تخفیف',
+  editFactor: 'ویرایش فاکتور',
+  submitChanges: 'ثبت تغییرات',
 };
 
 export default strings;

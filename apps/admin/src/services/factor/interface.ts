@@ -22,6 +22,10 @@ export interface IAddFactor {
   discount_percent?: number;
 }
 
+export interface IUpdateFactor extends IAddFactor {
+  id: string;
+}
+
 export interface IFactor {
   id: string;
   num: number;
