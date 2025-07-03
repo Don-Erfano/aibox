@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { flexRender } from '@tanstack/react-table';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronLeft } from 'lucide-react';
 
 import { TablePagination } from './components/table-pagination';
 import { TableColumnHeader } from './components/table-column-header';
