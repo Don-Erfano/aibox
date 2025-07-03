@@ -10,9 +10,7 @@ import { CircleCheckBig, CircleX, SquarePen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-import { FabButton } from '@/components/fab-button';
 import { strings } from '@/constant';
-import { FINANCE_ROUTES } from '@/routes';
 import { useGetTransactions } from '@/services/transactions/transaction';
 import { useGetAllUsers } from '@/services/user/user-lists';
 
@@ -154,8 +152,6 @@ export const TransactionsTable = () => {
       />
 
       <DataTable table={table} childComponent={TransactionChild} />
-
-      <FabButton onClick={() => router.push(FINANCE_ROUTES.ADD_TRANSACTIONS)} />
     </div>
   );
 };
