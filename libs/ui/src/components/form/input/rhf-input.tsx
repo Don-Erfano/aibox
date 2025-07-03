@@ -28,7 +28,11 @@ export const RHFInput = <TFieldValues extends FieldValues>({
           <AIBInput
             onChange={(e) => {
               onChange(
-                type === 'number' ? e.target.valueAsNumber : e.target.value
+                type === 'number'
+                  ? e.target.value === ''
+                    ? undefined
+                    : e.target.valueAsNumber
+                  : e.target.value
               );
             }}
             type={type}

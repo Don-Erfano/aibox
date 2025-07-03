@@ -9,6 +9,7 @@ import {
   MESSAGES_BASE_ROUTE,
   SUPPORT_BASE_ROUTE,
   USERS_BASE_ROUTE,
+  NEWS_BASE_ROUTE,
 } from './baseRoutes';
 
 const HOME_ROUTES = {
@@ -23,6 +24,8 @@ const AI_SERVICES_ROUTES = {
   API_PARK: `${AI_SERVICES_BASE_ROUTE}/api-park`,
   CATEGORIES: `${AI_SERVICES_BASE_ROUTE}/categories`,
   COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection`,
+  ADD_COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection/add`,
+  EDIT_COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection/edit`,
 };
 
 const API_PLATFORM_ROUTES = {
@@ -34,8 +37,12 @@ const API_PLATFORM_ROUTES = {
 const FINANCE_ROUTES = {
   FACTORS: `${FINANCE_BASE_ROUTE}/factors`,
   ADD_FACTORS: `${FINANCE_BASE_ROUTE}/factors/add`,
+  EDIT_FACTOR: `${FINANCE_BASE_ROUTE}/factors/edit`,
   GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code`,
+  ADD_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/add`,
+  EDIT_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/edit`,
   TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions`,
+  ADD_TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions/add`,
 };
 
 const GPU_ROUTES = {
@@ -73,6 +80,12 @@ const USERS_ROUTES = {
   TOKENS: `${USERS_BASE_ROUTE}/tokens`,
 };
 
+const NEWS_ROUTES = {
+  LIST: `${NEWS_BASE_ROUTE}`,
+  ADD: `${NEWS_BASE_ROUTE}/add`,
+  EDIT: `${NEWS_BASE_ROUTE}/edit`,
+};
+
 export {
   AI_SERVICES_ROUTES,
   API_PLATFORM_ROUTES,
@@ -84,4 +97,5 @@ export {
   MESSAGES_ROUTES,
   SUPPORT_ROUTES,
   USERS_ROUTES,
+  NEWS_ROUTES,
 };

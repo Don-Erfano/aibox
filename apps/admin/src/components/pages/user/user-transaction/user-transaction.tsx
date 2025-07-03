@@ -17,7 +17,7 @@ import {
   toast,
 } from '@aibox/ui';
 import {
-  useGetTransactionListByUser,
+  useGetTransactions,
   useUpdateTransaction,
 } from '@/services/transactions/transaction/transaction.hook';
 import transactionColumns, {
@@ -43,7 +43,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
     earnAmount,
     withdrawAmount,
     remainCharge,
-  } = useGetTransactionListByUser(userId);
+  } = useGetTransactions(userId);
 
   const updateMutation = useUpdateTransaction();
 
@@ -78,7 +78,7 @@ const UserTransactionPage: FC<{ userId: string }> = ({ userId }) => {
   const openEdit = (tx: Transaction) => {
     setSelectedTx(tx);
     reset({
-      status: tx.status as unknown as 'موفق' | 'ناموفق',
+      status: tx.status as 'done' | 'fail',
       kind: tx.kind as 'withdraw' | 'deposit',
       track_id: tx.track_id,
       description: tx.description,

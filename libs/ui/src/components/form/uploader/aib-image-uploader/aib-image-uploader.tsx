@@ -156,19 +156,6 @@ const AibImageUploader: FC<AibImageUploaderProps> = ({
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-start">
-        <span
-          className={`text-sm font-normal mb-2 ${
-            disabled
-              ? 'text-gray-300'
-              : readOnly
-              ? 'text-gray-500'
-              : 'text-zinc-700'
-          }`}
-        >
-          تصویر
-        </span>
-      </div>
       <div
         className={uploaderVariants({ status })}
         onClick={triggerFileDialog}
