@@ -10,7 +10,7 @@ import {
 } from '../../form';
 import { AibImageUploader } from '../aib-image-uploader';
 
-export const RHFImageUploader = <TFieldValues extends FieldValues>(
+const RHFImageUploader = <TFieldValues extends FieldValues>(
   props: RHFImageUploaderProps<TFieldValues>
 ) => {
   const { name, control, label, description, onSubmitUpload, ...rest } = props;
@@ -21,21 +21,25 @@ export const RHFImageUploader = <TFieldValues extends FieldValues>(
       control={control}
       render={({ field, fieldState: { error } }) => {
         return (
-          <FormItem>
-            {label && <FormLabel>{label}</FormLabel>}
+          <FormItem className="pointer-events-none">
+            {label && (
+              <FormLabel className="pointer-events-auto">{label}</FormLabel>
+            )}
             <FormControl>
-              <AibImageUploader
-                {...rest}
-                initialImageUrl={field.value as string | string[]}
-                error={!!error}
-                onFileChange={async (file) => {
-                  field.onChange(file);
+              <div className="pointer-events-auto">
+                <AibImageUploader
+                  {...rest}
+                  initialImageUrl={field.value as string | string[]}
+                  error={!!error}
+                  onFileChange={async (file) => {
+                    field.onChange(file);
 
-                  if (file && onSubmitUpload) {
-                    await onSubmitUpload(file);
-                  }
-                }}
-              />
+                    if (file && onSubmitUpload) {
+                      await onSubmitUpload(file);
+                    }
+                  }}
+                />
+              </div>
             </FormControl>
             {!error && description && (
               <FormDescription>{description}</FormDescription>
