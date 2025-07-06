@@ -268,7 +268,11 @@ export function DataTable<TData>({
                               {hiddenColumns.map((col) => {
                                 const cell = row
                                   .getAllCells()
-                                  .find((c) => c.column.id === col.id);
+                                  .find(
+                                    (c) =>
+                                      c.column.id === col.id &&
+                                      col.id !== 'expand'
+                                  );
                                 if (!cell) return null;
 
                                 // Check if this is the actions column
