@@ -37,7 +37,7 @@ export const DeleteFactorModal = ({
           {strings.deleteModalDecription}
         </span>
 
-        <div className="flex flex-col sm:flex-row sm:justify-center items-center w-full gap-2">
+        <div className="flex flex-col sm:flex-row sm:justify-center items-center w-full gap-5">
           <Button size="lg" isFilled disabled={isPending} onClick={deleteFacor}>
             {isPending ? (
               <LoaderIcon className="animate-spin" />

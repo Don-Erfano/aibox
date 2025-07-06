@@ -1,7 +1,14 @@
 import { Control, FieldValues, Path } from 'react-hook-form';
 
+interface SwitchItem {
+  label: string;
+  value: string;
+}
+
+export type ToggleSwitchItems = [SwitchItem, SwitchItem];
+
 export interface ToggleSwitchProps {
-  items: [{ label: string; value: string }, { label: string; value: string }];
+  items: ToggleSwitchItems;
   value: string;
   onValueChange: (value: string) => void;
   size?: 'fixed' | 'auto';

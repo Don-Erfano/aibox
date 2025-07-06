@@ -7,6 +7,7 @@ import {
   HOME_ROUTES,
   MARKETING_ROUTES,
   MESSAGES_ROUTES,
+  NEWS_ROUTES,
   routeNames,
   SUPPORT_ROUTES,
   USERS_ROUTES,
@@ -21,6 +22,7 @@ import {
   Microchip,
   UserRound,
   Webhook,
+  NewspaperIcon,
 } from 'lucide-react';
 import strings from './strings';
 
@@ -38,10 +40,10 @@ export const sidebarData: SidebarData = [
         title: routeNames[GPU_ROUTES.GPUS],
         url: GPU_ROUTES.GPUS,
       },
-      {
-        title: routeNames[GPU_ROUTES.DISKS],
-        url: GPU_ROUTES.DISKS,
-      },
+      // {
+      //   title: routeNames[GPU_ROUTES.DISKS],
+      //   url: GPU_ROUTES.DISKS,
+      // },
       {
         title: routeNames[GPU_ROUTES.CONFIGURATION],
         url: GPU_ROUTES.CONFIGURATION,
@@ -186,5 +188,10 @@ export const sidebarData: SidebarData = [
         url: MESSAGES_ROUTES.NOTIFICAITONS,
       },
     ],
+  },
+  {
+    title: 'اخبار',
+    icon: <NewspaperIcon height={20} width={20} />,
+    url: NEWS_ROUTES.LIST,
   },
 ];

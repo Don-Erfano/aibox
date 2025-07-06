@@ -22,7 +22,7 @@ export const RHFToggleSwitch = <TFieldValues extends FieldValues>({
     name={name}
     control={control}
     render={({ field }) => (
-      <FormItem className="flex flex-col gap-4">
+      <FormItem>
         {label && <FormLabel>{label}</FormLabel>}
         <FormControl>
           <ToggleSwitch
