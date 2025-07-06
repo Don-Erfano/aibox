@@ -64,114 +64,118 @@ export function DataTable<TData>({
         <div
           data-slot="table-container"
           className={cn(
-            'flex w-full flex-col gap-2.5 overflow-x-auto',
+            'flex w-full flex-col gap-2.5 overflow-auto',
             className
           )}
           {...props}
         >
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header, headerIndex) => {
-                    const columnDef = header.column.columnDef;
-                    const size = header.getSize();
-                    const isFirstColumn = headerIndex === 0;
-                    const shouldAddPadding =
-                      isFirstColumn && !hasExpandColumn && !hasSelectionColumn;
+          <div className="relative overflow-x-auto">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header, headerIndex) => {
+                      const columnDef = header.column.columnDef;
+                      const size = header.getSize();
+                      const isFirstColumn = headerIndex === 0;
+                      const shouldAddPadding =
+                        isFirstColumn &&
+                        !hasExpandColumn &&
+                        !hasSelectionColumn;
 
-                    return (
-                      <TableHead
-                        key={header.id}
-                        style={{
-                          width: size,
-                          maxWidth: columnDef.maxSize,
-                          minWidth: columnDef.minSize,
-                        }}
-                        colSpan={header.colSpan}
-                        className={cn(
-                          'overflow-hidden text-ellipsis whitespace-nowrap',
-                          {
-                            'px-2': !header.column.getCanSort(),
-                            'pr-5': shouldAddPadding,
-                          }
-                        )}
-                        data-debug={
-                          shouldAddPadding ? 'has-padding' : 'no-padding'
-                        }
-                      >
-                        <TableColumnHeader header={header} />
-                      </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-
-            <TableBody>
-              {hasData ? (
-                table.getRowModel().rows.map((row) => (
-                  <React.Fragment key={row.id}>
-                    <TableRow
-                      data-state={row.getIsSelected() && 'selected'}
-                      data-expanded={row.getIsExpanded()}
-                    >
-                      {row.getVisibleCells().map((cell, cellIndex) => {
-                        const columnDef = cell.column.columnDef;
-                        const size = cell.column.getSize();
-                        const isFirstColumn = cellIndex === 0;
-
-                        const shouldAddPadding =
-                          isFirstColumn &&
-                          !hasExpandColumn &&
-                          !hasSelectionColumn;
-
-                        return (
-                          <TableCell
-                            key={cell.id}
-                            style={{
-                              width: size,
-                              maxWidth: columnDef.maxSize,
-                              minWidth: columnDef.minSize,
-                            }}
-                            className={cn(
-                              'overflow-hidden text-ellipsis whitespace-nowrap',
-                              {
-                                'pr-5': shouldAddPadding,
-                              }
-                            )}
-                            data-debug={
-                              shouldAddPadding ? 'has-padding' : 'no-padding'
+                      return (
+                        <TableHead
+                          key={header.id}
+                          style={{
+                            width: size,
+                            maxWidth: columnDef.maxSize,
+                            minWidth: columnDef.minSize,
+                          }}
+                          colSpan={header.colSpan}
+                          className={cn(
+                            'overflow-hidden text-ellipsis whitespace-nowrap',
+                            {
+                              'px-2': !header.column.getCanSort(),
+                              'pr-5': shouldAddPadding,
                             }
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
+                          )}
+                          data-debug={
+                            shouldAddPadding ? 'has-padding' : 'no-padding'
+                          }
+                        >
+                          <TableColumnHeader header={header} />
+                        </TableHead>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableHeader>
+
+              <TableBody>
+                {hasData ? (
+                  table.getRowModel().rows.map((row) => (
+                    <React.Fragment key={row.id}>
+                      <TableRow
+                        data-state={row.getIsSelected() && 'selected'}
+                        data-expanded={row.getIsExpanded()}
+                      >
+                        {row.getVisibleCells().map((cell, cellIndex) => {
+                          const columnDef = cell.column.columnDef;
+                          const size = cell.column.getSize();
+                          const isFirstColumn = cellIndex === 0;
+
+                          const shouldAddPadding =
+                            isFirstColumn &&
+                            !hasExpandColumn &&
+                            !hasSelectionColumn;
+
+                          return (
+                            <TableCell
+                              key={cell.id}
+                              style={{
+                                width: size,
+                                maxWidth: columnDef.maxSize,
+                                minWidth: columnDef.minSize,
+                              }}
+                              className={cn(
+                                'overflow-hidden text-ellipsis whitespace-nowrap',
+                                {
+                                  'pr-5': shouldAddPadding,
+                                }
+                              )}
+                              data-debug={
+                                shouldAddPadding ? 'has-padding' : 'no-padding'
+                              }
+                            >
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                      {row.getIsExpanded() && (
+                        <TableRow className="h-5">
+                          <TableCell colSpan={row.getVisibleCells().length}>
+                            {ChildComponent && (
+                              <ChildComponent row={row.original} />
                             )}
                           </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                    {row.getIsExpanded() && (
-                      <TableRow className="h-5">
-                        <TableCell colSpan={row.getVisibleCells().length}>
-                          {ChildComponent && (
-                            <ChildComponent row={row.original} />
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </React.Fragment>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={columnCount} className="py-18">
-                    <NoData />
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                        </TableRow>
+                      )}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columnCount} className="py-18">
+                      <NoData />
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
 
           <div className="flex flex-col gap-2.5">
             <TablePagination table={table} />
@@ -258,9 +262,7 @@ export function DataTable<TData>({
                           >
                             <div className="space-y-3 w-full">
                               {ChildComponent && (
-                                <div className="w-full overflow-hidden mb-4 pb-3 border-b border-border">
-                                  <ChildComponent row={row.original} />
-                                </div>
+                                <ChildComponent row={row.original} />
                               )}
 
                               {/* Hidden columns */}
