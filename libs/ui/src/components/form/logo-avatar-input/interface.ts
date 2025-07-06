@@ -24,7 +24,7 @@ export interface UploadProps<TFieldValues extends FieldValues>
 export interface PreviewProps extends BaseProps {
   mode?: 'preview';
   control?: never;
-  name?: never;
+  name: never;
   src: string;
 }
 
