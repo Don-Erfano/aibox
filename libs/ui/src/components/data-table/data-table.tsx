@@ -257,7 +257,6 @@ export function DataTable<TData>({
                             className="p-4"
                           >
                             <div className="space-y-3 w-full">
-                              {/* Child component expansion (moved to top) */}
                               {ChildComponent && (
                                 <div className="w-full overflow-hidden mb-4 pb-3 border-b border-border">
                                   <ChildComponent row={row.original} />
@@ -275,7 +274,6 @@ export function DataTable<TData>({
                                   );
                                 if (!cell) return null;
 
-                                // Check if this is the actions column
                                 const isActionsColumn = col.id === 'actions';
 
                                 return (
