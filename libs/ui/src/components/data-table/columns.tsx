@@ -116,6 +116,7 @@ export function useTableColumns<T>(
                 )}
                 {actions.customActions?.map((action, idx) => (
                   <Button
+                    key={idx}
                     tooltip={action.label}
                     aria-label={action.label}
                     size="icon"

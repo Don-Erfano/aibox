@@ -188,7 +188,6 @@ export function DataTable<TData>({
           <Table className="w-full table-fixed">
             <TableHeader>
               <TableRow>
-                {/* Expand button header */}
                 {hiddenColumns.length > 0 && (
                   <TableHead className="w-12 flex-shrink-0 p-2" />
                 )}
@@ -208,7 +207,6 @@ export function DataTable<TData>({
                     <React.Fragment key={row.id}>
                       {/* Main row with visible columns + expand button */}
                       <TableRow>
-                        {/* Expand button cell - only show if there are hidden columns */}
                         {hiddenColumns.length > 0 && (
                           <TableCell className="w-12 p-2 flex-shrink-0">
                             <Button
@@ -259,6 +257,14 @@ export function DataTable<TData>({
                             className="p-4"
                           >
                             <div className="space-y-3 w-full">
+                              {/* Child component expansion (moved to top) */}
+                              {ChildComponent && (
+                                <div className="w-full overflow-hidden mb-4 pb-3 border-b border-border">
+                                  <ChildComponent row={row.original} />
+                                </div>
+                              )}
+
+                              {/* Hidden columns */}
                               {hiddenColumns.map((col) => {
                                 const cell = row
                                   .getAllCells()
@@ -299,23 +305,6 @@ export function DataTable<TData>({
                                   </div>
                                 );
                               })}
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      )}
-
-                      {/* Child component expansion (original table expansion) */}
-                      {row.getIsExpanded() && ChildComponent && (
-                        <TableRow className="h-5">
-                          <TableCell
-                            colSpan={
-                              mobileVisibleColumns.length +
-                              (hiddenColumns.length > 0 ? 1 : 0)
-                            }
-                            className="w-full"
-                          >
-                            <div className="w-full overflow-hidden">
-                              <ChildComponent row={row.original} />
                             </div>
                           </TableCell>
                         </TableRow>
