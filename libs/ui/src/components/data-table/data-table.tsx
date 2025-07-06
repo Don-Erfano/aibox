@@ -156,7 +156,7 @@ export function DataTable<TData>({
                         })}
                       </TableRow>
                       {row.getIsExpanded() && (
-                        <TableRow className="h-5">
+                        <TableRow className="h-5 bg-gray-50">
                           <TableCell colSpan={row.getVisibleCells().length}>
                             {ChildComponent && (
                               <ChildComponent row={row.original} />
@@ -210,7 +210,7 @@ export function DataTable<TData>({
                   return (
                     <React.Fragment key={row.id}>
                       {/* Main row with visible columns + expand button */}
-                      <TableRow>
+                      <TableRow data-expanded={isRowExpanded}>
                         {hiddenColumns.length > 0 && (
                           <TableCell className="w-12 p-2 flex-shrink-0">
                             <Button
@@ -252,7 +252,7 @@ export function DataTable<TData>({
 
                       {/* Expanded row with hidden columns */}
                       {isRowExpanded && hiddenColumns.length > 0 && (
-                        <TableRow className="bg-muted/20">
+                        <TableRow className="bg-gray-50">
                           <TableCell
                             colSpan={
                               mobileVisibleColumns.length +
