@@ -31,3 +31,14 @@ export interface GetGiftCodesParams {
 export interface IGetGiftCodesReponse extends IPaginationMeta {
   data: GiftCode[];
 }
+
+export interface NewGiftCode {
+  code: string;
+  expired_time: string;
+  amount: number;
+  allowed_count_use?: number;
+}
+
+export interface UpdateGiftCode extends NewGiftCode {
+  id: string;
+}

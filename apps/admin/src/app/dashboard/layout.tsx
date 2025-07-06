@@ -1,7 +1,6 @@
 'use client';
 
 import { Header } from '@/components/header';
-import { LayoutModeProvider } from './layout-context';
 import { AIBSidebar, SidebarProvider } from '@aibox/ui';
 import { sidebarData } from '@/constant/sidebar';
 
@@ -16,7 +15,7 @@ export default function DashboardLayout({
         <Header />
         <AIBSidebar sidebarData={sidebarData} />
       </SidebarProvider>
-      <LayoutModeProvider>{children}</LayoutModeProvider>
+      <div className="w-full py-[16px] lg:py-[24px]">{children}</div>
     </div>
   );
 }
