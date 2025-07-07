@@ -21,6 +21,11 @@ const nextConfig = {
         pathname: '/media/pictures/**',
         search: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'dev.fileshare.nextaibox.com',
+        pathname: '/media/pictures/**',
+      },
     ],
   },
 };

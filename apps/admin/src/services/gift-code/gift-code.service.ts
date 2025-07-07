@@ -20,7 +20,7 @@ export class GiftCodeServices extends AbstractAPI {
     return await this.http.request({
       method: 'GET',
       url: this.url,
-      params: { ...params, page_size: 10 },
+      params,
     });
   }
 

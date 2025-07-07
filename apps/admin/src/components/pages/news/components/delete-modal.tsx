@@ -1,4 +1,4 @@
-import { Button, DeleteFactorIcon, Modal } from '@aibox/ui';
+import { Button, ModalDeleteIcon, Modal } from '@aibox/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { LoaderIcon } from 'lucide-react';
 
@@ -27,7 +27,7 @@ export const DeleteNewsModal = ({
     <Modal
       open={modalState.show}
       onOpenChange={(show) => toggleModal({ show, id: 0 })}
-      headerIcon={<DeleteFactorIcon />}
+      headerIcon={<ModalDeleteIcon />}
     >
       <div className="flex flex-col justify-between items-center">
         <span className="text-teal-600 text-sm/6 font-medium">
