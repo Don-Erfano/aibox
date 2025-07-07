@@ -40,10 +40,6 @@ export const sidebarData: SidebarData = [
         title: routeNames[GPU_ROUTES.GPUS],
         url: GPU_ROUTES.GPUS,
       },
-      // {
-      //   title: routeNames[GPU_ROUTES.DISKS],
-      //   url: GPU_ROUTES.DISKS,
-      // },
       {
         title: routeNames[GPU_ROUTES.CONFIGURATION],
         url: GPU_ROUTES.CONFIGURATION,
@@ -57,8 +53,8 @@ export const sidebarData: SidebarData = [
         url: GPU_ROUTES.SERVERS,
       },
       {
-        title: routeNames[GPU_ROUTES.SOURCE],
-        url: GPU_ROUTES.SOURCE,
+        title: routeNames[GPU_ROUTES.RESOURCE],
+        url: GPU_ROUTES.RESOURCE,
       },
       {
         title: routeNames[GPU_ROUTES.LOGS],
