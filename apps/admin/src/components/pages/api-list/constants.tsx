@@ -64,7 +64,7 @@ const ApisColumn: ColumnDef<IApiDetails>[] = [
       );
     },
     enableColumnFilter: true,
-    meta: { label: strings.apiName, variant: 'text' },
+    meta: { label: strings.apiName, variant: 'text', mobileVisible: true },
     enableSorting: false,
   },
   {
@@ -128,6 +128,7 @@ const ApisColumn: ColumnDef<IApiDetails>[] = [
       label: strings.status,
       variant: 'select',
       placeholder: strings.status,
+      mobileVisible: true,
       options: [
         {
           label: strings.waitingForAccept,
