@@ -30,7 +30,7 @@ export function useSidebarItemsActive(
 function isSidebarItemActive(item: SidebarItem, currentPath: string): boolean {
   if (item.url === currentPath) return true;
   if (item.items) {
-    return item.items.some((sub) => sub.url.startsWith(currentPath));
+    return item.items.some((sub) => sub.url === currentPath);
   }
   return false;
 }
