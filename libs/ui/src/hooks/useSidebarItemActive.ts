@@ -1,7 +1,7 @@
 'use client';
 
 import { SidebarItem } from '../components/sidebar/type';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 /**
  * Returns an array where each item has an added `isActive` property
@@ -10,7 +10,6 @@ export function useSidebarItemsActive(
   sidebarData: SidebarItem[]
 ): SidebarItem[] {
   const pathname = usePathname();
-
   return sidebarData.map((item) => ({
     ...item,
     ...(item.items
@@ -29,9 +28,9 @@ export function useSidebarItemsActive(
 }
 
 function isSidebarItemActive(item: SidebarItem, currentPath: string): boolean {
-  if (currentPath.includes(item.url as string)) return true;
+  if (item.url === currentPath) return true;
   if (item.items) {
-    return item.items.some((sub) => currentPath.includes(sub.url));
+    return item.items.some((sub) => sub.url.startsWith(currentPath));
   }
   return false;
 }

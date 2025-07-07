@@ -31,7 +31,7 @@ const buttonVariants = cva(
         true: `bg-teal-600 border border-transparent text-white hover:bg-white hover:border-teal-600
            hover:text-teal-600 active:border-white active:bg-teal-600 active:text-white disabled:bg-teal-600/12
            disabled:border-teal-600/12 disabled:text-teal-600/25`,
-        false: `bg-white border border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white active:bg-teal-600 active:ring`,
+        false: `bg-transparent border border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white active:bg-teal-600 active:ring`,
       },
     },
     defaultVariants: {
