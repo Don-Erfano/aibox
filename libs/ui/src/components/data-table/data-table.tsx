@@ -156,8 +156,11 @@ export function DataTable<TData>({
                         })}
                       </TableRow>
                       {row.getIsExpanded() && (
-                        <TableRow className="h-5 bg-gray-50">
-                          <TableCell colSpan={row.getVisibleCells().length}>
+                        <TableRow className="h-5 bg-white">
+                          <TableCell
+                            className="border-gray-400"
+                            colSpan={row.getVisibleCells().length}
+                          >
                             {ChildComponent && (
                               <ChildComponent row={row.original} />
                             )}
@@ -263,13 +266,16 @@ export function DataTable<TData>({
 
                       {/* Expanded row with hidden columns */}
                       {isRowExpanded && hiddenColumns.length > 0 && (
-                        <TableRow className="bg-gray-50">
+                        <TableRow className="bg-white">
                           <TableCell
                             colSpan={
                               mobileVisibleColumns.length +
                               (hiddenColumns.length > 0 ? 1 : 0)
                             }
-                            className="p-4"
+                            className={cn(
+                              'p-4',
+                              isRowExpanded ? 'border-gray-400' : ''
+                            )}
                           >
                             <div className="space-y-3 w-full">
                               {ChildComponent && (
