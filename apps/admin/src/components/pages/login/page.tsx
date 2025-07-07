@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AiBoxTextIcon, Button, Form, RHFInput } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { HOME_ROUTES } from '@/routes';
 import { zodSchema } from './constants';
 import { setCookie } from '@/utils/action';
@@ -58,15 +59,17 @@ const LoginPage: FC = () => {
           onSubmit={form.handleSubmit(submitHandler)}
           className="bg-white w-[20rem] md:w-[30rem] px-[1.5rem] py-[2rem] rounded-[0.625rem] flex flex-col gap-9 shadow-[0_2px_4px_rgba(0,_0,_0,_0.16)]"
         >
-          <h3 className="text-base font-medium">ورود به حساب کاربری</h3>
+          <h3 className="text-base font-medium">
+            {strings.loginToYourAccount}
+          </h3>
           <RHFInput
             control={form.control}
-            placeholder="شماره موبایل/ایمیل*"
+            placeholder={strings.phoneOrEmail}
             name="username"
           />
           <RHFInput
             control={form.control}
-            placeholder="کلمه عبور*"
+            placeholder={strings.password}
             name="password"
             type="password"
           />
@@ -76,11 +79,12 @@ const LoginPage: FC = () => {
               isFilled
               type="submit"
               disabled={isPending}
+              size="full"
             >
-              ورود
+              {strings.login}
             </Button>
             <span className="text-sm text-normal text-zinc-800 cursor-not-allowed">
-              فراموشی کلمه عبور
+              {strings.forgetPassword}
             </span>
           </div>
         </form>

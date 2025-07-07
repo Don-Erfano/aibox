@@ -1,11 +1,8 @@
 'use client';
 
 import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
+import { MohterboardList } from '@/components';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+const Page: NextPage = () => <MohterboardList />;
 
 export default Page;

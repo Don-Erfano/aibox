@@ -202,21 +202,22 @@ const ActionCell: FC<Row<IApiDetails>> = ({ original }) => {
       </Modal>
       <Modal
         open={showModal === 'error'}
-        title="گزارش رفع مشکل"
+        title={strings.reportResloveError}
         onOpenChange={() => setShowModal(undefined)}
       >
         <div className="flex flex-col gap-4">
-          <p className="text-center text-sm font-medium">آیا مطمئن هستید؟</p>
+          <p className="text-center text-sm font-medium">
+            {strings.areYouSure}
+          </p>
           <p className="text-sm text-center font-normal">
-            با زدن دکمه «تأیید»، به تمامی استفاده کنندگان سرویس شما، رفع مشکل
-            سرویس اطلاع داده خواهد شد.
+            {strings.resolveApiError}
           </p>
           <div className="flex justify-center gap-5 mt-4">
             <Button isFilled size="lg" onClick={handleResolveError}>
-              تأیید
+              {strings.approve}
             </Button>
             <Button size="lg" onClick={() => setShowModal(undefined)}>
-              انصراف
+              {strings.cancel}
             </Button>
           </div>
         </div>

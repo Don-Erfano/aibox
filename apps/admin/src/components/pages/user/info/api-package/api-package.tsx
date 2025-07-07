@@ -1,9 +1,12 @@
 import { FC } from 'react';
 
-import { useGetUserApiPackage } from '@/services/user/info';
 import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
-import { USERAPIPACKAGES } from './constant';
+
+import { strings } from '@/constant';
+import { useGetUserApiPackage } from '@/services/user/info';
+
 import { RowChild } from './row-child';
+import { USERAPIPACKAGES } from './constant';
 
 const ApiPackage: FC<{ id: string }> = ({ id }) => {
   const { data, isFetching, isLoading, refetch } = useGetUserApiPackage(id);
@@ -18,7 +21,7 @@ const ApiPackage: FC<{ id: string }> = ({ id }) => {
   return (
     <>
       <TableToolbar
-        title="لیست API ها"
+        title={strings.apisList}
         totalItems={data?.data.data.total_count || 0}
         table={table}
         refreshLoading={isLoading || isFetching}

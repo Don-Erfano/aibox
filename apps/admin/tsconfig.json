@@ -51,9 +51,6 @@
       "path": "../../libs/ui"
     },
     {
-      "path": "../../libs/theme"
-    },
-    {
       "path": "../../libs/services"
     }
   ]

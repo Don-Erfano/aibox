@@ -1,4 +1,10 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { toast } from '@aibox/ui';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 import { useQueryParams } from '@/hooks/useQueryParams';
 
@@ -7,6 +13,8 @@ import {
   GetGiftCodesParams,
   GiftCode,
   IGetGiftCodesReponse,
+  NewGiftCode,
+  UpdateGiftCode,
 } from './interface';
 
 const giftCodeServices = new GiftCodeServices();
@@ -39,4 +47,52 @@ export const useGetAllGiftCodes = () => {
   });
 
   return { giftCodes, totalItems, totalPages, isLoading, isFetching, refetch };
+};
+
+export const useGetGiftCode = (id?: string) =>
+  useQuery({
+    queryKey: ['giftCode', id],
+    queryFn: () => giftCodeServices.getGiftCode(id),
+    enabled: !!id,
+    select: (res) => res.data.data,
+  });
+
+export const useAddNewGiftCode = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: NewGiftCode) => giftCodeServices.createNewGiftCode(data),
+    mutationKey: ['addNewGiftCode'],
+    onSuccess: () => {
+      toast.success('کد هدیه جدید با موفقیت ایجاد شد.');
+      queryClient.invalidateQueries({ queryKey: ['giftCodes'] });
+    },
+  });
+};
+
+export const useUpdateGiftCode = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdateGiftCode) => giftCodeServices.updateGiftCode(data),
+    mutationKey: ['updateGiftCode'],
+    onSuccess: ({ data }) => {
+      toast.success('کد هدیه با موفقیت ویرایش شد.');
+      queryClient.invalidateQueries({ queryKey: ['giftCode', data.data.id] });
+      queryClient.invalidateQueries({ queryKey: ['giftCodes'] });
+    },
+  });
+};
+
+export const useDeleteGiftCode = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => giftCodeServices.deleteGiftCode(id),
+    mutationKey: ['deleteGiftCode'],
+    onSuccess: () => {
+      toast.success('کد هدیه با موفقیت حذف شد.');
+      queryClient.invalidateQueries({ queryKey: ['giftCodes'] });
+    },
+  });
 };

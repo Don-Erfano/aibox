@@ -15,6 +15,7 @@ import {
   IMassNotification,
   useGetMassNotifications,
 } from '@/services/messages/public-messages';
+import { strings } from '@/constant';
 
 const PublicMessagePage: FC = () => {
   const router = useRouter();
@@ -54,7 +55,7 @@ const PublicMessagePage: FC = () => {
     <div className="min-h-screen flex flex-col">
       <div className="w-full">
         <TableToolbar
-          title="پیام‌های همگانی"
+          title={strings.generalMessages}
           totalItems={totalItems}
           table={table}
           refreshLoading={isLoading || isFetching}

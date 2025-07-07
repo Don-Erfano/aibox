@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AreaChart, SemiCircleChart, ToggleGroup } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetChartData } from '@/services';
 
@@ -10,15 +11,15 @@ const NewUsersCard = () => {
   );
 
   const persianFilter = {
-    weekly: 'هفته',
-    monthly: 'ماه',
-    yearly: 'سال',
+    weekly: strings.week,
+    monthly: strings.month,
+    yearly: strings.year,
   };
 
   const toogleItems = [
-    { label: 'هفتگی', value: 'weekly' },
-    { label: 'ماهانه', value: 'monthly' },
-    { label: 'سالانه', value: 'yearly' },
+    { label: strings.weekly, value: 'weekly' },
+    { label: strings.monthly, value: 'monthly' },
+    { label: strings.yearly, value: 'yearly' },
   ];
 
   const { data, refetch, isFetching, isPending } = useGetChartData(filter);
@@ -41,7 +42,7 @@ const NewUsersCard = () => {
 
   return (
     <Card
-      title="کاربران جدید"
+      title={strings.newUsers}
       className="order:1 2xl:order-2 col-span-2 2xl:col-span-1 relative min-h-[488px]"
     >
       <div className="absolute top-6 left-6">
@@ -72,38 +73,50 @@ const NewUsersCard = () => {
             <span className="text-center text-sm">
               {Math.abs(Number(data?.growth_rate))}
               {'% '}
-              {Number(data?.growth_rate) > 0 ? 'رشد' : 'کاهش'} نسبت به{' '}
-              {persianFilter[filter]} گذشته
+              {Number(data?.growth_rate) > 0
+                ? strings.increase
+                : strings.decrease}{' '}
+              نسبت به {persianFilter[filter]} گذشته
             </span>
           </div>
           <div className="flex flex-col gap-3 w-full">
             <div className="flex justify-between">
-              <p className="text-sm font-medium text-zinc-700">کاربران جدید</p>
+              <p className="text-sm font-medium text-zinc-700">
+                {strings.newUsers}
+              </p>
               <span className="text-sm text-gray-500">
                 {data?.new_user_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <p className="text-sm font-medium text-zinc-700">پروداکشن</p>
+              <p className="text-sm font-medium text-zinc-700">
+                {strings.production}
+              </p>
               <span className="text-sm text-gray-500">
                 {data?.domain_user_count[0].user_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <p className="text-sm font-medium text-zinc-700">زنجان</p>
+              <p className="text-sm font-medium text-zinc-700">
+                {strings.zanjan}
+              </p>
               <span className="text-sm text-gray-500">
                 {data?.domain_user_count[1].user_count}
               </span>
             </div>
             <div className="border border-dashed" />
             <div className="flex justify-between">
-              <p className="text-sm font-medium text-zinc-700">کاربران فعال</p>
+              <p className="text-sm font-medium text-zinc-700">
+                {strings.activeUsers}
+              </p>
               <span className="text-sm text-gray-500">
                 {data?.active_user_count}
               </span>
             </div>
             <div className="flex justify-between">
-              <p className="text-sm font-medium text-zinc-700">کل کاربران</p>
+              <p className="text-sm font-medium text-zinc-700">
+                {strings.totalUsers}
+              </p>
               <span className="text-sm text-gray-500">
                 {data?.all_user_count}
               </span>

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { DonutChart } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetUserCount } from '@/services/dashboard';
 
@@ -13,22 +14,30 @@ const ActiveUserCard: FC = () => {
   const chartData = [
     {
       id: '1',
-      name: 'رایانش گرافیکی',
+      name: strings.gpuComputing,
       amount: Number(data?.data.gpu_user_count),
     },
-    { id: '2', name: 'پلتفرم', amount: Number(data?.data.platform_user_count) },
+    {
+      id: '2',
+      name: strings.platform,
+      amount: Number(data?.data.platform_user_count),
+    },
     {
       id: '3',
-      name: 'API مارکت',
+      name: strings.apiMarket,
       amount: Number(data?.data.market_user_count),
     },
-    { id: '4', name: 'مشترک', amount: Number(data?.data.common_user_count) },
+    {
+      id: '4',
+      name: strings.common,
+      amount: Number(data?.data.common_user_count),
+    },
   ];
 
   if (error?.message) return <CardError />;
   return (
     <Card
-      title="کاربران فعال"
+      title={strings.activeUsers}
       className="order-2 2xl:order-1 col-span-1 2xl:col-auto md:col-span-2 xl:col-span-1 flex justify-start !gap-8"
     >
       <div className="flex flex-col">
@@ -39,7 +48,9 @@ const ActiveUserCard: FC = () => {
             total={{
               value: `${Math.abs(Number(data?.data.monthly_growth_rate))}%`,
               suffix:
-                Number(data?.data.monthly_growth_rate) >= 0 ? 'رشد' : 'کاهش',
+                Number(data?.data.monthly_growth_rate) >= 0
+                  ? strings.increase
+                  : strings.decrease,
             }}
           />
           {isLoading ? (
@@ -50,13 +61,15 @@ const ActiveUserCard: FC = () => {
                 {data?.data.all_user_count}
                 <span className="text-sm text-zinc-700 font-normal">
                   {' '}
-                  کاربر
+                  {strings.user}
                 </span>
               </h2>
               <p className="text-center text-md text-zinc-700 font-normal">
                 {Math.abs(Number(data?.data.monthly_growth_rate))}{' '}
-                {Number(data?.data.monthly_growth_rate) >= 0 ? 'رشد' : 'کاهش'}{' '}
-                نسبت به ماه گذشته
+                {Number(data?.data.monthly_growth_rate) >= 0
+                  ? strings.increase
+                  : strings.decrease}{' '}
+                {strings.compareToLastMonth}
               </p>
             </div>
           )}
@@ -68,7 +81,7 @@ const ActiveUserCard: FC = () => {
                 <GPUIcon />
               </div>
               <p className="text-zinc-700 font-medium text-sm">
-                کاربران رایانش گرافیکی
+                {strings.gpuComputingUsers}
               </p>
             </div>
             {isLoading ? (
@@ -85,7 +98,7 @@ const ActiveUserCard: FC = () => {
                 <APIIcon />
               </div>
               <p className="text-zinc-700 font-medium text-sm">
-                کاربران پلتفرم
+                {strings.platformUsers}
               </p>
             </div>
             {isLoading ? (
@@ -102,7 +115,7 @@ const ActiveUserCard: FC = () => {
                 <AIIcon />
               </div>
               <p className="text-zinc-700 font-medium text-sm">
-                کاربران API مارکت
+                {strings.apiMarketUsers}
               </p>
             </div>
             {isLoading ? (
@@ -118,7 +131,9 @@ const ActiveUserCard: FC = () => {
               <div className="bg-teal-600/20 p-2 rounded-md">
                 <UsersIcon />
               </div>
-              <p className="text-zinc-700 font-medium text-sm">کاربران مشترک</p>
+              <p className="text-zinc-700 font-medium text-sm">
+                {strings.commonUsers}
+              </p>
             </div>
             {isLoading ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />

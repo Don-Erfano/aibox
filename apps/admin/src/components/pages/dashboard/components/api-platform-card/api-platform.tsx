@@ -2,8 +2,10 @@ import { FC } from 'react';
 
 import { DonutChart } from '@aibox/ui';
 
+import { strings } from '@/constant';
 import { Card } from '@/components/cards';
 import { useGetApiPlatformData } from '@/services';
+
 import { APIIcon } from '../../icons';
 
 const ApiPlatformCard: FC = () => {
@@ -20,15 +22,15 @@ const ApiPlatformCard: FC = () => {
   )?.count;
 
   const chartData = [
-    { id: '1', name: 'تایید شده', amount: accepted || 0 },
-    { id: '2', name: 'در انتظار تایید', amount: waiting || 0 },
-    { id: '3', name: 'مردود', amount: notAccepted || 0 },
-    { id: '4', name: 'منقضی', amount: deprecated || 0 },
+    { id: '1', name: strings.approved, amount: accepted || 0 },
+    { id: '2', name: strings.waitingForAccept, amount: waiting || 0 },
+    { id: '3', name: strings.rejected, amount: notAccepted || 0 },
+    { id: '4', name: strings.deprecated, amount: deprecated || 0 },
   ];
   const colors = ['#34B853', '#DD4B39', '#B00020', '#757E7F'];
 
   return (
-    <Card title="پلتفرم ارائه API" className="justify-start">
+    <Card title={strings.apiPlatform} className="justify-start">
       <div className="flex flex-col">
         <div className="flex justify-between items-center">
           <DonutChart data={chartData} loading={isFetching} colors={colors} />
@@ -40,7 +42,7 @@ const ApiPlatformCard: FC = () => {
                 {data?.total_count}
               </h2>
               <span className="text-sm font-normal text-zinc-700">
-                کل ورژن‌ها از ابتدا
+                {strings.totalVersions}
               </span>
             </div>
           )}
@@ -51,7 +53,9 @@ const ApiPlatformCard: FC = () => {
               <div className="bg-teal-600/12 text-green-600 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p className="text-zinc-700 text-sm font-medium">تأیید شده</p>
+              <p className="text-zinc-700 text-sm font-medium">
+                {strings.approved}
+              </p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
@@ -67,7 +71,7 @@ const ApiPlatformCard: FC = () => {
                 <APIIcon />
               </div>
               <p className="text-zinc-700 text-sm font-medium">
-                در انتظار تأیید
+                {strings.waitingForAccept}
               </p>
             </div>
             {isFetching ? (
@@ -83,7 +87,9 @@ const ApiPlatformCard: FC = () => {
               <div className="bg-teal-600/12 text-red-600 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p className="text-zinc-700 text-sm font-medium">مردود</p>
+              <p className="text-zinc-700 text-sm font-medium">
+                {strings.rejected}
+              </p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />
@@ -98,7 +104,9 @@ const ApiPlatformCard: FC = () => {
               <div className="bg-teal-600/12 text-gray-500 p-2 rounded-md">
                 <APIIcon />
               </div>
-              <p className="text-zinc-700 text-sm font-medium">منقضی</p>
+              <p className="text-zinc-700 text-sm font-medium">
+                {strings.deprecated}
+              </p>
             </div>
             {isFetching ? (
               <span className="bg-gray-100 animate-pulse w-6 h-8 rounded-md" />

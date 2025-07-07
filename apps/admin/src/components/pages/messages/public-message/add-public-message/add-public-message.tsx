@@ -16,7 +16,6 @@ import {
   toast,
 } from '@aibox/ui';
 import { FormContainer, FormWrapper } from '@/components';
-import { MessagesString } from '@/components/pages/messages/string';
 import { TicketingString } from '@/components/pages/ticketing/ticketing-list/string';
 import {
   defaultValues,
@@ -30,6 +29,7 @@ import {
   ICreateMassNotificationRequest,
 } from '@/services/messages/public-messages';
 import { useGetAllUserList } from '@/services/user/user-all';
+import { strings } from '@/constant';
 
 interface MessageItem {
   id: string;
@@ -191,41 +191,47 @@ const AddPublicMessagePage: FC = () => {
   };
 
   return (
-    <FormContainer title={MessagesString.add_new_public_message}>
+    <FormContainer title={strings.add_new_public_message}>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
             <RHFAutocomplete
               name="recivers"
               control={control}
-              label="دریافت کنندگان *"
-              placeholder="انتخاب دریافت کننده"
-              options={userOptions}
-              variant="multiple"
+              label={strings.recivers}
+              placeholder={strings.selectRecivers}
+              options={[
+                { value: 'all_users', label: 'همه کاربران' },
+                { value: 'group_a', label: 'گروه A' },
+              ]}
+              variant="single"
               mode="light"
               isLoading={usersLoading}
             />
 
             <RHFInput
               name="message_subject"
-              label="موضوع پیام *"
+              label={strings.messageSubject}
               control={control}
               placeholder="متن نوشته شده"
             />
 
             <RHFInput
               name="message_group"
-              label="نام پیام گروهی"
+              label={strings.generalMessageText}
               control={control}
-              placeholder="پیام گروهی"
+              placeholder={strings.generalMessage}
             />
 
             <RHFAutocomplete
               name="category"
               control={control}
-              label="دسته‌بندی *"
-              placeholder="انتخاب دسته‌بندی"
-              options={categoryOptions}
+              label={strings.category}
+              placeholder={strings.selectCategory}
+              options={[
+                { value: 'selected_category', label: 'گزینه انتخاب شده' },
+                { value: 'finance', label: 'مالی' },
+              ]}
               variant="single"
               mode="light"
               isLoading={categoriesLoading}
@@ -236,15 +242,15 @@ const AddPublicMessagePage: FC = () => {
               name="date_from"
               render={({ field }) => (
                 <DatePicker
-                  label="تاریخ ارسال از *"
-                  value={field.value}
+                  label={strings.sendDateFrom}
+                  value={[field.value]}
                   onChange={field.onChange}
                 />
               )}
             />
             <RHFInput
               name="time_from"
-              label="ساعت ارسال از"
+              label={strings.sendTimeFrom}
               control={control}
               type="time"
             />
@@ -253,15 +259,15 @@ const AddPublicMessagePage: FC = () => {
               name="date_to"
               render={({ field }) => (
                 <DatePicker
-                  label="تاریخ ارسال تا *"
-                  value={field.value}
+                  label={strings.sendDateTo}
+                  value={[field.value]}
                   onChange={field.onChange}
                 />
               )}
             />
             <RHFInput
               name="time_to"
-              label="ساعت ارسال تا"
+              label={strings.sendTimeTo}
               control={control}
               type="time"
             />
@@ -270,7 +276,7 @@ const AddPublicMessagePage: FC = () => {
           <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] flex justify-between items-center mt-10">
             <div className="space-x-4 flex items-center">
               <p className="text-sm font-medium text-gray-700">
-                {MessagesString.default_message}
+                {strings.default_message}
               </p>
               <Switch
                 checked={useDropdown}
@@ -281,8 +287,13 @@ const AddPublicMessagePage: FC = () => {
               />
             </div>
             <DropDownSelect
-              options={categoryOptions}
-              placeholder="همه"
+              options={[
+                { value: 'all', label: strings.all },
+                { value: 'public', label: strings.general },
+                { value: 'financial', label: strings.accounting },
+                { value: 'commercial', label: strings.advertising },
+                { value: 'invitation', label: strings.invite },
+              ]}
               value={selectedValue}
               onChange={(val) => setSelectedValue(val)}
               className="text-sm rounded-md"
