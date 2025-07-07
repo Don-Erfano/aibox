@@ -87,6 +87,7 @@ export function useTableColumns<T>(
               <Button
                 tooltip="ویرایش"
                 aria-label="Edit"
+                asChild
                 variant="ghost"
                 onClick={() => actions.onEdit!(row.original)}
                 size="icon"
@@ -97,6 +98,7 @@ export function useTableColumns<T>(
             {actions.onDelete && (
               <Button
                 tooltip="حذف"
+                asChild
                 aria-label="Delete"
                 variant="ghost"
                 onClick={() => actions.onDelete!(row.original)}
@@ -109,6 +111,7 @@ export function useTableColumns<T>(
               <Button
                 aria-label={action.label}
                 key={idx}
+                asChild
                 size="icon"
                 variant="ghost"
                 tooltip={action.label}
