@@ -195,11 +195,22 @@ export function DataTable<TData>({
                 {hiddenColumns.length > 0 && (
                   <TableHead className="w-12 flex-shrink-0 p-2" />
                 )}
-                {mobileVisibleColumns.map((col) => (
-                  <TableHead key={col.id} className="min-w-0 px-2 truncate">
-                    {col.columnDef.header as string}
-                  </TableHead>
-                ))}
+                {table.getHeaderGroups().map((headerGroup) =>
+                  headerGroup.headers
+                    .filter(
+                      (header) =>
+                        header.column.columnDef.meta?.mobileVisible &&
+                        header.column.getIsVisible()
+                    )
+                    .map((header) => (
+                      <TableHead
+                        key={header.id}
+                        className="min-w-0 px-2 truncate"
+                      >
+                        <TableColumnHeader header={header} />
+                      </TableHead>
+                    ))
+                )}
               </TableRow>
             </TableHeader>
             <TableBody>

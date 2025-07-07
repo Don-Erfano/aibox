@@ -138,7 +138,6 @@ export const getFacotrColumns = (
         variant: 'select',
         label: strings.department,
         options: departments,
-        mobileVisible: true,
       },
     },
     {
@@ -147,6 +146,7 @@ export const getFacotrColumns = (
       id: 'created_at',
       cell: ({ getValue }) =>
         getValue() ? formatJalali(getValue() as string) : '—',
+      meta: { label: strings.createDate, mobileVisible: true },
     },
     {
       header: strings.dueDate,
