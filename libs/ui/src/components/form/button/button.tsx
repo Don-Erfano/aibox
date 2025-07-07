@@ -18,7 +18,7 @@ const Button: FC<buttonProps> = ({
   children,
   ...props
 }) => {
-  const Comp = asChild ? Slot : 'button';
+  const Comp = asChild || tooltip ? Slot : 'button';
   const ButtonComponent: FC = () => (
     <Comp
       data-slot="button"

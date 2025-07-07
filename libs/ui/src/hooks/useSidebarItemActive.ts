@@ -29,9 +29,9 @@ export function useSidebarItemsActive(
 }
 
 function isSidebarItemActive(item: SidebarItem, currentPath: string): boolean {
-  if (item.url === currentPath) return true;
+  if (currentPath.includes(item.url as string)) return true;
   if (item.items) {
-    return item.items.some((sub) => sub.url === currentPath);
+    return item.items.some((sub) => currentPath.includes(sub.url));
   }
   return false;
 }

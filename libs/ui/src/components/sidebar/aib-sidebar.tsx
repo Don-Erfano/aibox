@@ -31,6 +31,8 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
   const isCollapsed = state === 'collapsed';
   const sidebarDataWithActive = useSidebarItemsActive(sidebarData);
 
+  console.log(sidebarDataWithActive);
+
   return (
     <Sidebar
       {...props}
@@ -167,7 +169,7 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                           })}
                         >
                           {item.items?.map((subItem: SidebarSubItem) => (
-                            <SidebarMenuItem key={subItem.title}>
+                            <SidebarMenuItem key={subItem.url}>
                               <SidebarMenuButton
                                 asChild
                                 className={clsx(

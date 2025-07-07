@@ -1,11 +1,12 @@
 'use client';
 
+import axios from 'axios';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AiBoxTextIcon, Button, Form, RHFInput } from '@aibox/ui';
+import { AiBoxTextIcon, Button, Form, RHFInput, toast } from '@aibox/ui';
 
 import { strings } from '@/constant';
 import { HOME_ROUTES } from '@/routes';
@@ -21,8 +22,10 @@ interface IForm {
 
 const LoginPage: FC = () => {
   const { push } = useRouter();
-  const { mutateAsync, isPending } = useLoginMutation();
+
+  const { mutateAsync: loginMutation, isPending } = useLoginMutation();
   const { mutateAsync: profileMutation } = useGetUserProfile();
+
   const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
     defaultValues: {
@@ -33,7 +36,7 @@ const LoginPage: FC = () => {
 
   const submitHandler = async (data: IForm) => {
     try {
-      const response = await mutateAsync(data);
+      const response = await loginMutation(data);
       if (response.data.code === 'SUCCESS') {
         setCookie('refreshToken', response.data.data.token.refresh_token);
         await setCookie('token', response.data.data.token.access_token);
@@ -47,7 +50,9 @@ const LoginPage: FC = () => {
         }
       }
     } catch (e) {
-      console.error(e);
+      if (axios.isAxiosError(e)) {
+        toast.error(e.response?.data.error);
+      }
     }
   };
 
@@ -78,6 +83,7 @@ const LoginPage: FC = () => {
               variant="default"
               isFilled
               type="submit"
+              loading={isPending}
               disabled={isPending}
               size="full"
             >
