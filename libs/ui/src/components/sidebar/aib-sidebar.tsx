@@ -167,7 +167,7 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
                           })}
                         >
                           {item.items?.map((subItem: SidebarSubItem) => (
-                            <SidebarMenuItem key={subItem.title}>
+                            <SidebarMenuItem key={subItem.url}>
                               <SidebarMenuButton
                                 asChild
                                 className={clsx(
