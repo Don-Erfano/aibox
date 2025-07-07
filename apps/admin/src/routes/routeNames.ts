@@ -36,7 +36,7 @@ const routeNames: { [x: string]: string } = {
   [GPU_ROUTES.LOGS]: 'گزارش‌ها',
   [GPU_ROUTES.MOTHERBOARDS]: 'مادربرد‌ها',
   [GPU_ROUTES.SERVERS]: 'سرورها',
-  [GPU_ROUTES.SOURCE]: 'دسته‌بندی منابع',
+  [GPU_ROUTES.RESOURCE]: 'دسته‌بندی منابع',
   [MARKETING_ROUTES.CAMPAIGN]: 'کمپین‌ها',
   [MESSAGES_ROUTES.EMAIL]: 'ایمیل',
   [MESSAGES_ROUTES.NOTIFICAITONS]: 'اعلان',
