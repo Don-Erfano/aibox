@@ -103,6 +103,7 @@ export const getFacotrColumns = (
         variant: 'select',
         label: strings.user,
         options: users,
+        mobileVisible: true,
       },
       cell: ({ row }) => {
         const { email, prfoile_picture } = row.original.user;
@@ -145,6 +146,7 @@ export const getFacotrColumns = (
       id: 'created_at',
       cell: ({ getValue }) =>
         getValue() ? formatJalali(getValue() as string) : '—',
+      meta: { label: strings.createDate, mobileVisible: true },
     },
     {
       header: strings.dueDate,

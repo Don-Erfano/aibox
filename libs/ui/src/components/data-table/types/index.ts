@@ -132,6 +132,7 @@ declare module '@tanstack/react-table' {
     placeholder?: string;
     options?: Option[];
     icon?: React.ReactNode;
+    mobileVisible?: boolean;
   }
 }
 

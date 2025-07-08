@@ -392,6 +392,7 @@ const strings = {
     `با پاک کردن این مورد، بسته API «\u2066${apiName}\u2069» کاربر «\u2066${userName}\u2069» از بین خواهد رفت.`,
   deleteLogWithNumberDescription: (count: number) =>
     `شما ${count} مورد را انتخاب کرده‌اید، با پاک کردن این موارد تمامی بسته‌های API کاربران انتخاب شده از بین خواهد رفت.`,
+  inAwaitAction: 'در انتظار اقدام',
 };
 
 export default strings;
