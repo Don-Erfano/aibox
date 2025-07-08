@@ -37,16 +37,19 @@ export const LogoAvatarInput = <
     }
   }, [src, setPreview, mode]);
 
-  useEffect(
-    () => () => {
-      if (preview?.startsWith('blob:')) URL.revokeObjectURL(preview);
-    },
-    [preview]
-  );
+  useEffect(() => {
+    return () => {
+      if (preview?.startsWith('blob:')) {
+        URL.revokeObjectURL(preview);
+      }
+    };
+  }, [preview]);
 
   const handleFile = (
     file: File | undefined,
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+    onChange?:
+      | ((e: ChangeEvent<HTMLInputElement>) => void)
+      | ((value: unknown) => void)
   ) => {
     if (!file) return;
 
@@ -61,16 +64,14 @@ export const LogoAvatarInput = <
     setPreview(blobURL);
 
     if (onChange) {
-      const customEvent = {
-        target: { files: [file] },
-        currentTarget: { files: [file] },
-      } as unknown as ChangeEvent<HTMLInputElement>;
-      onChange(customEvent);
+      (onChange as (value: unknown) => void)(file);
     }
   };
 
   const renderAvatar = (
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
+    onChange?:
+      | ((e: ChangeEvent<HTMLInputElement>) => void)
+      | ((value: unknown) => void),
     error?: unknown
   ) => {
     const isInvalid = hasError || !!error;

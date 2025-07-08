@@ -50,9 +50,13 @@ export const Upload: Story = {
       defaultValues: { logo: '' },
     });
 
+    const onSubmit = (data: FormValues) => {
+      console.log('Submitted data:', data);
+    };
+
     return (
       <FormProvider {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <LogoAvatarInput<FormValues>
             {...(args as Omit<
               typeof args,
@@ -63,6 +67,9 @@ export const Upload: Story = {
             name="logo"
             onChange={args.onChange}
           />
+          <button type="submit" style={{ marginTop: '1rem' }}>
+            Submit
+          </button>
         </form>
       </FormProvider>
     );
