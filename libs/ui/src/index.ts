@@ -37,3 +37,4 @@ export * from './components/toast';
 export * from './components/form/editor';
 export * from './components/loading';
 export * from './components/form/toggle-switch';
+export * from './components/form/logo-avatar-input';
