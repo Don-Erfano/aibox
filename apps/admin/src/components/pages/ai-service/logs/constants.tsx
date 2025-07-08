@@ -26,7 +26,7 @@ export const getLogsTableColumns = ({
 }): ColumnDef<UsersApiPackage>[] => [
   {
     header: strings.userName,
-    id: 'user_id',
+    id: 'user',
     enableSorting: false,
     enableColumnFilter: true,
     meta: {
@@ -37,7 +37,7 @@ export const getLogsTableColumns = ({
     },
     accessorFn: ({ user }) => user,
     cell: ({ row }) => {
-      const { profile_picture, nick_name } = row.original.user;
+      const { profile_picture, email } = row.original.user;
       return (
         <div className="flex w-full items-center gap-2">
           <div className="size-8 flex justify-center items-center border border-zinc-800 rounded-full">
@@ -45,7 +45,7 @@ export const getLogsTableColumns = ({
               <Image
                 src={profile_picture}
                 style={{ borderRadius: '100%' }}
-                alt={nick_name}
+                alt={email}
                 width={20}
                 height={20}
               />
@@ -53,7 +53,7 @@ export const getLogsTableColumns = ({
               <CategoryIcon className="size-7 rounded-full bg-gray-300" />
             )}
           </div>
-          <p className="truncate max-w-32">{nick_name}</p>
+          <span>{email}</span>
         </div>
       );
     },

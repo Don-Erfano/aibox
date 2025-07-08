@@ -37,9 +37,12 @@ export const LogsTable = () => {
 
   const usersOptions = users?.data.data.users.map((user) => ({
     label: user.email,
-    value: user.email,
+    value: user.id,
   }));
-  const apisOptions = apis?.map((api) => ({ label: api.name, value: api.id }));
+  const apisOptions = apis?.map((api) => ({
+    label: api.name,
+    value: api.name,
+  }));
 
   const logsColumns = useMemo(
     () => getLogsTableColumns({ apisOptions, usersOptions }),
