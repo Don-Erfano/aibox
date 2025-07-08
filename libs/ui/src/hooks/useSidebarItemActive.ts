@@ -10,7 +10,6 @@ export function useSidebarItemsActive(
   sidebarData: SidebarItem[]
 ): SidebarItem[] {
   const pathname = usePathname();
-
   return sidebarData.map((item) => ({
     ...item,
     ...(item.items

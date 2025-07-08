@@ -319,7 +319,6 @@ const strings = {
   freeCount: 'تعداد آزاد',
   modelInfo: 'اطلاعات مدل',
   models: 'مدل‌ها',
-  usage: 'میزان استفاده',
   podName: 'نام pod',
   nodeName: 'نام node',
   nodes: 'nodها',
@@ -351,7 +350,7 @@ const strings = {
   confirm: 'تأیید',
   placeholderText: 'متن راهنما پیش‌فرض',
   transactionStatus: 'وضعیت تراکنش',
-  inAwaitAction:"در انتظار اقدام"
+  inAwaitAction: 'در انتظار اقدام',
 };
 
 export default strings;

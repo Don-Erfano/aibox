@@ -79,45 +79,94 @@ export function useTableColumns<T>(
 
     const opsCol: ColumnDef<T, any> = {
       id: 'actions',
-      header: actions ? 'عملیات' : undefined,
+      header: actions
+        ? () => (
+            <>
+              <span className="hidden md:inline">عملیات</span>
+            </>
+          )
+        : undefined,
       cell: ({ row }: { row: any }) =>
         actions ? (
-          <div className="flex gap-0.5 justify-center">
-            {actions.onEdit && (
-              <Button
-                tooltip="ویرایش"
-                aria-label="Edit"
-                variant="ghost"
-                onClick={() => actions.onEdit!(row.original)}
-                size="icon"
-              >
-                <SquarePen strokeWidth={1.5} className="size-5" />
-              </Button>
-            )}
-            {actions.onDelete && (
-              <Button
-                tooltip="حذف"
-                aria-label="Delete"
-                variant="ghost"
-                onClick={() => actions.onDelete!(row.original)}
-                size="icon"
-              >
-                <Trash strokeWidth={1.5} className="size-5" />
-              </Button>
-            )}
-            {actions.customActions?.map((action, idx) => (
-              <Button
-                aria-label={action.label}
-                key={idx}
-                size="icon"
-                variant="ghost"
-                tooltip={action.label}
-                onClick={() => action.onClick(row.original)}
-              >
-                {action.icon}
-              </Button>
-            ))}
-          </div>
+          <>
+            {/* Desktop version - Icon buttons with tooltips */}
+            <div className="hidden md:block">
+              <div className="flex gap-0.5 justify-center">
+                {actions.onEdit && (
+                  <Button
+                    tooltip="ویرایش"
+                    aria-label="Edit"
+                    variant="ghost"
+                    onClick={() => actions.onEdit!(row.original)}
+                    size="icon"
+                  >
+                    <SquarePen strokeWidth={1.5} className="size-5" />
+                  </Button>
+                )}
+                {actions.onDelete && (
+                  <Button
+                    tooltip="حذف"
+                    aria-label="Delete"
+                    variant="ghost"
+                    onClick={() => actions.onDelete!(row.original)}
+                    size="icon"
+                  >
+                    <Trash strokeWidth={1.5} className="size-5" />
+                  </Button>
+                )}
+                {actions.customActions?.map((action, idx) => (
+                  <Button
+                    key={idx}
+                    tooltip={action.label}
+                    aria-label={action.label}
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => action.onClick(row.original)}
+                  >
+                    {action.icon}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile version - Full width buttons with text */}
+            <div className="md:hidden w-full flex flex-col gap-2">
+              {actions.onEdit && (
+                <Button
+                  variant="outline"
+                  onClick={() => actions.onEdit!(row.original)}
+                  className="w-full gap-2 h-8 text-xs"
+                  size="sm"
+                >
+                  <SquarePen strokeWidth={1.5} className="size-4" />
+                  ویرایش
+                </Button>
+              )}
+              {actions.onDelete && (
+                <Button
+                  variant="outline"
+                  onClick={() => actions.onDelete!(row.original)}
+                  className="w-full gap-2 h-8 text-xs"
+                  size="sm"
+                >
+                  <Trash strokeWidth={1.5} className="size-4" />
+                  حذف
+                </Button>
+              )}
+              {actions.customActions?.map((action, idx) => (
+                <Button
+                  key={idx}
+                  variant="outline"
+                  onClick={() => action.onClick(row.original)}
+                  className="w-full gap-2 h-8 text-xs"
+                  size="sm"
+                >
+                  {action.icon}
+                  {action.label}
+                </Button>
+              ))}
+            </div>
+          </>
         ) : null,
       size: 120,
     };
