@@ -15,7 +15,7 @@ export default function DashboardLayout({
         <Header />
         <AIBSidebar sidebarData={sidebarData} />
       </SidebarProvider>
-      <div className="w-full py-[84px] 2xl:py-[88px] overflow-auto h-screen">
+      <div className="w-full my-[84px] 2xl:my-[88px] overflow-auto h-screen px-4 sm:px-8 md:px-16 lg:px-8 2xl:px-11">
         {children}
       </div>
     </div>
