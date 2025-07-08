@@ -25,15 +25,16 @@ export const getLogsTableColumns = ({
   apisOptions?: Option[];
 }): ColumnDef<UsersApiPackage>[] => [
   {
-    header: '',
-    id: 'select_log',
-  },
-  {
     header: strings.userName,
     id: 'user_id',
     enableSorting: false,
     enableColumnFilter: true,
-    meta: { label: strings.userName, options: usersOptions, variant: 'select' },
+    meta: {
+      label: strings.userName,
+      options: usersOptions,
+      variant: 'select',
+      mobileVisible: true,
+    },
     accessorFn: ({ user }) => user,
     cell: ({ row }) => {
       const { profile_picture, nick_name } = row.original.user;
@@ -62,7 +63,12 @@ export const getLogsTableColumns = ({
     id: 'api__name',
     enableSorting: false,
     enableColumnFilter: true,
-    meta: { label: strings.apiName, options: apisOptions, variant: 'select' },
+    meta: {
+      label: strings.apiName,
+      options: apisOptions,
+      variant: 'select',
+      mobileVisible: true,
+    },
     accessorFn: (row) => row.package.api,
   },
   {

@@ -71,7 +71,7 @@ export const LogsTable = () => {
     return <DataTableSkeleton columnCount={10} />;
 
   return (
-    <>
+    <div className="px-11 py-10">
       <DeleteLogsModal modal={modal} toggleModal={setModal} />
       <TableToolbar
         table={table}
@@ -108,6 +108,6 @@ export const LogsTable = () => {
           </DataTableActionBar>
         }
       />
-    </>
+    </div>
   );
 };
