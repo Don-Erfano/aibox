@@ -3,6 +3,7 @@ import {
   ICreateMassNotificationResponse,
   IDeleteMassNotificationMessagePathParams,
   IDeleteMassNotificationMessageResponse,
+  IGetMassNotificationByIdResponse,
   IGetMassNotificationCategoriesResponse,
   IGetMassNotificationsRequest,
   IGetMassNotificationsResponse,
@@ -96,6 +97,19 @@ export default class MassNotificationsService extends AbstractAPI {
       method: 'PUT',
       url: `${this.url}/${id}/`,
       data: payload,
+    });
+  }
+
+  public async getMassNotificationById(
+    id: string
+  ): Promise<
+    AxiosResponse<INetworkResponse<IGetMassNotificationByIdResponse>>
+  > {
+    return this.http.request<
+      INetworkResponse<IGetMassNotificationByIdResponse>
+    >({
+      method: 'GET',
+      url: `${this.url}/${id}/`,
     });
   }
 }

@@ -75,6 +75,30 @@ export interface IUpdateMassNotificationRequest {
   message_text: string;
 }
 
+export interface IGetMassNotificationByIdResponse {
+  id: string;
+  user: {
+    id: string;
+    email: string;
+    role: string;
+  }[];
+  subject: string;
+  name: string;
+  from_time: string;
+  to_time: string;
+  status: string;
+  category: {
+    id: string;
+    name: string;
+  };
+  message: {
+    id: string;
+    title: string;
+    message: string;
+  };
+  user_group: string;
+}
+
 export type IDeleteMassNotificationMessageResponse = Record<string, never>;
 
 export interface IGetMassNotificationsResponse extends IPaginationMeta {

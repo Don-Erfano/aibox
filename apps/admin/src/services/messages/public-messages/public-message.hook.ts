@@ -10,6 +10,7 @@ import {
   ICreateMassNotificationResponse,
   IDeleteMassNotificationMessagePathParams,
   IDeleteMassNotificationMessageResponse,
+  IGetMassNotificationByIdResponse,
   IGetMassNotificationCategoriesResponse,
   IGetMassNotificationsRequest,
   IGetMassNotificationsResponse,
@@ -196,4 +197,31 @@ export const useDeleteMassNotification = () => {
       queryClient.invalidateQueries({ queryKey: ['massNotifications'] });
     },
   });
+};
+
+export const useGetMassNotificationById = (id: string, enabled = true) => {
+  const {
+    data: massNotification,
+    isLoading,
+    isFetching,
+    refetch,
+    error,
+  } = useQuery<IGetMassNotificationByIdResponse, Error>({
+    queryKey: ['massNotification', id],
+    queryFn: async () => {
+      const response = await massNotificationsService.getMassNotificationById(
+        id
+      );
+      return response.data.data;
+    },
+    enabled: enabled && !!id,
+  });
+
+  return {
+    massNotification,
+    isLoading,
+    isFetching,
+    refetch,
+    error,
+  };
 };

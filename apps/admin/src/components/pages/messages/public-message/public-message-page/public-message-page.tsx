@@ -20,6 +20,7 @@ import { strings } from '@/constant';
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { DeleteMessageModal } from '@/components/pages/messages/components/delete-message-modal';
+import { MESSAGES_ROUTES } from '@/routes';
 
 const PublicMessagePage: FC = () => {
   const router = useRouter();
@@ -50,13 +51,13 @@ const PublicMessagePage: FC = () => {
           setIsDeleteModalOpen(true);
         },
         onEdit: (row) => {
-          router.push(`/dashboard/messages/add-public-message/${row.id}`);
+          router.push(`${MESSAGES_ROUTES.ADD_PUBLIC_MESSAGE}/${row.id}`);
         },
       },
     });
 
   const handleAddPublicMessage = () => {
-    router.push('messages/add-public-message');
+    router.push(MESSAGES_ROUTES.ADD_PUBLIC_MESSAGE);
   };
 
   const handleConfirmDelete = () => {
@@ -67,7 +68,7 @@ const PublicMessagePage: FC = () => {
           onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['massNotifications'] });
             setIsDeleteModalOpen(false);
-            toast.success('پیام با موفقیت حذف شد');
+            toast.success(strings.messageDeled);
           },
         }
       );

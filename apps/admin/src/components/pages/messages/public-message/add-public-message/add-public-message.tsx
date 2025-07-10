@@ -3,7 +3,7 @@
 import { FC, useEffect, useState, useMemo } from 'react';
 import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import DropDownSelect from '@/components/pages/messages/components/drop-down-select/drop-down-select';
 import { DefaultMessage } from '@/components/pages/messages/components/default-message';
 import {
@@ -23,6 +23,8 @@ import {
 } from './schema';
 import {
   useCreateMassNotification,
+  useUpdateMassNotification,
+  useGetMassNotificationById,
   useGetMassNotificationCategories,
   ICreateMassNotificationRequest,
   ICategory,
@@ -33,9 +35,12 @@ import { CustomMessage } from '@/components/pages/messages/components/custom-mes
 import { useGetCategories, useGetContentMessages } from '@/services';
 import { CustomMessageValues } from '@/components/pages/messages/components/custom-message/interface';
 import { NotifMessage } from './interface';
+import { MESSAGES_ROUTES } from '@/routes';
 
 const AddPublicMessagePage: FC = () => {
   const router = useRouter();
+  const { id } = useParams();
+  const isEditMode = !!id;
 
   const form = useForm<PublicMessageSchemaType>({
     resolver: zodResolver(publicMessageSchema),
@@ -44,6 +49,7 @@ const AddPublicMessagePage: FC = () => {
   });
 
   const { control, handleSubmit, reset } = form;
+
   const { isSubmitting, isValid } = useFormState({ control });
 
   const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
@@ -53,6 +59,11 @@ const AddPublicMessagePage: FC = () => {
   const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
 
   const createMassNotificationMutation = useCreateMassNotification();
+  const updateMassNotificationMutation = useUpdateMassNotification(
+    id as string
+  );
+  const { massNotification: massNotification, isLoading } =
+    useGetMassNotificationById(id as string, isEditMode);
   const {
     data: massNotificationCategories = { data: { category: [] } },
     isLoading: categoriesLoading,
@@ -63,12 +74,37 @@ const AddPublicMessagePage: FC = () => {
 
   useEffect(() => {
     setSelectedMessageIds([]);
-  }, [selectedValue]);
+    setCustomMessageValues(['']);
+  }, [useDropdown]);
 
   useEffect(() => {
     setSelectedMessageIds([]);
-    setCustomMessageValues(['']);
-  }, [useDropdown]);
+  }, [selectedValue]);
+
+  useEffect(() => {
+    if (massNotification && notifMessages) {
+      const isPredefinedMessage = notifMessages.some(
+        (msg) => msg.id === massNotification.message.id
+      );
+
+      if (isPredefinedMessage) {
+        setSelectedMessageIds([massNotification.message.id]);
+        setUseDropdown(true);
+      } else {
+        setCustomMessageValues([massNotification.message.message]);
+        setUseDropdown(false);
+      }
+
+      reset({
+        recivers: massNotification.user.map((u) => u.id).join(',') || 'all',
+        message_subject: massNotification.subject,
+        message_group: massNotification.name,
+        category: massNotification.category.id,
+        date_from: [massNotification.from_time],
+        date_to: [massNotification.to_time],
+      });
+    }
+  }, [massNotification, notifMessages, reset]);
 
   const userOptions = [
     { value: 'all', label: 'همه کاربران' },
@@ -141,25 +177,44 @@ const AddPublicMessagePage: FC = () => {
         notif_type: 'in_header',
       };
 
-      const response = await createMassNotificationMutation.mutateAsync(
-        payload
-      );
-      if (response?.detail) {
-        toast.success(response.detail);
+      if (isEditMode) {
+        await updateMassNotificationMutation.mutateAsync(payload);
+      } else {
+        const response = await createMassNotificationMutation.mutateAsync(
+          payload
+        );
+        if (response?.detail) {
+          toast.success(response.detail);
+        }
       }
-      router.push('/dashboard/messages');
+
+      router.push(MESSAGES_ROUTES.PUBLIC_MESSAGE);
     } catch (error: any) {
-      toast.error(error.response.error);
+      toast.error(error.response?.error);
     }
   };
 
   const handleCancel = () => {
     reset();
-    router.push('/dashboard/messages');
+    router.push(MESSAGES_ROUTES.PUBLIC_MESSAGE);
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <p>در حال بارگذاری...</p>
+      </div>
+    );
+  }
+
   return (
-    <FormContainer title={strings.add_new_public_message}>
+    <FormContainer
+      title={
+        isEditMode
+          ? strings.edit_new_public_message
+          : strings.add_new_public_message
+      }
+    >
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
@@ -178,7 +233,7 @@ const AddPublicMessagePage: FC = () => {
               name="message_subject"
               label={strings.messageSubject}
               control={control}
-              placeholder="متن نوشته شده"
+              placeholder="متن نوشته شده.."
             />
 
             <RHFInput
@@ -279,7 +334,11 @@ const AddPublicMessagePage: FC = () => {
               type="submit"
               disabled={isSubmitting || !isValid}
             >
-              {isSubmitting ? 'در حال ارسال...' : strings.submit}
+              {isSubmitting
+                ? 'در حال ارسال...'
+                : isEditMode
+                ? strings.edit
+                : strings.submit}
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>
               {strings.cancel_operation}

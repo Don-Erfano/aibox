@@ -66,6 +66,7 @@ const MESSAGES_ROUTES = {
   NOTIFICAITONS: `${MESSAGES_BASE_ROUTE}/?tab=notifications`,
   SMS: `${MESSAGES_BASE_ROUTE}/?tab=sms`,
   PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/?tab=public-message`,
+  ADD_PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-public-message`,
   DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message`,
 };
 
