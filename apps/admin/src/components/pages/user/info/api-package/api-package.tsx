@@ -9,20 +9,20 @@ import { RowChild } from './row-child';
 import { USERAPIPACKAGES } from './constant';
 
 const ApiPackage: FC<{ id: string }> = ({ id }) => {
-  const { data, isFetching, isLoading, refetch } = useGetUserApiPackage(id);
+  const { packages, totalItems, totalPages, isFetching, isLoading, refetch } =
+    useGetUserApiPackage(id);
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
-    data: data?.data.data.list || [],
+    data: packages,
     enableExpand: true,
     columns: USERAPIPACKAGES,
-    pageCount: data?.data.data.page_count || 0,
+    pageCount: totalPages,
   });
-  if (!data || isFetching || isLoading) return <p>Loading...</p>;
   return (
     <>
       <TableToolbar
         title={strings.apisList}
-        totalItems={data?.data.data.total_count || 0}
+        totalItems={totalItems}
         table={table}
         refreshLoading={isLoading || isFetching}
         refetch={refetch}
