@@ -117,13 +117,23 @@ export function useTableColumns<T>(
                 {actions.customActions?.map((action, idx) => (
                   <Button
                     key={idx}
-                    tooltip={action.label}
-                    aria-label={action.label}
+                    tooltip={
+                      typeof action.label === 'function'
+                        ? action.label(row.original)
+                        : action.label
+                    }
+                    aria-label={
+                      typeof action.label === 'function'
+                        ? action.label(row.original)
+                        : action.label
+                    }
                     size="icon"
                     variant="ghost"
                     onClick={() => action.onClick(row.original)}
                   >
-                    {action.icon}
+                    {typeof action.icon === 'function'
+                      ? action.icon(row.original)
+                      : action.icon}
                   </Button>
                 ))}
               </div>
@@ -160,9 +170,14 @@ export function useTableColumns<T>(
                   onClick={() => action.onClick(row.original)}
                   className="w-full gap-2 h-8 text-xs"
                   size="sm"
+                  disabled={action.disabled}
                 >
-                  {action.icon}
-                  {action.label}
+                  {typeof action.icon === 'function'
+                    ? action.icon(row.original)
+                    : action.icon}
+                  {typeof action.label === 'function'
+                    ? action.label(row.original)
+                    : action.label}
                 </Button>
               ))}
             </div>
