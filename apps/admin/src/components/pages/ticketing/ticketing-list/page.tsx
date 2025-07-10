@@ -90,7 +90,7 @@ export const TicketingPage: FC = () => {
   };
 
   const handleAddTicket = () => {
-    router.push(SUPPORT_ROUTES.TICKETING);
+    router.push(SUPPORT_ROUTES.ADD_TICKET);
   };
 
   const onSubmit: SubmitHandler<AssignTicketFormValues> = (data) => {
@@ -136,7 +136,8 @@ export const TicketingPage: FC = () => {
         {
           label: 'ایجاد تیکت',
           icon: <MessagesSquare className="size-5" />,
-          onClick: (row) => console.log(`${row.id} ${row.status}`),
+          onClick: (row) =>
+            router.push(`${SUPPORT_ROUTES.TICKETING}/${row.id}`),
         },
         {
           label: 'بستن تیکت',

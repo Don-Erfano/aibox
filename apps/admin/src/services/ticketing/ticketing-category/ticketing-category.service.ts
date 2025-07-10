@@ -3,6 +3,8 @@ import {
   IGetTicketingCategoryRequestPayload,
   IGetTicketingCategoryResponsePayload,
   IGetUserApisResponsePayload,
+  IUpdateTicketingCategoryRequestPayload,
+  IUpdateTicketingCategoryResponsePayload,
 } from './interface';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 
@@ -29,6 +31,19 @@ export default class TicketingCategoryService extends AbstractAPI {
     return this.http.request({
       method: 'GET',
       url,
+    });
+  }
+
+  public async updateCategory(
+    id: string,
+    data: IUpdateTicketingCategoryRequestPayload
+  ): Promise<
+    AxiosResponse<INetworkResponse<IUpdateTicketingCategoryResponsePayload>>
+  > {
+    return this.http.request({
+      method: 'PUT',
+      url: `${this.url}/${id}/`,
+      data,
     });
   }
 }

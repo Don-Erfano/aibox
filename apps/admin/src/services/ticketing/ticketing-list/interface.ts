@@ -2,6 +2,16 @@ import { IPaginationMeta } from '@aibox/services';
 
 export type TicketStatus = 'opened' | 'closed';
 export type TicketLevel = 'low' | 'medium' | 'high';
+export type TicketStatusName = 'admin_answer' | 'user_answer' | 'closed';
+
+export interface ITicketMessage {
+  id: string;
+  body: string;
+  author_id: string;
+  created_at: string;
+  attachments: string;
+  seen: boolean;
+}
 
 export interface ITicket {
   id: string;
@@ -13,7 +23,14 @@ export interface ITicket {
   level: TicketLevel;
   unseen_messages: number;
   user_id: string;
+  operator: string;
+  user: string;
   operator_id: string;
+}
+
+export interface ITicketWithLastMessage extends ITicket {
+  last_message: ITicketMessage;
+  status_name: TicketStatusName;
 }
 
 export interface IAnswerAdmin {
@@ -34,7 +51,9 @@ export interface IGetTicketListRequest {
   created_at__lte?: string;
   created_at__gte?: string;
   user_id?: string;
+  user: string;
   operator_id?: string;
+  operator: string;
   question_key?: number;
   question_value?: number;
   page_size?: number;
@@ -45,6 +64,11 @@ export interface IGetTicketListRequest {
 
 export interface IGetTicketListResponse extends IPaginationMeta {
   data: ITicket[];
+}
+
+// get all tickets
+export interface IGetAllTicketsResponse {
+  results: ITicketWithLastMessage[];
 }
 
 // add ticket
@@ -79,3 +103,67 @@ export interface IUpdateTicketStatusRequest {
 export type IUpdateTicketStatusResponsePayload = {
   status: TicketStatus;
 };
+
+export interface IUpdateTicketCategoryRequest {
+  category: string;
+  answers?: IAnswerAdmin[] | null;
+}
+
+export interface IUpdateTicketCategoryPathParams {
+  id: string;
+}
+
+export interface IUpdateTicketCategoryPayload {
+  data: IUpdateTicketCategoryRequest;
+}
+
+export type IUpdateTicketCategoryResponse = ITicket;
+
+export interface ITicketMessage {
+  id: string;
+  body: string;
+  author_id: string;
+  created_at: string;
+  attachments: string;
+  seen: boolean;
+}
+
+export interface ITicketDetail {
+  id: string;
+  category: string;
+  subject: string;
+  level: TicketLevel;
+  operator_id: string;
+  operator_avatar: string;
+  status: TicketStatus;
+  messages: ITicketMessage[];
+  user_id: string;
+  operator: string;
+  user: string;
+  user_avatar: string;
+  answer: string;
+  is_editable: boolean;
+}
+
+export interface IGetTicketDetailPathParams {
+  id: string;
+}
+
+export interface IGetTicketDetailResponse {
+  data: ITicketDetail;
+}
+
+export interface IAnswerTicketRequest {
+  body: string;
+  attachments?: string | null;
+}
+
+export interface IAnswerTicketPathParams {
+  id: string;
+}
+
+export interface IAnswerTicketPayload {
+  data: IAnswerTicketRequest;
+}
+
+export type IAnswerTicketResponse = ITicketMessage;
