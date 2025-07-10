@@ -66,13 +66,14 @@ const MESSAGES_ROUTES = {
   NOTIFICAITONS: `${MESSAGES_BASE_ROUTE}/?tab=notifications`,
   SMS: `${MESSAGES_BASE_ROUTE}/?tab=sms`,
   PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/?tab=public-message`,
+  DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message`,
 };
 
 const SUPPORT_ROUTES = {
   FAQ: `${SUPPORT_BASE_ROUTE}/faq`,
   TERMS_AND_POLICIES: `${SUPPORT_BASE_ROUTE}/terms-and-policies`,
   TICKETING: `${SUPPORT_BASE_ROUTE}/ticketing`,
-  ADD_TICKETING: `${SUPPORT_BASE_ROUTE}/ticketing/add`,
+  ADD_TICKET: `${SUPPORT_BASE_ROUTE}/ticketing/add-ticket`,
 };
 
 const USERS_ROUTES = {
