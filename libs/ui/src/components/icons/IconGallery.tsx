@@ -27,6 +27,7 @@ import {
   SuccessIcon,
   DepositIcon,
   WithdrawIcon,
+  SecondNoDataIcon,
 } from './index';
 
 type IconEntry = {
@@ -88,6 +89,7 @@ const IconGallery: FC = () => {
     { Component: SuccessIcon, name: 'SuccessIcon' },
     { Component: DepositIcon, name: 'DepositIcon' },
     { Component: WithdrawIcon, name: 'WithdrawIcon' },
+    { Component: SecondNoDataIcon, name: 'SecondNoDataIcon' },
   ];
 
   return (

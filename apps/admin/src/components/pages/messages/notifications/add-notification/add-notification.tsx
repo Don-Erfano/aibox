@@ -1,0 +1,253 @@
+'use client';
+
+import { FC, useState } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import DropDownSelect from '@/components/pages/messages/components/drop-down-select/drop-down-select';
+import { DefaultMessage } from '@/components/pages/messages/components/default-message';
+import {
+  Button,
+  Form,
+  RHFAutocomplete,
+  RHFInput,
+  DatePicker,
+  Switch,
+} from '@aibox/ui';
+import { FormContainer, FormWrapper } from '@/components';
+import {
+  defaultValues,
+  NotificationSchemaType,
+  NotificationSchema,
+} from './schema';
+import { CustomMessage } from '@/components/pages/messages/components/custom-message';
+import { strings } from '@/constant';
+
+interface MessageItem {
+  id: string;
+  category_title: string;
+  title_number: number;
+  message: string;
+}
+
+const defaultMessages: MessageItem[] = [
+  {
+    id: 'msg1',
+    category_title: 'عمومی',
+    title_number: 1,
+    message:
+      'این یک پیام عمومی است. شما می‌توانید این متن را برای تست نمایش پیام جایگزین کنید.',
+  },
+  {
+    id: 'msg2',
+    category_title: 'عمومی',
+    title_number: 2,
+    message:
+      'این یک پیام مالی است. محتوا می‌تواند حاوی توصیه‌های مالی یا اطلاعیه‌های بانکی باشد.',
+  },
+  {
+    id: 'msg3',
+    category_title: 'عمومی',
+    title_number: 3,
+    message:
+      'این پیام تبلیغاتی است. از این فیلد برای نمایش تخفیف‌ها یا اطلاعیه‌های تبلیغاتی استفاده کنید.',
+  },
+  {
+    id: 'msg4',
+    category_title: 'عمومی',
+    title_number: 4,
+    message:
+      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
+  },
+  {
+    id: 'msg5',
+    category_title: 'عمومی',
+    title_number: 5,
+    message:
+      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
+  },
+  {
+    id: 'msg6',
+    category_title: 'عمومی',
+    title_number: 6,
+    message:
+      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
+  },
+];
+
+const AddNotificationPage: FC = () => {
+  const router = useRouter();
+
+  const form = useForm<NotificationSchemaType>({
+    resolver: zodResolver(NotificationSchema),
+    defaultValues,
+  });
+
+  const { control, handleSubmit, reset } = form;
+
+  const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const [useDropdown, setUseDropdown] = useState(true);
+  const [customText] = useState('');
+
+  const toggleSelection = (id: string, isNowChecked: boolean) => {
+    setSelectedIds((prev) =>
+      isNowChecked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id)
+    );
+  };
+
+  const onSubmit: SubmitHandler<NotificationSchemaType> = (data) => {
+    console.log('Submitted Form Data:', {
+      ...data,
+      selectedMessages: selectedIds,
+      defaultMessageType: useDropdown ? 'preset' : 'custom',
+      customMessage: useDropdown ? undefined : customText,
+    });
+  };
+
+  const handleCancel = () => {
+    reset();
+    router.push('/dashboard/messages');
+  };
+
+  return (
+    <FormContainer title={strings.add_new_notif_message}>
+      <Form {...form}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <FormWrapper>
+            <RHFAutocomplete
+              name="recivers"
+              control={control}
+              label={strings.recivers}
+              placeholder={strings.selectRecivers}
+              options={[
+                { value: 'all_users', label: 'همه کاربران' },
+                { value: 'group_a', label: 'گروه A' },
+              ]}
+              variant="single"
+              mode="light"
+            />
+            <RHFInput
+              name="message_subject"
+              label={strings.notifSubject}
+              control={control}
+              placeholder="متن نوشته شده"
+            />
+
+            <RHFInput
+              name="message_group"
+              label={strings.notifGroupName}
+              control={control}
+              placeholder={strings.notifGroupName}
+            />
+
+            <RHFAutocomplete
+              name="category"
+              control={control}
+              label={strings.category}
+              placeholder={strings.selectCategory}
+              options={[
+                { value: 'selected_category', label: 'گزینه انتخاب شده' },
+                { value: 'finance', label: 'مالی' },
+              ]}
+              variant="single"
+              mode="light"
+            />
+
+            <Controller
+              control={control}
+              name="date_from"
+              render={({ field }) => (
+                <DatePicker
+                  label={strings.sendDateFrom}
+                  value={[field.value]}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <RHFInput
+              name="time_from"
+              label={strings.sendTimeFrom}
+              control={control}
+              type="time"
+            />
+            <Controller
+              control={control}
+              name="date_to"
+              render={({ field }) => (
+                <DatePicker
+                  label={strings.sendDateTo}
+                  value={[field.value]}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <RHFInput
+              name="time_to"
+              label={strings.sendTimeTo}
+              control={control}
+              type="time"
+            />
+          </FormWrapper>
+
+          <div className="max-w-[1376px] w-full !mx-auto flex justify-between items-center mt-10">
+            <div className="space-x-4 flex items-center">
+              <p className="text-sm font-medium text-gray-700">
+                {strings.default_message}
+              </p>
+              <Switch
+                checked={useDropdown}
+                onCheckedChange={setUseDropdown}
+                withIcon
+                size="lg"
+                variant="primary"
+              />
+            </div>
+            <DropDownSelect
+              options={[
+                { value: 'all', label: strings.all },
+                { value: 'public', label: strings.general },
+                { value: 'financial', label: strings.accounting },
+                { value: 'commercial', label: strings.advertising },
+                { value: 'invitation', label: strings.invite },
+              ]}
+              value={selectedValue}
+              onChange={(val) => setSelectedValue(val)}
+              className="text-sm rounded-md"
+              triggerSize="h-6 min-w-14"
+            />
+          </div>
+
+          <div className="max-w-[1376px] w-full !mx-auto mt-6 flex space-x-6 overflow-x-auto">
+            {useDropdown ? (
+              defaultMessages.map((item) => (
+                <DefaultMessage
+                  key={item.id}
+                  category_title={item.category_title}
+                  title_number={item.title_number}
+                  message={item.message}
+                  checked={selectedIds.includes(item.id)}
+                  onToggle={(checked) => toggleSelection(item.id, checked)}
+                />
+              ))
+            ) : (
+              <CustomMessage />
+            )}
+          </div>
+
+          <div className="flex gap-5 justify-center mt-12">
+            <Button size="lg" isFilled type="submit">
+              {strings.submit}
+            </Button>
+            <Button size="lg" type="button" onClick={handleCancel}>
+              {strings.cancel_operation}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </FormContainer>
+  );
+};
+
+export default AddNotificationPage;

@@ -277,7 +277,7 @@ export function DataTable<TData>({
                               isRowExpanded ? 'border-gray-400' : ''
                             )}
                           >
-                            <div className="space-y-3 w-full">
+                            <div className="space-y-3 w-full truncate">
                               {ChildComponent && (
                                 <ChildComponent row={row.original} />
                               )}

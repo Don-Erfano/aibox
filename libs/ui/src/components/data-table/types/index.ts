@@ -42,6 +42,16 @@ export interface ArrayCellProps {
   maxVisible?: number;
 }
 
+export interface TableRowField<T> {
+  label: string;
+  key: keyof T;
+}
+
+export interface TableRowDetailsProps<T> {
+  data: T;
+  fields: TableRowField<T>[];
+}
+
 export enum EFilterTableNameIcon {
   FILTER = 'filter',
   SEARCH = 'search',
@@ -103,9 +113,10 @@ export interface TableViewOptionsProps<TData> {
 }
 
 export type CustomAction<T> = {
-  icon: React.ReactElement;
-  label: string;
+  icon: React.ReactElement | ((row: T) => React.ReactElement);
+  label: string | ((row: T) => string);
   onClick: (row: T) => void;
+  disabled?: boolean;
 };
 
 export type actionsProps<T> = {

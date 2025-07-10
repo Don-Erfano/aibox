@@ -35,6 +35,7 @@ export interface IUserApi {
   all_version: string[];
   is_editable: boolean;
 }
+
 export interface RawUserApi {
   id: string;
   name: string;
@@ -43,4 +44,22 @@ export interface RawUserApi {
 
 export interface IGetUserApisResponsePayload {
   apis: IUserApi[];
+}
+
+export interface ICategoryQuestion {
+  text: string;
+  parent: string;
+  key: string;
+  api: string;
+}
+
+export interface IUpdateTicketingCategoryRequestPayload {
+  questions: ICategoryQuestion[];
+  name: string;
+  logo: string;
+}
+
+export interface IUpdateTicketingCategoryResponsePayload {
+  message: string;
+  data: ITicketingCategory;
 }

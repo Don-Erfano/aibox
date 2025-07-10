@@ -31,8 +31,6 @@ export const AIBSidebar = ({ sidebarData, ...props }: AibSidebarProps) => {
   const isCollapsed = state === 'collapsed';
   const sidebarDataWithActive = useSidebarItemsActive(sidebarData);
 
-  console.log(sidebarDataWithActive);
-
   return (
     <Sidebar
       {...props}
