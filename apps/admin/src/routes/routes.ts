@@ -65,6 +65,7 @@ const MESSAGES_ROUTES = {
   EMAIL: `${MESSAGES_BASE_ROUTE}/email`,
   NOTIFICAITONS: `${MESSAGES_BASE_ROUTE}/notifications`,
   SMS: `${MESSAGES_BASE_ROUTE}/sms`,
+  DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message`,
 };
 
 const SUPPORT_ROUTES = {

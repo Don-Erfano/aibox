@@ -1,7 +1,12 @@
 'use client';
 import { FC } from 'react';
 import { Tab } from '@aibox/ui';
-import { PublicMessagePage } from '@/components/pages/messages/index';
+import {
+  EmailListPage,
+  NotificationListPage,
+  PublicMessagePage,
+  SmsListPage,
+} from '@/components/pages/messages/index';
 import { strings } from '@/constant';
 
 const MessagesPage: FC = () => {
@@ -9,23 +14,17 @@ const MessagesPage: FC = () => {
     {
       id: 'emails',
       name: strings.emails,
-      content: (
-        <div className="p-4 text-gray-700">این قسمت مربوط به پیامک‌هاست.</div>
-      ),
+      content: <EmailListPage />,
     },
     {
       id: 'sms',
       name: strings.sms,
-      content: (
-        <div className="p-4 text-gray-700">این قسمت مربوط به پیامک‌هاست.</div>
-      ),
+      content: <SmsListPage />,
     },
     {
       id: 'notifications',
       name: strings.notifications,
-      content: (
-        <div className="p-4 text-gray-700">این قسمت مربوط به اعلان‌هاست.</div>
-      ),
+      content: <NotificationListPage />,
     },
     {
       id: 'public-message',
