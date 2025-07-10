@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button, DeleteFactorIcon, Modal } from '@aibox/ui';
+import { Button, ModalDeleteIcon, Modal } from '@aibox/ui';
 import { strings } from '@/constant';
 import { DeleteMessageModalProps } from './interface';
 
@@ -14,7 +14,7 @@ const DeleteMessageModal: FC<DeleteMessageModalProps> = ({
     <Modal
       open={isOpen}
       onOpenChange={(open) => onOpenChange?.(open)}
-      headerIcon={<DeleteFactorIcon />}
+      headerIcon={<ModalDeleteIcon />}
     >
       <div className="flex flex-col justify-between items-center">
         <span className="text-slate-950 text-sm/6 font-medium">

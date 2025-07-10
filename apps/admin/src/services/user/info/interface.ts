@@ -69,6 +69,7 @@ interface IGetUserApiPackageRequestPayload {
 }
 
 interface IGetUserGpuPckageResponsePayload {
+  [x: string]: any;
   list: {
     id: string;
     payment_type: string;

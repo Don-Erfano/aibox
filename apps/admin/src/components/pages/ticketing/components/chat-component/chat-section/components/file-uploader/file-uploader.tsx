@@ -20,7 +20,6 @@ const FileUploader: FC<FileUploaderProps> = ({
     null
   );
   const [comment, setComment] = useState('');
-  const [uploadedFileId, setUploadedFileId] = useState<string | null>(null);
 
   const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
   const isProcessing = isUploading || isAnswering;
@@ -62,7 +61,6 @@ const FileUploader: FC<FileUploaderProps> = ({
         comment: '',
       });
       setComment('');
-      setUploadedFileId(null);
       setIsModalOpen(true);
 
       if (fileInputRef.current) {
@@ -78,7 +76,6 @@ const FileUploader: FC<FileUploaderProps> = ({
       setSelectedFile(null);
     }
     setComment('');
-    setUploadedFileId(null);
   };
 
   const handleSendFile = async () => {
@@ -92,7 +89,6 @@ const FileUploader: FC<FileUploaderProps> = ({
       uploadFile(formData, {
         onSuccess: (uploadResponse) => {
           const fileId = uploadResponse.id;
-          setUploadedFileId(fileId);
           answerTicket(
             {
               path: { id: ticketId },
