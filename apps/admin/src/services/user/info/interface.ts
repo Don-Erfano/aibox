@@ -69,53 +69,57 @@ interface IGetUserApiPackageRequestPayload {
 }
 
 interface IGetUserGpuPckageResponsePayload {
-  id: '2c7be942-0278-4f79-96ba-08768d41a0d2';
-  payment_type: 'ساعتی';
-  hourly_price: '0';
-  remaining_time: '-';
-  remaining_disk_volume: '-';
-  gpu_motherboard: {
-    id: '6a95c78f-256f-4398-a52d-370fc1e71ffa';
-    gpu: {
-      id: 'a6be7d99-5015-4b53-b693-86fa49dea154';
-      name: 'GeForce GT 1030';
-      reliability: 100;
-      brand: 'GeForce';
-      model: '1030';
-      ram: 2;
-      cuda_cores: 384;
-      is_active: true;
-      is_ordered: false;
+  list: {
+    id: string;
+    payment_type: string;
+    hourly_price: string;
+    remaining_time: string;
+    remaining_disk_volume: string;
+    gpu_motherboard: {
+      id: string;
+      gpu: {
+        id: string;
+        name: string;
+        reliability: number;
+        brand: string;
+        model: string;
+        ram: number;
+        cuda_cores: number;
+        is_active: boolean;
+        is_ordered: boolean;
+      };
+      motherboard: {
+        id: string;
+        ram: number;
+        cpu_cores: number;
+        cpu_model: string;
+        gpu_motherboard_id: string;
+      };
     };
-    motherboard: {
-      id: '72c52f66-6a59-4141-8c25-858fb5622419';
-      ram: 8;
-      cpu_cores: 4;
-      cpu_model: 'intel';
-      gpu_motherboard_id: '';
+    plan: {
+      id: string;
+      additional_price: '0.00';
+      name: string;
+      ide: string;
+      libraries: string;
+      utilities: string;
+      max_continuous_usage_hours: number;
     };
-  };
-  plan: {
-    id: '8b4f7fe9-931f-4674-86d9-a76ab095bc30';
-    additional_price: '0.00';
-    name: 'پایه';
-    ide: 'jupyter notebook';
-    libraries: 'TensorFlow, Transformers, Torch, CudaToolkit, LapackForCuda, Quanto, Lammps, Pandas,PyTorch,Keras, Matplotlib, Scikit-Learn';
-    utilities: 'RAR-ZIP';
-    max_continuous_usage_hours: 0;
-  };
-  disk: {
-    id: 'a4ba983f-2960-46ed-8633-f3628c25ad23';
-    name: 'disk 1';
-    capacity: 10;
-    type: 'HDD';
-    periodic_price: '0.000000';
-    hourly_price: '0.00';
-    discount: '0.05';
-    is_public: false;
-    is_active: false;
-    is_ordered: false;
-  };
+    disk: {
+      id: string;
+      name: string;
+      capacity: number;
+      type: string;
+      periodic_price: string;
+      hourly_price: string;
+      discount: string;
+      is_public: boolean;
+      is_active: boolean;
+      is_ordered: boolean;
+    };
+  }[];
+  total_count: number;
+  page_count: number;
 }
 
 interface IGetPackageUsageInfoResponsePayload {

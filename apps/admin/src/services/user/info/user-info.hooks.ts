@@ -7,8 +7,10 @@ import {
 import UserInfoServices from './user-info.service';
 import type {
   IGetUserApiPackageRequestPayload,
+  IGetUserApiPackageResponsePayload,
   IGetUserInfoRequestPayload,
   IUpdateUserInfoRequest,
+  IUserApiPackageDetail,
 } from './interface';
 import { useQueryParams } from '@/hooks/useQueryParams';
 
@@ -45,24 +47,50 @@ export const useUpdateUserInfo = () => {
 export const useGetUserApiPackage = (id: string) => {
   const allQueryParams = useQueryParams();
 
-  const query = useQuery({
-    queryKey: [`useGetUserApiPackage`, allQueryParams, id],
+  let totalPages = 0;
+  let totalItems = 0;
+  const {
+    data: packages = [],
+    isLoading,
+    isFetching,
+    refetch,
+  } = useQuery<
+    IGetUserApiPackageResponsePayload,
+    Error,
+    IUserApiPackageDetail[]
+  >({
+    queryKey: ['useGetApisLogs', allQueryParams],
     queryFn: async ({ queryKey }) => {
-      const { page_size, tab, ...params } =
+      const { page, page_size, ...params } =
         queryKey[1] as IGetUserApiPackageRequestPayload;
-      const queryParams = {
-        ...params,
+      const queryParams: IGetUserApiPackageRequestPayload = {
+        page,
         page_size: page_size || 10,
+        ...params,
       };
+
       const response = await userInfoServices.getUserApiPackages(
         id,
         queryParams
       );
-      return response;
+      return response.data.data;
+    },
+    select: (payload) => {
+      totalPages = payload.page_count;
+      totalItems = payload.total_count;
+      return payload.list;
     },
     placeholderData: keepPreviousData,
   });
-  return query;
+
+  return {
+    packages,
+    totalItems,
+    totalPages,
+    isLoading,
+    isFetching,
+    refetch,
+  };
 };
 
 export const useGetUserGpuPackage = (id: string) =>

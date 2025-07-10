@@ -1,5 +1,4 @@
 import {
-  Button,
   DataTable,
   DataTableActionBarAction,
   DataTableSkeleton,
@@ -7,7 +6,6 @@ import {
   useDataTable,
 } from '@aibox/ui';
 import { CircleCheckBig, CircleX, SquarePen } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import { strings } from '@/constant';
@@ -23,8 +21,6 @@ export const TransactionsTable = () => {
   const [modalState, setModalState] = useState<ModalState>({
     show: false,
   });
-
-  const router = useRouter();
 
   const { data: users, isPending: isUsersPending } = useGetAllUsers();
 

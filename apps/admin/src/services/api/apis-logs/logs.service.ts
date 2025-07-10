@@ -1,6 +1,9 @@
 import { AxiosResponse } from 'axios';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
-import { IGetApisLogsResponsePayload } from './interface';
+import {
+  IGetApisLogsRequestPayload,
+  IGetApisLogsResponsePayload,
+} from './interface';
 
 export default class ApisLogsServices extends AbstractAPI {
   constructor() {
@@ -8,7 +11,7 @@ export default class ApisLogsServices extends AbstractAPI {
   }
 
   public async getApisLogs(
-    params: any
+    params: IGetApisLogsRequestPayload
   ): Promise<AxiosResponse<INetworkResponse<IGetApisLogsResponsePayload>>> {
     return await this.http.request({
       method: 'GET',
