@@ -28,6 +28,8 @@ import SuccessIcon from './SuccessIcon';
 import DepositIcon from './DepositIcon';
 import WithdrawIcon from './WithdrawIcon';
 import CategoryIcon from './category-icon';
+import WarningIcon from './WarningIcon';
+import SecondNoDataIcon from './SecondNoDataIcon';
 export {
   ChevronIcon,
   LaunchIcon,
@@ -58,4 +60,6 @@ export {
   DepositIcon,
   WithdrawIcon,
   CategoryIcon,
+  WarningIcon,
+  SecondNoDataIcon,
 };

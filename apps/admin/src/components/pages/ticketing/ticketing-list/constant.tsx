@@ -9,17 +9,13 @@ export const toggleItems = [
 ];
 
 const statusMap: Record<string, { label: string; bgColor: string }> = {
-  opened: {
-    label: strings.opened,
+  user_answer: {
+    label: strings.user_answer,
+    bgColor: 'bg-purple-700',
+  },
+  admin_answer: {
+    label: strings.admin_answer,
     bgColor: 'bg-blue-500',
-  },
-  waiting_user: {
-    label: strings.waitingforUser,
-    bgColor: 'bg-purple-600',
-  },
-  waiting_you: {
-    label: strings.waitingForYou,
-    bgColor: 'bg-teal-600',
   },
   closed: {
     label: strings.closed,
@@ -84,7 +80,7 @@ const ticketColumns: ColumnDef<ITicket>[] = [
     maxSize: 160,
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'status_name',
     id: 'status',
     header: strings.status,
     cell: ({ getValue }) => {

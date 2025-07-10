@@ -9,6 +9,15 @@ import {
   IUpdateTicketStatusRequest,
   IUpdateTicketStatusResponsePayload,
   ITicket,
+  IGetAllTicketsResponse,
+  IUpdateTicketCategoryPathParams,
+  IUpdateTicketCategoryPayload,
+  IUpdateTicketCategoryResponse,
+  IGetTicketDetailPathParams,
+  IGetTicketDetailResponse,
+  IAnswerTicketPathParams,
+  IAnswerTicketPayload,
+  IAnswerTicketResponse,
 } from './interface';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 
@@ -23,6 +32,23 @@ export default class TicketingService extends AbstractAPI {
     return this.http.request({
       method: 'GET',
       url: `${this.url}/`,
+      params,
+    });
+  }
+  public async getTicketDetail(
+    path: IGetTicketDetailPathParams
+  ): Promise<AxiosResponse<IGetTicketDetailResponse>> {
+    return this.http.request({
+      method: 'GET',
+      url: `${this.url}/${path.id}/`,
+    });
+  }
+  public async getAllTickets(
+    params: IGetTicketListRequest
+  ): Promise<AxiosResponse<INetworkResponse<IGetAllTicketsResponse>>> {
+    return this.http.request({
+      method: 'GET',
+      url: `${this.url}/all/`,
       params,
     });
   }
@@ -58,6 +84,26 @@ export default class TicketingService extends AbstractAPI {
       method: 'PUT',
       url: `${this.url}/${id}/status/`,
       data: { status },
+    });
+  }
+  public async updateTicketCategory(
+    path: IUpdateTicketCategoryPathParams,
+    payload: IUpdateTicketCategoryPayload
+  ): Promise<AxiosResponse<INetworkResponse<IUpdateTicketCategoryResponse>>> {
+    return this.http.request({
+      method: 'PUT',
+      url: `${this.url}/${path.id}/`,
+      data: payload.data,
+    });
+  }
+  public async answerTicket(
+    path: IAnswerTicketPathParams,
+    payload: IAnswerTicketPayload
+  ): Promise<AxiosResponse<INetworkResponse<IAnswerTicketResponse>>> {
+    return this.http.request({
+      method: 'POST',
+      url: `${this.url}/${path.id}/answer/`,
+      data: payload.data,
     });
   }
 }

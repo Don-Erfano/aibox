@@ -4,8 +4,8 @@ import { FC, useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import DropDownSelect from '@/components/pages/messages/public-message/add-public-message/components/drop-down-select/drop-down-select';
-import { DefaultMessage } from '@/components/pages/messages/public-message/add-public-message/components/default-message';
+import DropDownSelect from '@/components/pages/messages/components/drop-down-select/drop-down-select';
+import { DefaultMessage } from '@/components/pages/messages/components/default-message';
 import {
   Button,
   Form,
@@ -15,13 +15,12 @@ import {
   Switch,
 } from '@aibox/ui';
 import { FormContainer, FormWrapper } from '@/components';
-import { TicketingString } from '@/components/pages/ticketing/ticketing-list/string';
 import {
   defaultValues,
   publicMessageSchema,
   PublicMessageSchemaType,
 } from './schema';
-import { CustomMessage } from '@/components/pages/messages/public-message/add-public-message/components/custom-message';
+import { CustomMessage } from '@/components/pages/messages/components/custom-message';
 import { strings } from '@/constant';
 
 interface MessageItem {
@@ -84,13 +83,13 @@ const AddPublicMessagePage: FC = () => {
     defaultValues,
   });
 
-  const { watch, control, handleSubmit, setValue, reset } = form;
+  const { control, handleSubmit, reset } = form;
 
   const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const [useDropdown, setUseDropdown] = useState(true);
-  const [customText, setCustomText] = useState('');
+  const [customText] = useState('');
 
   const toggleSelection = (id: string, isNowChecked: boolean) => {
     setSelectedIds((prev) =>
@@ -240,10 +239,10 @@ const AddPublicMessagePage: FC = () => {
 
           <div className="flex gap-5 justify-center mt-12">
             <Button size="lg" isFilled type="submit">
-              {TicketingString.submit}
+              {strings.submit}
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>
-              {TicketingString.cancel_operation}
+              {strings.cancel_operation}
             </Button>
           </div>
         </form>

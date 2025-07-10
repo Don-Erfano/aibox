@@ -1,11 +1,5 @@
-'use client';
+import { Servers } from '@/components/pages/servers';
 
-import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
-
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
-
-export default Page;
+export default function ServersPage() {
+  return <Servers />;
+}
