@@ -1,19 +1,17 @@
 import { z } from 'zod';
 
-const jalaliDateRegex =
-  /^14[0-9]{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/;
-
 export const publicMessageSchema = z.object({
   recivers: z
-    .array(z.string().min(1, 'مقدار انتخاب لازم است'))
+    .string()
+    .min(1, 'مقدار انتخاب لازم است')
     .nullable()
     .refine((val) => val !== null, {
       message: 'لطفاً یک دریافت ‌کننده را انتخاب کنید',
     }),
 
   category: z
-    .string(z.string().min(1, 'مقدار انتخاب لازم است'))
-    .nullable()
+    .string()
+    .min(1, 'مقدار انتخاب لازم است')
     .refine((val) => val !== null, {
       message: 'لطفاً یک دسته‌بندی را انتخاب کنید',
     }),
@@ -26,8 +24,7 @@ export const publicMessageSchema = z.object({
   message_group: z
     .string()
     .max(100, 'نام پیام گروهی نمی‌تواند بیشتر از ۱۰۰ کاراکتر باشد')
-    .optional()
-    .or(z.literal('')),
+    .optional(),
 
   time_from: z
     .string()
@@ -38,23 +35,39 @@ export const publicMessageSchema = z.object({
     .regex(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, 'ساعت باید در قالب HH:MM باشد'),
 
   date_from: z
-    .string()
-    .regex(jalaliDateRegex, 'تاریخ باید در قالب ۱۴۰۰/۰۱/۰۱ باشد'),
+    .array(z.string())
+    .max(1, { message: 'اشتباه' })
+    .superRefine((data, ctx) => {
+      if (!data[0]) {
+        return ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'wrong',
+        });
+      }
+    }),
 
   date_to: z
-    .string()
-    .regex(jalaliDateRegex, 'تاریخ باید در قالب ۱۴۰۰/۰۱/۰۱ باشد'),
+    .array(z.string())
+    .max(1, { message: 'اشتباه' })
+    .superRefine((data, ctx) => {
+      if (!data[0]) {
+        return ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'wrong',
+        });
+      }
+    }),
 });
 
 export type PublicMessageSchemaType = z.infer<typeof publicMessageSchema>;
 
 export const defaultValues: PublicMessageSchemaType = {
-  recivers: [],
+  recivers: '',
   message_subject: '',
   message_group: '',
   category: '',
   time_from: '',
   time_to: '',
-  date_from: '',
-  date_to: '',
+  date_from: [],
+  date_to: [],
 };

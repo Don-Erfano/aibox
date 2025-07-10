@@ -11,9 +11,11 @@ import {
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
 import EmailListColumns from './constant';
-import { useGetMassNotifications } from '@/services/messages/messages-list/message-list.hook';
-import { IMassNotification } from '@/services/messages/messages-list/interface';
 import { strings } from '@/constant';
+import {
+  IMassNotification,
+  useGetMassNotifications,
+} from '@/services/messages/public-messages';
 
 const EmailListPage: FC = () => {
   const router = useRouter();
