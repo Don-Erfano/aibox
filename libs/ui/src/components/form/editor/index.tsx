@@ -4,6 +4,8 @@ import { FieldValues } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import { EditorProps } from './interface';
 import 'react-quill-new/dist/quill.snow.css';
+import styles from './styles.module.css';
+
 import {
   FormControl,
   FormField,
@@ -51,12 +53,14 @@ export const Editor = <TFieldValues extends FieldValues>({
             <FormItem>
               {label && <FormLabel>{label}</FormLabel>}
               <FormControl>
-                <ReactQuill
-                  theme="snow"
-                  {...field}
-                  modules={modules}
-                  placeholder={placeholder}
-                />
+                <div className={styles.wrapper}>
+                  <ReactQuill
+                    theme="snow"
+                    {...field}
+                    modules={modules}
+                    placeholder={placeholder}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
