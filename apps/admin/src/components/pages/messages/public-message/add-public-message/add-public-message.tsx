@@ -136,7 +136,7 @@ const AddPublicMessagePage: FC = () => {
         from_time: data.date_from[0],
         to_time: data.date_to[0],
         subject: data.message_subject,
-        message: useDropdown ? selectedMessageIds[0] : undefined,
+        message: useDropdown ? selectedMessageIds[0] : messageContent,
         message_text: messageContent,
         notif_type: 'in_header',
       };

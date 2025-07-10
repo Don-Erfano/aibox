@@ -27,6 +27,7 @@ export default class MassNotificationsService extends AbstractAPI {
       params,
     });
   }
+
   public async createMassNotification(
     payload: ICreateMassNotificationRequest
   ): Promise<AxiosResponse<INetworkResponse<ICreateMassNotificationResponse>>> {
@@ -38,6 +39,7 @@ export default class MassNotificationsService extends AbstractAPI {
       }
     );
   }
+
   public async getMessageCategories(): Promise<
     AxiosResponse<INetworkResponse<IGetMassNotificationCategoriesResponse>>
   > {
@@ -56,11 +58,12 @@ export default class MassNotificationsService extends AbstractAPI {
     return this.http.request<INetworkResponse<ICreateMassNotificationResponse>>(
       {
         method: 'PUT',
-        url: `${this.url}/message/${id}/`,
+        url: `${this.url}/${id}/`,
         data: payload,
       }
     );
   }
+
   public async deleteMassNotificationMessage(
     params: IDeleteMassNotificationMessagePathParams
   ): Promise<
@@ -70,7 +73,7 @@ export default class MassNotificationsService extends AbstractAPI {
       INetworkResponse<IDeleteMassNotificationMessageResponse>
     >({
       method: 'DELETE',
-      url: `${this.url}/message/${params.id}/`,
+      url: `${this.url}/${params.id}/`,
     });
   }
 
@@ -84,6 +87,7 @@ export default class MassNotificationsService extends AbstractAPI {
       url: `${this.url}/status/`,
     });
   }
+
   public async updateMassNotification(
     id: string,
     payload: IUpdateMassNotificationRequest
@@ -92,19 +96,6 @@ export default class MassNotificationsService extends AbstractAPI {
       method: 'PUT',
       url: `${this.url}/${id}/`,
       data: payload,
-    });
-  }
-
-  public async deleteMassNotification(
-    params: IDeleteMassNotificationMessagePathParams
-  ): Promise<
-    AxiosResponse<INetworkResponse<IDeleteMassNotificationMessageResponse>>
-  > {
-    return this.http.request<
-      INetworkResponse<IDeleteMassNotificationMessageResponse>
-    >({
-      method: 'DELETE',
-      url: `${this.url}/${params.id}/`,
     });
   }
 }
