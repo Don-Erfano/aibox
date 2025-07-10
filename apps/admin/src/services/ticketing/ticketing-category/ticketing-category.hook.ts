@@ -1,9 +1,15 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import {
+  useQuery,
+  keepPreviousData,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import TicketingCategoryService from './ticketing-category.service';
 import {
   IGetTicketingCategoryRequestPayload,
   IGetTicketingCategoryResponsePayload,
   ITicketingCategory,
+  IUpdateTicketingCategoryRequestPayload,
   RawUserApi,
 } from './interface';
 import { useQueryParams } from '@/hooks/useQueryParams';
@@ -89,4 +95,21 @@ export const useTicketingCategoryUserApis = (
     isApisFetching,
     versionOptions,
   };
+};
+
+export const useUpdateTicketingCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: IUpdateTicketingCategoryRequestPayload;
+    }) => ticketingCategoryService.updateCategory(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ticketingCategory'] });
+    },
+  });
 };

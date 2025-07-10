@@ -16,7 +16,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'fileshare.nextaibox.com',
+        hostname: 'dev.fileshare.nextaibox.com',
         port: '',
         pathname: '/media/pictures/**',
         search: '',

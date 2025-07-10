@@ -16,7 +16,16 @@ import {
   IUpdateTicketStatusRequest,
   IUpdateTicketStatusResponsePayload,
   IGetTicketListResponse,
+  IGetAllTicketsResponse,
+  ITicketWithLastMessage,
+  IUpdateTicketCategoryPathParams,
+  IUpdateTicketCategoryPayload,
+  IGetTicketDetailResponse,
+  IAnswerTicketPathParams,
+  IAnswerTicketPayload,
+  IAnswerTicketResponse,
 } from './interface';
+import { INetworkResponse } from '@aibox/services';
 
 const ticketingService = new TicketingService();
 
@@ -103,6 +112,84 @@ export const useUpdateTicketStatus = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['ticketList'] });
+    },
+  });
+};
+
+export const useGetAllTickets = () => {
+  const allQueryParams = useQueryParams();
+
+  const {
+    data: tickets = [],
+    isLoading,
+    isFetching,
+    refetch,
+  } = useQuery<IGetAllTicketsResponse, Error, ITicketWithLastMessage[]>({
+    queryKey: ['allTickets', allQueryParams],
+    queryFn: async ({ queryKey }) => {
+      const params = queryKey[1] as IGetTicketListRequest;
+      const resp = await ticketingService.getAllTickets(params);
+      return resp.data.data;
+    },
+    select: (payload) => {
+      return payload.results;
+    },
+    placeholderData: keepPreviousData,
+  });
+
+  return { tickets, isLoading, isFetching, refetch };
+};
+
+export const useUpdateTicketCategory = () => {
+  const queryClient = useQueryClient();
+
+  type Vars = {
+    path: IUpdateTicketCategoryPathParams;
+    payload: IUpdateTicketCategoryPayload;
+  };
+
+  return useMutation<INetworkResponse<ITicket, string>, Error, Vars>({
+    mutationFn: async ({ path, payload }: Vars) => {
+      const resp = await ticketingService.updateTicketCategory(path, payload);
+      return resp.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ticketList'] });
+      queryClient.invalidateQueries({ queryKey: ['allTickets'] });
+    },
+  });
+};
+
+export const useGetTicketDetail = (id: string) => {
+  return useQuery<IGetTicketDetailResponse, Error>({
+    queryKey: ['ticketDetail', id],
+    queryFn: async () => {
+      const resp = await ticketingService.getTicketDetail({ id });
+      return resp.data;
+    },
+    enabled: !!id,
+  });
+};
+
+export const useAnswerTicket = () => {
+  const queryClient = useQueryClient();
+
+  type Vars = {
+    path: IAnswerTicketPathParams;
+    payload: IAnswerTicketPayload;
+  };
+
+  return useMutation<IAnswerTicketResponse, Error, Vars>({
+    mutationFn: async ({ path, payload }: Vars) => {
+      const resp = await ticketingService.answerTicket(path, payload);
+      return resp.data.data;
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['ticketList'] });
+      queryClient.invalidateQueries({ queryKey: ['allTickets'] });
+      queryClient.invalidateQueries({
+        queryKey: ['ticketDetail', variables.path.id],
+      });
     },
   });
 };
