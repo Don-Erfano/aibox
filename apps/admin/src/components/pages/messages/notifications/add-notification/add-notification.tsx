@@ -17,8 +17,8 @@ import {
 import { FormContainer, FormWrapper } from '@/components';
 import {
   defaultValues,
-  publicMessageSchema,
-  PublicMessageSchemaType,
+  NotificationSchemaType,
+  NotificationSchema,
 } from './schema';
 import { CustomMessage } from '@/components/pages/messages/components/custom-message';
 import { strings } from '@/constant';
@@ -75,11 +75,11 @@ const defaultMessages: MessageItem[] = [
   },
 ];
 
-const AddPublicMessagePage: FC = () => {
+const AddNotificationPage: FC = () => {
   const router = useRouter();
 
-  const form = useForm<PublicMessageSchemaType>({
-    resolver: zodResolver(publicMessageSchema),
+  const form = useForm<NotificationSchemaType>({
+    resolver: zodResolver(NotificationSchema),
     defaultValues,
   });
 
@@ -97,7 +97,7 @@ const AddPublicMessagePage: FC = () => {
     );
   };
 
-  const onSubmit: SubmitHandler<PublicMessageSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<NotificationSchemaType> = (data) => {
     console.log('Submitted Form Data:', {
       ...data,
       selectedMessages: selectedIds,
@@ -112,7 +112,7 @@ const AddPublicMessagePage: FC = () => {
   };
 
   return (
-    <FormContainer title={strings.add_new_public_message}>
+    <FormContainer title={strings.add_new_notif_message}>
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
@@ -128,19 +128,18 @@ const AddPublicMessagePage: FC = () => {
               variant="single"
               mode="light"
             />
-
             <RHFInput
               name="message_subject"
-              label={strings.messageSubject}
+              label={strings.notifSubject}
               control={control}
               placeholder="متن نوشته شده"
             />
 
             <RHFInput
               name="message_group"
-              label={strings.generalMessageText}
+              label={strings.notifGroupName}
               control={control}
-              placeholder={strings.generalMessage}
+              placeholder={strings.notifGroupName}
             />
 
             <RHFAutocomplete
@@ -192,7 +191,7 @@ const AddPublicMessagePage: FC = () => {
             />
           </FormWrapper>
 
-          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] flex justify-between items-center mt-10">
+          <div className="max-w-[1376px] w-full !mx-auto flex justify-between items-center mt-10">
             <div className="space-x-4 flex items-center">
               <p className="text-sm font-medium text-gray-700">
                 {strings.default_message}
@@ -220,7 +219,7 @@ const AddPublicMessagePage: FC = () => {
             />
           </div>
 
-          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] mt-6 flex space-x-6 overflow-x-auto">
+          <div className="max-w-[1376px] w-full !mx-auto mt-6 flex space-x-6 overflow-x-auto">
             {useDropdown ? (
               defaultMessages.map((item) => (
                 <DefaultMessage
@@ -251,4 +250,4 @@ const AddPublicMessagePage: FC = () => {
   );
 };
 
-export default AddPublicMessagePage;
+export default AddNotificationPage;

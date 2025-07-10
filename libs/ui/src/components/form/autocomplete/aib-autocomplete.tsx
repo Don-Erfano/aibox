@@ -113,7 +113,7 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
         >
           <div
             className={clsx(
-              'w-full flex flex-col rounded-l outline outline-1',
+              'w-full flex flex-col rounded-[4px] outline outline-1',
               atLimit ? 'outline-red-500' : 'outline-gray-500',
               { 'outline-dashed outline-gray-400': readOnly },
               {
