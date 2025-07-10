@@ -14,7 +14,6 @@ import { useRouter } from 'next/navigation';
 import { FabButton } from '@/components/fab-button';
 import userColumns from '@/components/pages/user/user-list/constant';
 import { USERS_ROUTES } from '@/routes';
-import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
 import { strings } from '@/constant';
 
 const UserList: FC = () => {
@@ -28,7 +27,7 @@ const UserList: FC = () => {
     columns: userColumns,
     pageCount: totalPages,
     actions: {
-      onEdit: (row) => router.push(`${USERS_BASE_ROUTE}/${row.id}`),
+      onEdit: (row) => router.push(`${USERS_ROUTES.LIST}/${row.id}`),
       onDelete: (row) => console.log(row.id),
     },
   });

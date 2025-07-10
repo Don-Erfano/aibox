@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ISvgIconProps } from './interface';
 
-const DeleteFactorIcon: FC<ISvgIconProps> = (props) => {
+const ModalDeleteIcon: FC<ISvgIconProps> = (props) => {
   return (
     <svg
       {...props}
@@ -31,4 +31,4 @@ const DeleteFactorIcon: FC<ISvgIconProps> = (props) => {
   );
 };
 
-export default DeleteFactorIcon;
+export default ModalDeleteIcon;

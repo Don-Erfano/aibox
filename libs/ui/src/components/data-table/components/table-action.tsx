@@ -135,14 +135,16 @@ function DataTableActionBarSelection<TData>({
       />
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="size-5"
-            onClick={onClearSelection}
-          >
-            <X className="size-3.5" />
-          </Button>
+          <span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-5"
+              onClick={onClearSelection}
+            >
+              <X className="size-3.5" />
+            </Button>
+          </span>
         </TooltipTrigger>
         <TooltipContent sideOffset={10}>
           <p>حذف انتخاب</p>

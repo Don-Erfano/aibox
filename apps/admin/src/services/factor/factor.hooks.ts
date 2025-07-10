@@ -67,8 +67,12 @@ export const useGetFactors = () => {
   } = useQuery<IGetFactorsResponse, Error, IFactor[]>({
     queryKey: ['factors', allQueryParams],
     queryFn: async ({ queryKey }) => {
-      const { page, ...params } = queryKey[1] as IGetFactorsParams;
-      const queryParams: IGetFactorsParams = { page: page, ...params };
+      const { page, page_size, ...params } = queryKey[1] as IGetFactorsParams;
+      const queryParams: IGetFactorsParams = {
+        page: page,
+        page_size: page_size || 10,
+        ...params,
+      };
 
       const response = await factorServices.getAllFactors(queryParams);
       return response.data.data;

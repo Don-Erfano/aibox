@@ -1,11 +1,7 @@
 'use client';
 
-import { NextPage } from 'next';
-import { usePathname } from 'next/navigation';
+import { LogsTable } from '@/components/pages/ai-service/logs';
 
-const Page: NextPage = () => {
-  const pathName = usePathname();
-  return <p>{pathName}</p>;
-};
+const AiServicesLogsPage = () => <LogsTable />;
 
-export default Page;
+export default AiServicesLogsPage;
