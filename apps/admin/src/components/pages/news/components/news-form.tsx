@@ -30,6 +30,7 @@ const NewsForm = ({
   const form = useForm<NewsSchemaType>({
     resolver: zodResolver(newsSchema),
     defaultValues: initialData ?? defaultValues,
+    mode: 'onChange',
   });
 
   const { mutateAsync: uploadFile, isPending: isUploading } = useUploadFile();
@@ -85,6 +86,7 @@ const NewsForm = ({
               label={strings.tags}
               placeholder={strings.selectOption}
               variant="multiple"
+              limited_tag={5}
             />
 
             <RHFImageUploader
