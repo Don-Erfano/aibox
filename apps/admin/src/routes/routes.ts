@@ -63,10 +63,14 @@ const MARKETING_ROUTES = {
 
 const MESSAGES_ROUTES = {
   EMAIL: `${MESSAGES_BASE_ROUTE}/?tab=emails`,
+  ADD_EMAIL_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-email`,
   NOTIFICAITONS: `${MESSAGES_BASE_ROUTE}/?tab=notifications`,
+  ADD_NOTIFICATION_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-notif`,
   SMS: `${MESSAGES_BASE_ROUTE}/?tab=sms`,
+  ADD_SMS: `${MESSAGES_BASE_ROUTE}/add-sms`,
   PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/?tab=public-message`,
   ADD_PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-public-message`,
+  ADD_SMS_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-sms`,
   DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message`,
 };
 
