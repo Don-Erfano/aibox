@@ -69,7 +69,7 @@ const MohterboardList: FC = () => {
           totalItems={0}
           table={table}
           refreshLoading={false}
-          refetch={() => false}
+          refetch={() => false as any}
           submitFilters={submitFilters}
           resetFilters={resetFilters}
           filterCount={filterCount}

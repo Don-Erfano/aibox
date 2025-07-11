@@ -18,9 +18,10 @@ export const useGetFaqCategoryList = (
   >({
     queryKey: ['faqCategoryList', params],
     queryFn: () =>
-      faqCategoryService.getFaqCategoryList(params).then((res) => res.data),
+      faqCategoryService
+        .getFaqCategoryList(params)
+        .then((res) => res.data) as any,
     select: (payload) => payload.results,
-    keepPreviousData: true,
   });
 
   return {

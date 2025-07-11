@@ -52,7 +52,7 @@ export interface IGetFactorsParams {
   discount_percent__lte: string;
   discount_percent__gte: string;
   page: string;
-  page_size: string;
+  page_size: number;
   search: string;
   ordering: string;
 }

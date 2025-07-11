@@ -11,7 +11,6 @@ import {
   RHFAutocomplete,
   RHFInput,
   toast,
-  ToggleGroup,
   ToggleSwitch,
 } from '@aibox/ui';
 

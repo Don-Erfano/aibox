@@ -32,7 +32,7 @@ const Servers = () => {
   const [showTerminal, setShowTerminal] = useState<boolean>(false);
   const { servers, isLoading, totalItems, totalPages, refetch } =
     useDeploymentList();
-  const { mutate: deployServer, isPending } = useDeployServer();
+  const { isPending } = useDeployServer();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
     data: servers,

@@ -5,8 +5,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { IUser } from '@/services/user/user-lists/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
 import { AdminBadge } from '@/components/badges/admin-badge';
-import { USERS_BASE_ROUTE } from '@/routes/baseRoutes';
 import { strings } from '@/constant';
+import { USERS_ROUTES } from '@/routes';
 
 const userColumns: ColumnDef<IUser>[] = [
   {
@@ -21,7 +21,7 @@ const userColumns: ColumnDef<IUser>[] = [
 
       return (
         <Link
-          href={`${USERS_BASE_ROUTE}/${row.original.id}`}
+          href={`${USERS_ROUTES.LIST}/${row.original.id}`}
           className="flex items-center space-x-2 hover:underline"
         >
           <Image

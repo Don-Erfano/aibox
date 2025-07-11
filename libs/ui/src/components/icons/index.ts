@@ -17,7 +17,7 @@ import XIcon from './IconGallery';
 import PersonIcon from './PersonIcon';
 import AdminIcon from './AdminIcon';
 import NoDataIcon from './no-data-icon';
-import DeleteFactorIcon from './delete-factor';
+import ModalDeleteIcon from './modal-delete-icon';
 import AvatarIcon from './avatar-icon';
 import QuestionIcon from './QuestionIcon';
 import HintIcon from './HintIcon';
@@ -49,7 +49,7 @@ export {
   PersonIcon,
   AdminIcon,
   NoDataIcon,
-  DeleteFactorIcon,
+  ModalDeleteIcon,
   AvatarIcon,
   QuestionIcon,
   HintIcon,

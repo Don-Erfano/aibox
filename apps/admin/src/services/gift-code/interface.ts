@@ -23,7 +23,7 @@ export interface GetGiftCodesParams {
   remain_count_use__lte: string;
   remain_count_use__gte: string;
   page: string;
-  page_size: string;
+  page_size: number;
   search: string;
   ordering: string;
 }

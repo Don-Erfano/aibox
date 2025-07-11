@@ -32,8 +32,12 @@ export const useGetAllGiftCodes = () => {
   } = useQuery<IGetGiftCodesReponse, Error, GiftCode[]>({
     queryKey: ['giftCodes', allQueryParams],
     queryFn: async ({ queryKey }) => {
-      const { page, ...params } = queryKey[1] as GetGiftCodesParams;
-      const queryParams: GetGiftCodesParams = { page: page, ...params };
+      const { page, page_size, ...params } = queryKey[1] as GetGiftCodesParams;
+      const queryParams: GetGiftCodesParams = {
+        page,
+        page_size: page_size || 10,
+        ...params,
+      };
 
       const response = await giftCodeServices.getAllGiftCodes(queryParams);
       return response.data.data;

@@ -1,0 +1,15 @@
+.wrapper :global(.ql-toolbar.ql-snow) {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.wrapper :global(.ql-editor) {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: 0.75rem;
+  height: 140px;
+  overflow-y: auto;
+}

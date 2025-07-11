@@ -5,22 +5,20 @@ import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 import { strings } from '@/constant';
 
 const ApisLogs: FC = () => {
-  const { data, isLoading, refetch } = useGetApisLogs();
+  const { logs, isLoading, refetch, totalItems, totalPages } = useGetApisLogs();
 
   const { table, filterCount, resetFilters, submitFilters } = useDataTable({
-    data: data?.data.data.data || [],
+    data: logs,
     columns: logsColumn,
-    pageCount: data?.data.data.page_count || 0,
+    pageCount: totalPages,
   });
-
-  console.log(data);
 
   return (
     <div>
       <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
         <TableToolbar
           title={strings.reports}
-          totalItems={data?.data.data.total_count || 0}
+          totalItems={totalItems}
           table={table}
           refreshLoading={isLoading}
           refetch={refetch}
