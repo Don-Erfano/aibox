@@ -76,10 +76,10 @@ export interface IPostTicketRequest {
   category: string;
   subject: string;
   level: TicketLevel;
-  body: string;
-  user_list: string[];
+  body?: string;
+  user_list?: string[];
   attachments?: string | null;
-  answers: IAnswerAdmin[] | null;
+  answers?: IAnswerAdmin[] | null;
   admin_data?: string;
 }
 

@@ -1,9 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import FaqCategoryService from './faq.service';
 import {
   IGetFaqCategoryListRequestPayload,
   IGetFaqCategoryListResponsePayload,
-  IFaqCategory,
 } from './interface';
 
 const faqCategoryService = new FaqCategoryService();
@@ -11,22 +10,21 @@ const faqCategoryService = new FaqCategoryService();
 export const useGetFaqCategoryList = (
   params: Partial<IGetFaqCategoryListRequestPayload> = {}
 ) => {
-  const query = useQuery<
-    IGetFaqCategoryListResponsePayload,
-    Error,
-    IFaqCategory[]
-  >({
+  const query = useQuery<IGetFaqCategoryListResponsePayload, Error>({
     queryKey: ['faqCategoryList', params],
     queryFn: () =>
-      faqCategoryService
-        .getFaqCategoryList(params)
-        .then((res) => res.data) as any,
-    select: (payload) => payload.results,
+      faqCategoryService.getFaqCategoryList(params).then((res) => {
+        const topLevelData = res.data;
+        return topLevelData.data as IGetFaqCategoryListResponsePayload;
+      }),
+    placeholderData: keepPreviousData,
   });
 
   return {
-    categories: query.data ?? [],
+    categories: query.data?.results ?? [],
     isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
     isFetching: query.isFetching,
     refetch: query.refetch,
   };

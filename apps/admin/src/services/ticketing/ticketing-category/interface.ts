@@ -20,12 +20,17 @@ export interface IGetTicketingCategoryRequestPayload {
   page_size?: number;
   page_number?: number;
   ordering?: string;
+  tab?: string;
 }
 
 export interface IGetTicketingCategoryResponsePayload {
   data: ITicketingCategory[];
   page_count: number;
   total_count: number;
+}
+
+export interface IGetSingleTicketingCategoryResponsePayload {
+  data: ITicketingCategory;
 }
 
 export interface IUserApi {
@@ -56,10 +61,24 @@ export interface ICategoryQuestion {
 export interface IUpdateTicketingCategoryRequestPayload {
   questions: ICategoryQuestion[];
   name: string;
-  logo: string;
+  logo?: string;
 }
 
 export interface IUpdateTicketingCategoryResponsePayload {
   message: string;
   data: ITicketingCategory;
+}
+
+export interface ICreateTicketingCategoryRequestPayload {
+  questions?: ICategoryQuestion[];
+  name: string;
+  logo?: string;
+}
+
+export interface ICreateTicketingCategoryResponsePayload {
+  message: string;
+  data: ITicketingCategory;
+}
+export interface IDeleteTicketingCategoryResponsePayload {
+  message: string;
 }

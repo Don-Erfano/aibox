@@ -20,8 +20,8 @@ export const ticketSchema = z.object({
   category: z.string().min(1, 'دسته‌بندی الزامی است'),
 
   assignees: z.array(z.string()).min(1, 'انتخاب کاربر الزامی است'),
-  api_id: z.string().min(1, 'انتخاب api الزامی است'),
-  version_id: z.string().min(1, 'انتخاب version الزامی است'),
+  api_id: z.string(),
+  version_id: z.string(),
 });
 
 export type TicketSchemaType = z.input<typeof ticketSchema>;

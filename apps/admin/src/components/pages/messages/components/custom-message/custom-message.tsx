@@ -6,6 +6,7 @@ import { Button } from '@aibox/ui';
 import clsx from 'clsx';
 import { Plus, Trash2 } from 'lucide-react';
 import { AIBInput } from '@aibox/ui';
+import { strings } from '@/constant';
 
 const CustomMessage: FC<CustomMessageProps> = ({ value, onChange }) => {
   const values = value && value.length > 0 ? value : [''];
@@ -32,8 +33,8 @@ const CustomMessage: FC<CustomMessageProps> = ({ value, onChange }) => {
             <AIBInput
               type="text"
               variant="md"
-              className="w-full h-16"
-              placeholder="متن راهنما پیش‌فرض"
+              className="w-full h-16 "
+              placeholder={strings.createMessage}
               value={text}
               onChange={(e) => handleChange(idx, e.target.value)}
             />
@@ -47,19 +48,18 @@ const CustomMessage: FC<CustomMessageProps> = ({ value, onChange }) => {
           )}
         </div>
       ))}
-      <div className="items-center justify-center flex">
-        <Button
-          onClick={handleAdd}
-          variant="ghost"
-          className={clsx(
-            'relative items-center !mx-auto mt-4',
-            'size-6 rounded-full bg-transparent text-2xl',
-            'hover:!bg-teal-600/40 border-1 border-gray-500'
-          )}
-        >
-          <Plus strokeWidth={1} className="text-zinc-700 size-6" />
-        </Button>
-      </div>
+
+      <Button
+        onClick={handleAdd}
+        variant="ghost"
+        title={strings.addNewQuestion}
+        className={clsx(
+          'flex items-center !bg-teal-600 justify-center mx-auto mt-4',
+          'size-9 rounded-full bg-transparent text-2xl'
+        )}
+      >
+        <Plus strokeWidth={1.5} className="text-white size-7" />
+      </Button>
     </div>
   );
 };
