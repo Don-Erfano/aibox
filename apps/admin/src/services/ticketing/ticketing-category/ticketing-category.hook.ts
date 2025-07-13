@@ -6,6 +6,8 @@ import {
 } from '@tanstack/react-query';
 import TicketingCategoryService from './ticketing-category.service';
 import {
+  ICreateTicketingCategoryRequestPayload,
+  IGetSingleTicketingCategoryResponsePayload,
   IGetTicketingCategoryRequestPayload,
   IGetTicketingCategoryResponsePayload,
   ITicketingCategory,
@@ -19,6 +21,7 @@ const ticketingCategoryService = new TicketingCategoryService();
 export const useGetTicketingCategory = () => {
   const rawParams = useQueryParams();
   const params = rawParams as IGetTicketingCategoryRequestPayload;
+  const { tab, ...apiParams } = params;
 
   let pageCount = 0;
   let totalCount = 0;
@@ -33,9 +36,11 @@ export const useGetTicketingCategory = () => {
     Error,
     ITicketingCategory[]
   >({
-    queryKey: ['ticketingCategory', params],
+    queryKey: ['ticketingCategory', apiParams],
     queryFn: () =>
-      ticketingCategoryService.getCategoryList(params).then((r) => r.data.data),
+      ticketingCategoryService
+        .getCategoryList(apiParams)
+        .then((r) => r.data.data),
     select: (payload) => {
       pageCount = payload.page_count;
       totalCount = payload.total_count;
@@ -108,6 +113,45 @@ export const useUpdateTicketingCategory = () => {
       id: string;
       data: IUpdateTicketingCategoryRequestPayload;
     }) => ticketingCategoryService.updateCategory(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ticketingCategory'] });
+    },
+  });
+};
+
+export const useCreateTicketingCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: ICreateTicketingCategoryRequestPayload) =>
+      ticketingCategoryService.createCategory(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['ticketingCategory'] });
+    },
+  });
+};
+
+export const useGetSingleTicketingCategory = (id: string) => {
+  return useQuery<
+    IGetSingleTicketingCategoryResponsePayload,
+    Error,
+    ITicketingCategory
+  >({
+    queryKey: ['ticketingCategory', 'single', id],
+    queryFn: async () => {
+      const response = await ticketingCategoryService.getSingleCategory(id);
+      return response.data as unknown as IGetSingleTicketingCategoryResponsePayload;
+    },
+    select: (payload) => payload.data,
+    enabled: Boolean(id),
+  });
+};
+
+export const useDeleteTicketingCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => ticketingCategoryService.deleteCategory(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['ticketingCategory'] });
     },

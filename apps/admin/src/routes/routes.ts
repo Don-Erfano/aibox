@@ -77,7 +77,9 @@ const MESSAGES_ROUTES = {
 const SUPPORT_ROUTES = {
   FAQ: `${SUPPORT_BASE_ROUTE}/faq`,
   TERMS_AND_POLICIES: `${SUPPORT_BASE_ROUTE}/terms-and-policies`,
-  TICKETING: `${SUPPORT_BASE_ROUTE}/ticketing`,
+  TICKETING: `${SUPPORT_BASE_ROUTE}/ticketing?tab=ticket-list`,
+  CATEGORY: `${SUPPORT_BASE_ROUTE}/ticketing?tab=category-questions`,
+  ADD_CATEGORY: `${SUPPORT_BASE_ROUTE}/category`,
   ADD_TICKET: `${SUPPORT_BASE_ROUTE}/ticketing/add-ticket`,
 };
 

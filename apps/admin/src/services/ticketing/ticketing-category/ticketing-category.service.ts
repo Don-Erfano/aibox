@@ -5,6 +5,10 @@ import {
   IGetUserApisResponsePayload,
   IUpdateTicketingCategoryRequestPayload,
   IUpdateTicketingCategoryResponsePayload,
+  ICreateTicketingCategoryRequestPayload,
+  ICreateTicketingCategoryResponsePayload,
+  IGetSingleTicketingCategoryResponsePayload,
+  IDeleteTicketingCategoryResponsePayload,
 } from './interface';
 import { AbstractAPI, INetworkResponse } from '@aibox/services';
 
@@ -22,6 +26,17 @@ export default class TicketingCategoryService extends AbstractAPI {
       method: 'GET',
       url: `${this.url}/`,
       params,
+    });
+  }
+
+  public async getSingleCategory(
+    id: string
+  ): Promise<
+    AxiosResponse<INetworkResponse<IGetSingleTicketingCategoryResponsePayload>>
+  > {
+    return this.http.request({
+      method: 'GET',
+      url: `${this.url}/${id}/`,
     });
   }
 
@@ -44,6 +59,28 @@ export default class TicketingCategoryService extends AbstractAPI {
       method: 'PUT',
       url: `${this.url}/${id}/`,
       data,
+    });
+  }
+
+  public async createCategory(
+    data: ICreateTicketingCategoryRequestPayload
+  ): Promise<
+    AxiosResponse<INetworkResponse<ICreateTicketingCategoryResponsePayload>>
+  > {
+    return this.http.request({
+      method: 'POST',
+      url: `${this.url}/`,
+      data,
+    });
+  }
+  public async deleteCategory(
+    id: string
+  ): Promise<
+    AxiosResponse<INetworkResponse<IDeleteTicketingCategoryResponsePayload>>
+  > {
+    return this.http.request({
+      method: 'DELETE',
+      url: `${this.url}/${id}/`,
     });
   }
 }

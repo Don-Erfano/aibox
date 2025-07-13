@@ -31,6 +31,7 @@ const ticketingService = new TicketingService();
 
 export const useGetTicketList = () => {
   const allQueryParams = useQueryParams();
+  const { tab, ...apiQueryParams } = allQueryParams;
 
   let totalPages = 0;
   let totalItems = 0;
@@ -41,7 +42,7 @@ export const useGetTicketList = () => {
     isFetching,
     refetch,
   } = useQuery<IGetTicketListResponse, Error, ITicket[]>({
-    queryKey: ['ticketList', allQueryParams],
+    queryKey: ['ticketList', apiQueryParams],
     queryFn: async ({ queryKey }) => {
       const { page, ...rest } = queryKey[1] as IGetTicketListRequest & {
         page?: number;

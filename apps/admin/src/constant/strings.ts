@@ -145,6 +145,9 @@ const strings = {
   recivers: 'دریافت کنندگان *',
   selectRecivers: 'انتخاب دریافت کننده',
   messageSubject: 'موضوع پیام *',
+  categoryName: 'نام دسته‌بندی*',
+  addCategory: 'افزودن دسته‌بندی جدید',
+  editCategory: 'ویرایش دسته‌بندی',
   notifMessageSubject: 'نام اعلان گروهی',
   emailSubject: 'موضوع ایمیل (Subject)*',
   notifSubject: 'موضوع اعلان*',
@@ -458,6 +461,9 @@ const strings = {
   deleteLogWithNumberDescription: (count: number) =>
     `شما ${count} مورد را انتخاب کرده‌اید، با پاک کردن این موارد تمامی بسته‌های API کاربران انتخاب شده از بین خواهد رفت.`,
   return: 'بازگشت',
+  addNewQuestion: 'افزودن سوال جدید',
+  createMessage: 'افزودن پیام...',
+  questions: 'سوالات',
 };
 
 export default strings;
