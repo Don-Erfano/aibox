@@ -40,6 +40,13 @@ const PublicMessagePage: FC = () => {
   const deleteMutation = useDeleteMassNotification();
   const queryClient = useQueryClient();
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(
+    null
+  );
+  const deleteMutation = useDeleteMassNotification();
+  const queryClient = useQueryClient();
+
   const { table, filterCount, resetFilters, submitFilters } =
     useDataTable<IMassNotification>({
       data: notifications,
