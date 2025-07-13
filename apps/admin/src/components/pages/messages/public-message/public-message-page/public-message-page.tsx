@@ -31,7 +31,14 @@ const PublicMessagePage: FC = () => {
     isLoading,
     isFetching,
     refetch,
-  } = useGetMassNotifications();
+  } = useGetMassNotifications({ notif_type: 'in_header' });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(
+    null
+  );
+  const deleteMutation = useDeleteMassNotification();
+  const queryClient = useQueryClient();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(

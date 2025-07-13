@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useState } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { FC, useEffect, useState, useMemo } from 'react';
+import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import DropDownSelect from '@/components/pages/messages/components/drop-down-select/drop-down-select';
 import { DefaultMessage } from '@/components/pages/messages/components/default-message';
 import {
@@ -11,8 +11,9 @@ import {
   Form,
   RHFAutocomplete,
   RHFInput,
-  DatePicker,
   Switch,
+  toast,
+  RhfDatePicker,
 } from '@aibox/ui';
 import { FormContainer, FormWrapper } from '@/components';
 import {
@@ -20,99 +21,196 @@ import {
   NotificationSchemaType,
   NotificationSchema,
 } from './schema';
-import { CustomMessage } from '@/components/pages/messages/components/custom-message';
+import {
+  useCreateMassNotification,
+  useUpdateMassNotification,
+  useGetMassNotificationById,
+  useGetMassNotificationCategories,
+  ICreateMassNotificationRequest,
+  ICategory,
+} from '@/services/messages/public-messages';
+import { useGetAllUserList } from '@/services/user/user-all';
 import { strings } from '@/constant';
-
-interface MessageItem {
-  id: string;
-  category_title: string;
-  title_number: number;
-  message: string;
-}
-
-const defaultMessages: MessageItem[] = [
-  {
-    id: 'msg1',
-    category_title: 'عمومی',
-    title_number: 1,
-    message:
-      'این یک پیام عمومی است. شما می‌توانید این متن را برای تست نمایش پیام جایگزین کنید.',
-  },
-  {
-    id: 'msg2',
-    category_title: 'عمومی',
-    title_number: 2,
-    message:
-      'این یک پیام مالی است. محتوا می‌تواند حاوی توصیه‌های مالی یا اطلاعیه‌های بانکی باشد.',
-  },
-  {
-    id: 'msg3',
-    category_title: 'عمومی',
-    title_number: 3,
-    message:
-      'این پیام تبلیغاتی است. از این فیلد برای نمایش تخفیف‌ها یا اطلاعیه‌های تبلیغاتی استفاده کنید.',
-  },
-  {
-    id: 'msg4',
-    category_title: 'عمومی',
-    title_number: 4,
-    message:
-      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
-  },
-  {
-    id: 'msg5',
-    category_title: 'عمومی',
-    title_number: 5,
-    message:
-      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
-  },
-  {
-    id: 'msg6',
-    category_title: 'عمومی',
-    title_number: 6,
-    message:
-      'این پیام دعوت نامه است. می‌توانید از آن برای دعوت به همایش یا رویداد استفاده کنید.',
-  },
-];
+import { CustomMessage } from '@/components/pages/messages/components/custom-message';
+import { useGetCategories, useGetContentMessages } from '@/services';
+import { CustomMessageValues } from '@/components/pages/messages/components/custom-message/interface';
+import { MESSAGES_ROUTES } from '@/routes';
+import { NotifMessage } from '@/components/pages/messages/public-message/add-public-message/interface';
 
 const AddNotificationPage: FC = () => {
   const router = useRouter();
+  const { id } = useParams();
+  const isEditMode = !!id;
 
   const form = useForm<NotificationSchemaType>({
     resolver: zodResolver(NotificationSchema),
     defaultValues,
+    mode: 'onChange',
   });
 
   const { control, handleSubmit, reset } = form;
 
-  const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const { isSubmitting, isValid } = useFormState({ control });
 
+  const [selectedMessageIds, setSelectedMessageIds] = useState<string[]>([]);
   const [useDropdown, setUseDropdown] = useState(true);
-  const [customText] = useState('');
+  const [customMessageValues, setCustomMessageValues] =
+    useState<CustomMessageValues>(['']);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>('all');
+
+  const createMassNotificationMutation = useCreateMassNotification();
+  const updateMassNotificationMutation = useUpdateMassNotification(
+    id as string
+  );
+  const { massNotification: massNotification, isLoading } =
+    useGetMassNotificationById(id as string, isEditMode);
+  const {
+    data: massNotificationCategories = { data: { category: [] } },
+    isLoading: categoriesLoading,
+  } = useGetMassNotificationCategories();
+  const { users, isLoading: usersLoading } = useGetAllUserList();
+  const { notifMessages } = useGetContentMessages();
+  const { categories: filterCategories } = useGetCategories();
+
+  useEffect(() => {
+    setSelectedMessageIds([]);
+    setCustomMessageValues(['']);
+  }, [useDropdown]);
+
+  useEffect(() => {
+    setSelectedMessageIds([]);
+  }, [selectedValue]);
+
+  useEffect(() => {
+    if (massNotification && notifMessages) {
+      const isPredefinedMessage = notifMessages.some(
+        (msg) => msg.id === massNotification.message.id
+      );
+
+      if (isPredefinedMessage) {
+        setSelectedMessageIds([massNotification.message.id]);
+        setUseDropdown(true);
+      } else {
+        setCustomMessageValues([massNotification.message.message]);
+        setUseDropdown(false);
+      }
+
+      reset({
+        recivers: massNotification.user.map((u) => u.id).join(',') || 'all',
+        message_subject: massNotification.subject,
+        message_group: massNotification.name,
+        category: massNotification.category.id,
+        date_from: [massNotification.from_time],
+      });
+    }
+  }, [massNotification, notifMessages, reset]);
+
+  const userOptions = [
+    { value: 'all', label: 'همه کاربران' },
+    ...(users?.map((user) => ({
+      value: user.id,
+      label: user.email,
+    })) || []),
+  ];
+
+  const autocompleteCategoryOptions = useMemo(
+    () =>
+      massNotificationCategories?.data?.category?.map((cat: ICategory) => ({
+        value: cat.id,
+        label: cat.name,
+      })) || [],
+    [massNotificationCategories]
+  );
+
+  const dropdownCategoryOptions = useMemo(
+    () => [
+      { value: 'all', label: strings.all },
+      ...(filterCategories || []).map((cat) => ({
+        value: cat.id,
+        label: cat.name,
+      })),
+    ],
+    [filterCategories]
+  );
+
+  const filteredMessages = useMemo(() => {
+    if (!notifMessages) return [];
+
+    return selectedValue === 'all'
+      ? notifMessages
+      : notifMessages.filter((item) => item.category?.id === selectedValue);
+  }, [notifMessages, selectedValue]);
+
+  const messageContent = useMemo(() => {
+    if (!useDropdown) {
+      return customMessageValues.filter(Boolean).join('\n');
+    }
+    return selectedMessageIds
+      .map((id) => {
+        const selectedMessage = notifMessages?.find(
+          (msg: NotifMessage) => msg.id === id
+        );
+        return selectedMessage?.message ?? '';
+      })
+      .filter(Boolean)
+      .join('\n');
+  }, [useDropdown, customMessageValues, notifMessages, selectedMessageIds]);
 
   const toggleSelection = (id: string, isNowChecked: boolean) => {
-    setSelectedIds((prev) =>
+    setSelectedMessageIds((prev) =>
       isNowChecked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id)
     );
   };
 
-  const onSubmit: SubmitHandler<NotificationSchemaType> = (data) => {
-    console.log('Submitted Form Data:', {
-      ...data,
-      selectedMessages: selectedIds,
-      defaultMessageType: useDropdown ? 'preset' : 'custom',
-      customMessage: useDropdown ? undefined : customText,
-    });
+  const onSubmit: SubmitHandler<NotificationSchemaType> = async (data) => {
+    try {
+      const payload: ICreateMassNotificationRequest = {
+        user: data.recivers === 'all' ? 'all' : data.recivers,
+        category: data.category,
+        name: data.message_group || data.message_subject,
+        from_time: data.date_from[0],
+        subject: data.message_subject,
+        message: useDropdown ? selectedMessageIds[0] : messageContent,
+        message_text: messageContent,
+        notif_type: 'in_app',
+      };
+
+      if (isEditMode) {
+        await updateMassNotificationMutation.mutateAsync(payload);
+      } else {
+        const response = await createMassNotificationMutation.mutateAsync(
+          payload
+        );
+        if (response?.detail) {
+          toast.success(response.detail);
+        }
+      }
+
+      router.push(MESSAGES_ROUTES.NOTIFICAITONS);
+    } catch (error: any) {
+      toast.error(error.response?.error);
+    }
   };
 
   const handleCancel = () => {
     reset();
-    router.push('/dashboard/messages');
+    router.push(MESSAGES_ROUTES.NOTIFICAITONS);
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <p>در حال بارگذاری...</p>
+      </div>
+    );
+  }
+
   return (
-    <FormContainer title={strings.add_new_notif_message}>
+    <FormContainer
+      title={
+        isEditMode ? strings.edit_notif_message : strings.add_new_notif_message
+      }
+    >
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <FormWrapper>
@@ -121,25 +219,24 @@ const AddNotificationPage: FC = () => {
               control={control}
               label={strings.recivers}
               placeholder={strings.selectRecivers}
-              options={[
-                { value: 'all_users', label: 'همه کاربران' },
-                { value: 'group_a', label: 'گروه A' },
-              ]}
+              options={userOptions}
               variant="single"
               mode="light"
+              isLoading={usersLoading}
             />
+
             <RHFInput
               name="message_subject"
-              label={strings.notifSubject}
+              label={strings.notifMessageSubject}
               control={control}
-              placeholder="متن نوشته شده"
+              placeholder="متن نوشته شده.."
             />
 
             <RHFInput
               name="message_group"
-              label={strings.notifGroupName}
+              label={strings.notifMessageName}
               control={control}
-              placeholder={strings.notifGroupName}
+              placeholder={strings.generalMessage}
             />
 
             <RHFAutocomplete
@@ -147,51 +244,26 @@ const AddNotificationPage: FC = () => {
               control={control}
               label={strings.category}
               placeholder={strings.selectCategory}
-              options={[
-                { value: 'selected_category', label: 'گزینه انتخاب شده' },
-                { value: 'finance', label: 'مالی' },
-              ]}
+              options={autocompleteCategoryOptions}
               variant="single"
               mode="light"
+              isLoading={categoriesLoading}
             />
 
-            <Controller
-              control={control}
+            <RhfDatePicker
               name="date_from"
-              render={({ field }) => (
-                <DatePicker
-                  label={strings.sendDateFrom}
-                  value={[field.value]}
-                  onChange={field.onChange}
-                />
-              )}
+              control={form.control}
+              label={strings.sendDate}
             />
             <RHFInput
               name="time_from"
-              label={strings.sendTimeFrom}
-              control={control}
-              type="time"
-            />
-            <Controller
-              control={control}
-              name="date_to"
-              render={({ field }) => (
-                <DatePicker
-                  label={strings.sendDateTo}
-                  value={[field.value]}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-            <RHFInput
-              name="time_to"
-              label={strings.sendTimeTo}
+              label={strings.sendTime}
               control={control}
               type="time"
             />
           </FormWrapper>
 
-          <div className="max-w-[1376px] w-full !mx-auto flex justify-between items-center mt-10">
+          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] flex justify-between items-center mt-10">
             <div className="space-x-4 flex items-center">
               <p className="text-sm font-medium text-gray-700">
                 {strings.default_message}
@@ -199,19 +271,14 @@ const AddNotificationPage: FC = () => {
               <Switch
                 checked={useDropdown}
                 onCheckedChange={setUseDropdown}
-                withIcon
                 size="lg"
-                variant="primary"
+                dir="ltr"
+                variant="secondary"
               />
             </div>
+
             <DropDownSelect
-              options={[
-                { value: 'all', label: strings.all },
-                { value: 'public', label: strings.general },
-                { value: 'financial', label: strings.accounting },
-                { value: 'commercial', label: strings.advertising },
-                { value: 'invitation', label: strings.invite },
-              ]}
+              options={dropdownCategoryOptions}
               value={selectedValue}
               onChange={(val) => setSelectedValue(val)}
               className="text-sm rounded-md"
@@ -219,26 +286,44 @@ const AddNotificationPage: FC = () => {
             />
           </div>
 
-          <div className="max-w-[1376px] w-full !mx-auto mt-6 flex space-x-6 overflow-x-auto">
+          <div className="max-w-[1376px] sm:mx-8 md:mx-16 lg:mx-6 xl:mx-[60px] mt-6 flex space-x-6 scroll-auto overflow-x-auto">
             {useDropdown ? (
-              defaultMessages.map((item) => (
-                <DefaultMessage
-                  key={item.id}
-                  category_title={item.category_title}
-                  title_number={item.title_number}
-                  message={item.message}
-                  checked={selectedIds.includes(item.id)}
-                  onToggle={(checked) => toggleSelection(item.id, checked)}
-                />
-              ))
+              filteredMessages.length > 0 ? (
+                filteredMessages.map((item, index) => (
+                  <DefaultMessage
+                    key={item.id}
+                    category_title={item.category?.name || 'دسته‌بندی نشده'}
+                    title_number={index + 1}
+                    message={item.message}
+                    checked={selectedMessageIds.includes(item.id)}
+                    onToggle={(checked) => toggleSelection(item.id, checked)}
+                  />
+                ))
+              ) : (
+                <p className="text-gray-500">پیامی یافت نشد</p>
+              )
             ) : (
-              <CustomMessage />
+              <div className="w-full mr-1 mt-4">
+                <CustomMessage
+                  value={customMessageValues}
+                  onChange={setCustomMessageValues}
+                />
+              </div>
             )}
           </div>
 
           <div className="flex gap-5 justify-center mt-12">
-            <Button size="lg" isFilled type="submit">
-              {strings.submit}
+            <Button
+              size="lg"
+              isFilled
+              type="submit"
+              disabled={isSubmitting || !isValid}
+            >
+              {isSubmitting
+                ? 'در حال ارسال...'
+                : isEditMode
+                ? strings.edit
+                : strings.submit}
             </Button>
             <Button size="lg" type="button" onClick={handleCancel}>
               {strings.cancel_operation}

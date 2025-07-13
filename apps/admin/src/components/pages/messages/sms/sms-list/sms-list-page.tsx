@@ -6,17 +6,21 @@ import {
   useDataTable,
   DataTable,
   TableToolbar,
-  GenericActionBar,
   DataTableSkeleton,
+  toast,
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
-
-import { strings } from '@/constant';
-import SmsListColumns from './constant';
 import {
   IMassNotification,
+  useDeleteMassNotification,
   useGetMassNotifications,
 } from '@/services/messages/public-messages';
+import { strings } from '@/constant';
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { DeleteMessageModal } from '@/components/pages/messages/components/delete-message-modal';
+import { MESSAGES_ROUTES } from '@/routes';
+import SmsListColumns from './constant';
 
 const SmsListPage: FC = () => {
   const router = useRouter();
@@ -27,7 +31,14 @@ const SmsListPage: FC = () => {
     isLoading,
     isFetching,
     refetch,
-  } = useGetMassNotifications();
+  } = useGetMassNotifications({ notif_type: 'sms' });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(
+    null
+  );
+  const deleteMutation = useDeleteMassNotification();
+  const queryClient = useQueryClient();
 
   const { table, filterCount, resetFilters, submitFilters } =
     useDataTable<IMassNotification>({
@@ -35,17 +46,33 @@ const SmsListPage: FC = () => {
       columns: SmsListColumns,
       pageCount: totalPages,
       actions: {
-        onEdit: (row) => {
-          console.log('edit:', row.id);
-        },
         onDelete: (row) => {
-          console.log('delete:', row.id);
+          setMessageToDeleteId(row.id);
+          setIsDeleteModalOpen(true);
+        },
+        onEdit: (row) => {
+          router.push(`${MESSAGES_ROUTES.ADD_SMS}/${row.id}`);
         },
       },
     });
 
-  const handleAddSms = () => {
-    router.push('messages/add-sms');
+  const handleAddSMS = () => {
+    router.push(MESSAGES_ROUTES.ADD_SMS);
+  };
+
+  const handleConfirmDelete = () => {
+    if (messageToDeleteId) {
+      deleteMutation.mutate(
+        { id: messageToDeleteId },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['massNotifications'] });
+            setIsDeleteModalOpen(false);
+            toast.success(strings.messageDeled);
+          },
+        }
+      );
+    }
   };
 
   if (isLoading) {
@@ -53,7 +80,7 @@ const SmsListPage: FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <div className="w-full">
         <TableToolbar
           title={strings.smsMessages}
@@ -68,24 +95,19 @@ const SmsListPage: FC = () => {
         />
 
         <div className="p-4">
-          <DataTable
-            table={table}
-            actionBar={
-              <GenericActionBar
-                table={table}
-                onDelete={(ids) => {
-                  console.log('deleted:', ids);
-                }}
-                onEdit={(ids) => {
-                  console.log('editing:', ids);
-                }}
-              />
-            }
-          />
+          <DataTable table={table} />
         </div>
       </div>
 
-      <FabButton onClick={handleAddSms} />
+      <FabButton onClick={handleAddSMS} />
+
+      <DeleteMessageModal
+        isOpen={isDeleteModalOpen}
+        messageId={messageToDeleteId || ''}
+        onOpenChange={setIsDeleteModalOpen}
+        onConfirmDelete={handleConfirmDelete}
+        isDeleting={deleteMutation.isPending}
+      />
     </div>
   );
 };

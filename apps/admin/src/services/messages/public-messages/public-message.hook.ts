@@ -24,8 +24,15 @@ import { INetworkResponse } from '@aibox/services';
 
 const massNotificationsService = new MassNotificationsService();
 
-export const useGetMassNotifications = () => {
+export const useGetMassNotifications = (
+  overrideParams: Partial<IGetMassNotificationsRequest> = {}
+) => {
   const allQueryParams = useQueryParams();
+
+  const finalParams = {
+    ...allQueryParams,
+    ...overrideParams,
+  };
 
   let totalPages = 0;
   let totalItems = 0;
@@ -36,13 +43,13 @@ export const useGetMassNotifications = () => {
     isFetching,
     refetch,
   } = useQuery<IGetMassNotificationsResponse, Error, IMassNotification[]>({
-    queryKey: ['massNotifications', allQueryParams],
-    queryFn: async ({ queryKey }) => {
-      const { page, ...params } = queryKey[1] as IGetMassNotificationsRequest;
+    queryKey: ['massNotifications', finalParams],
+    queryFn: async () => {
+      const { page = 1, ...rest } = finalParams;
       const queryParams: IGetMassNotificationsRequest = {
         page,
         page_size: 10,
-        ...params,
+        ...rest,
       };
       const response = await massNotificationsService.getMassNotifications(
         queryParams

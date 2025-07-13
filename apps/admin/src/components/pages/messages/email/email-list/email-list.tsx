@@ -6,16 +6,21 @@ import {
   useDataTable,
   DataTable,
   TableToolbar,
-  GenericActionBar,
   DataTableSkeleton,
+  toast,
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
-import EmailListColumns from './constant';
-import { strings } from '@/constant';
 import {
   IMassNotification,
+  useDeleteMassNotification,
   useGetMassNotifications,
 } from '@/services/messages/public-messages';
+import { strings } from '@/constant';
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { DeleteMessageModal } from '@/components/pages/messages/components/delete-message-modal';
+import { MESSAGES_ROUTES } from '@/routes';
+import EmailListColumns from './constant';
 
 const EmailListPage: FC = () => {
   const router = useRouter();
@@ -26,7 +31,14 @@ const EmailListPage: FC = () => {
     isLoading,
     isFetching,
     refetch,
-  } = useGetMassNotifications();
+  } = useGetMassNotifications({ notif_type: 'email' });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(
+    null
+  );
+  const deleteMutation = useDeleteMassNotification();
+  const queryClient = useQueryClient();
 
   const { table, filterCount, resetFilters, submitFilters } =
     useDataTable<IMassNotification>({
@@ -34,17 +46,33 @@ const EmailListPage: FC = () => {
       columns: EmailListColumns,
       pageCount: totalPages,
       actions: {
-        onEdit: (row) => {
-          console.log('edit:', row.id);
-        },
         onDelete: (row) => {
-          console.log('delete:', row.id);
+          setMessageToDeleteId(row.id);
+          setIsDeleteModalOpen(true);
+        },
+        onEdit: (row) => {
+          router.push(`${MESSAGES_ROUTES.ADD_EMAIL_MESSAGE}/${row.id}`);
         },
       },
     });
 
-  const handleAddEmail = () => {
-    router.push('messages/add-email');
+  const handleAddEmailMessage = () => {
+    router.push(MESSAGES_ROUTES.ADD_EMAIL_MESSAGE);
+  };
+
+  const handleConfirmDelete = () => {
+    if (messageToDeleteId) {
+      deleteMutation.mutate(
+        { id: messageToDeleteId },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['massNotifications'] });
+            setIsDeleteModalOpen(false);
+            toast.success(strings.messageDeled);
+          },
+        }
+      );
+    }
   };
 
   if (isLoading) {
@@ -52,7 +80,7 @@ const EmailListPage: FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <div className="w-full">
         <TableToolbar
           title={strings.emailMessages}
@@ -67,24 +95,19 @@ const EmailListPage: FC = () => {
         />
 
         <div className="p-4">
-          <DataTable
-            table={table}
-            actionBar={
-              <GenericActionBar
-                table={table}
-                onDelete={(ids) => {
-                  console.log('deleted:', ids);
-                }}
-                onEdit={(ids) => {
-                  console.log('editing:', ids);
-                }}
-              />
-            }
-          />
+          <DataTable table={table} />
         </div>
       </div>
 
-      <FabButton onClick={handleAddEmail} />
+      <FabButton onClick={handleAddEmailMessage} />
+
+      <DeleteMessageModal
+        isOpen={isDeleteModalOpen}
+        messageId={messageToDeleteId || ''}
+        onOpenChange={setIsDeleteModalOpen}
+        onConfirmDelete={handleConfirmDelete}
+        isDeleting={deleteMutation.isPending}
+      />
     </div>
   );
 };

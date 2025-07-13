@@ -31,10 +31,10 @@ export interface IGetMassNotificationsRequest {
 export interface ICreateMassNotificationRequest {
   user: string;
   category: string;
-  name: string;
+  name?: string;
   from_time: string;
   to_time?: string;
-  subject: string;
+  subject?: string;
   message?: string;
   message_text?: string;
   notif_type?: 'sms' | 'email' | 'in_app' | 'in_header';
