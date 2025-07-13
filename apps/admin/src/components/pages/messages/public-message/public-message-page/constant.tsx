@@ -1,8 +1,8 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { IMassNotification } from '@/services/messages/messages-list/interface';
 import { AibStatus, formatJalali } from '@aibox/ui';
+import { IMassNotification } from '@/services/messages/public-messages';
 import { strings } from '@/constant';
 
 const statusMap: Record<string, { label: string; bgColor: string }> = {

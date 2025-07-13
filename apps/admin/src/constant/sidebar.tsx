@@ -184,6 +184,10 @@ export const sidebarData: SidebarData = [
         url: MESSAGES_ROUTES.NOTIFICAITONS,
       },
       {
+        title: routeNames[MESSAGES_ROUTES.PUBLIC_MESSAGE],
+        url: MESSAGES_ROUTES.PUBLIC_MESSAGE,
+      },
+      {
         title: routeNames[MESSAGES_ROUTES.DEFAULT_MESSAGE],
         url: MESSAGES_ROUTES.DEFAULT_MESSAGE,
       },

@@ -6,14 +6,21 @@ import {
   useDataTable,
   DataTable,
   TableToolbar,
-  GenericActionBar,
   DataTableSkeleton,
+  toast,
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
 import publicMessageColumns from './constant';
-import { useGetMassNotifications } from '@/services/messages/messages-list/message-list.hook';
-import { IMassNotification } from '@/services/messages/messages-list/interface';
+import {
+  IMassNotification,
+  useDeleteMassNotification,
+  useGetMassNotifications,
+} from '@/services/messages/public-messages';
 import { strings } from '@/constant';
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { DeleteMessageModal } from '@/components/pages/messages/components/delete-message-modal';
+import { MESSAGES_ROUTES } from '@/routes';
 
 const PublicMessagePage: FC = () => {
   const router = useRouter();
@@ -26,23 +33,46 @@ const PublicMessagePage: FC = () => {
     refetch,
   } = useGetMassNotifications();
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [messageToDeleteId, setMessageToDeleteId] = useState<string | null>(
+    null
+  );
+  const deleteMutation = useDeleteMassNotification();
+  const queryClient = useQueryClient();
+
   const { table, filterCount, resetFilters, submitFilters } =
     useDataTable<IMassNotification>({
       data: notifications,
       columns: publicMessageColumns,
       pageCount: totalPages,
       actions: {
-        onEdit: (row) => {
-          console.log('edit:', row.id);
-        },
         onDelete: (row) => {
-          console.log('delete:', row.id);
+          setMessageToDeleteId(row.id);
+          setIsDeleteModalOpen(true);
+        },
+        onEdit: (row) => {
+          router.push(`${MESSAGES_ROUTES.ADD_PUBLIC_MESSAGE}/${row.id}`);
         },
       },
     });
 
   const handleAddPublicMessage = () => {
-    router.push('messages/add-public-message');
+    router.push(MESSAGES_ROUTES.ADD_PUBLIC_MESSAGE);
+  };
+
+  const handleConfirmDelete = () => {
+    if (messageToDeleteId) {
+      deleteMutation.mutate(
+        { id: messageToDeleteId },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['massNotifications'] });
+            setIsDeleteModalOpen(false);
+            toast.success(strings.messageDeled);
+          },
+        }
+      );
+    }
   };
 
   if (isLoading) {
@@ -50,7 +80,7 @@ const PublicMessagePage: FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col">
       <div className="w-full">
         <TableToolbar
           title={strings.generalMessages}
@@ -65,24 +95,19 @@ const PublicMessagePage: FC = () => {
         />
 
         <div className="p-4">
-          <DataTable
-            table={table}
-            actionBar={
-              <GenericActionBar
-                table={table}
-                onDelete={(ids) => {
-                  console.log('deleted:', ids);
-                }}
-                onEdit={(ids) => {
-                  console.log('editing:', ids);
-                }}
-              />
-            }
-          />
+          <DataTable table={table} />
         </div>
       </div>
 
       <FabButton onClick={handleAddPublicMessage} />
+
+      <DeleteMessageModal
+        isOpen={isDeleteModalOpen}
+        messageId={messageToDeleteId || ''}
+        onOpenChange={setIsDeleteModalOpen}
+        onConfirmDelete={handleConfirmDelete}
+        isDeleting={deleteMutation.isPending}
+      />
     </div>
   );
 };
