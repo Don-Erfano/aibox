@@ -6,7 +6,7 @@ import CustomDatePicker from './DatePicker';
 import { IRhfDatePicker } from './types';
 import { FormField, FormItem, FormLabel, FormMessage } from '../form';
 
-export const RhfDatePicker = <TFieldValues extends FieldValues>({
+const RhfDatePicker = <TFieldValues extends FieldValues>({
   name,
   control,
   label,
@@ -32,3 +32,5 @@ export const RhfDatePicker = <TFieldValues extends FieldValues>({
     />
   );
 };
+
+export default RhfDatePicker;

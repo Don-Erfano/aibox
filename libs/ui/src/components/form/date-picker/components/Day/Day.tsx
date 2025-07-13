@@ -12,7 +12,6 @@ const WeekDay: FC<ISelectableDay> = ({
   max,
   min,
 }) => {
-  console.log(max);
   const minimumDate = min
     ? new Date(moment(min).toLocaleString()).getTime() >
       new Date(

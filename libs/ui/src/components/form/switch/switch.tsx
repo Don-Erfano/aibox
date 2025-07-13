@@ -5,7 +5,7 @@ import { cn } from '../../../lib';
 import { switchProps } from './interface';
 const Switch: FC<switchProps> = ({
   className,
-  dir,
+  dir = 'rtl',
   withIcon,
   loading,
   size = 'lg',

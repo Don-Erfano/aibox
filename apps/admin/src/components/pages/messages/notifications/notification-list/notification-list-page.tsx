@@ -10,10 +10,13 @@ import {
   DataTableSkeleton,
 } from '@aibox/ui';
 import { FabButton } from '@/components/fab-button';
-import { useGetMassNotifications } from '@/services/messages/messages-list/message-list.hook';
-import { IMassNotification } from '@/services/messages/messages-list/interface';
+
 import { strings } from '@/constant';
 import NotifListColumns from './constant';
+import {
+  IMassNotification,
+  useGetMassNotifications,
+} from '@/services/messages/public-messages';
 
 const NotificationListPage: FC = () => {
   const router = useRouter();
