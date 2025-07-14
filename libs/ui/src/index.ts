@@ -39,3 +39,4 @@ export * from './components/loading';
 export * from './components/form/toggle-switch';
 export * from './components/terminal';
 export * from './components/form/logo-avatar-input';
+export * from './components/custom-swiper';
