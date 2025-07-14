@@ -7,6 +7,7 @@ import {
   RHFSelect,
   RHFRadioGroup,
   RHFAutocomplete,
+  CustomSwiper,
 } from '@aibox/ui';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { defaultValues, userSchema, UserSchemaType } from '../types/schema';
@@ -21,68 +22,86 @@ export const UITest = () => {
   const onSubmit: SubmitHandler<UserSchemaType> = (data) => {
     console.log('Form data:', data);
   };
-
+  const slides = [
+    <div className="h-60 bg-red-200">Slide 1</div>,
+    <div className="h-60 bg-blue-200">Slide 2</div>,
+    <div className="h-60 bg-green-200">Slide 3</div>,
+    <div className="h-60 bg-red-200">Slide 4</div>,
+    <div className="h-60 bg-blue-200">Slide 5</div>,
+    <div className="h-60 bg-green-200">Slide 6</div>,
+  ];
   return (
-    <div className="p-8 max-w-lg mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Example Test Form Page</h1>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <RHFSelect
-            name="username"
-            control={form.control}
-            label="Username"
-            description="Enter your user name."
-          />
+    <div className="w-full">
+      <div className="p-8 max-w-lg mx-auto space-y-6">
+        <h1 className="text-2xl font-bold">Example Test Form Page</h1>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <RHFSelect
+              name="username"
+              control={form.control}
+              label="Username"
+              description="Enter your user name."
+            />
 
-          <RHFSelect
-            name="email"
-            control={form.control}
-            label="Email"
-            description="Enter your email address."
-          />
+            <RHFSelect
+              name="email"
+              control={form.control}
+              label="Email"
+              description="Enter your email address."
+            />
 
-          <RHFAutocomplete
-            name="notificationType"
-            control={form.control}
-            label="Notification Type"
-            description="Choose how you'd like to be notified."
-            options={[
-              { value: 'all', label: 'All messages1' },
-              { value: 'mentions', label: 'Mentions only1' },
-              { value: 'none', label: 'None1' },
-              { value: 'all1', label: 'All messages' },
-              { value: 'mentions2', label: 'Mentions only' },
-              { value: 'none2', label: 'None' },
-            ]}
-            placeholder="erfe"
-            mode="light"
-            variant="multiple"
-            h_size="md"
-            limited_tag={3}
-          />
+            <RHFAutocomplete
+              name="notificationType"
+              control={form.control}
+              label="Notification Type"
+              description="Choose how you'd like to be notified."
+              options={[
+                { value: 'all', label: 'All messages1' },
+                { value: 'mentions', label: 'Mentions only1' },
+                { value: 'none', label: 'None1' },
+                { value: 'all1', label: 'All messages' },
+                { value: 'mentions2', label: 'Mentions only' },
+                { value: 'none2', label: 'None' },
+              ]}
+              placeholder="erfe"
+              mode="light"
+              variant="multiple"
+              h_size="md"
+              limited_tag={3}
+            />
 
-          <RHFCheckbox
-            name="agree"
-            control={form.control}
-            label="I agree to the terms and conditions"
-            description="You must agree before submitting."
-          />
+            <RHFCheckbox
+              name="agree"
+              control={form.control}
+              label="I agree to the terms and conditions"
+              description="You must agree before submitting."
+            />
 
-          <RHFRadioGroup
-            name="tags"
-            control={form.control}
-            label="Tags"
-            description="Select relevant tags from the list."
-            options={[
-              { id: 'react', label: 'React' },
-              { id: 'typescript', label: 'Typescript' },
-              { id: 'radix', label: 'Radix' },
-            ]}
-          />
+            <RHFRadioGroup
+              name="tags"
+              control={form.control}
+              label="Tags"
+              description="Select relevant tags from the list."
+              options={[
+                { id: 'react', label: 'React' },
+                { id: 'typescript', label: 'Typescript' },
+                { id: 'radix', label: 'Radix' },
+              ]}
+            />
 
-          <Button type="submit">ثبت</Button>
-        </form>
-      </Form>
+            <Button type="submit">ثبت</Button>
+          </form>
+        </Form>
+      </div>
+      <div className="w-full container mx-auto mb-8">
+        <CustomSwiper
+          pagination={false}
+          navigation
+          slides={slides}
+          spaceBetween={20}
+          autoplay={false}
+        />
+      </div>
     </div>
   );
 };
