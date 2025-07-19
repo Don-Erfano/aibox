@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { ISvgIconProps } from './interface';
 
-const SecondNoDataIcon: FC<ISvgIconProps> = (props) => {
+const SecondNoDataIcon = (props: ISvgIconProps) => {
   return (
     <svg
       {...props}

@@ -1,7 +1,6 @@
 'use client';
 
 import axios from 'axios';
-import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +19,7 @@ interface IForm {
   password: string;
 }
 
-const LoginPage: FC = () => {
+const LoginPage = () => {
   const { push } = useRouter();
 
   const { mutateAsync: loginMutation, isPending } = useLoginMutation();

@@ -1,7 +1,7 @@
 'use client';
 
 import moment from 'moment-jalaali';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ECalendarState, IDatePicker } from './types';
 import MonthAndYear from './components/MonthAndYear/MonthAndYear';
@@ -12,14 +12,14 @@ import { Popover, PopoverContent, PopoverTrigger } from '../../popover/popover';
 import DatePickerInput from './components/Input/DatePickerInput';
 import DatePickerSingleInput from './components/Input/DatePickerSingleInput';
 
-const CustomDatePicker: FC<IDatePicker> = ({
+const CustomDatePicker = ({
   onChange,
   value,
   label,
   isMulti,
   min,
   max,
-}) => {
+}: IDatePicker) => {
   const today = moment(new Date()).format('jYYYY/jMM/jDD');
   const [show, setShow] = useState(false);
   const [datePickerValue, SetDatePickerValue] = useState<string[]>(

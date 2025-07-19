@@ -1,9 +1,7 @@
 import { List } from '@radix-ui/react-tabs';
 import type { TabsListPropsWithoutClassName } from '../types';
 
-export const TabsList: React.FC<TabsListPropsWithoutClassName> = ({
-  ...props
-}) => {
+export const TabsList = ({ ...props }: TabsListPropsWithoutClassName) => {
   return (
     <List
       data-slot="tabs-list"

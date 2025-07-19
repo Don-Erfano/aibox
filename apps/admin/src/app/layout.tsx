@@ -1,5 +1,5 @@
 import './global.css';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
 

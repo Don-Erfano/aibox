@@ -1,17 +1,15 @@
 import clsx from 'clsx';
-import { FC } from 'react';
-
 import { ISelectableDay } from './types';
 import moment from 'moment-jalaali';
 
-const WeekDay: FC<ISelectableDay> = ({
+const WeekDay = ({
   day: { WeekDay, day, month, year },
   selectedDate,
   onClick,
   today,
   max,
   min,
-}) => {
+}: ISelectableDay) => {
   const minimumDate = min
     ? new Date(moment(min).toLocaleString()).getTime() >
       new Date(

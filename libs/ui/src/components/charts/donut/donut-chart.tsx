@@ -1,6 +1,5 @@
 'use client';
 
-import { FC } from 'react';
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
 import { IDonutChartProps } from './interface';
@@ -28,14 +27,14 @@ const CHART_COLORS = {
   primary: ['#267FE5', '#6EE1F8', '#DD4B39', '#990099'],
 };
 
-const DonutChart: FC<IDonutChartProps> = ({
+const DonutChart = ({
   data,
   title,
   showLegends,
   total,
   loading,
   colors,
-}) => {
+}: IDonutChartProps) => {
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const chartOptions: ApexOptions = {
     chart: {

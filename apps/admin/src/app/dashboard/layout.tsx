@@ -3,12 +3,9 @@
 import { Header } from '@/components/header';
 import { AIBSidebar, SidebarProvider } from '@aibox/ui';
 import { sidebarData } from '@/constant/sidebar';
+import { ReactNode } from 'react';
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex overflow-hidden">
       <SidebarProvider>

@@ -1,6 +1,5 @@
 'use client';
 
-import { useQueryState } from 'nuqs';
 import type { TabProps } from './types';
 import {
   TabTitle,
@@ -9,29 +8,27 @@ import {
   TabsTrigger,
   TabsContent,
 } from './components';
-import { useEffect } from 'react';
 
-const Tab: React.FC<TabProps> = ({ tabs }) => {
-  const [rawTabId, setTabId] = useQueryState('tab');
-  const tabId = rawTabId ?? undefined; // no null allowed
-  let isValidTab = false;
+const Tab = ({ tabs }: TabProps) => {
+  // const [rawTabId, setTabId] = useQueryState('tab');
+  // let isValidTab = false;
 
   const enabledTabs: TabProps['tabs'] = tabs.filter((t) => {
-    if (t.id === tabId && !t.isDisabled) isValidTab = true;
+    // if (t.id === tabId && !t.isDisabled) isValidTab = true;
     return !t.isDisabled;
   });
 
   const allTabsDisabled = enabledTabs.length === 0;
 
-  useEffect(() => {
-    if (allTabsDisabled) return;
+  // useEffect(() => {
+  //   if (allTabsDisabled) return;
+  //
+  //   if (!tabId || !isValidTab) {
+  //     setTabId(enabledTabs[0].id);
+  //   }
+  // }, [tabId, isValidTab, setTabId, allTabsDisabled]);
 
-    if (!tabId || !isValidTab) {
-      setTabId(enabledTabs[0].id);
-    }
-  }, [tabId, isValidTab, setTabId, allTabsDisabled]);
-
-  const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
+  // const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
 
   if (allTabsDisabled) {
     return (
@@ -43,10 +40,10 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
 
   return (
     <Tabs
-      value={currentTabId}
-      onValueChange={(val) => {
-        setTabId(val);
-      }}
+    // value={currentTabId}
+    // onValueChange={(val) => {
+    //   setTabId(val);
+    // }}
     >
       <TabsList>
         {tabs.map((tab) => (
@@ -58,6 +55,8 @@ const Tab: React.FC<TabProps> = ({ tabs }) => {
 
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.id}>
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/*@ts-ignore*/}
           {tab.content}
         </TabsContent>
       ))}

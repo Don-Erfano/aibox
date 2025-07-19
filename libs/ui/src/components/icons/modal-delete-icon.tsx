@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { ISvgIconProps } from './interface';
 
-const ModalDeleteIcon: FC<ISvgIconProps> = (props) => {
+const ModalDeleteIcon = (props: ISvgIconProps) => {
   return (
     <svg
       {...props}

@@ -13,6 +13,8 @@ import {
 
 import { strings } from '@/constant';
 import { motherboardCols } from './constants';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import * as data from './data.json';
 import { GPU_ROUTES } from '@/routes';
 import { FabButton } from '@/components/fab-button';

@@ -1,4 +1,3 @@
-import { NuqsAdapter } from 'nuqs/adapters/react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Tab from './tab';
 
@@ -41,11 +40,5 @@ export const Preview: Story = {
       { name: 'توکن', id: '6', content: 'test22', isDisabled: true },
     ],
   },
-  decorators: [
-    (Story) => (
-      <NuqsAdapter>
-        <Story />
-      </NuqsAdapter>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
 };

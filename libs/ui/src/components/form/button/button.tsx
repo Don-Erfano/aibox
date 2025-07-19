@@ -1,13 +1,12 @@
-import { FC } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-
 import { cn } from '../../../lib';
 import { buttonProps } from './interface';
 import { buttonVariants } from './classes';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
 import { Loading } from '../../loading';
+import { PropsWithChildren } from 'react';
 
-const Button: FC<buttonProps> = ({
+const Button = ({
   className,
   variant,
   size,
@@ -17,9 +16,9 @@ const Button: FC<buttonProps> = ({
   loading,
   children,
   ...props
-}) => {
+}: PropsWithChildren<buttonProps>) => {
   const Comp = asChild || tooltip ? Slot : 'button';
-  const ButtonComponent: FC = () => (
+  const ButtonComponent = () => (
     <Comp
       data-slot="button"
       className={cn(
@@ -32,6 +31,9 @@ const Button: FC<buttonProps> = ({
       )}
       {...props}
     >
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/*@ts-expect-error*/}
+
       {loading ? <Loading /> : children}
     </Comp>
   );

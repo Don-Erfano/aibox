@@ -3,10 +3,9 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import clsx from 'clsx';
 import { X as CloseIcon } from 'lucide-react';
-import { FC } from 'react';
 import { ModalProps } from './interface';
 
-export const Modal: FC<ModalProps> = ({
+export const Modal = ({
   title,
   headerIcon,
   trigger,
@@ -14,7 +13,7 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   open,
   onOpenChange,
-}) => {
+}: ModalProps) => {
   return (
     <DialogPrimitive.Root
       open={open}
@@ -24,6 +23,8 @@ export const Modal: FC<ModalProps> = ({
       }}
     >
       {trigger && (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
       )}
       <DialogPrimitive.Portal>

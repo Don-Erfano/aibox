@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef, useState, useEffect, useCallback, useMemo } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { CustomSwiperProps } from './interface';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -11,7 +11,7 @@ import { cn } from '../../lib';
 import { BREAKPOINTS, SLIDES_PER_VIEW } from './constant';
 import NavigationButton from './navigation-button';
 
-const CustomSwiper: FC<CustomSwiperProps> = ({
+const CustomSwiper = ({
   slides,
   navigation = true,
   pagination = true,
@@ -19,7 +19,7 @@ const CustomSwiper: FC<CustomSwiperProps> = ({
   spaceBetween = 30,
   className,
   onSlideChange,
-}) => {
+}: CustomSwiperProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [navigationState, setNavigationState] = useState({
     isBeginning: true,

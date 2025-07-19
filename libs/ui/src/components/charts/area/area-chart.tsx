@@ -2,11 +2,11 @@
 
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IChartProps } from './interface';
 import { ApexOptions } from 'apexcharts';
 
-const AreaChart: FC<IChartProps> = ({
+const AreaChart = ({
   className,
   data,
   title = '',
@@ -14,7 +14,7 @@ const AreaChart: FC<IChartProps> = ({
   horizontalCategories,
   fillColor = '#BAFBF9',
   enableTooltip = true,
-}) => {
+}: IChartProps) => {
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const [windowWidth, setWindowWidth] = useState<number>(0);
 

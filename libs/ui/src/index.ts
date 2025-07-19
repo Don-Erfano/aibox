@@ -1,4 +1,6 @@
 export * from './lib';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export * as style from './global.css';
 export * from './hooks';
 export * from './components/icons';

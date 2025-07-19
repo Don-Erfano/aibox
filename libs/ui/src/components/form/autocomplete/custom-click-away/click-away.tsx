@@ -2,7 +2,7 @@
 import {
   cloneElement,
   DOMAttributes,
-  FC,
+  PropsWithChildren,
   Ref,
   SyntheticEvent,
   useEffect,
@@ -29,7 +29,9 @@ import useForkRef from '../hooks/useForkRef';
  * @returns {JSX.Element} A component that wraps a child and listens for click events outside of it.
  */
 
-const ClickAwayListener: FC<IClickAwayListenerProps> = (props) => {
+const ClickAwayListener = (
+  props: PropsWithChildren<IClickAwayListenerProps>
+) => {
   const {
     children,
     disableReactTree = false,
@@ -98,6 +100,7 @@ const ClickAwayListener: FC<IClickAwayListenerProps> = (props) => {
     (handlerName: string) => (event: SyntheticEvent) => {
       syntheticEventRef.current = true;
 
+      // @ts-ignore
       const childrenPropsHandler = children.props[handlerName];
       if (childrenPropsHandler) {
         childrenPropsHandler(event);

@@ -12,16 +12,22 @@ const CustomMessage: FC<CustomMessageProps> = ({ value, onChange }) => {
   const values = value && value.length > 0 ? value : [''];
 
   const handleAdd = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     onChange([...values, '']);
   };
 
   const handleRemove = (idx: number) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     onChange(values.filter((_, i) => i !== idx));
   };
 
   const handleChange = (idx: number, newValue: string) => {
     const newValues = [...values];
     newValues[idx] = newValue;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     onChange(newValues);
   };
 

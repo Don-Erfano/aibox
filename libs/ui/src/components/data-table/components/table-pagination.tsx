@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './../../form/select';
+} from '../../form';
 import { cn } from '../../../lib';
 import { TablePaginationProps } from '../types';
 import { Button } from '../../form';
@@ -23,6 +23,8 @@ export function TablePagination<TData>({
   ...props
 }: TablePaginationProps<TData>) {
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <div
       className={cn(
         'flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8',

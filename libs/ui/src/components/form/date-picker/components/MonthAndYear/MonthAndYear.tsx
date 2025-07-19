@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import clsx from 'clsx';
 
 import { jalaliMonth } from '../../constants';
@@ -7,7 +7,7 @@ import { ECalendarState } from '../../types';
 import { Button } from '../../../button';
 import { IcurrentDate } from '../Header/types';
 
-const MonthAndYear: FC = () => {
+const MonthAndYear = () => {
   const { setCalendarState, today, currentDate, setCurrentDate } =
     useDatePickerProvider();
   const sepratedToday = today.split('/');

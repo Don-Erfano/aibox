@@ -1,14 +1,26 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-
+import { NextPage } from 'next';
 import { GiftCodeForm } from '@/components/pages/gift-code';
+import { Suspense, use } from 'react';
 
-const EditGiftCodePage = () => {
-  const params = useParams();
-  const giftCodeId = params.id as string;
+const EditGiftCodePage: NextPage<{ params: Promise<{ id: string }> }> = ({
+  params,
+}) => {
+  return (
+    <Suspense fallback={<div>در حال بارگذاری...</div>}>
+      <GiftCodeFormWrapper params={params} />
+    </Suspense>
+  );
+};
 
-  return <GiftCodeForm giftCodeId={giftCodeId} />;
+const GiftCodeFormWrapper = ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = use(params);
+  return <GiftCodeForm giftCodeId={id} />;
 };
 
 export default EditGiftCodePage;

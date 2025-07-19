@@ -1,9 +1,8 @@
-import { FC } from 'react';
 import { Root, Thumb } from '@radix-ui/react-switch';
 import { Check, LoaderCircleIcon, X } from 'lucide-react';
 import { cn } from '../../../lib';
 import { switchProps } from './interface';
-const Switch: FC<switchProps> = ({
+const Switch = ({
   className,
   dir = 'rtl',
   withIcon,
@@ -11,7 +10,7 @@ const Switch: FC<switchProps> = ({
   size = 'lg',
   variant = 'primary',
   ...props
-}) => {
+}: switchProps) => {
   return (
     <Root
       data-slot="switch"

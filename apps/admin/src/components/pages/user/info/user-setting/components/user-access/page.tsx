@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Form, RHFRadioGroup, toast } from '@aibox/ui';
 import { userAccessLevels } from './constant';

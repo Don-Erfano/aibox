@@ -1,13 +1,12 @@
-import { FC } from 'react';
 import { IDatePickerInput } from './types';
 import { Calendar, X } from 'lucide-react';
 
-const DatePickerSingleInput: FC<IDatePickerInput> = ({
+const DatePickerSingleInput = ({
   clearAction,
   handleChange,
   value,
   label,
-}) => {
+}: IDatePickerInput) => {
   return (
     <div className="flex flex-col items-start gap-2 w-full cursor-pointer">
       <span>{label}</span>

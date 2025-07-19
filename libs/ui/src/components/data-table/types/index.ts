@@ -12,6 +12,7 @@ import { FilterItemSchema } from '../lib/parsers';
 import { DataTableConfig } from '../constant';
 import { Options } from 'nuqs';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
+import { ComponentProps } from 'react';
 
 export interface UseTableFiltersProps<TData> {
   table: Table<TData>;
@@ -31,8 +32,7 @@ export interface FilterChipsBarProps {
   chipCount: number;
 }
 
-export interface TablePaginationProps<TData>
-  extends React.ComponentProps<'div'> {
+export interface TablePaginationProps<TData> extends ComponentProps<'div'> {
   table: Table<TData>;
   pageSizeOptions?: number[];
 }
@@ -125,7 +125,7 @@ export type actionsProps<T> = {
   customActions?: CustomAction<T>[];
 };
 
-export interface DataTableProps<TData> extends React.ComponentProps<'div'> {
+export interface DataTableProps<TData> extends ComponentProps<'div'> {
   table: TanstackTable<TData>;
   actionBar?: React.ReactNode;
   childComponent?: React.ComponentType<{ row: TData }>;
@@ -236,4 +236,4 @@ export interface TableFiltersFormProps<TData> {
   column: Column<TData>;
 }
 
-export type ToolbarButtonProps = React.ComponentProps<'button'>;
+export type ToolbarButtonProps = ComponentProps<'button'>;

@@ -1,7 +1,4 @@
-import { FC } from 'react';
-import { ISvgIconProps } from './interface';
-
-const NoDataIcon: FC<ISvgIconProps> = () => {
+const NoDataIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

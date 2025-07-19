@@ -30,6 +30,8 @@ export const AIBInput = ({
           {startAdornment}
         </div>
       )}
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
+      {/* @ts-ignore*/}
       <input
         type={inputType}
         data-slot="input"

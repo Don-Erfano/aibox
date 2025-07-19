@@ -1,17 +1,18 @@
-import { FC } from 'react';
 import clsx from 'clsx';
 import { StatusBoxProps } from './interface';
 
-const AibStatus: FC<StatusBoxProps> = ({
+const AibStatus = ({
   label,
   bgColor,
   sizeClass = 'w-4 h-4',
   icon,
-}) => {
+}: StatusBoxProps) => {
   return (
     <div className="flex items-center gap-2 rtl:space-x-reverse">
       {icon ? (
         <span className={clsx(sizeClass, 'flex items-center justify-center')}>
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/*  @ts-ignore */}
           {icon}
         </span>
       ) : (

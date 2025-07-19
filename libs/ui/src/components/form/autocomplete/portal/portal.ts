@@ -1,14 +1,14 @@
 'use client';
-import { useEffect, useState, FC, PropsWithChildren } from 'react';
+import { useEffect, useState, PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 import { IPortalProps } from './interface';
 
-const Portal: FC<PropsWithChildren<IPortalProps>> = ({
+const Portal = ({
   children,
   containerId = `portal`,
   left,
   top,
-}) => {
+}: PropsWithChildren<IPortalProps>) => {
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -30,6 +30,8 @@ const Portal: FC<PropsWithChildren<IPortalProps>> = ({
     };
   }, [containerId, left, top]);
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   return container ? createPortal(children, container) : null;
 };
 

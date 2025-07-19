@@ -7,7 +7,7 @@ type buttonProps = ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
     tooltip?: string;
-    loading?: boolean;
+    loading?: boolean | undefined;
   };
 
 export type { buttonProps };

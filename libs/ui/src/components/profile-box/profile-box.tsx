@@ -1,10 +1,10 @@
 'use client';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { cn } from '../../lib';
 import { ProfileBoxProps } from './interface';
 import { PersonIcon, ChevronIcon } from '../icons';
 
-const ProfileBox: FC<ProfileBoxProps> = ({ username, avatarUrl, items }) => {
+const ProfileBox = ({ username, avatarUrl, items }: ProfileBoxProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prev) => !prev);
 

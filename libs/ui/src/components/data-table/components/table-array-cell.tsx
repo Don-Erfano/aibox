@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '../../popover';
 import { ArrayCellProps } from '../types';
 

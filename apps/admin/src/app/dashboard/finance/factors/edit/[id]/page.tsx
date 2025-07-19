@@ -1,15 +1,22 @@
 'use client';
 
 import { NextPage } from 'next';
-import { useParams } from 'next/navigation';
-
 import { FactorForm } from '@/components/pages/factors';
+import { Suspense, use } from 'react';
 
-const EditFactorPage: NextPage = () => {
-  const params = useParams();
-  const factorId = params.id as string;
+const EditFactorPage: NextPage<{ params: Promise<{ id: string }> }> = ({
+  params,
+}) => {
+  return (
+    <Suspense fallback={<div>در حال بارگذاری...</div>}>
+      <FactorFormWrapper params={params} />
+    </Suspense>
+  );
+};
 
-  return <FactorForm factorId={factorId} />;
+const FactorFormWrapper = ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = use(params);
+  return <FactorForm factorId={id} />;
 };
 
 export default EditFactorPage;

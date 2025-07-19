@@ -8,7 +8,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './../form';
+} from '../form';
 import { RHFToggleSwitchProps } from './interface';
 import { ToggleSwitch } from './toggle-switch';
 

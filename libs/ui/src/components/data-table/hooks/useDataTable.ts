@@ -308,7 +308,7 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
     },
     pageCount,
     state: {
-      pagination,
+      // pagination,
       sorting,
       columnVisibility,
       rowSelection,

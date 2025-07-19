@@ -15,9 +15,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../dropdown-menu';
+import { ComponentProps } from 'react';
 
 interface TableColumnHeaderProps<TData, TValue>
-  extends React.ComponentProps<typeof DropdownMenuTrigger> {
+  extends ComponentProps<typeof DropdownMenuTrigger> {
   header: Header<TData, TValue>;
 }
 

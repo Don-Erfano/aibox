@@ -1,6 +1,5 @@
 'use client';
 
-import { FC } from 'react';
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts';
 
@@ -24,7 +23,7 @@ import type { ISemiCircleProps } from './interface';
  * );
  */
 
-const SemiCircleChart: FC<ISemiCircleProps> = ({ data, label, isLoading }) => {
+const SemiCircleChart = ({ data, label, isLoading }: ISemiCircleProps) => {
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
   const options: ApexOptions = {
     chart: {

@@ -1,14 +1,13 @@
-import { FC } from 'react';
 import { NavigationButtonProps } from './interface';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { cn } from '../../lib';
 
-const NavigationButton: FC<NavigationButtonProps> = ({
+const NavigationButton = ({
   direction,
   onClick,
   disabled,
   ariaLabel,
-}) => {
+}: NavigationButtonProps) => {
   const Icon = direction === 'next' ? ArrowLeft : ArrowRight;
 
   return (

@@ -1,12 +1,10 @@
-import { FC } from 'react';
-
 import { Day } from '..';
 import { IDays } from './types';
 import { getDaysOfCurrentMonth } from '../../helpers/GetMonth';
 import { useDatePickerProvider } from '../../providers/useDatePickerProvider';
 import moment from 'moment-jalaali';
 
-const Days: FC<IDays> = ({ onClick }) => {
+const Days = ({ onClick }: IDays) => {
   const { currentDate, datePickerValue, today, max, min } =
     useDatePickerProvider();
   return (

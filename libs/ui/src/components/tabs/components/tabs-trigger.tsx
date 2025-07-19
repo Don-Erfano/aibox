@@ -2,10 +2,10 @@ import { Trigger } from '@radix-ui/react-tabs';
 import type { TabsTriggerPropsWithoutClassName } from '../types';
 import clsx from 'clsx';
 
-export const TabsTrigger: React.FC<TabsTriggerPropsWithoutClassName> = ({
+export const TabsTrigger = ({
   disabled,
   ...props
-}) => {
+}: TabsTriggerPropsWithoutClassName) => {
   return (
     <Trigger
       data-slot="tabs-trigger"

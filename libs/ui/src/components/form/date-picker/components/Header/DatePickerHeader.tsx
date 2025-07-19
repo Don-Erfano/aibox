@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import HeaderAction from '../HeaderAction/HeaderAction';
 import { getDaysOfCurrentMonth } from '../../helpers/GetMonth';
 import { jalaliMonth } from '../../constants';
@@ -13,7 +11,7 @@ import {
   ChevronsRight,
 } from 'lucide-react';
 
-const DatePickerHeader: FC = () => {
+const DatePickerHeader = () => {
   const { currentDate, setCurrentDate, setCalendarState } =
     useDatePickerProvider();
 

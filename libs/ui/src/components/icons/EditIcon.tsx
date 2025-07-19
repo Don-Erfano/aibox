@@ -1,7 +1,4 @@
-import { ISvgIconProps } from './interface';
-import { FC } from 'react';
-
-const EditIcon: FC<ISvgIconProps> = () => {
+const EditIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

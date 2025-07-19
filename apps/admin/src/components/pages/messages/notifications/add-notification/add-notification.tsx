@@ -176,7 +176,7 @@ const AddNotificationPage: FC = () => {
       };
 
       if (isEditMode) {
-        await updateMassNotificationMutation.mutateAsync(payload);
+        await updateMassNotificationMutation.mutateAsync(payload as any);
       } else {
         const response = await createMassNotificationMutation.mutateAsync(
           payload

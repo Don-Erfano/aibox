@@ -7,7 +7,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './../form';
+} from '../form';
 import { Select } from './aib-select';
 
 export const RHFSelect = <TFieldValues extends FieldValues>({

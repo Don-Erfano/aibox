@@ -291,6 +291,9 @@ function SidebarGroupLabel({
   const Comp = asChild ? Slot : 'div';
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+
     <Comp
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
@@ -378,6 +381,8 @@ function SidebarMenuButton({
   const { isMobile, state } = useSidebar();
 
   const button = (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     <Comp
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"

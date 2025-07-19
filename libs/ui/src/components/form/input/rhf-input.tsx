@@ -7,7 +7,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './../form';
+} from '../form';
 import { AIBInput } from './input';
 
 export const RHFInput = <TFieldValues extends FieldValues>({

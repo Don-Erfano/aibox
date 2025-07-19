@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { AnswerQuestionProps } from './interface';
 import { strings } from '@/constant';
 

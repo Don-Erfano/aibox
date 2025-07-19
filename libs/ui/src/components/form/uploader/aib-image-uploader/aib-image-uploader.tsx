@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useRef, useState, DragEvent, ChangeEvent } from 'react';
+import { useRef, useState, DragEvent, ChangeEvent } from 'react';
 import { AibImageUploaderProps } from './interface';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X, Upload } from 'lucide-react';
@@ -25,7 +25,7 @@ const uploaderVariants = cva(
   }
 );
 
-const AibImageUploader: FC<AibImageUploaderProps> = ({
+const AibImageUploader = ({
   error = false,
   errorMessage = '',
   initialImageUrl,
@@ -33,7 +33,7 @@ const AibImageUploader: FC<AibImageUploaderProps> = ({
   disabled = false,
   readOnly = false,
   ...rest
-}) => {
+}: AibImageUploaderProps) => {
   const isMultipleMode = !!rest.multiple;
   const [filesState, setFilesState] = useState<File[]>([]);
 

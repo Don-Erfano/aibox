@@ -10,5 +10,6 @@ const UserInfo: NextPage<UserInfoProps> = ({ params }) => {
 
   return <UserInfoPage id={id} />;
 };
+export const dynamic = 'force-dynamic';
 
 export default UserInfo;

@@ -3,7 +3,13 @@
 import { NextPage } from 'next';
 
 import { LogsList } from '@/components';
+import { Suspense } from 'react';
 
-const Page: NextPage = () => <LogsList />;
+const Page: NextPage = () => (
+  <Suspense fallback={<div>در حال بارگذاری...</div>}>
+    <LogsList />
+  </Suspense>
+);
+export const dynamic = 'force-dynamic';
 
 export default Page;

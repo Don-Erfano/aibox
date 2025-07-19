@@ -11,3 +11,4 @@ export default function Index() {
     </div>
   );
 }
+export const dynamic = 'force-dynamic';

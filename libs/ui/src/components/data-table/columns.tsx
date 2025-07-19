@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
-import { Checkbox } from '../form/checkbox';
+import { Checkbox } from '../form';
 import { cn } from '../../lib';
 
 /**

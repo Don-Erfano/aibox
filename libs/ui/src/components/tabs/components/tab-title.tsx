@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { TabTitleProps } from '../types';
 
-export const TabTitle: React.FC<TabTitleProps> = ({ children, disabled }) => {
+export const TabTitle = ({ children, disabled }: TabTitleProps) => {
   return (
     <p
       className={clsx(

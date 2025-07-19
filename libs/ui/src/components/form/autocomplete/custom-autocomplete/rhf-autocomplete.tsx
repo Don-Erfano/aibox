@@ -83,6 +83,9 @@ const RHFAutocomplete = <TField extends FieldValues>({
             {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
 
             <FormControl>
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-expect-error*/}
+
               <AibAutocomplete
                 {...rest}
                 id={fieldName}

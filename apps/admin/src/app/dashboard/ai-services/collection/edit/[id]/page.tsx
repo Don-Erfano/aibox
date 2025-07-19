@@ -10,5 +10,6 @@ const CollectionEditPage = () => {
 
   return <CollectionTab collectionId={collectionId} />;
 };
+export const dynamic = 'force-dynamic';
 
 export default CollectionEditPage;

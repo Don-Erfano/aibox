@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { ISvgIconProps } from './interface';
 
-const WidthdrawIcon: FC<ISvgIconProps> = (props) => {
+const WidthdrawIcon = (props: ISvgIconProps) => {
   return (
     <svg
       {...props}

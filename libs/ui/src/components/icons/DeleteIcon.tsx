@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { ISvgIconProps } from './interface';
 
-const DeleteIcon: FC<ISvgIconProps> = (props) => {
+const DeleteIcon = (props: ISvgIconProps) => {
   return (
     <svg
       {...props}

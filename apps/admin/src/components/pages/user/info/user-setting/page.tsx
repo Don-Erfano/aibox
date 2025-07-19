@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import UserAccessLevel from './components/user-access/page';
 import ProviderShareField from './components/provider-share/page';
 import UserStatusField from './components/user-status/page';

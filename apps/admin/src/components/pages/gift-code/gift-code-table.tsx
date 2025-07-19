@@ -18,7 +18,7 @@ import { giftCodeColumns } from './constants';
 import { DeleteGiftCodeModal } from './delete-gift-code-modal';
 import { DeleteModal } from './interface';
 
-const GiftCodeTable: React.FC = () => {
+const GiftCodeTable = () => {
   const router = useRouter();
   const { giftCodes, isLoading, isFetching, refetch, totalItems, totalPages } =
     useGetAllGiftCodes();

@@ -1,8 +1,7 @@
-import { FC } from 'react';
 import type { loadingProps } from './interface';
 import clsx from 'clsx';
 
-const Loading: FC<loadingProps> = ({ size = 'md', theme = 'dark' }) => {
+const Loading = ({ size = 'md', theme = 'dark' }: loadingProps) => {
   const parentClasses = clsx('flex', {
     'gap-[3px]': size === 'sm',
     'gap-1': size === 'md',

@@ -7,8 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from '../../table';
+import { ComponentProps } from 'react';
 
-interface DataTableSkeletonProps extends React.ComponentProps<'div'> {
+interface DataTableSkeletonProps extends ComponentProps<'div'> {
   columnCount: number;
   rowCount?: number;
   filterCount?: number;

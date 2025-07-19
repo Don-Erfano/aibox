@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, ComponentType } from 'react';
+import { ComponentType } from 'react';
 import { ChevronDownIcon } from 'lucide-react';
 import {
   ChevronIcon,
@@ -35,7 +35,7 @@ type IconEntry = {
   name: string;
 };
 
-const IconGallery: FC = () => {
+const IconGallery = () => {
   const copyToClipboard = (text: string) => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard
