@@ -16,9 +16,7 @@ const QueryProvider: FC<PropsWithChildren<QueryProviderProps>> = ({
   hydrate(queryClient, dehydratedState);
 
   return (
-    <QueryClientProvider client={queryClient}>
-        {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
 export default QueryProvider;

@@ -10,7 +10,7 @@ import type {
 import type { Row, RowData } from '@tanstack/react-table';
 import { FilterItemSchema } from '../lib/parsers';
 import { DataTableConfig } from '../constant';
-import { Options } from 'nuqs';
+import type { Options } from 'nuqs';
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { ComponentProps } from 'react';
 

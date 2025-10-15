@@ -2,6 +2,7 @@ import './global.css';
 import { type ReactNode } from 'react';
 import { dehydrate } from '@tanstack/react-query';
 import QueryProvider, { createQueryClient } from '@/providers/queryProvider';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 export default async function RootLayout({
   children,
@@ -14,9 +15,11 @@ export default async function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body>
-        <QueryProvider dehydratedState={dehydratedState}>
-          {children}
-        </QueryProvider>
+        <NuqsAdapter>
+          <QueryProvider dehydratedState={dehydratedState}>
+            {children}
+          </QueryProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

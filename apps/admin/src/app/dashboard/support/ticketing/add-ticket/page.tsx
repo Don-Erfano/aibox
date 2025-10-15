@@ -1,9 +1,14 @@
 'use client';
 
-import { NextPage } from 'next';
+import { Suspense } from 'react';
 import { AddTicketPage } from '@/components/pages/ticketing';
 
-const Page: NextPage = () => <AddTicketPage />;
 export const dynamic = 'force-dynamic';
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddTicketPage />
+    </Suspense>
+  );
+}

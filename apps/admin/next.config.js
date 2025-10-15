@@ -6,10 +6,22 @@ const { composePlugins, withNx } = require('@nx/next');
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
+const path = require('path');
+
 const nextConfig = {
-  // output: 'standalone',
-  experimental: {
-    serverComponentsExternalPackages: ['nuqs'],
+  transpilePackages: ['nuqs', '@aibox/ui'],
+  serverExternalPackages: [],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  webpack: (config) => {
+    config.resolve = config.resolve || {};
+    config.resolve.alias = config.resolve.alias || {};
+    config.resolve.alias['@aibox/ui'] = path.resolve(
+      __dirname,
+      '../../libs/ui/src'
+    );
+    return config;
   },
   nx: {
     // Set this to true if you would like to use SVGR

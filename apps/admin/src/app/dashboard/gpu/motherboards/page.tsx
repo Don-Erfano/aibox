@@ -1,5 +1,4 @@
 'use client';
-
 import { MohterboardList } from '@/components';
 import { Suspense } from 'react';
 

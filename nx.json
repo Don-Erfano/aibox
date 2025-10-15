@@ -92,6 +92,11 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "@nx/next:build": {
+      "options": {
+        "buildLibsFromSource": true
+      }
     }
   },
   "generators": {

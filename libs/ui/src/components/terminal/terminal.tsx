@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef } from 'react';
 import { Button } from '../form';
 import { RefreshCw, X } from 'lucide-react';

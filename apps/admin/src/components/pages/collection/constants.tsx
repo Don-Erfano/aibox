@@ -1,3 +1,4 @@
+'use client';
 import { AibStatus, CategoryIcon, formatJalali, Option } from '@aibox/ui';
 import { QueryObserverResult } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
