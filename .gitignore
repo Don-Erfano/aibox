@@ -23,7 +23,8 @@ node_modules
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
+.verdaccio
+.vscode
 # misc
 /.sass-cache
 /connect.lock
