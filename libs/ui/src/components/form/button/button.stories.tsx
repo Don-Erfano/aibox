@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Button from './button';
-import { FilterIcon } from 'lucide-react';
+import { FilterIcon, Info } from 'lucide-react';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -62,6 +62,19 @@ export const Icon: Story = {
     size: 'icon',
     'aria-selected': false,
     disabled: false,
+  },
+};
+
+export const ToolTip: Story = {
+  args: {
+    children: <Info strokeWidth={1.5} />,
+    variant: 'ghost',
+    size: 'icon',
+    tooltip: '-برای وارد کردن git url از  http://git_url/branch استفاده کنید.',
+    'aria-selected': false,
+    disabled: false,
+    className:
+      'hover:bg-transparent  !p-0  !m-2 hover:!p-0 hover:!m-2 size-6 hover:text-red-500 hover:text-neutral-900 text-neutral-500',
   },
 };
 

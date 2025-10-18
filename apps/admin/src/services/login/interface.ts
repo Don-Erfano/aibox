@@ -1,6 +1,8 @@
 interface ILogiPayload {
   username: string;
   password: string;
+  captcha_key?: string;
+  captcha_value?: string;
 }
 
 interface ILogiResponse {
@@ -14,6 +16,7 @@ interface ILogiResponse {
     session_state: string;
     not_before_policy: string;
     refresh_expires_in: string;
+    is_admin: boolean;
   };
   need_captcha: boolean;
   wrong_captcha: boolean;

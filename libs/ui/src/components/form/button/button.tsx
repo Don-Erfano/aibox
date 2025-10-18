@@ -1,24 +1,24 @@
+import { FC } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { cn } from '../../../lib';
-import { buttonProps } from './interface';
+
 import { buttonVariants } from './classes';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
 import { Loading } from '../../loading';
-import { PropsWithChildren } from 'react';
+import { buttonProps, InnerButtonProps } from './interface';
+import { cn } from '../../../lib';
 
-const Button = ({
+const InnerButton: FC<InnerButtonProps> = ({
+  Comp,
   className,
   variant,
   size,
-  asChild = false,
   isFilled,
-  tooltip,
   loading,
   children,
+  type = 'button',
   ...props
-}: PropsWithChildren<buttonProps>) => {
-  const Comp = asChild || tooltip ? Slot : 'button';
-  const ButtonComponent = () => (
+}) => {
+  return (
     <Comp
       data-slot="button"
       className={cn(
@@ -29,26 +29,34 @@ const Button = ({
           isFilled: !loading ? isFilled : false,
         })
       )}
+      type={type}
       {...props}
     >
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/*@ts-expect-error*/}
-
       {loading ? <Loading /> : children}
     </Comp>
   );
+};
 
-  if (tooltip)
+const Button: FC<buttonProps> = ({
+  asChild = false,
+  tooltip,
+  type = 'button',
+  ...props
+}) => {
+  const Comp = asChild || tooltip ? Slot : 'button';
+
+  if (tooltip) {
     return (
       <Tooltip>
         <TooltipTrigger className="w-auto">
-          <ButtonComponent />
+          <InnerButton Comp={Comp} type={type} {...props} />
         </TooltipTrigger>
-        {tooltip && <TooltipContent>{tooltip}</TooltipContent>}
+        <TooltipContent>{tooltip}</TooltipContent>
       </Tooltip>
     );
+  }
 
-  return <ButtonComponent />;
+  return <InnerButton Comp={Comp} type={type} {...props} />;
 };
 
 export default Button;

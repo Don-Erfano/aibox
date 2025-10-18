@@ -1,9 +1,14 @@
 'use server';
 import { cookies } from 'next/headers';
 
-export async function setCookie(key: string, value: string, maxAge?: number) {
+export async function setCookie(
+  key: string,
+  value: string,
+  maxAge?: number,
+  domain?: string
+) {
   const cookie = cookies();
-  (await cookie).set(key, value, { maxAge });
+  (await cookie).set(key, value, { maxAge, domain });
   return true;
 }
 

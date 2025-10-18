@@ -11,3 +11,10 @@ export const useLoginMutation = () =>
       await authServices.postUserAuthLogin(payload),
     mutationKey: [`useLoginMutation`],
   });
+
+export const useReloadCaptcha = () =>
+  useMutation({
+    mutationFn: async (payload: { captcha_key: string }) =>
+      await authServices.reloadCaptcha(payload),
+    mutationKey: [`useReloadCaptcha`],
+  });
