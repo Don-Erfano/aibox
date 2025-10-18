@@ -1,11 +1,11 @@
 import axios, {
   AxiosError,
-  InternalAxiosRequestConfig,
   AxiosRequestConfig,
+  InternalAxiosRequestConfig,
 } from 'axios';
 import { IMiddleware } from './interface';
 import nookies from 'nookies';
-import { INetworkResponse } from '../../abstractApi/interface';
+import { INetworkResponse } from '../../abstractApi';
 
 export default class AuthMiddleware implements IMiddleware {
   private isRefreshing = false;
@@ -15,23 +15,10 @@ export default class AuthMiddleware implements IMiddleware {
     config: InternalAxiosRequestConfig;
   }> = [];
 
-  private processQueue(error: any, token: string | null = null) {
-    this.failedQueue.forEach(({ resolve, reject, config }) => {
-      if (error) {
-        reject(error);
-      } else if (token) {
-        config.headers = config.headers || {};
-        config.headers.Authorization = `Bearer ${token}`;
-        resolve(config);
-      }
-    });
-    this.failedQueue = [];
-  }
-
   async onRequest(
     config: InternalAxiosRequestConfig
   ): Promise<InternalAxiosRequestConfig> {
-    if (typeof window) {
+    if (typeof window !== 'undefined') {
       const { token } = nookies.get();
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -43,14 +30,19 @@ export default class AuthMiddleware implements IMiddleware {
   async onResponseError(
     error: AxiosError<INetworkResponse<null>>
   ): Promise<AxiosRequestConfig | void> {
-    const originalRequest = error.config as InternalAxiosRequestConfig;
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
+    const status = error.response?.status;
     const fallback = process.env[`NEXT_PUBLIC_FALLBACK`] as string;
 
-    if (error.response?.status === 401 && !(originalRequest as any)._retry) {
-      (originalRequest as any)._retry = true;
+    if (status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       const { refreshToken } = nookies.get();
       if (!refreshToken) {
         nookies.destroy(null, 'token');
+        nookies.destroy(null, 'refreshToken');
         window.location.replace(`${window.location.origin}/${fallback}`);
         return;
       }
@@ -72,6 +64,7 @@ export default class AuthMiddleware implements IMiddleware {
           }
         );
         const newToken = resp.data.token;
+        if (!newToken) throw new Error('Invalid refresh token response');
         nookies.set(null, 'token', newToken, { path: '/' });
         this.processQueue(null, newToken);
         originalRequest.headers = originalRequest.headers || {};
@@ -88,9 +81,19 @@ export default class AuthMiddleware implements IMiddleware {
       }
     }
 
-    if (error.response?.data.code === 'not_authenticated') {
-      window.location.replace(`${window.location.origin}/${fallback}`);
-    }
     throw error;
+  }
+
+  private processQueue(error: any, token: string | null = null) {
+    this.failedQueue.forEach(({ resolve, reject, config }) => {
+      if (error) {
+        reject(error);
+      } else if (token) {
+        config.headers = config.headers || {};
+        config.headers.Authorization = `Bearer ${token}`;
+        resolve(config);
+      }
+    });
+    this.failedQueue = [];
   }
 }
