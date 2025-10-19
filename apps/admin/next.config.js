@@ -1,6 +1,6 @@
 //@ts-check
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
@@ -8,19 +8,21 @@ const { composePlugins, withNx } = require('@nx/next');
  **/
 const path = require('path');
 
+/**
+ * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ **/
 const nextConfig = {
-  transpilePackages: ['nuqs', '@aibox/ui'],
+  transpilePackages: ['nuqs', '@aibox/ui', '@aibox/services'],
   serverExternalPackages: [],
   typescript: {
     ignoreBuildErrors: true,
   },
   webpack: (config) => {
     config.resolve = config.resolve || {};
-    config.resolve.alias = config.resolve.alias || {};
-    config.resolve.alias['@aibox/ui'] = path.resolve(
-      __dirname,
-      '../../libs/ui/src'
-    );
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@aibox/ui': path.resolve(__dirname, '../../libs/ui/src'),
+    };
     return config;
   },
   nx: {

@@ -18,7 +18,7 @@ import { HOME_ROUTES } from '@/routes';
 interface IForm {
   username: string;
   password: string;
-  captcha: string;
+  captcha?: string;
 }
 
 const LoginPage: FC = () => {
@@ -26,18 +26,14 @@ const LoginPage: FC = () => {
 
   const [captchaImage, setCaptchaImage] = useState('');
   const [captchaKey, setCaptchaKey] = useState('');
-  const { mutateAsync } = useReloadCaptcha();
+  const { mutateAsync: reloadCaptchaMutation } = useReloadCaptcha();
   const { mutateAsync: loginMutation, isPending } = useLoginMutation();
   const { mutateAsync: profileMutation, isPending: profileLoading } =
     useGetUserProfile();
 
   const form = useForm<IForm>({
     resolver: zodResolver(zodSchema),
-    defaultValues: {
-      username: '',
-      password: '',
-      captcha: '',
-    },
+    defaultValues: { username: '', password: '', captcha: '' },
   });
 
   const submitHandler = async (data: IForm) => {
@@ -46,17 +42,14 @@ const LoginPage: FC = () => {
         password: data.password,
         username: data.username,
         ...(captchaImage
-          ? {
-              captcha_key: captchaKey,
-              captcha_value: data.captcha,
-            }
+          ? { captcha_key: captchaKey, captcha_value: data.captcha }
           : {}),
       });
       if (response.data.code === 'SUCCESS') {
         const isAdmin = response.data.data.token.is_admin;
 
         if (!isAdmin) {
-          toast.error('strings.youDontHaveAccessToThisSection');
+          toast.error(strings.youDontHaveAccessToThisSection);
           return;
         }
         setCookie('refreshToken', response.data.data.token.refresh_token);
@@ -72,17 +65,17 @@ const LoginPage: FC = () => {
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {
-        toast.error(e.response?.data.error);
-        setCaptchaImage(e.response?.data.data.captcha?.captcha_image);
-        setCaptchaKey(e.response?.data.data.captcha?.captcha_key);
+        toast.error(e.response?.data?.error);
+        setCaptchaImage(e.response?.data?.data?.captcha?.captcha_image || '');
+        setCaptchaKey(e.response?.data?.data?.captcha?.captcha_key || '');
+      } else {
+        toast.error(e instanceof Error ? e.message : 'Error ');
       }
     }
   };
 
   const reloadCaptcha = async () => {
-    const resp = await mutateAsync({
-      captcha_key: captchaKey,
-    });
+    const resp = await reloadCaptchaMutation({ captcha_key: captchaKey });
     if (resp.data.code === 'SUCCESS') {
       setCaptchaImage(resp.data.data.captcha.captcha_image);
       setCaptchaKey(resp.data.data.captcha.captcha_key);
@@ -115,7 +108,7 @@ const LoginPage: FC = () => {
             <div className="flex items-center justify-between">
               <RHFInput
                 name="captcha"
-                placeholder={'strings.captchCode'}
+                placeholder={strings.captchCode}
                 className="w-full"
                 endAdornment={
                   <Button
@@ -128,7 +121,7 @@ const LoginPage: FC = () => {
                   </Button>
                 }
               />
-              <Image src={captchaImage} alt="captch" width={160} height={60} />
+              <Image src={captchaImage} alt="captcha" width={160} height={60} />
             </div>
           )}
           <div className="mt-3 flex w-full flex-col gap-3">

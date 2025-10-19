@@ -4,8 +4,32 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { IMiddleware } from './interface';
-import nookies from 'nookies';
 import { INetworkResponse } from '../../abstractApi';
+
+function getCookieValue(name: string): string | undefined {
+  if (typeof window !== 'undefined') {
+    const match = document.cookie
+      .split(';')
+      .map((c) => c.trim())
+      .find((c) => c.startsWith(`${name}=`));
+    return match ? decodeURIComponent(match.split('=')[1]) : undefined;
+  } else {
+    return process.env[`COOKIE_${name.toUpperCase()}`];
+  }
+}
+
+function setCookieValue(name: string, value: string, maxAgeSeconds: number) {
+  if (typeof window !== 'undefined') {
+    document.cookie = `${name}=${encodeURIComponent(
+      value
+    )}; path=/; max-age=${maxAgeSeconds}`;
+  }
+}
+
+function clearAuthCookies() {
+  setCookieValue('token', '', -1);
+  setCookieValue('refreshToken', '', -1);
+}
 
 export default class AuthMiddleware implements IMiddleware {
   private isRefreshing = false;
@@ -18,11 +42,9 @@ export default class AuthMiddleware implements IMiddleware {
   async onRequest(
     config: InternalAxiosRequestConfig
   ): Promise<InternalAxiosRequestConfig> {
-    if (typeof window !== 'undefined') {
-      const { token } = nookies.get();
-      if (token && config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    const token = getCookieValue('token');
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   }
@@ -34,16 +56,17 @@ export default class AuthMiddleware implements IMiddleware {
       _retry?: boolean;
     };
     const status = error.response?.status;
-    const fallback = process.env[`NEXT_PUBLIC_FALLBACK`] as string;
+    const fallback = process.env.NEXT_PUBLIC_FALLBACK as string;
 
     if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const { refreshToken } = nookies.get();
+      const refreshToken = getCookieValue('refreshToken');
       if (!refreshToken) {
-        nookies.destroy(null, 'token');
-        nookies.destroy(null, 'refreshToken');
-        window.location.replace(`${window.location.origin}/${fallback}`);
+        clearAuthCookies();
+        if (typeof window !== 'undefined') {
+          window.location.replace(`${window.location.origin}/${fallback}`);
+        }
         return;
       }
 
@@ -56,25 +79,28 @@ export default class AuthMiddleware implements IMiddleware {
       this.isRefreshing = true;
       try {
         const resp = await axios.post(
-          process.env[`NEXT_PUBLIC_REFRESH_TOKEN_ROUTE`] as string,
+          process.env.NEXT_PUBLIC_REFRESH_TOKEN_ROUTE as string,
           {},
           {
             headers: { Authorization: `Bearer ${refreshToken}` },
             withCredentials: true,
           }
         );
-        const newToken = resp.data.token;
+
+        const newToken = resp.data?.token;
         if (!newToken) throw new Error('Invalid refresh token response');
-        nookies.set(null, 'token', newToken, { path: '/' });
+
+        setCookieValue('token', newToken, 60 * 60 * 24); // 1 day
         this.processQueue(null, newToken);
         originalRequest.headers = originalRequest.headers || {};
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return originalRequest;
       } catch (refreshError) {
         this.processQueue(refreshError, null);
-        nookies.destroy(null, 'token');
-        nookies.destroy(null, 'refreshToken');
-        window.location.replace(`${window.location.origin}/${fallback}`);
+        clearAuthCookies();
+        if (typeof window !== 'undefined') {
+          window.location.replace(`${window.location.origin}/${fallback}`);
+        }
         return;
       } finally {
         this.isRefreshing = false;
