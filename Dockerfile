@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.19
+FROM node:lts-alpine3.19 as builder
 WORKDIR /apps
 COPY . .
 # Build the necessary packages
@@ -8,10 +8,10 @@ RUN npm install -g npm@latest \
     && pnpm nx build services \
     && pnpm nx build ui \
     && pnpm nx build admin
-
-# Final stage: Create a slim image with the built app
+FROM node:lts-alpine3.19 as  runner
 WORKDIR /apps
-COPY --from=builder /apps/admin/ .
+RUN npm install -g pnpm@latest
+COPY --from=builder /apps/apps/admin/ .
 COPY --from=builder /apps/node_modules /apps/node_modules
 EXPOSE 3000
-CMD ["pnpm", "start", "-H", "0.0.0.0"]
+CMD ["npx", "next", "start", "-p", "3000", "-H", "0.0.0.0"]
