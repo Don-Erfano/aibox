@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import IconGallery from './IconGallery';
+import type { Meta, StoryObj } from "@storybook/nextjs";
+import IconGallery from "./IconGallery";
 
 const meta = {
-  title: 'Icons',
+  title: "Icons",
   component: IconGallery,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof IconGallery>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Icons: Story = {
   parameters: {
     design: {
-      type: 'figma',
+      type: "figma",
     },
   },
 
@@ -24,7 +24,7 @@ export const Icons: Story = {
     (Story) => (
       <div
         style={{
-          backgroundColor: '#b8b8b8',
+          backgroundColor: "#b8b8b8",
           padding: 20,
           borderRadius: 15,
         }}

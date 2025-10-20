@@ -1,6 +1,8 @@
-import { ISvgIconProps } from './interface';
+import { FC } from "react";
 
-const CategoryIcon = (props: ISvgIconProps) => {
+import { ISvgIconProps } from "./interface";
+
+const CategoryIcon: FC<ISvgIconProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
