@@ -1,3 +1,3 @@
-export * from './aib-sidebar';
-export * from './sidebar';
-export * from './type';
+export * from "./aib-sidebar";
+export * from "./sidebar";
+export * from "./type";

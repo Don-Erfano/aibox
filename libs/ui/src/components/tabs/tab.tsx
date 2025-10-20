@@ -1,34 +1,37 @@
-'use client';
+"use client";
 
-import type { TabProps } from './types';
+import { useQueryState } from "nuqs";
+import type { TabProps } from "./types";
 import {
   TabTitle,
   Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,
-} from './components';
+} from "./components";
+import { useEffect } from "react";
 
-const Tab = ({ tabs }: TabProps) => {
-  // const [rawTabId, setTabId] = useQueryState('tab');
-  // let isValidTab = false;
+const Tab: React.FC<TabProps> = ({ tabs }) => {
+  const [rawTabId, setTabId] = useQueryState("tab");
+  const tabId = rawTabId ?? undefined; // no null allowed
+  let isValidTab = false;
 
-  const enabledTabs: TabProps['tabs'] = tabs.filter((t) => {
-    // if (t.id === tabId && !t.isDisabled) isValidTab = true;
+  const enabledTabs: TabProps["tabs"] = tabs.filter((t) => {
+    if (t.id === tabId && !t.isDisabled) isValidTab = true;
     return !t.isDisabled;
   });
 
   const allTabsDisabled = enabledTabs.length === 0;
 
-  // useEffect(() => {
-  //   if (allTabsDisabled) return;
-  //
-  //   if (!tabId || !isValidTab) {
-  //     setTabId(enabledTabs[0].id);
-  //   }
-  // }, [tabId, isValidTab, setTabId, allTabsDisabled]);
+  useEffect(() => {
+    if (allTabsDisabled) return;
 
-  // const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
+    if (!tabId || !isValidTab) {
+      setTabId(enabledTabs[0].id);
+    }
+  }, [tabId, isValidTab, setTabId, allTabsDisabled]);
+
+  const currentTabId = isValidTab ? tabId : enabledTabs[0].id;
 
   if (allTabsDisabled) {
     return (
@@ -40,10 +43,10 @@ const Tab = ({ tabs }: TabProps) => {
 
   return (
     <Tabs
-    // value={currentTabId}
-    // onValueChange={(val) => {
-    //   setTabId(val);
-    // }}
+      value={currentTabId}
+      onValueChange={(val) => {
+        setTabId(val);
+      }}
     >
       <TabsList>
         {tabs.map((tab) => (
@@ -55,8 +58,6 @@ const Tab = ({ tabs }: TabProps) => {
 
       {tabs.map((tab) => (
         <TabsContent key={tab.id} value={tab.id}>
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/*@ts-ignore*/}
           {tab.content}
         </TabsContent>
       ))}

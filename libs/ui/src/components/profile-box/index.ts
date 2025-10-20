@@ -1,2 +1,2 @@
-export { default as ProfileBox } from './profile-box';
-export * from './interface';
+export { default as ProfileBox } from "./profile-box";
+export * from "./interface";

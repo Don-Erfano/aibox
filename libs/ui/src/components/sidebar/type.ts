@@ -1,5 +1,5 @@
-import { Sidebar } from '@aibox/ui';
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode } from "react";
+import { Sidebar } from "./sidebar";
 
 export interface SidebarSubItem {
   title: string;

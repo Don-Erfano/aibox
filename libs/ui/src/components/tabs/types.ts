@@ -1,10 +1,10 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren } from "react";
 import {
   TabsProps,
   TabsListProps,
   TabsTriggerProps,
   TabsContentProps,
-} from '@radix-ui/react-tabs';
+} from "@radix-ui/react-tabs";
 
 interface TabType {
   name: string;
@@ -21,13 +21,13 @@ type TabTitleProps = PropsWithChildren<{
   disabled?: boolean;
 }>;
 
-type TabsPropsWithoutClassName = Omit<TabsProps, 'className'>;
+type TabsPropsWithoutClassName = Omit<TabsProps, "className">;
 
-type TabsTriggerPropsWithoutClassName = Omit<TabsTriggerProps, 'className'>;
+type TabsTriggerPropsWithoutClassName = Omit<TabsTriggerProps, "className">;
 
-type TabsListPropsWithoutClassName = Omit<TabsListProps, 'className'>;
+type TabsListPropsWithoutClassName = Omit<TabsListProps, "className">;
 
-type TabsContentPropsWithoutClassName = Omit<TabsContentProps, 'className'>;
+type TabsContentPropsWithoutClassName = Omit<TabsContentProps, "className">;
 
 export type {
   TabType,
