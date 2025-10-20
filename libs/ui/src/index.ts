@@ -45,7 +45,7 @@ export * from './components/dialog';
 // export * from "./components/header";
 export * from './components/cards';
 // export * from "./components/form-wrapper";
-// export * from "./components/fab-button";
+export * from './components/fab-button';
 export * from './components/table';
 export * from './components/custom-swiper';
 export * from './components/deploy-terminal';
