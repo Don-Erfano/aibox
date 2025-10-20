@@ -1,17 +1,17 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { CustomSwiperProps } from './interface';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { cn } from '../../lib';
-import { BREAKPOINTS, SLIDES_PER_VIEW } from './constant';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
+import { Autoplay, Pagination } from 'swiper/modules';
 import NavigationButton from './navigation-button';
+import { CustomSwiperProps } from './interface';
+import { BREAKPOINTS, SLIDES_PER_VIEW } from './constant';
+import { cn } from '../../lib';
 
-const CustomSwiper = ({
+const CustomSwiper: FC<CustomSwiperProps> = ({
   slides,
   navigation = true,
   pagination = true,
@@ -19,7 +19,7 @@ const CustomSwiper = ({
   spaceBetween = 30,
   className,
   onSlideChange,
-}: CustomSwiperProps) => {
+}) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [navigationState, setNavigationState] = useState({
     isBeginning: true,
@@ -121,14 +121,14 @@ const CustomSwiper = ({
           watchSlidesProgress
         >
           {slides.map((slide, index) => (
-            <SwiperSlide key={index} className="w-full h-full">
+            <SwiperSlide key={index} className="h-full w-full">
               {() => <>{slide}</>}
             </SwiperSlide>
           ))}
         </Swiper>
 
         {navigation && (
-          <div className="hidden md:block ">
+          <div className="hidden md:block">
             <NavigationButton
               direction="prev"
               onClick={handlePrevSlide}
@@ -146,7 +146,7 @@ const CustomSwiper = ({
       </div>
 
       {navigation && (
-        <div className="flex md:hidden justify-center items-center gap-4 mt-[30px]">
+        <div className="mt-[30px] flex items-center justify-center gap-4 md:hidden">
           <NavigationButton
             direction="prev"
             onClick={handlePrevSlide}

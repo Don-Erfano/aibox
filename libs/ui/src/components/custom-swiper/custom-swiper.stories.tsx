@@ -5,9 +5,6 @@ const meta: Meta<typeof CustomSwiper> = {
   component: CustomSwiper,
   title: 'Components/CustomSwiper',
   argTypes: {
-    slidesPerView: {
-      control: { type: 'number', min: 1, max: 5 },
-    },
     spaceBetween: {
       control: { type: 'number', min: 0, max: 50 },
     },
@@ -22,13 +19,13 @@ export default meta;
 type Story = StoryObj<typeof CustomSwiper>;
 
 const SampleSlides = [
-  <div className="h-60 bg-blue-200 flex items-center justify-center">
+  <div className="flex h-60 items-center justify-center bg-blue-200" key={1}>
     Slide 1
   </div>,
-  <div className="h-60 bg-green-200 flex items-center justify-center">
+  <div className="flex h-60 items-center justify-center bg-green-200" key={2}>
     Slide 2
   </div>,
-  <div className="h-60 bg-purple-200 flex items-center justify-center">
+  <div className="flex h-60 items-center justify-center bg-purple-200" key={3}>
     Slide 3
   </div>,
 ];
@@ -51,7 +48,6 @@ export const WithAutoplay: Story = {
   args: {
     slides: SampleSlides,
     autoplay: true,
-    slidesPerView: 2,
     spaceBetween: 20,
   },
 };
@@ -59,7 +55,6 @@ export const WithAutoplay: Story = {
 export const MultipleSlides: Story = {
   args: {
     slides: SampleSlides,
-    slidesPerView: 3,
     spaceBetween: 30,
   },
 };

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface CustomSwiperProps {
   slides: ReactNode[];
@@ -11,7 +11,7 @@ export interface CustomSwiperProps {
 }
 
 export interface NavigationButtonProps {
-  direction: 'prev' | 'next';
+  direction: "prev" | "next";
   onClick: () => void;
   disabled: boolean;
   ariaLabel: string;
