@@ -1,12 +1,11 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { flexRender } from '@tanstack/react-table';
 import { ChevronDown, ChevronLeft } from 'lucide-react';
 
 import { TablePagination } from './components/table-pagination';
 import { TableColumnHeader } from './components/table-column-header';
-import { cn } from '../../lib';
 import { DataTableProps } from './types';
 import {
   Table,
@@ -18,6 +17,7 @@ import {
 } from '../table';
 import { NoData } from '../no-data';
 import { Button } from '../form';
+import { cn } from '../../lib';
 
 export function DataTable<TData>({
   table,
@@ -39,11 +39,22 @@ export function DataTable<TData>({
 
   const mobileVisibleColumns = table
     .getAllColumns()
-    .filter((col) => col.columnDef.meta?.mobileVisible && col.getIsVisible());
+    .filter(
+      (col) =>
+        col.columnDef.meta?.mobileVisible &&
+        col.getIsVisible() &&
+        col.id !== 'select'
+    );
 
   const hiddenColumns = table
     .getAllColumns()
-    .filter((col) => !col.columnDef.meta?.mobileVisible && col.getIsVisible());
+    .filter(
+      (col) =>
+        !col.columnDef.meta?.mobileVisible &&
+        col.getIsVisible() &&
+        col.id !== 'select' &&
+        col.id !== 'expand'
+    );
 
   const toggleRowExpansion = (rowId: string) => {
     setExpandedRows((prev) => {
@@ -61,8 +72,6 @@ export function DataTable<TData>({
     <>
       {/* Desktop Table */}
       <div className="hidden md:block">
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-ignore */}
         <div
           data-slot="table-container"
           className={cn(
@@ -98,7 +107,7 @@ export function DataTable<TData>({
                             'overflow-hidden text-ellipsis whitespace-nowrap',
                             {
                               'px-2': !header.column.getCanSort(),
-                              'pr-5': shouldAddPadding,
+                              'pr-5': shouldAddPadding, // Padding only when no special columns
                             }
                           )}
                           data-debug={
@@ -115,62 +124,86 @@ export function DataTable<TData>({
 
               <TableBody>
                 {hasData ? (
-                  table.getRowModel().rows.map((row) => (
-                    <Fragment key={row.id}>
-                      <TableRow
-                        data-state={row.getIsSelected() && 'selected'}
-                        data-expanded={row.getIsExpanded()}
-                      >
-                        {row.getVisibleCells().map((cell, cellIndex) => {
-                          const columnDef = cell.column.columnDef;
-                          const size = cell.column.getSize();
-                          const isFirstColumn = cellIndex === 0;
+                  table.getRowModel().rows.map((row) => {
+                    const isRowExpanded = expandedRows.has(row.id);
 
-                          const shouldAddPadding =
-                            isFirstColumn &&
-                            !hasExpandColumn &&
-                            !hasSelectionColumn;
+                    return (
+                      <React.Fragment key={row.id}>
+                        <TableRow
+                          data-state={row.getIsSelected() && 'selected'}
+                          data-expanded={isRowExpanded}
+                        >
+                          {row.getVisibleCells().map((cell, cellIndex) => {
+                            const columnDef = cell.column.columnDef;
+                            const size = cell.column.getSize();
+                            const isFirstColumn = cellIndex === 0;
+                            const isExpandColumn = cell.column.id === 'expand';
+                            const isSelectionColumn =
+                              cell.column.id === 'select';
 
-                          return (
-                            <TableCell
-                              key={cell.id}
-                              style={{
-                                width: size,
-                                maxWidth: columnDef.maxSize,
-                                minWidth: columnDef.minSize,
-                              }}
-                              className={cn(
-                                'overflow-hidden text-ellipsis whitespace-nowrap',
-                                {
-                                  'pr-5': shouldAddPadding,
-                                }
-                              )}
-                              data-debug={
-                                shouldAddPadding ? 'has-padding' : 'no-padding'
-                              }
-                            >
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                      {row.getIsExpanded() && (
-                        <TableRow className="h-5 bg-white">
-                          <TableCell
-                            className="border-gray-400"
-                            colSpan={row.getVisibleCells().length}
-                          >
-                            {ChildComponent && (
-                              <ChildComponent row={row.original} />
-                            )}
-                          </TableCell>
+                            const shouldAddPadding =
+                              isFirstColumn &&
+                              !hasExpandColumn &&
+                              !hasSelectionColumn;
+
+                            return (
+                              <TableCell
+                                key={cell.id}
+                                style={{
+                                  width: size,
+                                  maxWidth: columnDef.maxSize,
+                                  minWidth: columnDef.minSize,
+                                }}
+                                className={cn(
+                                  'overflow-hidden text-ellipsis whitespace-nowrap',
+                                  {
+                                    'pr-5': shouldAddPadding,
+                                  }
+                                )}
+                              >
+                                {isExpandColumn || isSelectionColumn ? (
+                                  isExpandColumn ? (
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => toggleRowExpansion(row.id)}
+                                      className="h-8 w-8 p-0"
+                                    >
+                                      {isRowExpanded ? (
+                                        <ChevronDown className="h-4 w-4" />
+                                      ) : (
+                                        <ChevronLeft className="h-4 w-4" />
+                                      )}
+                                    </Button>
+                                  ) : (
+                                    flexRender(
+                                      cell.column.columnDef.cell,
+                                      cell.getContext()
+                                    )
+                                  )
+                                ) : (
+                                  flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                  )
+                                )}
+                              </TableCell>
+                            );
+                          })}
                         </TableRow>
-                      )}
-                    </Fragment>
-                  ))
+                        {isRowExpanded && ChildComponent && (
+                          <TableRow className="h-5 bg-white">
+                            <TableCell
+                              className="border-gray-400"
+                              colSpan={row.getVisibleCells().length}
+                            >
+                              <ChildComponent row={row.original} />
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </React.Fragment>
+                    );
+                  })
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columnCount} className="py-18">
@@ -192,25 +225,43 @@ export function DataTable<TData>({
       </div>
 
       {/* Mobile Table */}
-      <div className="block md:hidden w-full overflow-hidden">
+      <div className="block w-full overflow-hidden md:hidden">
         <div className="w-full overflow-x-hidden">
           <Table className="w-full table-fixed">
             <TableHeader>
               <TableRow>
+                {/* Selection column header first */}
+                {hasSelectionColumn && (
+                  <TableHead className="w-12 flex-shrink-0 p-2">
+                    {(() => {
+                      const selectionHeader = table
+                        .getHeaderGroups()[0]
+                        ?.headers.find((h) => h.column.id === 'select');
+                      return selectionHeader ? (
+                        <TableColumnHeader header={selectionHeader} />
+                      ) : null;
+                    })()}
+                  </TableHead>
+                )}
+
+                {/* Expand button header */}
                 {hiddenColumns.length > 0 && (
                   <TableHead className="w-12 flex-shrink-0 p-2" />
                 )}
+
+                {/* Other mobile visible columns (excluding select) */}
                 {table.getHeaderGroups().map((headerGroup) =>
                   headerGroup.headers
                     .filter(
                       (header) =>
                         header.column.columnDef.meta?.mobileVisible &&
-                        header.column.getIsVisible()
+                        header.column.getIsVisible() &&
+                        header.column.id !== 'select'
                     )
                     .map((header) => (
                       <TableHead
                         key={header.id}
-                        className="min-w-0 px-2 truncate"
+                        className="min-w-0 truncate px-2"
                       >
                         <TableColumnHeader header={header} />
                       </TableHead>
@@ -224,16 +275,34 @@ export function DataTable<TData>({
                   const isRowExpanded = expandedRows.has(row.id);
 
                   return (
-                    <Fragment key={row.id}>
-                      {/* Main row with visible columns + expand button */}
+                    <React.Fragment key={row.id}>
+                      {/* Main row with selection first, then expand, then visible columns */}
                       <TableRow data-expanded={isRowExpanded}>
+                        {/* Selection checkbox first */}
+                        {hasSelectionColumn && (
+                          <TableCell className="w-12 flex-shrink-0 p-2">
+                            {(() => {
+                              const selectionCell = row
+                                .getAllCells()
+                                .find((c) => c.column.id === 'select');
+                              return selectionCell
+                                ? flexRender(
+                                    selectionCell.column.columnDef.cell,
+                                    selectionCell.getContext()
+                                  )
+                                : null;
+                            })()}
+                          </TableCell>
+                        )}
+
+                        {/* Expand button second */}
                         {hiddenColumns.length > 0 && (
-                          <TableCell className="w-12 p-2 flex-shrink-0">
+                          <TableCell className="w-12 flex-shrink-0 p-2">
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => toggleRowExpansion(row.id)}
-                              className="h-8 w-8 p-0 flex-shrink-0"
+                              className="h-8 w-8 flex-shrink-0 p-0"
                             >
                               {isRowExpanded ? (
                                 <ChevronDown className="h-4 w-4" />
@@ -244,6 +313,7 @@ export function DataTable<TData>({
                           </TableCell>
                         )}
 
+                        {/* Other visible columns */}
                         {mobileVisibleColumns.map((col) => {
                           const cell = row
                             .getAllCells()
@@ -272,14 +342,15 @@ export function DataTable<TData>({
                           <TableCell
                             colSpan={
                               mobileVisibleColumns.length +
-                              (hiddenColumns.length > 0 ? 1 : 0)
+                              (hiddenColumns.length > 0 ? 1 : 0) +
+                              (hasSelectionColumn ? 1 : 0)
                             }
                             className={cn(
                               'p-4',
                               isRowExpanded ? 'border-gray-400' : ''
                             )}
                           >
-                            <div className="space-y-3 w-full truncate">
+                            <div className="w-full space-y-3 truncate">
                               {ChildComponent && (
                                 <ChildComponent row={row.original} />
                               )}
@@ -308,8 +379,8 @@ export function DataTable<TData>({
                                     )}
                                   >
                                     {!isActionsColumn && (
-                                      <span className="text-sm font-medium text-state-800 flex-shrink-0 min-w-0">
-                                        {col.columnDef.header as string}:
+                                      <span className="text-state-800 min-w-0 flex-shrink-0 text-sm font-medium">
+                                        {col.columnDef.header as string}
                                       </span>
                                     )}
                                     <div
@@ -332,7 +403,7 @@ export function DataTable<TData>({
                           </TableCell>
                         </TableRow>
                       )}
-                    </Fragment>
+                    </React.Fragment>
                   );
                 })
               ) : (
@@ -340,9 +411,10 @@ export function DataTable<TData>({
                   <TableCell
                     colSpan={
                       mobileVisibleColumns.length +
-                      (hiddenColumns.length > 0 ? 1 : 0)
+                      (hiddenColumns.length > 0 ? 1 : 0) +
+                      (hasSelectionColumn ? 1 : 0)
                     }
-                    className="text-center py-8"
+                    className="py-8 text-center"
                   >
                     <NoData />
                   </TableCell>

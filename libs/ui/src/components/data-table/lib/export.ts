@@ -5,6 +5,7 @@ import type { Table } from '@tanstack/react-table';
  *
  * @template TData
  * @param table - the TanStack table instance
+ * @param opts
  * @param opts.filename - base filename (without extension)
  * @param opts.excludeColumns - column IDs to omit from CSV
  * @param opts.onlySelected - if true, only export selected rows

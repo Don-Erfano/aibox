@@ -6,9 +6,9 @@ import type { Table } from '@tanstack/react-table';
 import { Loader, X } from 'lucide-react';
 import { Button } from '../../form';
 import { AnimatePresence, motion } from 'motion/react';
-import { cn } from '../../../lib';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../tooltip';
 import { Separator } from '../../separator';
+import { cn } from '../../../lib';
 
 interface DataTableActionBarProps<TData>
   extends React.ComponentProps<typeof motion.div> {
@@ -61,7 +61,7 @@ function DataTableActionBar<TData>({
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2, ease: 'easeInOut' }}
           className={cn(
-            'fixed inset-x-0 bottom-9 z-50 right-[40%] -translate-x-1/2 flex w-fit flex-wrap items-center justify-center gap-2 rounded-md border bg-background p-2 text-foreground shadow-sm',
+            'fixed bottom-9 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-wrap items-center justify-center gap-2 rounded-md border bg-background p-2 text-foreground shadow-sm',
             className
           )}
           {...props}
@@ -126,7 +126,7 @@ function DataTableActionBarSelection<TData>({
 
   return (
     <div className="flex h-7 items-center rounded-md border pr-1 pl-2.5">
-      <span className="whitespace-nowrap text-xs">
+      <span className="text-xs whitespace-nowrap">
         {table.getFilteredSelectedRowModel().rows.length} انتخاب شده
       </span>
       <Separator
@@ -148,7 +148,7 @@ function DataTableActionBarSelection<TData>({
         </TooltipTrigger>
         <TooltipContent sideOffset={10}>
           <p>حذف انتخاب</p>
-          <kbd className="select-none rounded border bg-background px-1.5 py-px font-mono font-normal text-[0.7rem] text-foreground shadow-xs">
+          <kbd className="rounded border bg-background px-1.5 py-px font-mono text-[0.7rem] font-normal text-foreground shadow-xs select-none">
             <abbr title="Escape" className="no-underline">
               Esc
             </abbr>

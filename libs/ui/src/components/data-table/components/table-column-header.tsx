@@ -5,20 +5,18 @@ import {
   ArrowDownWideNarrow,
   ArrowUpNarrowWide,
   ChevronsUpDown,
-  EyeOff,
   X,
 } from 'lucide-react';
-import { cn } from '../../../lib';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '../../dropdown-menu';
-import { ComponentProps } from 'react';
+import { cn } from '../../../lib';
 
 interface TableColumnHeaderProps<TData, TValue>
-  extends ComponentProps<typeof DropdownMenuTrigger> {
+  extends React.ComponentProps<typeof DropdownMenuTrigger> {
   header: Header<TData, TValue>;
 }
 
@@ -46,10 +44,10 @@ export function TableColumnHeader<TData, TValue>({
       <DropdownMenuTrigger
         {...props}
         className={cn(
-          'flex items-center gap-2 px-2 py-1 rounded-md border border-transparent',
-          '[&_svg]:text-gray-500 [&_svg]:size-4',
+          'flex items-center gap-2 rounded-md border border-transparent px-2 py-1',
+          '[&_svg]:size-4 [&_svg]:text-gray-500',
           {
-            'hover:bg-teal-600/12 hover:border-teal-600/25 cursor-pointer':
+            'cursor-pointer hover:border-teal-600/25 hover:bg-teal-600/12':
               header.column.getCanSort(),
             'border-teal-600/25 [&_svg]:text-teal-600':
               header.column.getIsSorted(),
@@ -74,12 +72,12 @@ export function TableColumnHeader<TData, TValue>({
 
       <DropdownMenuContent
         align="end"
-        className="w-28 bg-white text-popover-foreground border border-border"
+        className="w-28 border border-border bg-white text-popover-foreground"
       >
         {header.column.getCanSort() && (
           <>
             <DropdownMenuCheckboxItem
-              className="relative pl-8 pr-1 [&>span:first-child]:left-2 [&>span:first-child]:right-auto data-[highlighted]:bg-gray-100 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12"
+              className="relative pr-1 pl-8 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-gray-100 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12 [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 [&>span:first-child]:right-auto [&>span:first-child]:left-2"
               checked={header.column.getIsSorted() === 'asc'}
               onClick={() => header.column.toggleSorting(false)}
             >
@@ -87,7 +85,7 @@ export function TableColumnHeader<TData, TValue>({
               صعودی
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              className="relative pl-9 pr-1 [&>span:first-child]:left-2 [&>span:first-child]:right-auto data-[highlighted]:bg-gray-100 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12"
+              className="relative pr-1 pl-9 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-gray-100 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12 [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 [&>span:first-child]:right-auto [&>span:first-child]:left-2"
               checked={header.column.getIsSorted() === 'desc'}
               onClick={() => header.column.toggleSorting(true)}
             >
@@ -99,21 +97,11 @@ export function TableColumnHeader<TData, TValue>({
 
         {header.column.getIsSorted() && (
           <DropdownMenuCheckboxItem
-            className="relative pl-9 pr-1 [&>span:first-child]:left-2 [&>span:first-child]:right-auto data-[highlighted]:bg-gray-100 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12"
+            className="relative pr-1 pl-9 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-gray-100 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12 [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 [&>span:first-child]:right-auto [&>span:first-child]:left-2"
             onClick={() => header.column.clearSorting()}
           >
             <X />
             پاکسازی
-          </DropdownMenuCheckboxItem>
-        )}
-        {header.column.getCanHide() && (
-          <DropdownMenuCheckboxItem
-            className="relative pl-9 pr-1 [&>span:first-child]:left-2 [&>span:first-child]:right-auto data-[highlighted]:bg-gray-100 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&_svg]:text-muted-foreground data-[state=checked]:[&_svg]:text-teal-600 data-[state=checked]:text-teal-600 data-[state=checked]:hover:bg-teal-600/12"
-            checked={!header.column.getIsVisible()}
-            onClick={() => header.column.toggleVisibility(false)}
-          >
-            <EyeOff />
-            مخفی
           </DropdownMenuCheckboxItem>
         )}
       </DropdownMenuContent>

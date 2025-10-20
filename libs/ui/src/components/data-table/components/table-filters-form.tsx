@@ -1,8 +1,7 @@
 'use client';
 import { useCallback } from 'react';
 import { TableFiltersFormProps } from '../types';
-import { AIBInput } from '../../form';
-import { AibAutocomplete } from '../../form';
+import { AibAutocomplete, AIBInput } from '../../form';
 
 export function TableFiltersForm<TData>({
   column,
@@ -47,7 +46,6 @@ export function TableFiltersForm<TData>({
 
         case 'select':
           return (
-            // @ts-ignore
             <AibAutocomplete
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               variant="single"
@@ -72,8 +70,6 @@ export function TableFiltersForm<TData>({
 
         case 'multiSelect':
           return (
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             <AibAutocomplete
               placeholder={columnMeta.placeholder ?? columnMeta.label}
               variant="single"

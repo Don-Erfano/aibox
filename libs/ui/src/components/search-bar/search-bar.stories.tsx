@@ -1,12 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 
 import { SearchBar } from './search-bar';
 
 const SearchBarPreview = () => {
-  const [value, setValue] = useState('');
-
-  return <SearchBar value={value} onValueChange={setValue} loading={false} />;
+  return <SearchBar loading={false} />;
 };
 
 const meta: Meta<typeof SearchBar> = {

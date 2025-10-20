@@ -2,32 +2,61 @@
 
 import {
   type ColumnFiltersState,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   type PaginationState,
   type RowSelectionState,
   type SortingState,
   type Updater,
-  type VisibilityState,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable,
+  type VisibilityState,
 } from '@tanstack/react-table';
 import {
-  type Parser,
-  type UseQueryStateOptions,
   parseAsArrayOf,
   parseAsInteger,
   parseAsString,
+  type Parser,
   useQueryState,
+  type UseQueryStateOptions,
   useQueryStates,
 } from 'nuqs';
 import * as React from 'react';
-import { FilterChips, UseTableProps } from '../types';
+import { UseTableProps } from '../types';
 import { useTableColumns } from '../columns';
+import { useDebouncedCallback } from '../../../hooks';
 
 const PAGE_KEY = 'page';
 const PER_PAGE_KEY = 'page_size';
 const ARRAY_SEPARATOR = ',';
+
+// function formatDateToMiladi(date: Date): string {
+//   // Use UTC for consistent formatting when sending to backend if backend expects UTC date strings
+//   const year = date.getUTCFullYear();
+//   const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+//   const day = date.getUTCDate().toString().padStart(2, "0");
+//   return `${year}-${month}-${day}`;
+// }
+
+function parseMiladiToTimestamp(
+  dateString: string | string[]
+): number | undefined {
+  if (!dateString) return undefined;
+  const dateStr = Array.isArray(dateString) ? dateString[0] : dateString;
+
+  // Create date based on local timezone to preserve the intended calendar day
+  const date = new Date(dateStr);
+  return !isNaN(date.getTime()) ? date.getTime() : undefined;
+}
+
+function timestampToMiladi(timestamp: number): string {
+  // Convert timestamp back to a Date object, then extract local date components
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
 
 export function useDataTable<TData>(props: UseTableProps<TData>) {
   const {
@@ -40,6 +69,7 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
     shallow = true,
     enableExpand,
     actions,
+    debounceMs = 300,
     ...tableProps
   } = props;
 
@@ -49,9 +79,10 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
     () => ({
       history,
       shallow,
+      debounceMs,
       clearOnDefault,
     }),
-    [history, shallow, clearOnDefault]
+    [history, shallow, debounceMs, clearOnDefault]
   );
 
   const [page, setPage] = useQueryState(
@@ -100,10 +131,8 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
 
   const sorting: SortingState = React.useMemo(() => {
     if (!orderBy) return [];
-
     const isDesc = orderBy.startsWith('-');
     const id = isDesc ? orderBy.slice(1) : orderBy;
-
     return [{ id, desc: isDesc }];
   }, [orderBy]);
 
@@ -113,7 +142,6 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
         typeof updaterOrValue === 'function'
           ? updaterOrValue(sorting)
           : updaterOrValue;
-
       if (newSorting.length > 0) {
         const { id, desc } = newSorting[0];
         void setOrderBy(desc ? `-${id}` : id);
@@ -129,62 +157,123 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
   }, [columns]);
 
   const filterParsers = React.useMemo(() => {
-    return filterableColumns.reduce<
-      Record<string, Parser<string> | Parser<string[]>>
-    >((acc, column) => {
-      const variant = column.meta?.variant;
-      if (variant === 'multiSelect') {
-        acc[column.id!] = parseAsArrayOf(
+    const parsers: Record<string, Parser<string> | Parser<string[]>> = {};
+    filterableColumns.forEach((column) => {
+      const columnId = column.id ?? '';
+      const isDateRange = column.meta?.variant === 'dateRange';
+      const isRange = column.meta?.variant === 'range';
+      const hasOptions = !!column.meta?.options;
+
+      if (hasOptions) {
+        parsers[columnId] = parseAsArrayOf(
           parseAsString,
           ARRAY_SEPARATOR
         ).withOptions(queryStateOptions);
+      } else if (isDateRange) {
+        parsers[`${columnId}__gte`] =
+          parseAsString.withOptions(queryStateOptions);
+        parsers[`${columnId}__lte`] =
+          parseAsString.withOptions(queryStateOptions);
+      } else if (isRange) {
+        parsers[`${columnId}__gte`] =
+          parseAsString.withOptions(queryStateOptions);
+        parsers[`${columnId}__lte`] =
+          parseAsString.withOptions(queryStateOptions);
       } else {
-        // everything else (text, number, select) → string parser
-        acc[column.id!] = parseAsString.withOptions(queryStateOptions);
+        parsers[columnId] = parseAsString.withOptions(queryStateOptions);
       }
-      return acc;
-    }, {});
+    });
+    return parsers;
   }, [filterableColumns, queryStateOptions]);
 
-  // Get filter values from URL
   const [filterValues, setFilterValues] = useQueryStates(filterParsers);
 
-  const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
-    return Object.entries(filterValues).reduce<ColumnFiltersState>(
-      (filters, [key, value]) => {
-        if (value !== null) {
-          const processedValue = Array.isArray(value)
-            ? value
-            : typeof value === 'string' && /[^a-zA-Z0-9]/.test(value)
-            ? value.split(/[^ء-یa-zA-Z0-9]+/).filter(Boolean)
-            : [value];
+  const debouncedSetFilterValues = useDebouncedCallback(
+    (values: typeof filterValues) => {
+      void setPage(1);
+      void setFilterValues(values);
+    },
+    debounceMs
+  );
 
+  const initialColumnFilters: ColumnFiltersState = React.useMemo(() => {
+    const filters: ColumnFiltersState = [];
+    filterableColumns.forEach((column) => {
+      const columnId = column.id ?? '';
+      const variant = column.meta?.variant;
+      const isDateRange = variant === 'dateRange';
+      const isRange = variant === 'range';
+      const hasOptions = !!column.meta?.options;
+
+      if (isDateRange) {
+        const gteValue = filterValues[`${columnId}__gte`];
+        const lteValue = filterValues[`${columnId}__lte`];
+        if (gteValue || lteValue) {
+          const fromTimestamp = gteValue
+            ? parseMiladiToTimestamp(gteValue)
+            : undefined;
+          const toTimestamp = lteValue
+            ? parseMiladiToTimestamp(lteValue)
+            : undefined;
           filters.push({
-            id: key,
-            value: processedValue,
+            id: columnId,
+            value: {
+              type: 'dateRange',
+              from: fromTimestamp,
+              to: toTimestamp,
+              columnId: columnId,
+            },
           });
         }
-        return filters;
-      },
-      []
-    );
-  }, [filterValues]);
+      } else if (isRange) {
+        const gteValue = filterValues[`${columnId}__gte`];
+        const lteValue = filterValues[`${columnId}__lte`];
+        if (gteValue || lteValue) {
+          const fromNum = gteValue ? Number(gteValue) : undefined;
+          const toNum = lteValue ? Number(lteValue) : undefined;
+          if (fromNum !== undefined && toNum !== undefined) {
+            filters.push({
+              id: columnId,
+              value: [fromNum, toNum],
+            });
+          }
+        }
+      } else {
+        const value = filterValues[columnId];
+        if (value !== null) {
+          if (hasOptions) {
+            const arrayValue = Array.isArray(value) ? value : [value];
+            filters.push({
+              id: columnId,
+              value: arrayValue,
+            });
+          } else {
+            if (variant === 'date') {
+              const timestamp = parseMiladiToTimestamp(value);
+              if (timestamp) {
+                filters.push({
+                  id: columnId,
+                  value: timestamp,
+                });
+              }
+            } else {
+              const stringValue =
+                typeof value === 'string' ? value : value?.toString() ?? '';
+              filters.push({
+                id: columnId,
+                value: stringValue,
+              });
+            }
+          }
+        }
+      }
+    });
+    return filters;
+  }, [filterValues, filterableColumns]);
 
-  // Keep track of pending filters (before submit)
   const [columnFilters, setColumnFilters] =
     React.useState<ColumnFiltersState>(initialColumnFilters);
 
-  // Track active filter chips for display
-  const [activeFilterChips, setActiveFilterChips] = React.useState<FilterChips>(
-    initialColumnFilters.map((filter) => ({
-      key: filter.id,
-      label:
-        columns.find((col) => col.id === filter.id)?.meta?.label || filter.id,
-      value: filter.value,
-    }))
-  );
-
-  // Handle column filter changes (this happens as user types/selects)
   const onColumnFiltersChange = React.useCallback(
     (updaterOrValue: Updater<ColumnFiltersState>) => {
       setColumnFilters((prev) => {
@@ -192,106 +281,109 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
           typeof updaterOrValue === 'function'
             ? updaterOrValue(prev)
             : updaterOrValue;
+
+        const filterUpdates: Record<string, string | string[] | null> = {};
+
+        next.forEach((filter) => {
+          const column = filterableColumns.find((col) => col.id === filter.id);
+          if (!column) return;
+
+          const variant = column.meta?.variant;
+          const isDateRange = variant === 'dateRange';
+          const isRange = variant === 'range';
+          const isDate = variant === 'date';
+          const hasOptions = !!column.meta?.options;
+
+          if (isDateRange) {
+            if (
+              filter.value &&
+              typeof filter.value === 'object' &&
+              'type' in filter.value &&
+              filter.value.type === 'dateRange'
+            ) {
+              const dateRangeValue = filter.value as {
+                type: 'dateRange';
+                from?: number;
+                to?: number;
+                columnId: string;
+              };
+              if (dateRangeValue.from) {
+                filterUpdates[`${filter.id}__gte`] = timestampToMiladi(
+                  dateRangeValue.from
+                );
+              } else {
+                filterUpdates[`${filter.id}__gte`] = null;
+              }
+
+              if (dateRangeValue.to) {
+                filterUpdates[`${filter.id}__lte`] = timestampToMiladi(
+                  dateRangeValue.to
+                );
+              } else {
+                filterUpdates[`${filter.id}__lte`] = null;
+              }
+            } else {
+              filterUpdates[`${filter.id}__gte`] = null;
+              filterUpdates[`${filter.id}__lte`] = null;
+            }
+          } else if (isRange) {
+            if (Array.isArray(filter.value) && filter.value.length === 2) {
+              const [fromValue, toValue] = filter.value as [number, number];
+              filterUpdates[`${filter.id}__gte`] = String(fromValue);
+              filterUpdates[`${filter.id}__lte`] = String(toValue);
+            } else {
+              filterUpdates[`${filter.id}__gte`] = null;
+              filterUpdates[`${filter.id}__lte`] = null;
+            }
+          } else if (isDate) {
+            if (typeof filter.value === 'number') {
+              filterUpdates[filter.id] = timestampToMiladi(filter.value);
+            } else {
+              filterUpdates[filter.id] = null;
+            }
+          } else if (hasOptions) {
+            if (Array.isArray(filter.value)) {
+              filterUpdates[filter.id] = filter.value;
+            } else {
+              filterUpdates[filter.id] = null;
+            }
+          } else {
+            if (typeof filter.value === 'string') {
+              filterUpdates[filter.id] = filter.value;
+            } else {
+              filterUpdates[filter.id] = null;
+            }
+          }
+        });
+
+        prev.forEach((prevFilter) => {
+          const stillExists = next.some(
+            (filter) => filter.id === prevFilter.id
+          );
+          if (!stillExists) {
+            const column = filterableColumns.find(
+              (col) => col.id === prevFilter.id
+            );
+            const variant = column?.meta?.variant;
+
+            if (variant === 'dateRange') {
+              filterUpdates[`${prevFilter.id}__gte`] = null;
+              filterUpdates[`${prevFilter.id}__lte`] = null;
+            } else if (variant === 'range') {
+              filterUpdates[`${prevFilter.id}__gte`] = null;
+              filterUpdates[`${prevFilter.id}__lte`] = null;
+            } else {
+              filterUpdates[prevFilter.id] = null;
+            }
+          }
+        });
+
+        debouncedSetFilterValues(filterUpdates);
         return next;
       });
     },
-    []
+    [debouncedSetFilterValues, filterableColumns]
   );
-
-  // Submit filters - update URL and trigger refetch
-  const submitFilters = React.useCallback(() => {
-    const filterUpdates = columnFilters.reduce<
-      Record<string, string | string[] | null>
-    >((acc, filter) => {
-      if (filterableColumns.find((column) => column.id === filter.id)) {
-        acc[filter.id] = filter.value as string | string[];
-      }
-      return acc;
-    }, {});
-
-    // Clear any filters that were removed
-    filterableColumns.forEach((column) => {
-      if (!columnFilters.some((filter) => filter.id === column.id)) {
-        filterUpdates[column.id ?? ''] = null;
-      }
-    });
-
-    // Update URL params
-    void setFilterValues(filterUpdates);
-    void setPage(null);
-
-    // Update filter chips for display
-    const chips = columnFilters.map((filter) => {
-      const col = columns.find((col) => col.id === filter.id);
-      const label = col?.meta?.label || filter.id;
-      const options = col?.meta?.options as
-        | { label: string; value: string }[]
-        | undefined;
-
-      let value = filter.value;
-
-      if (options) {
-        if (Array.isArray(filter.value)) {
-          value = filter.value
-            .map(
-              (val) => options.find((opt) => opt.value === val)?.label || val
-            )
-            .join(', ');
-        } else {
-          value =
-            options.find((opt) => opt.value === filter.value)?.label ||
-            filter.value;
-        }
-      }
-
-      return {
-        key: filter.id,
-        label,
-        value,
-      };
-    });
-
-    setActiveFilterChips(chips);
-  }, [columnFilters, filterableColumns, columns, setFilterValues, setPage]);
-
-  // Remove a single filter (by chip click)
-  const removeFilter = React.useCallback(
-    (filterId: string) => {
-      // Update table state
-      const newFilters = columnFilters.filter((f) => f.id !== filterId);
-      setColumnFilters(newFilters);
-
-      // Update URL immediately
-      const filterUpdates = { [filterId]: null };
-      void setFilterValues(filterUpdates);
-
-      // Update chips
-      const newChips = activeFilterChips.filter(
-        (chip) => chip.key !== filterId
-      );
-      setActiveFilterChips(newChips);
-    },
-    [columnFilters, activeFilterChips, setFilterValues]
-  );
-
-  // Reset all filters
-  const resetFilters = React.useCallback(() => {
-    // Clear table's filter state
-    setColumnFilters([]);
-
-    // Clear all URL params for filters
-    const resetValues = Object.keys(filterValues).reduce<Record<string, null>>(
-      (acc, key) => {
-        acc[key] = null;
-        return acc;
-      },
-      {}
-    );
-    void setFilterValues(resetValues);
-
-    // Clear chips
-    setActiveFilterChips([]);
-  }, [filterValues, setFilterValues]);
 
   const tableColumns = useTableColumns(columns, {
     enableExpand,
@@ -302,13 +394,10 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
   const table = useReactTable({
     ...tableProps,
     columns: tableColumns,
-    initialState: {
-      ...initialState,
-      columnFilters: initialColumnFilters,
-    },
+    initialState,
     pageCount,
     state: {
-      // pagination,
+      pagination,
       sorting,
       columnVisibility,
       rowSelection,
@@ -319,7 +408,6 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
       enableColumnFilter: false,
     },
     enableRowSelection: true,
-    getRowCanExpand: () => true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange,
     onSortingChange,
@@ -335,11 +423,8 @@ export function useDataTable<TData>(props: UseTableProps<TData>) {
 
   return {
     table,
-    submitFilters,
-    resetFilters,
-    removeFilter,
-    activeFilterChips,
-    filterCount: activeFilterChips.length,
+    shallow,
     rowSelection,
+    debounceMs,
   };
 }

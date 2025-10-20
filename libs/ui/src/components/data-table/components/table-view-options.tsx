@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import { Check, ChevronsUpDown, Settings2 } from 'lucide-react';
-import { PopoverContent, PopoverTrigger, Popover } from '../../popover';
-import { Command, CommandGroup, CommandItem, CommandList } from '../../command';
+import { useMemo } from "react";
+import { Settings2 } from "lucide-react";
+import { PopoverContent, PopoverTrigger, Popover } from "../../popover";
+import { Command, CommandGroup, CommandItem, CommandList } from "../../command";
 
-import { cn } from '../../../lib';
-import { Button } from '../../form';
-import { TableViewOptionsProps } from '../types';
+import { Button, Checkbox } from "../../form";
+import { TableViewOptionsProps } from "../types";
 
 export function TableViewOptions<TData>({
   table,
@@ -18,24 +17,17 @@ export function TableViewOptions<TData>({
         .getAllColumns()
         .filter(
           (column) =>
-            typeof column.accessorFn !== 'undefined' && column.getCanHide()
+            typeof column.accessorFn !== "undefined" && column.getCanHide(),
         ),
-    [table]
+    [table],
   );
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          aria-label="Toggle columns"
-          role="combobox"
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button aria-label="Toggle columns" variant="subtle" size="sm">
           <Settings2 />
           نمایش
-          <ChevronsUpDown className="ml-auto opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-44 p-0">
@@ -45,6 +37,7 @@ export function TableViewOptions<TData>({
               {columns.map((column) => (
                 <CommandItem
                   key={column.id}
+                  className="flex h-9 w-full justify-between"
                   onSelect={() =>
                     column.toggleVisibility(!column.getIsVisible())
                   }
@@ -52,12 +45,7 @@ export function TableViewOptions<TData>({
                   <span className="truncate">
                     {column.columnDef.meta?.label ?? column.id}
                   </span>
-                  <Check
-                    className={cn(
-                      'ml-auto size-4 shrink-0',
-                      column.getIsVisible() ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
+                  <Checkbox checked={column.getIsVisible()} />
                 </CommandItem>
               ))}
             </CommandGroup>
