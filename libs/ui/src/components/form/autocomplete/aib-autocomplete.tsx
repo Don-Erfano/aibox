@@ -44,7 +44,6 @@ const AibAutocomplete = forwardRef<ISelectAutoRef, IAutocompleteProps>(
       sizeClass,
       atLimit,
       removeDisabled,
-      inputDisabled,
       grouped,
       handlers,
       refs,

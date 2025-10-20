@@ -35,6 +35,7 @@ export const TimePickerInput = forwardRef<
         const timer = setTimeout(() => setFlag(false), 2000);
         return () => clearTimeout(timer);
       }
+      return () => null;
     }, [flag]);
 
     const calculatedValue = useMemo(
