@@ -11,6 +11,7 @@ interface IChartProps {
   lineColor?: string;
   fillColor?: string;
   enableTooltip?: boolean;
+  tooltipTitle?: string;
   horizontalCategories?: string[];
 }
 
