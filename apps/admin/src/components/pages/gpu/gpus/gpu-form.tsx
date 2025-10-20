@@ -4,13 +4,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { usePathname } from 'next/navigation';
 
-import {
-  Button,
-  Form,
-  RHFAutocomplete,
-  RHFInput,
-  ToggleSwitch,
-} from '@aibox/ui';
+import { Button, Form, RHFAutocomplete, RHFInput, Toggle } from '@aibox/ui';
 
 import { strings } from '@/constant';
 import { FormContainer, FormWrapper } from '@/components/templates';
@@ -44,14 +38,14 @@ const GpuForm: FC = () => {
           />
           <div className="flex flex-col gap-4">
             <span className="text-sm text-zinc-600">{strings.status}*</span>
-            <ToggleSwitch
+            <Toggle
               size="fixed"
               items={[
                 { label: 'فعال', value: 'active' },
                 { label: 'غیرفعال', value: 'deactive' },
               ]}
               value={form.getValues('is_active') || 'active'}
-              onValueChange={(e) => form.setValue('is_active', e)}
+              onValueChange={(e: any) => form.setValue('is_active', e)}
             />
           </div>
         </FormWrapper>

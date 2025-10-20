@@ -5,9 +5,9 @@ import { DataTable, TableToolbar, useDataTable } from '@aibox/ui';
 import { strings } from '@/constant';
 
 const ApisLogs: FC = () => {
-  const { logs, isLoading, refetch, totalItems, totalPages } = useGetApisLogs();
+  const { logs, totalItems, totalPages } = useGetApisLogs();
 
-  const { table, filterCount, resetFilters, submitFilters } = useDataTable({
+  const { table } = useDataTable({
     data: logs,
     columns: logsColumn,
     pageCount: totalPages,
@@ -20,12 +20,6 @@ const ApisLogs: FC = () => {
           title={strings.reports}
           totalItems={totalItems}
           table={table}
-          refreshLoading={isLoading}
-          refetch={refetch}
-          submitFilters={submitFilters}
-          resetFilters={resetFilters}
-          filterCount={filterCount}
-          noManageColumns
         />
 
         <DataTable table={table} />

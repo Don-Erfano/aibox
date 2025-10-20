@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
@@ -14,7 +15,6 @@ import {
 } from '../../form';
 import { cn } from '../../../lib';
 import { TablePaginationProps } from '../types';
-import { Button } from '../../form';
 
 export function TablePagination<TData>({
   table,
@@ -23,8 +23,6 @@ export function TablePagination<TData>({
   ...props
 }: TablePaginationProps<TData>) {
   return (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     <div
       className={cn(
         'flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8',
@@ -33,9 +31,9 @@ export function TablePagination<TData>({
       {...props}
     >
       {/* Desktop - Show per page section */}
-      <div className="hidden sm:flex flex-1 whitespace-nowrap text-muted-foreground text-sm">
+      <div className="hidden flex-1 text-sm whitespace-nowrap text-muted-foreground sm:flex">
         <div className="flex items-center space-x-2">
-          <p className="whitespace-nowrap font-normal text-sm text-zinc-600">
+          <p className="text-sm font-normal whitespace-nowrap text-zinc-600">
             نمایش در هر صفحه
           </p>
           <Select
@@ -64,17 +62,17 @@ export function TablePagination<TData>({
       </div>
 
       {/* Mobile - Show page info and pagination with justify-between */}
-      <div className="flex sm:hidden w-full items-center justify-between">
+      <div className="flex w-full items-center justify-between sm:hidden">
         <div className="flex items-center justify-center text-sm font-normal text-zinc-600">
           صفحه {table.getState().pagination.pageIndex + 1} از{' '}
           {table.getPageCount()}
         </div>
-        <div className="flex items-center gap-1 flex-row-reverse">
+        <div className="flex flex-row-reverse items-center gap-1">
           <Button
             aria-label="صفحه اول"
             variant="ghost"
             size="icon"
-            className="lg:flex border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600 lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -84,7 +82,7 @@ export function TablePagination<TData>({
             aria-label="قبلی"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -94,7 +92,7 @@ export function TablePagination<TData>({
             aria-label="بعدی"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -104,7 +102,7 @@ export function TablePagination<TData>({
             aria-label="صفحه آخر"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >
@@ -114,13 +112,13 @@ export function TablePagination<TData>({
       </div>
 
       {/* Desktop - Pagination buttons */}
-      <div className="hidden sm:flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
-        <div className="flex items-center gap-1 flex-row-reverse">
+      <div className="hidden flex-col-reverse items-center gap-4 sm:flex sm:flex-row sm:gap-6 lg:gap-8">
+        <div className="flex flex-row-reverse items-center gap-1">
           <Button
             aria-label="صفحه اول"
             variant="ghost"
             size="icon"
-            className="hidden lg:flex border-gray-400/80 border-1 text-zinc-600"
+            className="hidden border-1 border-gray-400/80 text-zinc-600 lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
@@ -130,7 +128,7 @@ export function TablePagination<TData>({
             aria-label="قبلی"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -140,7 +138,7 @@ export function TablePagination<TData>({
             aria-label="بعدی"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
@@ -150,7 +148,7 @@ export function TablePagination<TData>({
             aria-label="صفحه آخر"
             variant="ghost"
             size="icon"
-            className="border-gray-400/80 border-1 text-zinc-600"
+            className="border-1 border-gray-400/80 text-zinc-600"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >

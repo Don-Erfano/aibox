@@ -1,14 +1,9 @@
 import { useMemo } from 'react';
-import { Button } from '../form';
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  SquarePen,
-  Trash,
-} from 'lucide-react';
+import { Button, Checkbox } from '../form';
+import { ChevronDownIcon, ChevronLeftIcon, SquarePen, Trash } from 'lucide-react';
 import { ColumnDef, Table } from '@tanstack/react-table';
 import { actionsProps } from './types';
-import { Checkbox } from '../form';
+import clsx from 'clsx';
 import { cn } from '../../lib';
 
 /**
@@ -48,7 +43,6 @@ export function useTableColumns<T>(
       header: ({ table }: { table: Table<T> }) => {
         const allSelected = table.getIsAllPageRowsSelected();
         const someSelected = table.getIsSomePageRowsSelected();
-        const shouldShow = allSelected || someSelected;
 
         return (
           <Checkbox
@@ -57,10 +51,7 @@ export function useTableColumns<T>(
               table.toggleAllPageRowsSelected(!!value)
             }
             aria-label="Select all"
-            className={cn(
-              'translate-y-0.5',
-              shouldShow ? 'visible' : 'invisible'
-            )}
+            className={cn('translate-y-0.5')}
           />
         );
       },
@@ -91,7 +82,36 @@ export function useTableColumns<T>(
           <>
             {/* Desktop version - Icon buttons with tooltips */}
             <div className="hidden md:block">
-              <div className="flex gap-0.5 justify-center">
+              <div className="flex justify-center gap-0.5">
+                {actions.customActions?.map((action, idx) => {
+                  const isHidden = action.hidden?.(row.original) ?? false;
+                  return (
+                    <Button
+                      className={clsx('block', {
+                        hidden: isHidden,
+                      })}
+                      key={idx}
+                      disabled={action.disabled}
+                      tooltip={
+                        typeof action.label === 'function'
+                          ? action.label(row.original)
+                          : action.label
+                      }
+                      aria-label={
+                        typeof action.label === 'function'
+                          ? action.label(row.original)
+                          : action.label
+                      }
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => action.onClick(row.original)}
+                    >
+                      {typeof action.icon === 'function'
+                        ? action.icon(row.original)
+                        : action.icon}
+                    </Button>
+                  );
+                })}
                 {actions.onEdit && (
                   <Button
                     tooltip="ویرایش"
@@ -114,38 +134,38 @@ export function useTableColumns<T>(
                     <Trash strokeWidth={1.5} className="size-5" />
                   </Button>
                 )}
-                {actions.customActions?.map((action, idx) => (
-                  <Button
-                    key={idx}
-                    tooltip={
-                      typeof action.label === 'function'
-                        ? action.label(row.original)
-                        : action.label
-                    }
-                    aria-label={
-                      typeof action.label === 'function'
-                        ? action.label(row.original)
-                        : action.label
-                    }
-                    size="icon"
-                    variant="ghost"
-                    onClick={() => action.onClick(row.original)}
-                  >
-                    {typeof action.icon === 'function'
-                      ? action.icon(row.original)
-                      : action.icon}
-                  </Button>
-                ))}
               </div>
             </div>
 
             {/* Mobile version - Full width buttons with text */}
-            <div className="md:hidden w-full flex flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 md:hidden">
+              {actions.customActions?.map((action, idx) => {
+                const isHidden = action.hidden?.(row.original) ?? false;
+                return (
+                  <Button
+                    key={idx}
+                    variant="outline"
+                    onClick={() => action.onClick(row.original)}
+                    className={clsx('h-8 w-full gap-2 text-xs', {
+                      hidden: isHidden,
+                    })}
+                    size="sm"
+                    disabled={action.disabled}
+                  >
+                    {typeof action.icon === 'function'
+                      ? action.icon(row.original)
+                      : action.icon}
+                    {typeof action.label === 'function'
+                      ? action.label(row.original)
+                      : action.label}
+                  </Button>
+                );
+              })}
               {actions.onEdit && (
                 <Button
                   variant="outline"
                   onClick={() => actions.onEdit!(row.original)}
-                  className="w-full gap-2 h-8 text-xs"
+                  className="h-8 w-full gap-2 text-xs"
                   size="sm"
                 >
                   <SquarePen strokeWidth={1.5} className="size-4" />
@@ -156,30 +176,13 @@ export function useTableColumns<T>(
                 <Button
                   variant="outline"
                   onClick={() => actions.onDelete!(row.original)}
-                  className="w-full gap-2 h-8 text-xs"
+                  className="h-8 w-full gap-2 text-xs"
                   size="sm"
                 >
                   <Trash strokeWidth={1.5} className="size-4" />
                   حذف
                 </Button>
               )}
-              {actions.customActions?.map((action, idx) => (
-                <Button
-                  key={idx}
-                  variant="outline"
-                  onClick={() => action.onClick(row.original)}
-                  className="w-full gap-2 h-8 text-xs"
-                  size="sm"
-                  disabled={action.disabled}
-                >
-                  {typeof action.icon === 'function'
-                    ? action.icon(row.original)
-                    : action.icon}
-                  {typeof action.label === 'function'
-                    ? action.label(row.original)
-                    : action.label}
-                </Button>
-              ))}
             </div>
           </>
         ) : null,

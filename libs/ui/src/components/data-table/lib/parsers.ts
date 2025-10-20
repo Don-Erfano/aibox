@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { createParser } from 'nuqs/server';
-import { ExtendedColumnFilter } from '../types';
+import { z } from "zod";
+import { createParser } from "nuqs/server";
+import { ExtendedColumnFilter } from "../types";
 
 const sortingItemSchema = z.object({
   sortBy: z.string(),
@@ -8,7 +8,7 @@ const sortingItemSchema = z.object({
 });
 
 export const getSortingStateParser = <TData>(
-  columnIds?: string[] | Set<string>
+  columnIds?: string[] | Set<string>,
 ) => {
   const validKeys = columnIds
     ? columnIds instanceof Set
@@ -41,7 +41,8 @@ export const getSortingStateParser = <TData>(
       a.length === b.length &&
       a.every(
         (item, index) =>
-          item.sortBy === b[index]?.sortBy && item.orderBy === b[index]?.orderBy
+          item.sortBy === b[index]?.sortBy &&
+          item.orderBy === b[index]?.orderBy,
       ),
   });
 };
@@ -55,7 +56,7 @@ const filterItemSchema = z.object({
 export type FilterItemSchema = z.infer<typeof filterItemSchema>;
 
 export const getFiltersStateParser = <TData>(
-  columnIds?: string[] | Set<string>
+  columnIds?: string[] | Set<string>,
 ) => {
   const validKeys = columnIds
     ? columnIds instanceof Set
@@ -85,7 +86,7 @@ export const getFiltersStateParser = <TData>(
       a.length === b.length &&
       a.every(
         (filter, index) =>
-          filter.id === b[index]?.id && filter.value === b[index]?.value
+          filter.id === b[index]?.id && filter.value === b[index]?.value,
       ),
   });
 };

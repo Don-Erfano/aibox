@@ -77,7 +77,7 @@ export function DataTableSkeleton({
 
       {withPagination ? (
         <div className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
-          <div className="flex-1 whitespace-nowrap text-sm">
+          <div className="flex-1 text-sm whitespace-nowrap">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <div className="h-5 w-28 animate-pulse rounded-md bg-gray-100" />
               <div className="h-10 w-16 animate-pulse rounded-md bg-gray-100" />
@@ -86,11 +86,11 @@ export function DataTableSkeleton({
           </div>
 
           <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
-            <div className="flex items-center gap-1 flex-row-reverse">
-              <div className="hidden lg:block h-10 w-10 animate-pulse rounded-md bg-gray-100" />
+            <div className="flex flex-row-reverse items-center gap-1">
+              <div className="hidden h-10 w-10 animate-pulse rounded-md bg-gray-100 lg:block" />
               <div className="h-10 w-10 animate-pulse rounded-md bg-gray-100" />
               <div className="h-10 w-10 animate-pulse rounded-md bg-gray-100" />
-              <div className="hidden lg:block h-10 w-10 animate-pulse rounded-md bg-gray-100" />
+              <div className="hidden h-10 w-10 animate-pulse rounded-md bg-gray-100 lg:block" />
             </div>
           </div>
         </div>

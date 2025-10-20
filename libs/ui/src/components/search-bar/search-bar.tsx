@@ -2,21 +2,42 @@
 
 import clsx from 'clsx';
 import { CircleX, LoaderCircle, Search } from 'lucide-react';
-import { useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import { AIBInput } from '../form/input/input';
+import { AIBInput } from '../form';
 import { IconRecord, IconState, SearchBarProps } from './interface';
+import { useQueryState } from 'nuqs';
+import { useDebouncedCallback } from '../../hooks';
 
-export const SearchBar = ({
-  value,
-  onValueChange,
-  loading,
-  placeholder = 'جستجو کنید...',
-}: SearchBarProps) => {
+export const SearchBar = ({ loading, searchPlaceholder }: SearchBarProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const hasValue = value.trim() !== '';
+  const [searchKey, setSearchKey] = useQueryState('search', {
+    defaultValue: '',
+    clearOnDefault: true,
+  });
+  const [_, setPage] = useQueryState('page');
+
+  const debouncedSearch = useDebouncedCallback(setSearchKey, 500);
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const term = e.target.value.trim();
+      debouncedSearch(term);
+      setPage('1');
+    },
+    [debouncedSearch]
+  );
+
+  const handleClear = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      inputRef.current.focus();
+    }
+    setSearchKey('');
+  }, [setSearchKey]);
 
   const iconsMap: IconRecord = {
     loading: {
@@ -32,7 +53,6 @@ export const SearchBar = ({
           strokeWidth={1.5}
         />
       ),
-      onClick: () => onValueChange(''),
     },
     searchHover: {
       icon: <Search className="text-gray-400" strokeWidth={1.5} />,
@@ -43,17 +63,26 @@ export const SearchBar = ({
   };
 
   const getIconState = (): IconState => {
-    if (value && loading) return 'loading';
-    if (!hasValue && !isFocused && !isHovered) return 'search';
-    if (!hasValue && !isFocused && isHovered) return 'searchHover';
-    if (!hasValue && isFocused) return 'none';
-    if (hasValue && isFocused) return 'clear';
-    if (hasValue && !isFocused && !isHovered) return 'none';
+    const currentValue = inputRef.current?.value || '';
+    const hasCurrentValue = currentValue.trim() !== '';
+
+    if (currentValue && loading) return 'loading';
+    if (!hasCurrentValue && !isFocused && !isHovered) return 'search';
+    if (!hasCurrentValue && !isFocused && isHovered) return 'searchHover';
+    if (!hasCurrentValue && isFocused) return 'none';
+    if (hasCurrentValue && isFocused) return 'clear';
+    if (hasCurrentValue && !isFocused && !isHovered) return 'none';
     return 'none';
   };
 
   const iconState = getIconState();
   const currentState = iconsMap[iconState];
+
+  useEffect(() => {
+    if (inputRef.current?.value) {
+      inputRef.current?.focus();
+    }
+  }, []);
 
   return (
     <div
@@ -61,19 +90,20 @@ export const SearchBar = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <AIBInput
-        className="rounded-md h-10 outline-gray-400 placeholder:text-gray-400"
+        ref={inputRef}
+        className="h-10 truncate rounded-md outline-gray-400 placeholder:text-gray-400"
         variant="sm"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        value={value}
-        onChange={(e) => onValueChange(e.target.value)}
-        placeholder={placeholder}
+        defaultValue={searchKey}
+        onChange={handleChange}
+        placeholder={searchPlaceholder || 'جستجو کنید...'}
         endAdornment={
           <button
             className={clsx('mt-2 cursor-not-allowed', {
               'cursor-pointer': iconState === 'clear',
             })}
-            onMouseDown={() => onValueChange('')}
+            onMouseDown={handleClear}
           >
             {currentState.icon}
           </button>

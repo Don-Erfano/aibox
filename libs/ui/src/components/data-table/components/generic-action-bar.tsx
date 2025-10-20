@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { Table } from '@tanstack/react-table';
-import { Download, Trash2, Pencil } from 'lucide-react';
-import { useState, useTransition } from 'react';
+import { Table } from "@tanstack/react-table";
+import { Download, Trash2, Pencil } from "lucide-react";
+import { useState, useTransition } from "react";
 
 import {
   DataTableActionBar,
   DataTableActionBarAction,
   DataTableActionBarSelection,
-} from './table-action';
-import { exportTableToCSV } from '../lib/export';
-import { Separator } from '../../separator';
-import { Modal } from '../../modal';
-import { Button } from '../../form';
+} from "./table-action";
+import { exportTableToCSV } from "../lib/export";
+import { Separator } from "../../separator";
+import { Modal } from "../../modal";
+import { Button } from "../../form";
 
 type GenericActionBarProps<TData extends { id: string | number }> = {
   table: Table<TData>;
-  onDelete: (id: TData['id']) => Promise<void> | void;
-  onEdit: (ids: TData['id'][]) => void;
+  onDelete: (id: TData["id"]) => Promise<void> | void;
+  onEdit: (ids: TData["id"][]) => void;
 };
 
 export function GenericActionBar<TData extends { id: string | number }>({
@@ -29,7 +29,7 @@ export function GenericActionBar<TData extends { id: string | number }>({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [currentDeleteIds, setCurrentDeleteIds] = useState<TData['id'][]>([]);
+  const [currentDeleteIds, setCurrentDeleteIds] = useState<TData["id"][]>([]);
 
   const selected = rows.map((r) => r.original);
   const selectedIds = selected.map((item) => item.id);
@@ -37,7 +37,7 @@ export function GenericActionBar<TData extends { id: string | number }>({
   const handleExport = () => {
     startTransition(() => {
       exportTableToCSV(table, {
-        excludeColumns: ['select', 'actions', 'expand'],
+        excludeColumns: ["select", "actions", "expand"],
         onlySelected: true,
       });
     });

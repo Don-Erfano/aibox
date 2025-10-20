@@ -1,2 +1,2 @@
-export * from './search-bar';
-export * from './interface';
+export * from "./search-bar";
+export * from "./interface";

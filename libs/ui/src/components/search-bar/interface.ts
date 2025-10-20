@@ -1,13 +1,11 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface SearchBarProps {
-  value: string;
-  onValueChange: (value: string) => void;
   loading?: boolean;
-  placeholder?: string;
+  searchPlaceholder?: string;
 }
 
-export type IconState = 'loading' | 'search' | 'searchHover' | 'clear' | 'none';
+export type IconState = "loading" | "search" | "searchHover" | "clear" | "none";
 
 export type IconRecord = Record<
   IconState,

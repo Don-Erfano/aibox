@@ -1,7 +1,7 @@
-import { Button } from '../../form';
-import { Modal } from '../../modal';
-import { FilterFormProps } from '../types';
-import { TableFiltersForm } from './table-filters-form';
+import { Button } from "../../form";
+import { Modal } from "../../modal";
+import { FilterFormProps } from "../types";
+import { TableFiltersForm } from "./table-filters-form";
 
 export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
   const { columns, onSubmit, open, onOpenChange, onClose } = props;
@@ -11,7 +11,7 @@ export const FilterForm = <TData,>(props: FilterFormProps<TData>) => {
       className="flex flex-col items-center gap-6 lg:py-4"
       onSubmit={onSubmit}
     >
-      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 lg:px-6 xl:px-12">
+      <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-3 lg:px-6 xl:px-12">
         {columns.map((column) => (
           <TableFiltersForm key={column.id} column={column} />
         ))}

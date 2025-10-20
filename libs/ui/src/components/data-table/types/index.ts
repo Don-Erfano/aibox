@@ -1,17 +1,18 @@
 import type {
-  Table as TanstackTable,
   Column,
+  ColumnDef,
+  ColumnSort,
+  Row,
+  RowData,
+  Table,
+  Table as TanstackTable,
   TableOptions,
   TableState,
-  ColumnSort,
-  Table,
-  ColumnDef,
 } from '@tanstack/react-table';
-import type { Row, RowData } from '@tanstack/react-table';
 import { FilterItemSchema } from '../lib/parsers';
 import { DataTableConfig } from '../constant';
-import type { Options } from 'nuqs';
-import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
+import { Options } from 'nuqs';
+import type { DateRange } from 'react-day-picker';
 import { ComponentProps } from 'react';
 
 export interface UseTableFiltersProps<TData> {
@@ -27,7 +28,6 @@ export interface UseTableFiltersProps<TData> {
 }
 
 export interface FilterChipsBarProps {
-  chips: FilterChips;
   onRemove: (key: string) => void;
   chipCount: number;
 }
@@ -59,17 +59,10 @@ export enum EFilterTableNameIcon {
 
 export type OnHandleIconClick = (name: EFilterTableNameIcon) => void;
 
-export type FilterChips = Array<{
-  key: string;
-  label: string;
-  value: unknown;
-}>;
-
 export type FilterChipsProps = {
   onHandleIconClick: OnHandleIconClick;
   handleFiltersChips?: (key: unknown) => void;
   removeFilter: (key: string) => void;
-  activeFilterChips: FilterChips;
   filterCount: number;
 };
 
@@ -77,7 +70,6 @@ export interface UseTableFiltersReturn {
   submitFilters: () => void;
   resetFilters: () => void;
   removeFilter: (filterId: string) => void;
-  activeFilterChips: FilterChips;
   filterCount: number;
 }
 
@@ -106,6 +98,7 @@ export interface UseTableProps<TData>
   enableExpand?: boolean;
   shallow?: boolean;
   actions?: actionsProps<TData>;
+  debounceMs?: number;
 }
 
 export interface TableViewOptionsProps<TData> {
@@ -113,10 +106,11 @@ export interface TableViewOptionsProps<TData> {
 }
 
 export type CustomAction<T> = {
-  icon: React.ReactElement | ((row: T) => React.ReactElement);
+  icon: React.ReactElement | ((row: T) => React.ReactElement | null);
   label: string | ((row: T) => string);
   onClick: (row: T) => void;
   disabled?: boolean;
+  hidden?: (row: T) => boolean;
 };
 
 export type actionsProps<T> = {
@@ -129,6 +123,13 @@ export interface DataTableProps<TData> extends ComponentProps<'div'> {
   table: TanstackTable<TData>;
   actionBar?: React.ReactNode;
   childComponent?: React.ComponentType<{ row: TData }>;
+}
+
+export interface TableToolbarProps<TData> {
+  table: Table<TData>;
+  totalItems: number;
+  title: string;
+  searchPlaceholder?: string;
 }
 
 export type SortParams = { sortBy: `${string}.${'asc' | 'desc'}` };
@@ -144,6 +145,9 @@ declare module '@tanstack/react-table' {
     options?: Option[];
     icon?: React.ReactNode;
     mobileVisible?: boolean;
+    range?: [number, number];
+    unit?: string;
+    showSlider?: boolean;
   }
 }
 
@@ -212,17 +216,13 @@ export type ManageColumnsProps =
       noManageColumns: true;
     };
 
-export type TableToolbarProps<TData> = FilterProps &
-  ManageColumnsProps & {
-    title: string;
-    totalItems: number;
-    table: Table<TData>;
-    refetch: (
-      options?: RefetchOptions
-    ) => Promise<QueryObserverResult<TData[], Error>>;
-    refreshLoading: boolean;
-    viewModeButtons?: boolean;
-  };
+export interface TableDateFilterProps<TData> {
+  column: Column<TData, unknown>;
+  title?: string;
+  multiple?: boolean;
+}
+
+export type DateSelection = Date[] | DateRange;
 
 export interface FilterFormProps<TData> {
   onSubmit: () => void;
@@ -237,3 +237,10 @@ export interface TableFiltersFormProps<TData> {
 }
 
 export type ToolbarButtonProps = ComponentProps<'button'>;
+
+export interface DataTableFacetedFilterProps<TData, TValue> {
+  column?: Column<TData, TValue>;
+  title?: string;
+  options: Option[];
+  multiple?: boolean;
+}
