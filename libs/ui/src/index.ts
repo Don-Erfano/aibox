@@ -55,3 +55,4 @@ export * from './components/expandable-text';
 export * from './components/avatar';
 // export * from "./components/pagination";
 export * from './components/faceted-filter';
+export * from './components/progressbar';
