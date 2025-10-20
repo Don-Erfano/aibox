@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { AibStatus } from './index';
 const meta: Meta<typeof AibStatus> = {
   title: 'Boxes/AibStatus',
