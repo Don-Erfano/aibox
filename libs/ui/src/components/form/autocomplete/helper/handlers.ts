@@ -4,8 +4,8 @@
  * Includes handlers for input change, option selection, option removal,
  * keyboard navigation, and dropdown toggling.
  */
-import { ChangeEvent, KeyboardEvent, Dispatch, SetStateAction } from 'react';
-import { AutocompleteOption, TVariant } from '../interface';
+import { ChangeEvent, KeyboardEvent, Dispatch, SetStateAction } from "react";
+import { AutocompleteOption, TVariant } from "../interface";
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -31,14 +31,14 @@ export function makeOnInputChange(
   setHighlightedId: SetState<string | number | null>,
   setSelectedOptions: SetState<AutocompleteOption[]>,
   setIsOpen: SetState<boolean>,
-  propOnChange?: (value: string) => void
+  propOnChange?: (value: string) => void,
 ) {
   return (e: ChangeEvent<HTMLInputElement>) => {
     if (atLimit) return;
     setInputValue(e.target.value);
     setHighlightedId(null);
     propOnChange?.(e.target.value);
-    if (variant === 'single') setSelectedOptions([]);
+    if (variant === "single") setSelectedOptions([]);
     if (!isOpen) setIsOpen(true);
   };
 }
@@ -65,10 +65,10 @@ export function makePickOption(
   setInputValue: SetState<string>,
   setIsOpen: SetState<boolean>,
   setHighlightedId: SetState<string | number | null>,
-  onSelect: (opts: AutocompleteOption[]) => void
+  onSelect: (opts: AutocompleteOption[]) => void,
 ) {
   return (opt: AutocompleteOption) => {
-    if (variant === 'multiple') {
+    if (variant === "multiple") {
       if (
         !selectedOptions.some((x) => x.id === opt.id) &&
         selectedOptions.length >= tagLimit
@@ -83,19 +83,19 @@ export function makePickOption(
         onSelect(next);
         return next;
       });
-      setInputValue('');
+      setInputValue("");
     } else {
       if (selectedOptions.length === 1 && selectedOptions[0].id === opt.id) {
         setSelectedOptions([]);
         onSelect([]);
-        setInputValue('');
+        setInputValue("");
       } else {
         setSelectedOptions([opt]);
         onSelect([opt]);
-        setInputValue(opt.label);
+        setInputValue("");
       }
     }
-    if (variant === 'multiple') {
+    if (variant === "multiple") {
       setIsOpen(true);
     } else {
       setIsOpen(false);
@@ -114,7 +114,7 @@ export function makePickOption(
  */
 export function makeRemoveOption(
   setSelectedOptions: SetState<AutocompleteOption[]>,
-  onSelect: (opts: AutocompleteOption[]) => void
+  onSelect: (opts: AutocompleteOption[]) => void,
 ) {
   return (opt: AutocompleteOption) => {
     setSelectedOptions((prev) => {
@@ -149,12 +149,12 @@ export function makeOnKeyDown(
   filteredLength: number,
   pickOption: (opt: AutocompleteOption) => void,
   removeOption: (opt: AutocompleteOption) => void,
-  setHighlightedId: SetState<string | number | null>
+  setHighlightedId: SetState<string | number | null>,
 ): (e: KeyboardEvent<HTMLInputElement>) => void {
   return (e: KeyboardEvent<HTMLInputElement>) => {
     if (
-      e.key === 'Enter' &&
-      variant === 'multiple' &&
+      e.key === "Enter" &&
+      variant === "multiple" &&
       selectedOptions.length < tagLimit &&
       inputValue.trim() &&
       filteredLength === 0
@@ -163,7 +163,7 @@ export function makeOnKeyDown(
       pickOption({ id: inputValue, label: inputValue });
       return;
     }
-    if (e.key === 'Backspace' && inputValue === '' && selectedOptions.length) {
+    if (e.key === "Backspace" && inputValue === "" && selectedOptions.length) {
       e.preventDefault();
       if (highlightedId == null) {
         setHighlightedId(selectedOptions[selectedOptions.length - 1].id);
@@ -186,7 +186,7 @@ export function makeOnKeyDown(
  */
 export function makeToggleOpen(
   inputDisabled: boolean,
-  setIsOpen: SetState<boolean>
+  setIsOpen: SetState<boolean>,
 ): () => void {
   return () => {
     if (inputDisabled) return;

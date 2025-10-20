@@ -1,10 +1,10 @@
 import {
   ClickAwayMouseEventHandler,
   ClickAwayTouchEventHandler,
-} from '../interface';
+} from "../interface";
 
 export function mapEventPropToEvent(
-  eventProp: ClickAwayMouseEventHandler | ClickAwayTouchEventHandler
+  eventProp: ClickAwayMouseEventHandler | ClickAwayTouchEventHandler,
 ):
   | `click`
   | `mousedown`

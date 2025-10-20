@@ -16,30 +16,30 @@
  * @param props.isLoading - Whether options are still loading
  *
  * @returns {object} An object containing state values, refs, and handlers:
- *   @property {string} inputValue - Current value of the input
- *   @property {AutocompleteOption[]} selectedOptions - Currently selected items
- *   @property {boolean} isOpen - Whether the dropdown is open
- *   @property {Offsets} offsets - Computed dropdown position relative to the input
- *   @property {string|number|null} highlightedId - ID of the currently highlighted option
- *   @property {number} extraCount - Number of hidden tags when in multiple mode
- *   @property {AutocompleteOption[]} visibleTags - Tags visible in multiple mode
- *   @property {string} sizeClass - Computed CSS class for size variant
- *   @property {boolean} atLimit - Whether tag limit has been reached
- *   @property {boolean} removeDisabled - Whether remove actions are disabled
- *   @property {boolean} inputDisabled - Whether input is disabled
- *   @property {Record<string, any>} grouped - Options grouped for rendering
- *   @property {boolean} isLoading - Loading state passed through
- *   @property {object} refs - Refs for input, portal, measuring, and click-away
- *   @property {object} handlers - Event handlers for input, keyboard, and toggling
+ * @property {string} inputValue - Current value of the input
+ * @property {AutocompleteOption[]} selectedOptions - Currently selected items
+ * @property {boolean} isOpen - Whether the dropdown is open
+ * @property {Offsets} offsets - Computed dropdown position relative to the input
+ * @property {string|number|null} highlightedId - ID of the currently highlighted option
+ * @property {number} extraCount - Number of hidden tags when in multiple mode
+ * @property {AutocompleteOption[]} visibleTags - Tags visible in multiple mode
+ * @property {string} sizeClass - Computed CSS class for size variant
+ * @property {boolean} atLimit - Whether tag limit has been reached
+ * @property {boolean} removeDisabled - Whether remove actions are disabled
+ * @property {boolean} inputDisabled - Whether input is disabled
+ * @property {Record<string, any>} grouped - Options grouped for rendering
+ * @property {boolean} isLoading - Loading state passed through
+ * @property {object} refs - Refs for input, portal, measuring, and click-away
+ * @property {object} handlers - Event handlers for input, keyboard, and toggling
  */
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   AutocompleteOption,
   IAutocompleteProps,
   THeightSize,
   TVariant,
-} from '../../interface';
+} from "../../interface";
 import {
   filterOptions,
   getDropdownSource,
@@ -52,11 +52,13 @@ import {
   makeToggleOpen,
   Offsets,
   computeVisibleCount,
-} from '../../helper';
-import { getSizeClass } from '../../classes';
+} from "../../helper";
+import { getSizeClass } from "../../classes";
 
 export function useAutocompleteLogic(
-  props: IAutocompleteProps & { onSelect: (opts: AutocompleteOption[]) => void }
+  props: IAutocompleteProps & {
+    onSelect: (opts: AutocompleteOption[]) => void;
+  },
 ) {
   const {
     options,
@@ -72,9 +74,9 @@ export function useAutocompleteLogic(
   } = props;
 
   // State
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<AutocompleteOption[]>(
-    []
+    [],
   );
   const [isOpen, setIsOpen] = useState(false);
   const [offsets, setOffsets] = useState<Offsets>({
@@ -83,7 +85,7 @@ export function useAutocompleteLogic(
     width: 0,
   });
   const [highlightedId, setHighlightedId] = useState<string | number | null>(
-    null
+    null,
   );
   const [visibleCount, setVisibleCount] = useState(0);
 
@@ -95,13 +97,13 @@ export function useAutocompleteLogic(
 
   // Limits & disabled
   const tagLimit =
-    typeof limited_tag === 'number' && limited_tag > 0 ? limited_tag : Infinity;
-  const atLimit = variant === 'multiple' && selectedOptions.length >= tagLimit;
+    typeof limited_tag === "number" && limited_tag > 0 ? limited_tag : Infinity;
+  const atLimit = variant === "multiple" && selectedOptions.length >= tagLimit;
   const removeDisabled = disabled || readOnly;
   const inputDisabled =
     disabled ||
     readOnly ||
-    (variant === 'multiple' && selectedOptions.length >= tagLimit);
+    (variant === "multiple" && selectedOptions.length >= tagLimit);
 
   // Size
   const sizeClass = getSizeClass(variant as TVariant, h_size as THeightSize);
@@ -109,11 +111,11 @@ export function useAutocompleteLogic(
   // Filtering & grouping
   const filtered = useMemo(
     () => filterOptions(options, inputValue),
-    [options, inputValue]
+    [options, inputValue],
   );
   const dropdownSource = useMemo(
-    () => getDropdownSource(variant as TVariant, options, filtered),
-    [variant, options, filtered]
+    () => getDropdownSource(variant as TVariant, options, filtered, inputValue),
+    [variant, options, filtered, inputValue],
   );
   const grouped = useMemo(() => groupOptions(dropdownSource), [dropdownSource]);
 
@@ -125,8 +127,8 @@ export function useAutocompleteLogic(
   }, []);
   useEffect(() => {
     updateOffsets();
-    window.addEventListener('scroll', updateOffsets, true);
-    return () => window.removeEventListener('scroll', updateOffsets, true);
+    window.addEventListener("scroll", updateOffsets, true);
+    return () => window.removeEventListener("scroll", updateOffsets, true);
   }, [updateOffsets]);
   useEffect(() => {
     const el = inputRef.current;
@@ -142,7 +144,7 @@ export function useAutocompleteLogic(
 
   // (two-row)
   useEffect(() => {
-    if (variant !== 'multiple') {
+    if (variant !== "multiple") {
       setVisibleCount(0);
       return;
     }
@@ -157,13 +159,13 @@ export function useAutocompleteLogic(
     }
     const chips = Array.from(m.children) as HTMLElement[];
     setVisibleCount(
-      computeVisibleCount(chips, offsets.width, variant as TVariant)
+      computeVisibleCount(chips, offsets.width, variant as TVariant),
     );
   }, [selectedOptions, offsets.width, variant, readOnly]);
 
   // Sync incoming value prop
   useEffect(() => {
-    if (variant === 'multiple' && Array.isArray(propValue)) {
+    if (variant === "multiple" && Array.isArray(propValue)) {
       // Build a selectedOptions array by mapping each label
       // to either an existing option or a new freeform one:
       const next = propValue.map((label) => {
@@ -171,19 +173,19 @@ export function useAutocompleteLogic(
         return found ?? { id: label, label };
       });
       setSelectedOptions(next);
-      setInputValue('');
-    } else if (variant === 'single' && typeof propValue === 'string') {
+      setInputValue("");
+    } else if (variant === "single" && typeof propValue === "string") {
       const found = options.find((o) => o.label === propValue);
       if (found) {
         setSelectedOptions([found]);
-        setInputValue(found.label);
-      } else if (propValue.trim() !== '') {
+        setInputValue("");
+      } else if (propValue.trim() !== "") {
         setSelectedOptions([{ id: propValue, label: propValue }]);
-        setInputValue(propValue);
+        setInputValue("");
       }
     } else {
       setSelectedOptions([]);
-      setInputValue('');
+      setInputValue("");
     }
   }, [propValue, options, variant]);
 
@@ -196,7 +198,7 @@ export function useAutocompleteLogic(
     setHighlightedId,
     setSelectedOptions,
     setIsOpen,
-    propOnChange
+    propOnChange,
   );
 
   const rawPickOption = makePickOption(
@@ -207,7 +209,7 @@ export function useAutocompleteLogic(
     setInputValue,
     setIsOpen,
     setHighlightedId,
-    onSelect
+    onSelect,
   );
 
   const pickOption = useCallback(
@@ -216,7 +218,7 @@ export function useAutocompleteLogic(
       ignoreClickAwayRef.current = true;
       rawPickOption(opt);
     },
-    [rawPickOption]
+    [rawPickOption],
   );
 
   const removeOption = makeRemoveOption(setSelectedOptions, onSelect);
@@ -229,17 +231,17 @@ export function useAutocompleteLogic(
     filtered.length,
     pickOption,
     removeOption,
-    setHighlightedId
+    setHighlightedId,
   );
   const toggleOpen = makeToggleOpen(inputDisabled, setIsOpen);
 
   // ─── EXTRA & VISIBLE TAGS ─────────────────────────────────────────────
   const extraCount =
-    variant === 'multiple' && selectedOptions.length > visibleCount
+    variant === "multiple" && selectedOptions.length > visibleCount
       ? selectedOptions.length - visibleCount
       : 0;
   const visibleTags =
-    variant === 'multiple'
+    variant === "multiple"
       ? selectedOptions.slice(0, visibleCount)
       : selectedOptions;
 

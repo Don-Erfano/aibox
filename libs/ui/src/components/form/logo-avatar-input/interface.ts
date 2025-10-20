@@ -1,8 +1,8 @@
-import { ChangeEvent, MouseEventHandler } from 'react';
-import { Control, FieldValues, Path } from 'react-hook-form';
+import { ChangeEvent, MouseEventHandler } from "react";
+import { Control, FieldValues, Path } from "react-hook-form";
 
-export type UploadMode = 'preview' | 'upload';
-export type Size = 'small' | 'large';
+export type UploadMode = "preview" | "upload";
+export type Size = "small" | "large";
 
 interface BaseProps {
   label?: string;
@@ -16,15 +16,15 @@ interface BaseProps {
 
 export interface UploadProps<TFieldValues extends FieldValues>
   extends BaseProps {
-  mode: 'upload';
+  mode: "upload";
   control: Control<TFieldValues>;
   name: Path<TFieldValues>;
 }
 
 export interface PreviewProps extends BaseProps {
-  mode?: 'preview';
+  mode?: "preview";
   control?: never;
-  name: never;
+  name?: never;
   src: string;
 }
 

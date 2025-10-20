@@ -1,6 +1,6 @@
-'use client';
-import { Ref, RefCallback, useMemo } from 'react';
-import { setRef } from './utils';
+"use client";
+import { Ref, RefCallback, useMemo } from "react";
+import { setRef } from "./utils";
 
 export default function useForkRef<Instance>(
   ...refs: Array<Ref<Instance> | undefined>

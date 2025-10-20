@@ -18,7 +18,7 @@ import { Power, SquareTerminal } from 'lucide-react';
 
 const ServersList: FC = () => {
   const [openModal, setOpenModal] = useState<string | undefined>(undefined);
-  const { table, filterCount, resetFilters, submitFilters } = useDataTable({
+  const { table } = useDataTable({
     data: [
       {
         model: '3080',
@@ -63,10 +63,10 @@ const ServersList: FC = () => {
       >
         <div className="flex flex-col gap-3">
           <p className="text-center text-sm font-medium text-zinc-900">
-            {strings.deleteModalTitle}
+            {/*{strings.deleteModalTitle}*/}
           </p>
           <p className="text-center text-sm font-normal text-gray-800">
-            {strings.downSeverDescription}
+            {/*{strings.downSeverDescription}*/}
           </p>
           <div className="flex gap-5 justify-center mt-5">
             <Button size="lg" isFilled>
@@ -79,17 +79,7 @@ const ServersList: FC = () => {
         </div>
       </Modal>
       <div className="w-full shadow-2xl px-11 py-5 rounded-sm">
-        <TableToolbar
-          title={strings.server}
-          totalItems={0}
-          table={table}
-          refreshLoading={false}
-          refetch={() => false as any}
-          submitFilters={submitFilters}
-          resetFilters={resetFilters}
-          filterCount={filterCount}
-          noManageColumns
-        />
+        <TableToolbar title={strings.server} totalItems={0} table={table} />
 
         <DataTable table={table} childComponent={CollapseRow} />
       </div>

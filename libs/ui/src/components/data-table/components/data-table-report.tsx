@@ -27,7 +27,7 @@ import {
   DialogTrigger,
 } from '../../dialog';
 import { Button, Form, RhfDatePicker, RHFRadioGroup } from '../../form';
-import { strings } from '@/constants';
+import { useIsMobile } from '../../../hooks/use-mobile';
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -115,7 +115,7 @@ export function TableReport<TData>({
         <CustomTagNames.Trigger asChild>
           <Button variant="subtle" size="sm">
             <FileDown />
-            {strings.receiveExport}
+            دریافت خروجی
           </Button>
         </CustomTagNames.Trigger>
         <CustomTagNames.Content
@@ -139,7 +139,7 @@ export function TableReport<TData>({
               'px-4 py-8 text-zinc-700 sm:py-8': isMobile,
             })}
           >
-            {strings.receiveExport}
+            دریافت خروجی
           </CustomTagNames.Title>
 
           <Form {...form}>
@@ -155,9 +155,7 @@ export function TableReport<TData>({
                 })}
                 title="will enable after bind services"
               >
-                <p className="text-right text-sm text-zinc-600">
-                  {strings.exportType}
-                </p>
+                <p className="text-right text-sm text-zinc-600">نوع خروجی</p>
                 <RHFRadioGroup
                   disabled
                   control={form.control}
@@ -175,17 +173,15 @@ export function TableReport<TData>({
                 })}
                 title="will enable after bind services"
               >
-                <p className="text-right text-sm text-zinc-600">
-                  {strings.informations}
-                </p>
+                <p className="text-right text-sm text-zinc-600">اطلاعات</p>
                 <RHFRadioGroup
                   disabled
                   control={form.control}
                   className="flex gap-8 px-2"
                   name="info"
                   options={[
-                    { id: 'filtered', label: strings.asFilteredData },
-                    { id: 'all', label: strings.allInformation },
+                    { id: 'filtered', label: 'مطابق فیلتر جدول' },
+                    { id: 'all', label: 'همه اطلاعات' },
                   ]}
                 />
               </div>
@@ -194,7 +190,7 @@ export function TableReport<TData>({
                 <div className="flex w-full flex-col gap-4 px-2 lg:flex-row">
                   <div className="flex w-full items-center gap-2 [&>div]:flex-1">
                     <span className="text-sm leading-normal text-gray-500">
-                      {strings.from}
+                      از
                     </span>
                     <RhfDatePicker
                       mode="single"
@@ -204,7 +200,7 @@ export function TableReport<TData>({
                   </div>
                   <div className="flex w-full items-center gap-2 [&>div]:flex-1">
                     <span className="text-sm leading-normal text-gray-500">
-                      {strings.to}
+                      تا
                     </span>
                     <RhfDatePicker
                       mode="single"
@@ -227,7 +223,7 @@ export function TableReport<TData>({
                       )
                     }
                   >
-                    {strings.receiveExport}
+                    دریافت خروجی
                   </Button>
                 </div>
                 <div className="w-full">
@@ -236,7 +232,7 @@ export function TableReport<TData>({
                       variant={isMobile ? 'outline' : 'default'}
                       size="full"
                     >
-                      {strings.cancel}
+                      لغو
                     </Button>
                   </CustomTagNames.Close>
                 </div>

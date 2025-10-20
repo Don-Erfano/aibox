@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from "react";
 
 /**
  * A version of `React.useLayoutEffect` that does not show a warning when server-side rendering.

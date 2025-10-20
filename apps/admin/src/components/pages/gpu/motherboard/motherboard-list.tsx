@@ -12,8 +12,7 @@ import {
 } from '@aibox/ui';
 
 import { strings } from '@/constant';
-import { motherboardCols } from './constants';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { motherboardCols } from './constants'; // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as data from './data.json';
 import { GPU_ROUTES } from '@/routes';
@@ -23,7 +22,7 @@ import Image from 'next/image';
 const MohterboardList: FC = () => {
   const { push } = useRouter();
   const [openModal, setOpenModal] = useState<string | undefined>(undefined);
-  const { table, filterCount, resetFilters, submitFilters } = useDataTable({
+  const { table } = useDataTable({
     data: data,
     columns: motherboardCols,
     enableRowSelection: true,
@@ -50,7 +49,7 @@ const MohterboardList: FC = () => {
       >
         <div className="flex flex-col gap-3">
           <p className="text-center text-sm font-medium text-zinc-900">
-            {strings.deleteModalTitle}
+            {/*{strings.deleteModalTitle}*/}
           </p>
           <p className="text-center text-sm font-normal text-gray-800">
             {strings.deleteConfiguration}
@@ -70,12 +69,6 @@ const MohterboardList: FC = () => {
           title={strings.motherboards}
           totalItems={0}
           table={table}
-          refreshLoading={false}
-          refetch={() => false as any}
-          submitFilters={submitFilters}
-          resetFilters={resetFilters}
-          filterCount={filterCount}
-          noManageColumns
         />
 
         <DataTable table={table} />

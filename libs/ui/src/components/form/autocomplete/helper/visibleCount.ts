@@ -15,18 +15,18 @@
  * // Given chip elements with two rows fitting 5 chips and 3 extras
  * computeVisibleCount(chips, 300, 'multiple'); // returns 4 (5 fit - 1 extra indicator)
  */
-import { TVariant } from '../interface';
+import { TVariant } from "../interface";
 
 export function computeVisibleCount(
   chips: HTMLElement[],
   containerWidth: number,
-  variant: TVariant
+  variant: TVariant,
 ): number {
-  if (variant !== 'multiple') return 0;
+  if (variant !== "multiple") return 0;
   if (!chips.length) return 0;
 
   const tops = Array.from(new Set(chips.map((c) => c.offsetTop))).sort(
-    (a, b) => a - b
+    (a, b) => a - b,
   );
   const twoRows = tops.slice(0, 2);
   const fit = chips.filter((c) => twoRows.includes(c.offsetTop)).length;

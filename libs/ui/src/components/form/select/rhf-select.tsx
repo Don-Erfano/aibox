@@ -1,5 +1,5 @@
-import { FieldValues } from 'react-hook-form';
-import { RhfSelectProps } from './interface';
+import { FieldValues } from "react-hook-form";
+import { RhfSelectProps } from "./interface";
 import {
   FormControl,
   FormDescription,
@@ -7,8 +7,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../form';
-import { Select } from './aib-select';
+} from "../form";
+import { Select } from "./aib-select";
 
 export const RHFSelect = <TFieldValues extends FieldValues>({
   name,
