@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { ISvgIconProps } from "./interface";
+import { FC } from 'react';
+import { ISvgIconProps } from './interface';
 
 const CurvedWaveIcon: FC<ISvgIconProps> = (props) => {
   return (
