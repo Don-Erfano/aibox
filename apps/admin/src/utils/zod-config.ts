@@ -9,6 +9,7 @@ const formatDate = (date: Date): string => {
 };
 
 const setupZodErrors = () => {
+  //@ts-ignore
   z.setErrorMap((issue, ctx) => {
     let message: string;
 
@@ -52,7 +53,7 @@ const setupZodErrors = () => {
         } else if (issue.type === 'string') {
           message = `حداکثر ${issue.maximum} کاراکتر مجاز است.`;
         } else {
-          message = ctx.defaultError;
+          message = 'مقدار واردشده نامعتبر است.';
         }
         break;
 
@@ -70,7 +71,7 @@ const setupZodErrors = () => {
         break;
 
       default:
-        message = ctx.defaultError;
+        message = 'مقدار واردشده نامعتبر است.';
     }
 
     return { message };

@@ -1,2 +1,2 @@
-export * from './routes';
-export * from './routeNames';
+export * from "./routes";
+export * from "./routeNames";

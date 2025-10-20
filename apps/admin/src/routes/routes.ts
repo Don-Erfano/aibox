@@ -10,12 +10,14 @@ import {
   SUPPORT_BASE_ROUTE,
   USERS_BASE_ROUTE,
   NEWS_BASE_ROUTE,
-} from './baseRoutes';
+  SETTINGS_BASE_ROUTE,
+  VOLUME_BASE_ROUTE,
+} from "./baseRoutes";
 
 const HOME_ROUTES = {
   HOME: HOME_BASE_ROUTE,
   DASHBOARD: DASHBOARD_BASE_ROUTE,
-  LOGIN: `${HOME_BASE_ROUTE}/login`,
+  LOGIN: `${HOME_BASE_ROUTE}login`,
 };
 
 const AI_SERVICES_ROUTES = {
@@ -25,13 +27,16 @@ const AI_SERVICES_ROUTES = {
   CATEGORIES: `${AI_SERVICES_BASE_ROUTE}/categories`,
   COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection`,
   ADD_COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection/add`,
+  ADD_CATEGORIES: `${AI_SERVICES_BASE_ROUTE}/categories/add`,
   EDIT_COLLECTION: `${AI_SERVICES_BASE_ROUTE}/collection/edit`,
+  EDIT_CATEGORIES: `${AI_SERVICES_BASE_ROUTE}/categories/edit`,
 };
 
 const API_PLATFORM_ROUTES = {
   APIS: `${API_PLATFORM_BASE_ROUTE}/apis`,
   LOGS: `${API_PLATFORM_BASE_ROUTE}/logs`,
   SERVERS: `${API_PLATFORM_BASE_ROUTE}/servers`,
+  USER_APIS: `${API_PLATFORM_BASE_ROUTE}/user-apis`,
 };
 
 const FINANCE_ROUTES = {
@@ -41,6 +46,7 @@ const FINANCE_ROUTES = {
   GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code`,
   ADD_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/add`,
   EDIT_GIFT_CODE: `${FINANCE_BASE_ROUTE}/gift-code/edit`,
+  GIFT_CODE_USERS: `${FINANCE_BASE_ROUTE}/gift-code/users`,
   TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions`,
   ADD_TRANSACTIONS: `${FINANCE_BASE_ROUTE}/transactions/add`,
 };
@@ -72,12 +78,14 @@ const MESSAGES_ROUTES = {
   ADD_PUBLIC_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-public-message`,
   ADD_SMS_MESSAGE: `${MESSAGES_BASE_ROUTE}/add-sms`,
   DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message`,
+  ADD_DEFAULT_MESSAGE: `${MESSAGES_BASE_ROUTE}/default-message/add-message`,
 };
 
 const SUPPORT_ROUTES = {
   FAQ: `${SUPPORT_BASE_ROUTE}/faq`,
   TERMS_AND_POLICIES: `${SUPPORT_BASE_ROUTE}/terms-and-policies`,
   TICKETING: `${SUPPORT_BASE_ROUTE}/ticketing?tab=ticket-list`,
+  TICKET: `${SUPPORT_BASE_ROUTE}/ticketing`,
   CATEGORY: `${SUPPORT_BASE_ROUTE}/ticketing?tab=category-questions`,
   ADD_CATEGORY: `${SUPPORT_BASE_ROUTE}/category`,
   ADD_TICKET: `${SUPPORT_BASE_ROUTE}/ticketing/add-ticket`,
@@ -95,6 +103,17 @@ const NEWS_ROUTES = {
   EDIT: `${NEWS_BASE_ROUTE}/edit`,
 };
 
+const SETTINGS_ROUTES = {
+  ADD_NOTIFICATION: `${SETTINGS_BASE_ROUTE}/notification-type/add`,
+  EDIT_NOTIFICATION: `${SETTINGS_BASE_ROUTE}/notification-type/edit`,
+};
+
+const VOLUME_ROUTES = {
+  VOLUME_LIST: `${VOLUME_BASE_ROUTE}`,
+  ADD_VOLUME: `${VOLUME_BASE_ROUTE}/add`,
+  EXTEND_VOLUME: `${VOLUME_BASE_ROUTE}/extend`,
+};
+
 export {
   AI_SERVICES_ROUTES,
   API_PLATFORM_ROUTES,
@@ -107,4 +126,6 @@ export {
   SUPPORT_ROUTES,
   USERS_ROUTES,
   NEWS_ROUTES,
+  SETTINGS_ROUTES,
+  VOLUME_ROUTES,
 };

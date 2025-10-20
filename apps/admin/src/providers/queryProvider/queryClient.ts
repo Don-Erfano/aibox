@@ -1,5 +1,5 @@
-import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
-import { handleMutationError } from '@/utils/notifications';
+import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
+import { handleMutationError } from '@/utils';
 
 export function createQueryClient() {
   return new QueryClient({
