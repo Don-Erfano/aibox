@@ -1,4 +1,4 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
+import { Control, FieldValues, Path } from "react-hook-form";
 
 type ControlledProps<TFieldValues extends FieldValues = FieldValues> = {
   control: Control<TFieldValues>;

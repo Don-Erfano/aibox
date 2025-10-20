@@ -1,36 +1,58 @@
-'use client';
+import { FieldValues } from "react-hook-form";
 
-import { FieldValues } from 'react-hook-form';
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../form";
+import { TRhfDatePicker } from "./interface";
+import { RangeDatePicker } from "./range-date-picker";
+import { SingleDatePicker } from "./single-date-picker";
 
-import CustomDatePicker from './DatePicker';
-import { IRhfDatePicker } from './types';
-import { FormField, FormItem, FormLabel, FormMessage } from '../form';
-
-const RhfDatePicker = <TFieldValues extends FieldValues>({
+export const RhfDatePicker = <TFieldValues extends FieldValues>({
+  mode,
   name,
   control,
+  description,
   label,
-  isMulti,
-}: IRhfDatePicker<TFieldValues>) => {
+  disabled,
+  readOnly,
+}: TRhfDatePicker<TFieldValues>) => {
   return (
     <FormField
-      control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem className="flex flex-col">
-          <FormLabel>{label}</FormLabel>
-          <CustomDatePicker
-            label=""
-            onChange={field.onChange}
-            value={field.value}
-            isMulti={isMulti}
-          />
-
+      control={control}
+      render={({ field: { onChange, ...rest }, fieldState: { error } }) => (
+        <FormItem>
+          {label && <FormLabel aria-disabled={disabled}>{label}</FormLabel>}
+          <FormControl>
+            {mode === "range" ? (
+              <RangeDatePicker
+                onChange={onChange}
+                {...rest}
+                error={!!error}
+                disabled={disabled}
+                readOnly={readOnly}
+              />
+            ) : (
+              <SingleDatePicker
+                onChange={onChange}
+                {...rest}
+                error={!!error}
+                disabled={disabled}
+                readOnly={readOnly}
+              />
+            )}
+          </FormControl>
+          {!error && description && (
+            <FormDescription>{description}</FormDescription>
+          )}
           <FormMessage />
         </FormItem>
       )}
     />
   );
 };
-
-export default RhfDatePicker;

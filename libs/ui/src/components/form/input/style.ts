@@ -1,52 +1,52 @@
-import { cva } from 'class-variance-authority';
+import { cva } from "class-variance-authority";
 
 const textfieldWrapperClassNames = cva(
-  'flex justify-center items-center gap-2 outline outline-gray-500 hover:outline-zinc-600 px-2 text-sm text-zinc-800 rounded-[8px] focus-within:outline-slate-900',
+  "flex items-center justify-center gap-2 rounded-[8px] px-2 text-sm text-zinc-800 outline outline-gray-500 focus-within:outline-slate-900 hover:outline-zinc-600",
   {
     variants: {
       variant: {
-        lg: 'py-[18px]',
-        md: 'py-[14px]',
-        sm: 'py-[10px]',
+        lg: "py-[18px]",
+        md: "py-[14px]",
+        sm: "py-[10px]",
       },
       error: {
-        true: '!text-red-600',
+        true: "!text-red-600",
       },
       readOnly: {
-        true: '!outline-dashed pointer-event-none outline-gray-500 !text-gray-500',
+        true: "pointer-event-none !text-gray-500 outline-gray-500 !outline-dashed",
       },
       disabled: {
-        true: '!outline-gray-400 !text-gray-400 placeholder:!text-gray-400 pointer-event-none',
+        true: "pointer-event-none !text-gray-400 !outline-gray-400 placeholder:!text-gray-400",
       },
     },
     defaultVariants: {
-      variant: 'md',
+      variant: "md",
     },
     compoundVariants: [
       {
         error: true,
-        className: '!outline-red-600 focus-within:!outeline-red-600',
+        className: "focus-within:!outeline-red-600 !outline-red-600",
       },
     ],
-  }
+  },
 );
 
 const textfieldClassNames = cva(
-  'w-full placeholder:text-gray-500 outline-0 disabled:placeholder:text-gray-400 read-only:text-zinc-600 read-only:placeholder:text-zinc-600 read-only:pointer-event-none',
+  "read-only:pointer-event-none w-full outline-0 placeholder:text-gray-500 read-only:text-zinc-600 read-only:placeholder:text-zinc-600 disabled:placeholder:text-gray-400",
   {
     variants: {
       direction: {
-        rtl: 'text-right',
-        ltr: 'text-left',
+        rtl: "text-right",
+        ltr: "text-left",
       },
       error: {
-        true: 'placeholder:!text-red-600 text-red-600 focus:!text-zinc-800',
+        true: "text-red-600 placeholder:!text-red-600 focus:!text-zinc-800",
       },
     },
     defaultVariants: {
-      direction: 'rtl',
+      direction: "rtl",
     },
-  }
+  },
 );
 
 export { textfieldClassNames, textfieldWrapperClassNames };

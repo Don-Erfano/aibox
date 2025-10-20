@@ -1,31 +1,32 @@
-import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from 'react';
+import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from "react";
 
 export interface IAutocompleteProps
   extends Omit<
     DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-    | 'children'
-    | 'ref'
-    | 'className'
-    | 'style'
-    | 'size'
-    | 'contentEditable'
-    | 'onSelect'
-    | 'value'
-    | 'onChange'
+    | "children"
+    | "ref"
+    | "className"
+    | "style"
+    | "size"
+    | "contentEditable"
+    | "onSelect"
+    | "value"
+    | "onChange"
   > {
   options: AutocompleteOption[];
   onSelect: (selectedOptions: AutocompleteOption[]) => void;
   tagAdornment?: ReactNode;
   label?: string;
   value?: string | string[];
-  h_size: THeightSize;
+  h_size?: THeightSize;
   onChange?: (value: string) => void;
   variant: TVariant;
-  mode: 'light' | 'dark';
+  mode: "light" | "dark";
   disabled?: boolean;
   enabled?: boolean;
   limited_tag?: number;
   isLoading?: boolean;
+  error?: boolean;
 }
 
 export interface AutocompleteOption {
@@ -33,6 +34,7 @@ export interface AutocompleteOption {
   label: string;
   group?: string;
   startAdornment?: string;
+  disabled?: boolean;
 }
 
 export interface ISelectAutoRef {

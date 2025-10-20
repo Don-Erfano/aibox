@@ -16,21 +16,25 @@ export const Sm: Story = {
     startAdornment: <Search />,
     endAdornment: <Search />,
     disabled: false,
+    variant: 'sm',
     'aria-readonly': false,
   },
 };
 
-export const md: Story = {
+export const Md: Story = {
   args: {
     placeholder: 'placeholder',
     startAdornment: <Search />,
+    variant: 'md',
     endAdornment: <Search />,
-    'aria-readonly': false,
+    type: 'password',
+    disabled: true,
   },
 };
 
-export const lg: Story = {
+export const Lg: Story = {
   args: {
+    variant: 'lg',
     placeholder: 'placeholder',
     startAdornment: <Search />,
     endAdornment: <Search />,

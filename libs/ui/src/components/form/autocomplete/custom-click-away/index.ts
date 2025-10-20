@@ -1,2 +1,2 @@
-export { default as ClickAwayListener } from './click-away';
-export * from './interface';
+export { default as ClickAwayListener } from "./click-away";
+export * from "./interface";

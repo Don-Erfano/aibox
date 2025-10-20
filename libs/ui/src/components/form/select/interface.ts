@@ -1,10 +1,10 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
-import * as SelectPrimitive from '@radix-ui/react-select';
+import { Control, FieldValues, Path } from "react-hook-form";
+import * as SelectPrimitive from "@radix-ui/react-select";
 
 type AIBSelectProps = React.ComponentProps<typeof SelectPrimitive.Root>;
 
 interface RhfSelectProps<TFieldValues extends FieldValues>
-  extends Omit<AIBSelectProps, 'name'> {
+  extends Omit<AIBSelectProps, "name"> {
   control?: Control<TFieldValues>;
   name: Path<TFieldValues>;
   description?: string;
@@ -27,6 +27,6 @@ export interface SelectProps {
   error?: boolean;
   helperText?: string;
   readOnly?: boolean;
-  size?: 'sm' | 'default';
+  size?: "sm" | "default";
   disabled?: boolean;
 }

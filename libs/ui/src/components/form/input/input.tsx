@@ -2,16 +2,16 @@
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 
-import { cn } from '../../../lib';
-
 import type { AIBInputProps } from './interface';
+import { cn } from '../../../lib';
 
 export const AIBInput = ({
   className,
   type,
   endAdornment,
   startAdornment,
-  variant = 'md',
+  variant = 'sm',
+  readOnly,
   ...props
 }: AIBInputProps) => {
   const [inputType, setInputType] = useState(type);
@@ -22,52 +22,69 @@ export const AIBInput = ({
 
   return (
     <div
-      className="relative aria-readonly:text-gray-500"
+      className={'relative w-full aria-readonly:text-gray-500'}
       aria-readonly={props['aria-readonly']}
     >
       {startAdornment && (
-        <div className="absolute -right-1 top-1/2 left-auto -translate-1/2">
+        <div
+          className={cn(
+            'absolute top-1/2 -right-1 left-auto -translate-1/2 text-zinc-600',
+            {
+              'text-red-600': props['aria-invalid'],
+              'text-gray-40': props.disabled,
+            }
+          )}
+        >
           {startAdornment}
         </div>
       )}
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-      {/* @ts-ignore*/}
       <input
         type={inputType}
         data-slot="input"
         className={cn(
-          'file:text-foreground placeholder:text-gray-500 aria-invalid:placeholder:text-red-600 selection:bg-teal-600  outline outline-gray-500',
-          'selection:text-white flex w-full min-w-0 rounded',
-          'bg-transparent px-2 text-base transition-[color,box-shadow] border-none file:inline-flex',
-          'file:h-7 file:outline-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none',
-          'disabled:cursor-default disabled:opacity-50 md:text-sm aria-readonly:text-gray-500',
-          'hover:outline-zinc-600 focus-visible:outline-slate-800 aria-invalid:not-focus-visible:text-red-600',
-          'aria-invalid:outline-red-600 aria-readonly:outline-dashed aria-readonly:pointer-events-none aria-readonly:outline-gray-500',
+          'outline outline-gray-500 selection:bg-teal-600 file:text-foreground placeholder:text-gray-400 aria-invalid:placeholder:text-red-600',
+          'flex w-full min-w-0 rounded leading-5 selection:text-white placeholder:text-xs',
+          'border-none bg-transparent px-2 text-sm transition-[color,box-shadow] file:inline-flex',
+          'text-zinc-600 file:h-7 file:bg-transparent file:font-medium file:outline-0 disabled:pointer-events-none',
+          'disabled:cursor-default disabled:text-gray-400 disabled:outline-gray-400 aria-readonly:text-gray-500',
+          'hover:outline-zinc-600 focus-visible:text-zinc-700 focus-visible:outline-slate-800 aria-invalid:not-focus-visible:text-red-600',
+          'aria-invalid:outline-red-600 aria-readonly:pointer-events-none aria-readonly:outline-gray-500 aria-readonly:outline-dashed',
           {
             'pr-10': !!startAdornment,
-            'pl-9': !!endAdornment || type === 'password',
-            'py-[10px]': variant === 'sm',
+            'pl-13': !!endAdornment || type === 'password',
+            'py-2.5': variant === 'sm',
             'py-[14px]': variant === 'md',
             'py-[18px]': variant === 'lg',
+            'pointer-events-none !text-gray-500 outline-gray-500 outline-dashed':
+              readOnly,
           },
-
           className
         )}
         {...props}
       />
       {type === 'password' ? (
         <div
-          className="cursor-pointer absolute left-2 top-1/2 -translate-y-1/2"
+          className={cn(
+            'absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer text-zinc-600',
+            {
+              '!text-red-600': props['aria-invalid'],
+              'text-gray-400': props.disabled,
+            }
+          )}
           onClick={handleChangeType}
         >
-          {inputType === 'password' ? (
-            <Eye className="text-zinc-600" />
-          ) : (
-            <EyeOff className="text-zinc-600" />
-          )}
+          {inputType === 'password' ? <Eye /> : <EyeOff />}
         </div>
       ) : (
-        <div className="absolute left-2 top-1/2 -translate-y-1/2">
+        <div
+          className={cn(
+            'absolute top-1/2 left-2 -translate-y-1/2 text-zinc-600',
+            {
+              'text-red-600': props['aria-invalid'],
+              'text-gray-400': props.disabled,
+            }
+          )}
+        >
           {endAdornment}
         </div>
       )}
