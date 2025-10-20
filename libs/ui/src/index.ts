@@ -54,4 +54,4 @@ export * from './components/expandable-text';
 // export * from "./components/like-and-dislike";
 export * from './components/avatar';
 // export * from "./components/pagination";
-// export * from "./components/faceted-filter";
+export * from './components/faceted-filter';
