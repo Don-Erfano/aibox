@@ -2,7 +2,7 @@
 import {
   cloneElement,
   DOMAttributes,
-  PropsWithChildren,
+  FC,
   Ref,
   SyntheticEvent,
   useEffect,
@@ -29,9 +29,7 @@ import useForkRef from '../hooks/useForkRef';
  * @returns {JSX.Element} A component that wraps a child and listens for click events outside of it.
  */
 
-const ClickAwayListener = (
-  props: PropsWithChildren<IClickAwayListenerProps>
-) => {
+const ClickAwayListener: FC<IClickAwayListenerProps> = (props) => {
   const {
     children,
     disableReactTree = false,
@@ -52,12 +50,9 @@ const ClickAwayListener = (
       activatedRef.current = false;
     };
   }, []);
-
-  const handleRef = useForkRef(
-    // @ts-expect-error
-    children.ref,
-    nodeRef
-  );
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
+  const handleRef = useForkRef(children.ref, nodeRef);
   const handleClickAway = useEventCallback((event: MouseEvent | TouchEvent) => {
     const insideReactTree = syntheticEventRef.current;
     syntheticEventRef.current = false;
@@ -99,8 +94,6 @@ const ClickAwayListener = (
   const createHandleSynthetic =
     (handlerName: string) => (event: SyntheticEvent) => {
       syntheticEventRef.current = true;
-
-      // @ts-ignore
       const childrenPropsHandler = children.props[handlerName];
       if (childrenPropsHandler) {
         childrenPropsHandler(event);

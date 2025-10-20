@@ -1,17 +1,17 @@
-import { Control, FieldValues, Path } from 'react-hook-form';
-import { THeightSize, TVariant } from '../interface';
-import { ReactNode } from 'react';
+import { Control, FieldValues, Path } from "react-hook-form";
+import { THeightSize, TVariant } from "../interface";
+import { ReactNode } from "react";
 
 export interface RHFAutocompleteProps<
   TField extends FieldValues,
-  TOption = { value: string; label: string }
+  TOption = { value: string; label: string; disabled?: boolean },
 > {
   control: Control<TField>;
   name: Path<TField>;
   label?: string;
   placeholder: string;
   description?: string;
-  mode?: 'light' | 'dark';
+  mode?: "light" | "dark";
   variant?: TVariant;
   h_size?: THeightSize;
   hint_txt?: string;

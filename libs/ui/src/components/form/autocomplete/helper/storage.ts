@@ -1,10 +1,10 @@
-import { AutocompleteOption } from '../interface';
+import { AutocompleteOption } from "../interface";
 
 /**
  * Key under which selected autocomplete values are saved in localStorage.
  * @constant {string}
  */
-const KEY = 'selectedAutocompleteValue';
+const KEY = "selectedAutocompleteValue";
 
 /**
  * Persists the labels of selected autocomplete options to localStorage.

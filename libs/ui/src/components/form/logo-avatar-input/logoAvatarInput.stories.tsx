@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { LogoAvatarInput } from './LogoAvatarInput'; // adjust path as needed
+import { LogoAvatarInput } from './logoAvatarInput'; // adjust path as needed
 import { Size } from './interface';
 
 type FormValues = {

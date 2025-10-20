@@ -1,14 +1,16 @@
-import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 
-import { Control, FieldValues, Path } from 'react-hook-form';
+import { Control, FieldValues, Path } from "react-hook-form";
 
 type RadioItemProps = React.ComponentProps<typeof RadioGroupPrimitive.Item>;
 
-type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive.Root>;
+type RadioGroupProps = React.ComponentProps<typeof RadioGroupPrimitive.Root> & {
+  variant?: "vertical" | "horizontal";
+};
 
 export interface RadioOption<
   TFieldValues extends FieldValues,
-  Name extends Path<TFieldValues>
+  Name extends Path<TFieldValues>,
 > {
   id: TFieldValues[Name];
   label: string;
@@ -16,14 +18,15 @@ export interface RadioOption<
 
 interface RHFRadioGroupProps<
   TFieldValues extends FieldValues,
-  Name extends Path<TFieldValues>
-> extends Omit<RadioGroupProps, 'name'> {
+  Name extends Path<TFieldValues>,
+> extends Omit<RadioGroupProps, "name"> {
   control: Control<TFieldValues>;
   name: Name;
   label?: string;
   description?: string;
   options: Array<RadioOption<TFieldValues, Name>>;
   disabled?: boolean;
+  variant?: "vertical" | "horizontal";
 }
 
 export type { RadioGroupProps, RHFRadioGroupProps, RadioItemProps };

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useCallback } from 'react';
-import { FieldValues, Path, PathValue } from 'react-hook-form';
+import { useCallback } from "react";
+import { FieldValues, Path, PathValue } from "react-hook-form";
 import {
   FormControl,
   FormDescription,
@@ -9,10 +9,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../form';
-import AibAutocomplete from '../aib-autocomplete';
-import { RHFAutocompleteProps } from './interface';
-import { AutocompleteOption } from '../interface';
+} from "../../form";
+import AibAutocomplete from "../aib-autocomplete";
+import { RHFAutocompleteProps } from "./interface";
+import { AutocompleteOption } from "../interface";
 
 const RHFAutocomplete = <TField extends FieldValues>({
   name,
@@ -21,9 +21,9 @@ const RHFAutocomplete = <TField extends FieldValues>({
   description,
   options,
   placeholder,
-  mode = 'light',
-  variant = 'single',
-  h_size = 'md',
+  mode = "light",
+  variant = "single",
+  h_size,
   limited_tag,
   disabled,
   readOnly,
@@ -33,7 +33,7 @@ const RHFAutocomplete = <TField extends FieldValues>({
   getOptionValue,
   ...rest
 }: RHFAutocompleteProps<TField>) => {
-  const isMultiple = variant === 'multiple';
+  const isMultiple = variant === "multiple";
 
   const extractValue =
     getOptionValue ?? ((opt: any) => opt.value ?? opt.id ?? String(opt));
@@ -41,11 +41,12 @@ const RHFAutocomplete = <TField extends FieldValues>({
     getOptionLabel ?? ((opt: any) => opt.label ?? opt.name ?? String(opt));
 
   const convertedOpts: AutocompleteOption[] = options.map((opt) => ({
+    disabled: opt.disabled,
     id: extractValue(opt),
     label: extractLabel(opt),
   }));
 
-  const defaultValue = (isMultiple ? ([] as string[]) : '') as PathValue<
+  const defaultValue = (isMultiple ? ([] as string[]) : "") as PathValue<
     TField,
     Path<TField>
   >;
@@ -62,30 +63,31 @@ const RHFAutocomplete = <TField extends FieldValues>({
         const displayValue = isMultiple
           ? Array.isArray(value)
             ? (value as string[]).map(
-                (val) => convertedOpts.find((o) => o.id === val)?.label ?? val
+                (val) => convertedOpts.find((o) => o.id === val)?.label ?? val,
               )
             : []
-          : convertedOpts.find((o) => o.id === value)?.label ??
-            (value as string);
+          : (convertedOpts.find((o) => o.id === value)?.label ??
+            (value as string));
 
         const handleSelect = useCallback(
           (selected: AutocompleteOption[]) => {
             const out = isMultiple
               ? selected.map((o) => o.id)
-              : selected[0]?.id ?? '';
+              : (selected[0]?.id ?? "");
             setTimeout(() => onChange(out as any), 0);
           },
-          [onChange, isMultiple]
+          [onChange, isMultiple],
         );
 
         return (
-          <FormItem className="flex flex-col gap-1">
-            {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
+          <FormItem className="flex h-fit flex-col gap-1.5">
+            {!!label && (
+              <FormLabel htmlFor={fieldName} aria-disabled={disabled}>
+                {label}
+              </FormLabel>
+            )}
 
             <FormControl>
-              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-              {/* @ts-expect-error*/}
-
               <AibAutocomplete
                 {...rest}
                 id={fieldName}
@@ -103,6 +105,7 @@ const RHFAutocomplete = <TField extends FieldValues>({
                 readOnly={readOnly}
                 isLoading={isLoading}
                 tagAdornment={tagAdornment}
+                error={!!error}
               />
             </FormControl>
 

@@ -1,4 +1,4 @@
-import { THeightSize, TVariant } from './interface';
+import { THeightSize, TVariant } from "./interface";
 
 /**
  * Mapping of height size variants to their corresponding CSS utility classes.
@@ -8,9 +8,9 @@ import { THeightSize, TVariant } from './interface';
  * @constant {Record<THeightSize, Record<TVariant, string>>}
  */
 const heightClasses: Record<THeightSize, Record<TVariant, string>> = {
-  sm: { single: 'h-10', multiple: 'min-h-[40px]' },
-  md: { single: 'h-12', multiple: 'min-h-[48px]' },
-  lg: { single: 'h-14', multiple: 'min-h-[56px]' },
+  sm: { single: "h-10", multiple: "min-h-[40px]" },
+  md: { single: "h-12", multiple: "min-h-[48px]" },
+  lg: { single: "h-14", multiple: "min-h-[56px]" },
 };
 
 /**

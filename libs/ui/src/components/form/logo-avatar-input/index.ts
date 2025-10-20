@@ -1,2 +1,2 @@
-export * from './interface';
-export * from './logoAvatarInput';
+export * from "./interface";
+export * from "./logoAvatarInput";
