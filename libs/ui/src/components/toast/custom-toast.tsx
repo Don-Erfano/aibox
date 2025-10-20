@@ -1,43 +1,43 @@
-import clsx from 'clsx';
-import { X } from 'lucide-react';
+import clsx from "clsx";
+import { X } from "lucide-react";
 
-import { Button } from '../form';
-import { toastTypesMap } from './constants';
-import { CustomToastProps } from './interface';
+import { Button } from "../form";
+import { toastTypesMap } from "./constants";
+import { CustomToastProps } from "./interface";
 
 export const CustomToast = (props: CustomToastProps) => {
   const { message, type, closeToast, options } = props;
 
   const toastType = toastTypesMap[type] || toastTypesMap.info;
   const duration = options?.autoClose || 5000;
-  const isLoading = type === 'loading';
+  const isLoading = type === "loading";
 
   return (
-    <div className="bg-white relative pl-3 pr-4 py-2 gap-4 border-none">
+    <div className="relative gap-4 border-none bg-white py-2 pr-4 pl-3">
       {!isLoading && (
         <div
-          className={`absolute right-3 top-2 bottom-2 w-1 rounded-full overflow-hidden ${toastType.progressBgColor}`}
+          className={`absolute top-2 right-3 bottom-2 w-1 overflow-hidden rounded-full ${toastType.progressBgColor}`}
         >
           <div
-            className="w-1 absolute bottom-0 bg-black opacity-30 animate-toast-progress origin-bottom"
+            className="absolute bottom-0 w-1 origin-bottom animate-toast-progress bg-black opacity-30"
             style={
-              { '--toast-duration': `${duration}ms` } as React.CSSProperties
+              { "--toast-duration": `${duration}ms` } as React.CSSProperties
             }
           />
         </div>
       )}
 
       <div
-        className={clsx('min-h-8 flex gap-4 items-center', {
-          'ms-4': !isLoading,
+        className={clsx("flex min-h-8 items-center gap-4", {
+          "ms-4": !isLoading,
         })}
       >
         <div className="flex items-center justify-center">{toastType.icon}</div>
 
-        <div className="flex flex-col gap-2 flex-1">
-          <p className="text-zinc-800 text-sm/6 font-normal">{message}</p>
+        <div className="flex flex-1 flex-col gap-2">
+          <p className="text-sm/6 font-normal text-zinc-800">{message}</p>
           {options?.description && (
-            <p className="text-zinc-600 text-sm/6 font-normal">
+            <p className="text-sm/6 font-normal text-zinc-600">
               {options.description}
             </p>
           )}
@@ -51,7 +51,7 @@ export const CustomToast = (props: CustomToastProps) => {
 
         {options?.showCloseButton !== false && (
           <button className="cursor-pointer" onClick={closeToast}>
-            <X className="text-neutral-400 size-4" />
+            <X className="size-4 text-neutral-400" />
           </button>
         )}
       </div>

@@ -3,8 +3,8 @@ import { MenuItem } from './interface';
 import { ProfileBox } from './index';
 
 const defaultItems: MenuItem[] = [
-  { label: 'پروفایل', href: '/profile' },
-  { label: 'خروج از حساب کاربری', href: '/logout' },
+  { label: 'پروفایل' },
+  { label: 'خروج از حساب کاربری' },
 ];
 
 const meta: Meta<typeof ProfileBox> = {

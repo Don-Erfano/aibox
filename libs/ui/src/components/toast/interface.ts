@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { ToastOptions } from 'react-toastify';
+import { ReactNode } from "react";
+import { ToastOptions } from "react-toastify";
 
 export interface CustomToastOptions extends ToastOptions {
   description?: string;
@@ -10,7 +10,7 @@ export interface CustomToastOptions extends ToastOptions {
   };
 }
 
-export type ToastTypes = 'info' | 'success' | 'error' | 'warning' | 'loading';
+export type ToastTypes = "info" | "success" | "error" | "warning" | "loading";
 
 export interface CustomToastProps {
   message: string;
