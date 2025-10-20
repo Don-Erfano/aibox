@@ -56,3 +56,4 @@ export * from './components/avatar';
 // export * from "./components/pagination";
 export * from './components/faceted-filter';
 export * from './components/progressbar';
+export * from './components/select-chip';
