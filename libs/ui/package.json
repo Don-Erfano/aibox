@@ -51,9 +51,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "isomorphic-dompurify": "^2.26.0",
     "react-quill-new": "^3.4.6",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.2.0",
+    "vaul": "^1.1.2",
     "zod": "^3.24.3"
   }
 }
