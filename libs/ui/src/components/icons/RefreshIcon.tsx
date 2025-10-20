@@ -1,4 +1,7 @@
-const RefreshIcon = () => {
+import { ISvgIconProps } from "./interface";
+import { FC } from "react";
+
+const RefreshIcon: FC<ISvgIconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

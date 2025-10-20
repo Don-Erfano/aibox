@@ -1,65 +1,59 @@
-export * from './interface';
-import ChevronIcon from './ChevronIcon';
-import LaunchIcon from './LaunchIcon';
-import TrashIcon from './TrashIcon';
-import AddIcon from './AddIcon';
-import DeleteIcon from './DeleteIcon';
-import PauseIcon from './PauseIcon';
-import MenuIcon from './MenuIcon';
-import FileCopyIcon from './FileCopyIcon';
-import RefreshIcon from './RefreshIcon';
-import CheckIcon from './CheckIcon';
-import BookmarkIcon from './BookmarkIcon';
-import EditIcon from './EditIcon';
-import AiBoxIcon from './AIBoxIcon';
-import AiBoxTextIcon from './AiBoxTextIcon';
-import XIcon from './IconGallery';
-import PersonIcon from './PersonIcon';
-import AdminIcon from './AdminIcon';
-import NoDataIcon from './no-data-icon';
-import ModalDeleteIcon from './modal-delete-icon';
-import AvatarIcon from './avatar-icon';
-import QuestionIcon from './QuestionIcon';
-import HintIcon from './HintIcon';
-import PendingIcon from './PendingIcon';
-import FailedIcon from './FailedIcon';
-import ErrorIcon from './ErrorIcon';
-import SuccessIcon from './SuccessIcon';
-import DepositIcon from './DepositIcon';
-import WithdrawIcon from './WithdrawIcon';
-import CategoryIcon from './category-icon';
-import WarningIcon from './WarningIcon';
-import SecondNoDataIcon from './SecondNoDataIcon';
-export {
-  ChevronIcon,
-  LaunchIcon,
-  TrashIcon,
-  AddIcon,
-  DeleteIcon,
-  PauseIcon,
-  MenuIcon,
-  FileCopyIcon,
-  RefreshIcon,
-  CheckIcon,
-  BookmarkIcon,
-  EditIcon,
-  AiBoxIcon,
-  AiBoxTextIcon,
-  XIcon,
-  PersonIcon,
-  AdminIcon,
-  NoDataIcon,
-  ModalDeleteIcon,
-  AvatarIcon,
-  QuestionIcon,
-  HintIcon,
-  PendingIcon,
-  FailedIcon,
-  ErrorIcon,
-  SuccessIcon,
-  DepositIcon,
-  WithdrawIcon,
-  CategoryIcon,
-  WarningIcon,
-  SecondNoDataIcon,
-};
+export * from "./interface";
+
+export { default as ChevronIcon } from "./ChevronIcon";
+export { default as LaunchIcon } from "./LaunchIcon";
+export { default as TrashIcon } from "./TrashIcon";
+export { default as AddIcon } from "./AddIcon";
+export { default as DeleteIcon } from "./DeleteIcon";
+export { default as PauseIcon } from "./PauseIcon";
+export { default as MenuIcon } from "./MenuIcon";
+export { default as FileCopyIcon } from "./FileCopyIcon";
+export { default as RefreshIcon } from "./RefreshIcon";
+export { default as CheckIcon } from "./CheckIcon";
+export { default as BookmarkIcon } from "./BookmarkIcon";
+export { default as EditIcon } from "./EditIcon";
+export { default as AiBoxIcon } from "./AIBoxIcon";
+export { default as AiBoxTextIcon } from "./AiBoxTextIcon";
+export { default as XIcon } from "./IconGallery";
+export { default as PersonIcon } from "./PersonIcon";
+export { default as AdminIcon } from "./AdminIcon";
+export { default as NoDataIcon } from "./no-data-icon";
+export { default as ModalDeleteIcon } from "./modal-delete-icon";
+export { default as AvatarIcon } from "./avatar-icon";
+export { default as QuestionIcon } from "./QuestionIcon";
+export { default as HintIcon } from "./HintIcon";
+export { default as PendingIcon } from "./PendingIcon";
+export { default as FailedIcon } from "./FailedIcon";
+export { default as ErrorIcon } from "./ErrorIcon";
+export { default as SuccessIcon } from "./SuccessIcon";
+export { default as DepositIcon } from "./DepositIcon";
+export { default as WithdrawIcon } from "./WithdrawIcon";
+export { default as CategoryIcon } from "./category-icon";
+export { default as WarningIcon } from "./WarningIcon";
+export { default as SecondNoDataIcon } from "./SecondNoDataIcon";
+export { default as GPUIcon } from "./GPUIcon";
+export { default as TicketIcon } from "./TicketIcon";
+export { default as AIIcon } from "./AIIcon";
+export { default as APIIcon } from "./APIIcon";
+export { default as UsersIcon } from "./UsersIcon";
+export { default as CashIcon } from "./CashIcon";
+export { default as DefaultAvatar } from "./DefaultAvatar";
+export { default as ModalInfoIcon } from "./modal-info-icon";
+export { default as SettingsGpuIcon } from "./settings-gpu-icon";
+export { default as ApiMarketIcon } from "./api-market-icon";
+export { default as ApiPlatformIcon } from "./api-platform-icon";
+export { default as FinancialIcon } from "./financial-icon";
+export { default as ApiParkIcon } from "./api-park-icon";
+export { default as NotificationsSettingIcon } from "./notifications-setting-icon";
+export { default as MultiLinesIcon } from "./multi-lines-icon";
+export { default as CurvedWaveIcon } from "./curved-wave-icon";
+export { default as StoragesIcon } from "./StoragesIcon";
+export { default as DiskIcon } from "./DiskIcon";
+export { default as UsedDiskIcon } from "./UsedDiskIcon";
+export { default as CloudStorageIcon } from "./cloud-storage-icon";
+export { default as Error404 } from "./Error404";
+export { default as Error5xx } from "./Error5xx";
+export { default as NetworkErrorIcon } from "./NetworkErrorIcon";
+export { default as LikeIcon } from "./LikeIcon";
+export { default as DislikeIcon } from "./DislikeIcon";
+export { default as ProfileIcon } from "./ProfileIcon";

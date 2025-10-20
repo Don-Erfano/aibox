@@ -1,4 +1,7 @@
-const BookmarkIcon = () => {
+import { ISvgIconProps } from "./interface";
+import { FC } from "react";
+
+const BookmarkIcon: FC<ISvgIconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
