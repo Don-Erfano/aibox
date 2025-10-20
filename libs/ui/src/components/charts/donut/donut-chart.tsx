@@ -1,8 +1,10 @@
-'use client';
+"use client";
 
-import dynamic from 'next/dynamic';
-import { ApexOptions } from 'apexcharts';
-import { IDonutChartProps } from './interface';
+import { FC } from "react";
+import dynamic from "next/dynamic";
+import { ApexOptions } from "apexcharts";
+import { IDonutChartProps } from "./interface";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
 /**
  * DonutChart component that visualizes data in a donut chart format
@@ -24,45 +26,45 @@ import { IDonutChartProps } from './interface';
  */
 
 const CHART_COLORS = {
-  primary: ['#267FE5', '#6EE1F8', '#DD4B39', '#990099'],
+  primary: ["#267FE5", "#6EE1F8", "#DD4B39", "#990099"],
 };
 
-const DonutChart = ({
+const DonutChart: FC<IDonutChartProps> = ({
   data,
   title,
   showLegends,
   total,
   loading,
   colors,
-}: IDonutChartProps) => {
-  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+}) => {
+  const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
   const chartOptions: ApexOptions = {
     chart: {
-      type: 'donut' as ApexChart['type'],
+      type: "donut" as ApexChart["type"],
     },
     theme: {
-      palette: 'palette1',
+      palette: "palette1",
     },
     colors: colors || CHART_COLORS.primary,
     labels: data.map((item) => item.name),
     tooltip: {
       style: {
-        fontSize: '14px',
-        fontFamily: 'iransans',
+        fontSize: "14px",
+        fontFamily: "iransans",
       },
       custom: ({ series, seriesIndex }) =>
         '<div style="padding:8px; background-color: #171919; color: #fff; ">' +
-        '<span>' +
+        "<span>" +
         data[seriesIndex].name +
-        ' : ' +
+        " : " +
         series[seriesIndex].toLocaleString() +
-        '</span>' +
-        '</div>',
+        "</span>" +
+        "</div>",
     },
     plotOptions: {
       pie: {
         donut: {
-          size: '75%',
+          size: "75%",
           labels: {
             show: false,
             name: {
@@ -92,20 +94,17 @@ const DonutChart = ({
 
   if (loading)
     return (
-      <div className="bg-gray-100 animate-pulse w-[120px] h-[120px] rounded-full" />
+      <div className="h-[120px] w-[120px] animate-pulse rounded-full bg-gray-100" />
     );
 
   return (
     <div className="gap-x-6 gap-y-4">
       {title ? (
-        <h2 className="mb-6 text-center text-h4 font-medium text-[#322D73]">
+        <h2 className="text-h4 mb-6 text-center font-medium text-[#322D73]">
           {title}
         </h2>
       ) : null}
-      <div
-        className="relative mx-auto flex w-full max-w-md items-center
-          justify-center"
-      >
+      <div className="relative mx-auto flex w-full max-w-md items-center justify-center">
         <Chart
           options={chartOptions}
           series={series}
@@ -114,20 +113,25 @@ const DonutChart = ({
           width={120}
         />
         {total?.suffix ? (
-          <>
-            <span
-              className="absolute left-1/2 top-[30%] -translate-x-1/2 translate-y-[calc(50%-10px)]
-            text-xl font-medium text-grey-main"
-            >
-              {total.value}
+          <div className="flex">
+            <span className="text-grey-main absolute top-[30%] left-1/2 flex -translate-x-1/2 translate-y-[calc(50%-10px)] items-center gap-1 text-sm font-medium">
+              {Number(total.value) > 0 ? (
+                <TrendingUp
+                  className="size-5 text-green-500"
+                  strokeWidth={1.5}
+                />
+              ) : (
+                <TrendingDown
+                  className="size-5 text-red-500"
+                  strokeWidth={1.5}
+                />
+              )}
+              {`${Math.abs(Math.floor(Number(total.value || 0))).toFixed(0)}%`}
             </span>
-            <span
-              className="absolute left-1/2 top-[50%] -translate-x-1/2 translate-y-[calc(50%-10px)]
-            text-sm font-medium text-grey-main text-gray-500"
-            >
+            <span className="text-grey-main absolute left-1/2 mt-1.5 w-20 -translate-x-1/2 translate-y-[calc(50%-10px)] text-center text-[10px] font-medium text-gray-500">
               {total.suffix}
             </span>
-          </>
+          </div>
         ) : null}
       </div>
 
@@ -146,10 +150,7 @@ const DonutChart = ({
                       CHART_COLORS.primary[index % CHART_COLORS.primary.length],
                   }}
                 >
-                  <div
-                    className="flex size-2 items-center justify-center
-                    rounded-full bg-white"
-                  />
+                  <div className="flex size-2 items-center justify-center rounded-full bg-white" />
                 </div>
                 <span className="text-h6 font-normal text-gray-500">
                   {item.name}
