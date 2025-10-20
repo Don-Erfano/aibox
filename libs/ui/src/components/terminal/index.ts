@@ -1,2 +1,2 @@
-export { default as Terminal } from './terminal';
-export * from './interface';
+export { default as Terminal } from "./terminal";
+export * from "./interface";
