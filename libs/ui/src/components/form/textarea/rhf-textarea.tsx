@@ -1,4 +1,4 @@
-import { FieldValues } from "react-hook-form";
+import { FieldValues } from 'react-hook-form';
 
 import {
   FormControl,
@@ -7,10 +7,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./../form";
-import AIBTextarea from "./textarea";
-import { RHFTextareaProps } from "./interface";
-import clsx from "clsx";
+} from '../form';
+import AIBTextarea from './textarea';
+import { RHFTextareaProps } from './interface';
+import clsx from 'clsx';
 
 const RHFTextarea = <TFieldValues extends FieldValues>({
   name,
@@ -36,8 +36,8 @@ const RHFTextarea = <TFieldValues extends FieldValues>({
             </span>
             {maxLength && (
               <span
-                className={clsx("hidden text-xs font-light text-gray-400", {
-                  "group-focus-within/textarea:block": !props.readOnly,
+                className={clsx('hidden text-xs font-light text-gray-400', {
+                  'group-focus-within/textarea:block': !props.readOnly,
                 })}
               >
                 {maxLength}/
@@ -58,8 +58,8 @@ const RHFTextarea = <TFieldValues extends FieldValues>({
         </FormControl>
         {!error && description && (
           <FormDescription
-            className={clsx("text-xs font-light text-zinc-600", {
-              "text-red-600": !!error,
+            className={clsx('text-xs font-light text-zinc-600', {
+              'text-red-600': !!error,
             })}
           >
             {description}
