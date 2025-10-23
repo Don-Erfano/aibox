@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
+    "noImplicitReturns": false,
     "jsxImportSource": "react",
     "noEmit": true,
     "emitDeclarationOnly": false,
