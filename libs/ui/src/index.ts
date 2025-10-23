@@ -1,5 +1,6 @@
 export * from './lib';
-export * as style from './global.css';
+import './global.css';
+
 export * from './hooks';
 export * from './components/accordion';
 export * from './components/badges/aib-status';

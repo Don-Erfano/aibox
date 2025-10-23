@@ -1,6 +1,5 @@
 //@ts-check
 
-
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
@@ -14,9 +13,7 @@ const path = require('path');
 const nextConfig = {
   transpilePackages: ['nuqs', '@aibox/ui', '@aibox/services'],
   serverExternalPackages: [],
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+
   webpack: (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
